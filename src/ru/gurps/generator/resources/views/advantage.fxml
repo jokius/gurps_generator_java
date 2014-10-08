@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="203.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.AdvantagesController">
+   <children>
+      <TableView fx:id="advantages" layoutX="-1.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columns>
+            <TableColumn fx:id="title" prefWidth="136.0" text="Название" />
+            <TableColumn fx:id="titleEn" prefWidth="125.0" text="Название англ." />
+            <TableColumn fx:id="type" minWidth="0.0" prefWidth="45.0" text="Тип" />
+            <TableColumn fx:id="cost" prefWidth="93.0" text="Стоимость" />
+            <TableColumn fx:id="description" prefWidth="248.0" text="Описание" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
