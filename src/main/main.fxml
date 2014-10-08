@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="224.0" prefWidth="641.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="main.MainMenuController">
+   <children>
+      <Label alignment="CENTER" layoutX="4.0" layoutY="97.0" prefHeight="25.0" prefWidth="192.0" text="Character Generator">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Новый" />
+                  <MenuItem mnemonicParsing="false" text="Открыть" />
+                  <MenuItem mnemonicParsing="false" text="Сохранить" />
+                  <Menu mnemonicParsing="false" text="Главное меню">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Основные парметры" />
+                        <MenuItem mnemonicParsing="false" text="Снаряжение" />
+                    </items>
+                  </Menu>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Помощь">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Справочник" />
+               </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@../images/gurps.jpg" />
+         </image>
+      </ImageView>
+      <TextField layoutX="216.0" layoutY="36.0" AnchorPane.rightAnchor="100.0" />
+      <MenuButton layoutX="467.0" layoutY="36.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="16.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Везде" />
+          <MenuItem mnemonicParsing="false" text="Преимущества" />
+        </items>
+      </MenuButton>
+      <TabPane layoutX="-3.0" layoutY="125.0" prefHeight="99.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="125.0">
+        <tabs>
+          <Tab text="Основные параметры">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Преимущества">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Недостатки">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Умения">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Техники">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Снаряжения">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
