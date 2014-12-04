@@ -1,48 +1,28 @@
 package ru.gurps.generator.pojo;
 
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.table.DatabaseTable;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-
-@DatabaseTable(tableName = "features")
 public class Feature {
-
-    @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
     private boolean advantage;
-    @DatabaseField
     private String title;
-    @DatabaseField(columnName = "title_en")
     private String titleEn;
-    @DatabaseField
     private String type;
-    @DatabaseField
     private int cost;
-    @DatabaseField
     private String description;
-    @DatabaseField
     private int max_level;
-    @DatabaseField
     private boolean psi;
-    @DatabaseField
     private boolean cybernetic;
-    @ForeignCollectionField
-    private ForeignCollection<Additional> additionals;
 
-    //    public Feature(int id, boolean advantage, String title, String titleEn, String type, int cost, String description, int max_level, boolean psi, boolean cybernetic) {
-//        this.id = id;
-//        this.advantage = advantage;
-//        this.title = title;
-//        this.titleEn = titleEn;
-//        this.type = type;
-//        this.cost = cost;
-//        this.description = description;
-//        this.max_level = max_level;
-//        this.psi = psi;
-//        this.cybernetic = cybernetic;
-//    }
+        public Feature(int id, String title, String titleEn, String type, int cost, String description, int max_level, boolean psi, boolean cybernetic) {
+        this.id = id;
+        this.title = title;
+        this.titleEn = titleEn;
+        this.type = type;
+        this.cost = cost;
+        this.description = description;
+        this.max_level = max_level;
+        this.psi = psi;
+        this.cybernetic = cybernetic;
+    }
 
     public int getId() { return id; }
 
@@ -119,8 +99,4 @@ public class Feature {
     public void setCybernetic(boolean cybernetic) {
         this.cybernetic = cybernetic;
     }
-
-    public ForeignCollection<Additional> getAdditionals() { return additionals; }
-
-    public void setAdditionals(ForeignCollection<Additional> additionals) { this.additionals = additionals; }
 }
