@@ -6,11 +6,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import ru.gurps.generator.config.Db;
 import ru.gurps.generator.pojo.Feature;
+import java.sql.ResultSet;
 
 public class AdvantagesController {
-    private ObservableList<Feature> featurData = FXCollections.observableArrayList();
+
+    private ObservableList<Feature> advantagesData = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Feature> advantages;
@@ -30,6 +32,7 @@ public class AdvantagesController {
     @FXML
     private TableColumn<Feature, String> description;
 
+    @FXML
     private void initialize(){
         initData();
 
@@ -39,10 +42,31 @@ public class AdvantagesController {
         cost.setCellValueFactory(new PropertyValueFactory<Feature, Integer>("cost"));
         description.setCellValueFactory(new PropertyValueFactory<Feature, String>("description"));
 
-        advantages.setItems(featurData);
+        advantages.setItems(advantagesData);
     }
 
     private void initData(){
+        new Db();
+        try {
+            ResultSet advantages;
+            advantages = Db.connect.createStatement().executeQuery("SELECT * FROM features WHERE advantage = true");
 
+            while (advantages.next()) {
+                advantagesData.add(new Feature(
+                        advantages.getInt("id"),
+                        advantages.getString("title"),
+                        advantages.getString("title_en"),
+                        advantages.getString("type"),
+                        advantages.getInt("cost"),
+                        advantages.getString("description"),
+                        advantages.getInt("max_level"),
+                        advantages.getBoolean("psi"),
+                        advantages.getBoolean("cybernetic")
+                        ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
