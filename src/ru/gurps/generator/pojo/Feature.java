@@ -1,102 +1,69 @@
 package ru.gurps.generator.pojo;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Feature {
-    private int id;
-    private boolean advantage;
-    private String title;
-    private String titleEn;
-    private String type;
-    private int cost;
-    private String description;
-    private int max_level;
-    private boolean psi;
-    private boolean cybernetic;
+    private final SimpleStringProperty id;
+    private final SimpleStringProperty advantage;
+    private final SimpleStringProperty title;
+    private final SimpleStringProperty titleEn;
+    private final SimpleStringProperty type;
+    private final SimpleStringProperty cost;
+    private final SimpleStringProperty description;
+    private final SimpleStringProperty maxLevel;
+    private final SimpleStringProperty psi;
+    private final SimpleStringProperty cybernetic;
 
-        public Feature(int id, String title, String titleEn, String type, int cost, String description, int max_level, boolean psi, boolean cybernetic) {
-        this.id = id;
-        this.title = title;
-        this.titleEn = titleEn;
-        this.type = type;
-        this.cost = cost;
-        this.description = description;
-        this.max_level = max_level;
-        this.psi = psi;
-        this.cybernetic = cybernetic;
+    public Feature(String id, String advantage, String title, String titleEn, String type, String cost, String description, String maxLevel, String psi, String cybernetic) {
+        this.id = new SimpleStringProperty(id);
+        this.advantage = new SimpleStringProperty(advantage);
+        this.title = new SimpleStringProperty(title);
+        this.titleEn = new SimpleStringProperty(titleEn);
+        this.type = new SimpleStringProperty(type);
+        this.cost = new SimpleStringProperty(cost);
+        this.description = new SimpleStringProperty(description);
+        this.maxLevel = new SimpleStringProperty(maxLevel);
+        this.psi = new SimpleStringProperty(psi);
+        this.cybernetic = new SimpleStringProperty(cybernetic);
     }
 
-    public int getId() { return id; }
+    public String getId() { return id.get(); }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(String sId) { id.set(sId); }
 
-    public boolean isAdvantage() {
-        return advantage;
-    }
+    public String getAdvantage() { return advantage.get(); }
 
-    public void setAdvantage(boolean advantage) {
-        this.advantage = advantage;
-    }
+    public void setAdvantage(String sAdvantage) { advantage.set(sAdvantage); }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title.get(); }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public void setTitle(String sTitle) { title.set(sTitle); }
 
-    public String getTitleEn() {
-        return titleEn;
-    }
+    public String getTitleEn() { return titleEn.get(); }
 
-    public void setTitleEn(String titleEn) {
-        this.titleEn = titleEn;
-    }
+    public void setTitleEn(String sTitleEn) { titleEn.set(sTitleEn); }
 
-    public String getType() {
-        return type;
-    }
+    public String getType() { return type.get(); }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public void setType(String sType) { type.set(sType); }
 
-    public int getCost() {
-        return cost;
-    }
+    public String getCost() { return cost.get(); }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
+    public void setCost(String sCost) { cost.set(sCost); }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description.get(); }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setDescription(String sDescription) { description.set(sDescription); }
 
-    public int getMax_level() {
-        return max_level;
-    }
+    public String getMaxLevel() { return maxLevel.get(); }
 
-    public void setMax_level(int max_level) {
-        this.max_level = max_level;
-    }
+    public void setMaxLevel(String sMaxLevel) { maxLevel.set(sMaxLevel); }
 
-    public boolean isPsi() {
-        return psi;
-    }
+    public String getPsi() { return psi.get(); }
 
-    public void setPsi(boolean psi) {
-        this.psi = psi;
-    }
+    public void setPsi(String sPsi) { psi.set(sPsi); }
 
-    public boolean isCybernetic() {
-        return cybernetic;
-    }
+    public String getCybernetic() { return cybernetic.get(); }
 
-    public void setCybernetic(boolean cybernetic) {
-        this.cybernetic = cybernetic;
-    }
+    public void setCybernetic(String sCybernetic) { cybernetic.set(sCybernetic); }
 }
