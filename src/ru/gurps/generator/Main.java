@@ -18,7 +18,7 @@ public class Main extends Application {
 
         if(!file.exists() || file.isDirectory()) {
             File dir = new File(jarFolder + "db");
-            if(dir.exists() && dir.isDirectory()){
+            if(!dir.exists() || !dir.isDirectory()){
                 dir.mkdir();
             }
 
