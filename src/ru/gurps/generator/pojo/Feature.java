@@ -43,7 +43,18 @@ public class Feature {
 
     public void setTitleEn(String sTitleEn) { titleEn.set(sTitleEn); }
 
-    public String getType() { return type.get(); }
+    public String getType() { 
+        String new_type = type.get();
+        new_type = new_type.replace("[", "");
+        new_type = new_type.replace("]", "");
+        new_type = new_type.replace(",", "/ ");
+        new_type = new_type.replace("1", "Ф ");
+        new_type = new_type.replace("2", "Соц ");
+        new_type = new_type.replace("3", "М ");
+        new_type = new_type.replace("4", "Э ");
+        new_type = new_type.replace("5", "С ");
+        return new_type;
+    }
 
     public void setType(String sType) { type.set(sType); }
 
