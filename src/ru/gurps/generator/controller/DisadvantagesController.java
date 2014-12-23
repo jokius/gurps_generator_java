@@ -1,69 +1,70 @@
 package ru.gurps.generator.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 import ru.gurps.generator.config.Db;
 import ru.gurps.generator.pojo.Feature;
 
 import java.sql.ResultSet;
 
-public class DisadvantagesController {
-
-    private ObservableList<Feature> advantagesData = FXCollections.observableArrayList();
-
+public class DisadvantagesController extends FeatureObstractController {
     @FXML
-    private TableView<Feature> advantages;
-
-    @FXML
-    private TableColumn<Feature, String> title;
-
-    @FXML
-    private TableColumn<Feature, String> titleEn;
-
-    @FXML
-    private TableColumn<Feature, String> type;
-
-    @FXML
-    private TableColumn<Feature, Integer> cost;
-
-    @FXML
-    private TableColumn<Feature, String> description;
-
-    @FXML
-    private void initialize(){
+    private void initialize() {
         initData();
 
-        title.setCellValueFactory(new PropertyValueFactory<Feature, String>("title"));
-        titleEn.setCellValueFactory(new PropertyValueFactory<Feature, String>("titleEn"));
-        type.setCellValueFactory(new PropertyValueFactory<Feature, String>("type"));
-        cost.setCellValueFactory(new PropertyValueFactory<Feature, Integer>("cost"));
-        description.setCellValueFactory(new PropertyValueFactory<Feature, String>("description"));
+        Callback<TableColumn, TableCell> cellFactory =
+                new Callback<TableColumn, TableCell>() {
+                    @Override
+                    public TableCell call(TableColumn p) {
+                        MyStringTableCell cell = new MyStringTableCell();
+                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+                        return cell;
+                    }
+                };
 
-        advantages.setItems(advantagesData);
+        title.setCellValueFactory(new PropertyValueFactory<Feature, String>("title"));
+        title.setCellFactory(cellFactory);
+
+        titleEn.setCellValueFactory(new PropertyValueFactory<Feature, String>("titleEn"));
+        titleEn.setCellFactory(cellFactory);
+
+        type.setCellValueFactory(new PropertyValueFactory<Feature, String>("type"));
+        type.setCellFactory(cellFactory);
+
+        cost.setCellValueFactory(new PropertyValueFactory<Feature, String>("cost"));
+        cost.setCellFactory(cellFactory);
+
+        description.setCellValueFactory(new PropertyValueFactory<Feature, String>("description"));
+        cost.setCellFactory(cellFactory);
+
+        featureTableView.setItems(featuresData);
+
     }
 
-    private void initData(){
+    private void initData() {
         new Db();
         try {
-            ResultSet advantages;
-            advantages = Db.connect.createStatement().executeQuery("SELECT * FROM features WHERE advantage = false");
+            ResultSet disadvantages;
+            disadvantages = Db.connect.createStatement().executeQuery("SELECT * FROM features WHERE advantage = FALSE");
 
-            while (advantages.next()) {
-                advantagesData.add(new Feature(
-                        advantages.getInt("id"),
-                        advantages.getString("title"),
-                        advantages.getString("title_en"),
-                        advantages.getString("type"),
-                        advantages.getInt("cost"),
-                        advantages.getString("description"),
-                        advantages.getInt("max_level"),
-                        advantages.getBoolean("psi"),
-                        advantages.getBoolean("cybernetic")
-                        ));
+            featuresData.removeAll();
+            while (disadvantages.next()) {
+                featuresData.add(new Feature(
+                        disadvantages.getString("id"),
+                        disadvantages.getString("advantage"),
+                        disadvantages.getString("title"),
+                        disadvantages.getString("title_en"),
+                        disadvantages.getString("type"),
+                        disadvantages.getString("cost"),
+                        disadvantages.getString("description"),
+                        disadvantages.getString("max_level"),
+                        disadvantages.getString("psi"),
+                        disadvantages.getString("cybernetic")
+                ));
             }
 
         } catch (Exception e) {

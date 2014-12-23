@@ -2,6 +2,7 @@ package ru.gurps.generator.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import ru.gurps.generator.Main;
 
 public class Db {
     public static Connection connect = null;
