@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class FeatureObstractController {
+public class FeatureAbstractController {
     protected ObservableList<Feature> featuresData = FXCollections.observableArrayList();
     protected ObservableList<Addon> addonsData;
 
@@ -124,15 +124,18 @@ public class FeatureObstractController {
                 full.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
+                        String name = features.getTitle() + "(" + features.getTitleEn() + ")";
+                        String cost = "Стоимость: " + features.getCost();
+                        
                         Stage childrenStage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/views/feature_full.fxml"));
-                        FeatureFullController controller = new FeatureFullController("test");
+                        FeatureFullController controller = new FeatureFullController(name, cost, features.getType(), features.getDescription());
                         loader.setController(controller);
                         Parent childrenRoot;
                         try {
                             childrenRoot = (Parent) loader.load();
                             childrenStage.setScene(new Scene(childrenRoot, 650, 600));
-                            childrenStage.setTitle("GURPSGenerator - " + features.getTitle() + "(" + features.getTitleEn() + ")");
+                            childrenStage.setTitle("GURPSGenerator - " + name);
                             childrenStage.show();
                         } catch (IOException e) {
                             e.printStackTrace();

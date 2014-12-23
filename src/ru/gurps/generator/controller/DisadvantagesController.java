@@ -11,7 +11,7 @@ import ru.gurps.generator.pojo.Feature;
 
 import java.sql.ResultSet;
 
-public class DisadvantagesController extends FeatureObstractController {
+public class DisadvantagesController extends FeatureAbstractController {
     @FXML
     private void initialize() {
         initData();
