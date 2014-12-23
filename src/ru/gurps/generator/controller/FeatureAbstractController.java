@@ -98,7 +98,6 @@ public class FeatureAbstractController {
             id = features.getId();
             setupBottomMenu();
             setCurrentLvl();
-            final String stringType = features.getType();
 
             if (!id.equals(lastId)) {
                 defaultParams(features);
@@ -130,7 +129,7 @@ public class FeatureAbstractController {
                         
                         Stage childrenStage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/views/feature_full.fxml"));
-                        FeatureFullController controller = new FeatureFullController(name, cost, stringType, features.getDescription());
+                        FeatureFullController controller = new FeatureFullController(name, cost, features.getType(), features.getDescription());
                         loader.setController(controller);
                         Parent childrenRoot;
                         try {
