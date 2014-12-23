@@ -9,7 +9,7 @@ import ru.gurps.generator.config.Db;
 import ru.gurps.generator.pojo.Feature;
 import java.sql.ResultSet;
 
-public class AdvantagesController extends FeatureObstractController {
+public class AdvantagesController extends FeatureAbstractController {
     @FXML
     private void initialize() {
         initData();
