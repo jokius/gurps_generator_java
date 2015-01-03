@@ -10,11 +10,12 @@ public class Feature {
     private final SimpleStringProperty type;
     private final SimpleStringProperty cost;
     private final SimpleStringProperty description;
+    private final SimpleStringProperty oldLevel;
     private final SimpleStringProperty maxLevel;
     private final SimpleStringProperty psi;
     private final SimpleStringProperty cybernetic;
 
-    public Feature(String id, String advantage, String title, String titleEn, String type, String cost, String description, String maxLevel, String psi, String cybernetic) {
+    public Feature(String id, String advantage, String title, String titleEn, String type, String cost, String description, String oldLevel, String maxLevel, String psi, String cybernetic) {
         this.id = new SimpleStringProperty(id);
         this.advantage = new SimpleStringProperty(advantage);
         this.title = new SimpleStringProperty(title);
@@ -22,6 +23,7 @@ public class Feature {
         this.type = new SimpleStringProperty(type);
         this.cost = new SimpleStringProperty(cost);
         this.description = new SimpleStringProperty(description);
+        this.oldLevel = new SimpleStringProperty(oldLevel);
         this.maxLevel = new SimpleStringProperty(maxLevel);
         this.psi = new SimpleStringProperty(psi);
         this.cybernetic = new SimpleStringProperty(cybernetic);
@@ -69,6 +71,10 @@ public class Feature {
     public String getMaxLevel() { return maxLevel.get(); }
 
     public void setMaxLevel(String sMaxLevel) { maxLevel.set(sMaxLevel); }
+
+    public String getOldLevel() { return oldLevel.get(); }
+
+    public void setOldLevel(String sOldLevel) { oldLevel.set(sOldLevel); }
 
     public String getPsi() { return psi.get(); }
 

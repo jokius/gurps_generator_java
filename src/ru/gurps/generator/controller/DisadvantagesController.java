@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import ru.gurps.generator.config.Db;
+import ru.gurps.generator.lib.FeatureTableCell;
 import ru.gurps.generator.pojo.Feature;
 
 import java.sql.ResultSet;
@@ -20,8 +21,8 @@ public class DisadvantagesController extends FeatureAbstractController {
                 new Callback<TableColumn, TableCell>() {
                     @Override
                     public TableCell call(TableColumn p) {
-                        MyStringTableCell cell = new MyStringTableCell();
-                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+                        FeatureTableCell cell = new FeatureTableCell();
+                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new FeatureEventHandler());
                         return cell;
                     }
                 };
@@ -61,6 +62,7 @@ public class DisadvantagesController extends FeatureAbstractController {
                         disadvantages.getString("type"),
                         disadvantages.getString("cost"),
                         disadvantages.getString("description"),
+                        "1",
                         disadvantages.getString("max_level"),
                         disadvantages.getString("psi"),
                         disadvantages.getString("cybernetic")
