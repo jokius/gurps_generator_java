@@ -11,23 +11,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import ru.gurps.generator.config.Db;
 import ru.gurps.generator.pojo.Addon;
 import ru.gurps.generator.pojo.Feature;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 public class FeatureAbstractController {
     protected ObservableList<Feature> featuresData = FXCollections.observableArrayList();
-    protected ObservableList<Addon> addonsData;
+    protected ObservableList<Addon> addonsArray = FXCollections.observableArrayList();
 
     @FXML
     protected TableView<Feature> featureTableView;
+
+    @FXML
+    protected TableView<Addon> addonsTableView;
 
     @FXML
     protected TableColumn title = new TableColumn("title");
@@ -42,16 +49,13 @@ public class FeatureAbstractController {
     protected TableColumn cost = new TableColumn("cost");
 
     @FXML
-    protected TableColumn<Feature, String> description = new TableColumn<Feature, String>("description");
+    protected TableColumn description = new TableColumn("description");
 
     @FXML
     protected AnchorPane bottomMenu;
 
     @FXML
     protected Slider lvlSlider;
-
-    @FXML
-    protected MenuButton menuAddons;
 
     @FXML
     protected Label lvlLabel;
@@ -67,24 +71,26 @@ public class FeatureAbstractController {
 
     @FXML
     protected Label finalCost;
+    
+    @FXML
+    protected TableColumn activate = new TableColumn<Addon, Boolean>("activate");
+    
+    @FXML
+    protected TableColumn addonName = new TableColumn<Addon, String>("addonName");
+
+    @FXML
+    protected TableColumn addonNameEn = new TableColumn<Addon, String>("addonNameEn");
+
+    @FXML
+    protected TableColumn addonLevel= new TableColumn<Addon, String>("addonLevel");
+
+    @FXML
+    protected TableColumn addonCost;
 
     protected String lastId = null;
+    
 
-    class MyStringTableCell extends TableCell<Feature, String> {
-
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            setText(empty ? null : getString());
-            setGraphic(null);
-        }
-
-        private String getString() {
-            return getItem() == null ? "" : getItem();
-        }
-    }
-
-    class MyEventHandler implements EventHandler<MouseEvent> {
+    class FeatureEventHandler implements EventHandler<MouseEvent> {
         private String id = null;
         private Feature features;
         private String currentLvl;
@@ -100,25 +106,104 @@ public class FeatureAbstractController {
             setCurrentLvl();
 
             if (!id.equals(lastId)) {
-                defaultParams(features);
-                notAllAddons();
-
-                if (addonsData.isEmpty()) {
-                    menuAddons.setVisible(false);
-                } else {
-                    ArrayList<CheckMenuItem> elements = new ArrayList<CheckMenuItem>();
-                    for (final Addon addon : addonsData) {
-                        CheckMenuItem cm = new CheckMenuItem(addon.getTitle() + " " + addon.getCost() + "%");
-                        cm.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                            @Override
-                            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-                                addonCost(addon.getCost(), newValue);
-                            }
-                        });
-                        elements.add(cm);
+                class AddonEventHandler implements EventHandler<MouseEvent> {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        TableCell cell = (TableCell) t.getSource();
+                        
+                        int index = cell.getIndex();
+                        Addon addon = addonsArray.get(index);
+                        double addonCost = currentAddonCost(addon.getCost(), addon.getLevel());
+                        if(addon.getActive()) {
+                            cell.commitEdit(false);
+                            addon.setActive(false);
+                        }
+                        else{
+                            cell.commitEdit(true);
+                            addon.setActive(true);
+                        }
+                        
+                        addonCost(addonCost, addon);
                     }
-                    menuAddons.getItems().addAll(elements);
-                    menuAddons.setVisible(true);
+                }
+                
+                defaultParams(features);
+                allAddons();
+
+                if (addonsArray.isEmpty()) {
+                    addonsTableView.setVisible(false);
+                } else {
+                    activate.setCellValueFactory(new PropertyValueFactory("activate"));
+                    activate.setCellFactory(new Callback<TableColumn<Addon, Boolean>, TableCell<Addon, Boolean>>() {
+                        @Override
+                        public TableCell<Addon, Boolean> call(TableColumn<Addon, Boolean> p) {
+                            CheckBoxTableCell cb = new CheckBoxTableCell<Addon, Boolean>();
+                            cb.addEventFilter(MouseEvent.MOUSE_CLICKED, new AddonEventHandler());
+                            return cb;
+                        }
+                    });
+
+                    addonName.setCellValueFactory(new PropertyValueFactory("title"));
+                    addonNameEn.setCellValueFactory(new PropertyValueFactory("titleEn"));
+                    addonLevel.setCellValueFactory(new PropertyValueFactory("level"));
+                    addonCost.setCellValueFactory(new PropertyValueFactory("cost"));
+                    addonLevel.setEditable(true);
+                    addonCost.setEditable(true);
+
+                    addonLevel.setCellFactory(TextFieldTableCell.forTableColumn());
+                    addonLevel.setOnEditCommit(new EventHandler<CellEditEvent<Addon, String>>() {
+                        @Override
+                        public void handle(CellEditEvent<Addon, String> event) {
+                            int level = Integer.parseInt(event.getNewValue());
+                            if (level == 0) {
+                                return;
+                            }
+                            
+                            Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                            int oldValue = Integer.parseInt(addon.getLevel());
+                            double addonCost = currentAddonCost(addon.getCost(), event.getNewValue());
+
+                            addon.setLevel(Integer.toString(level));
+                            addon.setActive(true);
+
+                            if(oldValue < level){
+                                addonCost(addonCost, addon);
+                            }
+                            else if(oldValue > level) {
+                                addonCost(addonCost, addon);
+                            }
+                        }
+                    });
+
+                    addonCost.setCellFactory(TextFieldTableCell.forTableColumn());
+                    addonCost.setOnEditCommit(new EventHandler<CellEditEvent<Addon, String>>() {
+                        @Override
+                        public void handle(CellEditEvent<Addon, String> event) {
+                            int cost = Integer.parseInt(event.getNewValue());
+                            if (cost == 0) {
+                                return;
+                            }
+
+                            Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                            int oldValue = Integer.parseInt(addon.getCost());
+                            double addonCost = currentAddonCost(event.getNewValue(), addon.getLevel());
+
+                            addon.setCost(event.getNewValue());
+                            addon.setActive(true);
+
+                            if(oldValue < cost){
+                                addonCost(addonCost, addon);
+                            }
+                            else if(oldValue > cost){
+                                addonCost(addonCost, addon);
+                            }
+                        }
+                    });
+
+
+                    addonsTableView.setItems(addonsArray);
+                    addonsTableView.setEditable(true);
+                    addonsTableView.setVisible(true);
                 }
 
                 full.setOnAction(new EventHandler<ActionEvent>() {
@@ -126,7 +211,7 @@ public class FeatureAbstractController {
                     public void handle(ActionEvent actionEvent) {
                         String name = features.getTitle() + "(" + features.getTitleEn() + ")";
                         String cost = "Стоимость: " + features.getCost();
-                        
+
                         Stage childrenStage = new Stage();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/views/feature_full.fxml"));
                         FeatureFullController controller = new FeatureFullController(name, cost, features.getType(), features.getDescription());
@@ -144,60 +229,56 @@ public class FeatureAbstractController {
                 });
             }
         }
-
-        private void newCost(int changeCost) {
-            String result = Integer.toString(Integer.parseInt(finalCost.getText()) + changeCost);
-            finalCost.setText(result);
+        
+        private double currentAddonCost(String cost, String level){
+            return Integer.parseInt(cost) * Integer.parseInt(level) / 100.0;
         }
 
-        private void setupBottomMenu(){
-            final double bottomMenuSize = 100.0;
-            AnchorPane.setBottomAnchor(featureTableView, bottomMenuSize);
-            bottomMenu.setVisible(true);
+        private void addonCost(double cost, Addon addon){
+            int resultCost = Integer.parseInt(addon.getResultCost());
+            String lastCost;
+            int intFinalCost = Integer.parseInt(finalCost.getText());
+            int result = (int) (Double.parseDouble(features.getCost()) * Double.parseDouble(currentLvl) * cost);
+
+            if (addon.getActive()) {
+                lastCost = Integer.toString(intFinalCost - resultCost + result);
+                addon.setResultCost(Integer.toString(result));
+            } else {
+                if (resultCost == result){
+                    lastCost = Integer.toString(intFinalCost - result);
+                }
+                else{
+                    lastCost = Integer.toString(intFinalCost + result);
+                }
+                
+                addon.setResultCost("0");
+            }
+            finalCost.setText(lastCost);
         }
 
-        private void defaultParams(Feature features){
-            lastId = features.getId();
-            addonsData = FXCollections.observableArrayList();
-            menuAddons.getItems().clear();
-            lvlSlider.setValue(1);
-            lvlSlider.setMinorTickCount(1);
-            lvlText.setText("1");
-            finalCost.setText(features.getCost());
-        }
-
-        private void notAllAddons(){
+        private void allAddons(){
             try {
                 ResultSet addons;
-                addons = Db.connect.createStatement().executeQuery("SELECT * FROM addons WHERE features_id ="+lastId+
-                        " and cost != 0 and max_level = 1");
-                addonsData.removeAll();
+                addons = Db.connect.createStatement().executeQuery("SELECT * FROM addons WHERE features_id ="+lastId);
+                addonsArray.removeAll();
 
                 while (addons.next()) {
-                    addonsData.add(new Addon(
+                    addonsArray.add(new Addon(
                             addons.getString("id"),
                             addons.getString("features_id"),
                             addons.getString("title"),
                             addons.getString("title_en"),
                             addons.getString("cost"),
+                            "0",
                             addons.getString("description"),
-                            addons.getString("max_level")
+                            addons.getString("max_level"),
+                            false,
+                            "1"
                     ));
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-        }
-
-        private void addonCost(String cost, boolean active){
-            double addonCost = Double.parseDouble(cost) / 100.0;
-            int result = (int) (Double.parseDouble(features.getCost()) * Double.parseDouble(currentLvl) * addonCost);
-
-            if (active) {
-                newCost(result);
-            } else {
-                newCost(-result);
             }
         }
 
@@ -210,7 +291,10 @@ public class FeatureAbstractController {
                     @Override
                     public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                         if(!oldValue.equals(newValue)){
-                            currentLvl = newValue;
+                            if(!newValue.equals("")){
+                                int finalCost = finalCost(newValue);
+                                newCost(finalCost);
+                            }
                         }
                     }
                 });
@@ -232,6 +316,8 @@ public class FeatureAbstractController {
                     public void changed(ObservableValue<? extends Number> observableValue, Number oldVal, Number newVal) {
                         currentLvl = newVal.toString();
                         lvlLabel.setText(labelName + currentLvl);
+                        int finalCost = finalCost(currentLvl);
+                        newCost(finalCost);
                     }
                 });
             } else {
@@ -244,5 +330,36 @@ public class FeatureAbstractController {
                 lvlText.setVisible(false);
             }
         }
+
+        private int finalCost(String newLevel){
+            int cost = finalCost.getText().equals("") ? Integer.parseInt(features.getCost()) :
+                    Integer.parseInt(finalCost.getText());
+            
+            int finalCost = cost / Integer.parseInt(features.getOldLevel()) * Integer.parseInt(newLevel);
+            features.setOldLevel(newLevel);
+            newCost(finalCost);
+            return finalCost;
+        }
+    }
+    
+    private void newCost(int changeCost) {
+        String result = Integer.toString(changeCost);
+        finalCost.setText(result);
+    }
+
+    private void setupBottomMenu(){
+        final double bottomMenuSize = 134.0;
+        AnchorPane.setBottomAnchor(featureTableView, bottomMenuSize);
+        bottomMenu.setVisible(true);
+    }
+
+    private void defaultParams(Feature features){
+        lastId = features.getId();
+        addonsArray = FXCollections.observableArrayList();
+        addonsArray.clear();
+        lvlSlider.setValue(1);
+        lvlSlider.setMinorTickCount(1);
+        lvlText.setText("1");
+        finalCost.setText(features.getCost());
     }
 }
