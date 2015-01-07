@@ -47,10 +47,8 @@ public class DisadvantagesController extends FeatureAbstractController {
     }
 
     private void initData() {
-        new Db();
         try {
-            ResultSet disadvantages;
-            disadvantages = Db.connect.createStatement().executeQuery("SELECT * FROM features WHERE advantage = FALSE");
+            ResultSet disadvantages = Db.find_by("features", "advantage", "true");
 
             featuresData.removeAll();
             while (disadvantages.next()) {

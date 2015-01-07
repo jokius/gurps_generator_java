@@ -9,6 +9,7 @@ import ru.gurps.generator.config.Db;
 import ru.gurps.generator.lib.FeatureTableCell;
 import ru.gurps.generator.pojo.Feature;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 public class AdvantagesController extends FeatureAbstractController {
     @FXML
@@ -45,11 +46,8 @@ public class AdvantagesController extends FeatureAbstractController {
     }
 
     private void initData() {
-        new Db();
         try {
-            ResultSet advantages;
-            advantages = Db.connect.createStatement().executeQuery("SELECT * FROM features WHERE advantage = TRUE");
-
+            ResultSet advantages = Db.find_by("features", "advantage", "true");
             featuresData.removeAll();
             while (advantages.next()) {
                 featuresData.add(new Feature(
