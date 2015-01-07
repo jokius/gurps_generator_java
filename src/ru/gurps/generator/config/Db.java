@@ -10,17 +10,6 @@ import java.util.Map;
 
 public final class Db {
     public static Connection connect = null;
-
-    public Db() {
-        try {
-            Class.forName("org.h2.Driver").newInstance();
-            String parent = "\\w*.jar";
-            String s = ru.gurps.generator.Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, "");
-            connect = DriverManager.getConnection("jdbc:h2:"+ s + "db/gurps", "sa", "");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     
     public static ResultSet create(String table, HashMap<String, String> paramsHash){
         String params = "";
