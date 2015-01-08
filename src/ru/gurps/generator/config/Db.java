@@ -113,9 +113,9 @@ public final class Db {
         }
         else{
             for (Map.Entry<String, String> parametr : paramsHash.entrySet()){
-                params += parametr.getKey() + "='" + parametr.getValue() + "',";
+                params += parametr.getKey() + "='" + parametr.getValue() + "' and ";
             }
-            params = params.substring(0, params.length()-1);
+            params = params.substring(0, params.length() - 5);
             
             query = "SELECT * FROM " + table + " WHERE " + params;
         }
