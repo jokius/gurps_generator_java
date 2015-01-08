@@ -155,11 +155,11 @@ public class FeatureAbstractController {
                         @Override
                         public void handle(CellEditEvent<Addon, String> event) {
                             int level = Integer.parseInt(event.getNewValue());
-                            if (level == 0) {
-                                return;
-                            }
+                            if (level == 0) return;
                             
                             Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
+                            if(addon.getMaxLevel().equals("1")) return;
+                            
                             int oldValue = Integer.parseInt(addon.getLevel());
                             double addonCost = currentAddonCost(addon.getCost(), event.getNewValue());
 
@@ -219,12 +219,19 @@ public class FeatureAbstractController {
                         Parent childrenRoot;
                         try {
                             childrenRoot = (Parent) loader.load();
-                            childrenStage.setScene(new Scene(childrenRoot, 650, 600));
+                            childrenStage.setScene(new Scene(childrenRoot, 325, 400));
                             childrenStage.setTitle("GURPSGenerator - " + name);
                             childrenStage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
+                });
+
+                add.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        
                     }
                 });
             }
@@ -258,8 +265,7 @@ public class FeatureAbstractController {
 
         private void allAddons(){
             try {
-                ResultSet addons;
-                addons = Db.connect.createStatement().executeQuery("SELECT * FROM addons WHERE features_id ="+lastId);
+                ResultSet addons = Db.find_by("addons", "features_id", lastId);
                 addonsArray.removeAll();
 
                 while (addons.next()) {
