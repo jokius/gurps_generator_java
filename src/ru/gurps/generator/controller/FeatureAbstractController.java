@@ -25,8 +25,10 @@ import ru.gurps.generator.pojo.Feature;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
-public class FeatureAbstractController {
+public class FeatureAbstractController extends MainController{
     protected ObservableList<Feature> featuresData = FXCollections.observableArrayList();
     protected ObservableList<Addon> addonsArray = FXCollections.observableArrayList();
 
@@ -67,6 +69,9 @@ public class FeatureAbstractController {
     protected Button add;
 
     @FXML
+    protected Button remove;
+
+    @FXML
     protected Button full;
 
     @FXML
@@ -104,8 +109,23 @@ public class FeatureAbstractController {
             id = features.getId();
             setupBottomMenu();
             setCurrentLvl();
-
+            
             if (!id.equals(lastId)) {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("user_id", Integer.toString(user.getId()));
+                params.put("feature_id", features.getId());
+                ResultSet userFeature = Db.where("user_features", params);
+                features.setAdd(Db.isAny(userFeature));
+                
+                if(features.isAdd()){
+                    add.setVisible(false);
+                    remove.setVisible(true);
+                }
+                else{
+                    add.setVisible(true);
+                    remove.setVisible(false);
+                }
+                
                 class AddonEventHandler implements EventHandler<MouseEvent> {
                     @Override
                     public void handle(MouseEvent t) {
@@ -133,6 +153,25 @@ public class FeatureAbstractController {
                 if (addonsArray.isEmpty()) {
                     addonsTableView.setVisible(false);
                 } else {
+                    if(features.isAdd()){
+                        try {
+                            userFeature.next();
+                            ResultSet featureAddons = Db.find_by("feature_addons", "user_features_id", userFeature.getString("id"));
+                            if(Db.isAny(featureAddons)){
+                                while(featureAddons.next()){
+                                    for(Addon addon : addonsArray){
+                                        if(addon.getId().equals(featureAddons.getString("id"))){
+                                            addon.setActive(true);
+                                            addon.setCost(featureAddons.getString("current_cost"));
+                                            addon.setLevel(featureAddons.getString("current_level"));
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     activate.setCellValueFactory(new PropertyValueFactory("activate"));
                     activate.setCellFactory(new Callback<TableColumn<Addon, Boolean>, TableCell<Addon, Boolean>>() {
                         @Override
@@ -160,18 +199,7 @@ public class FeatureAbstractController {
                             Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
                             if(addon.getMaxLevel().equals("1")) return;
                             
-                            int oldValue = Integer.parseInt(addon.getLevel());
-                            double addonCost = currentAddonCost(addon.getCost(), event.getNewValue());
-
                             addon.setLevel(Integer.toString(level));
-                            addon.setActive(true);
-
-                            if(oldValue < level){
-                                addonCost(addonCost, addon);
-                            }
-                            else if(oldValue > level) {
-                                addonCost(addonCost, addon);
-                            }
                         }
                     });
 
@@ -180,26 +208,14 @@ public class FeatureAbstractController {
                         @Override
                         public void handle(CellEditEvent<Addon, String> event) {
                             int cost = Integer.parseInt(event.getNewValue());
-                            if (cost == 0) {
-                                return;
-                            }
+                            if (cost == 0) return;
 
                             Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
-                            int oldValue = Integer.parseInt(addon.getCost());
-                            double addonCost = currentAddonCost(event.getNewValue(), addon.getLevel());
+                            if(!addon.getCost().equals("0")) return;
 
                             addon.setCost(event.getNewValue());
-                            addon.setActive(true);
-
-                            if(oldValue < cost){
-                                addonCost(addonCost, addon);
-                            }
-                            else if(oldValue > cost){
-                                addonCost(addonCost, addon);
-                            }
                         }
                     });
-
 
                     addonsTableView.setItems(addonsArray);
                     addonsTableView.setEditable(true);
@@ -231,7 +247,73 @@ public class FeatureAbstractController {
                 add.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        
+                        try {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("user_id", Integer.toString(user.getId()));
+                            params.put("feature_id", features.getId());
+                            params.put("current_level", currentLvl);
+                            params.put("current_cost", finalCost.getText());
+                            ResultSet user_feature = Db.create("user_features", params);
+                            
+                            String setCurrentPoints = Integer.toString(Integer.parseInt(finalCost.getText()) + Integer.parseInt(user.getCurrentPoints()));
+                            user.setCurrentPoints(setCurrentPoints);
+                            HashMap<String, String> userParams = new HashMap<String, String>();
+                            userParams.put("current_points", setCurrentPoints);
+                            Db.update("users", user.getId(), userParams);
+                            
+                            add.setVisible(false);
+                            remove.setVisible(true);
+                                    
+                            if(!addonsTableView.isVisible()) return;
+                            
+                            user_feature.next();
+                            for(Addon addon : addonsArray){
+                                if(addon.getActive()) {
+                                    params.clear();
+                                    params.put("user_features_id", user_feature.getNString("id"));
+                                    params.put("addon_id", addon.getId());
+                                    params.put("current_level", addon.getLevel());
+                                    params.put("current_cost", addon.getResultCost());
+                                    Db.create("feature_addons", params);
+                                }
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                remove.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        try {
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put("user_id", Integer.toString(user.getId()));
+                            params.put("feature_id", features.getId());
+                            
+                            ResultSet user_feature = Db.where("user_features", params);
+                            user_feature.next();
+                            int user_feature_id = user_feature.getInt("id");
+                            
+                            String currentPoints = Integer.toString(Integer.parseInt(user.getCurrentPoints()) - user_feature.getInt("current_cost"));
+                            user.setCurrentPoints(currentPoints);
+                            HashMap<String, String> userParams = new HashMap<String, String>();
+                            userParams.put("current_points", currentPoints);
+                            Db.update("users", user.getId(), userParams);
+                            
+                            Db.delete("user_features", user_feature_id);
+                            add.setVisible(true);
+                            remove.setVisible(false);
+
+                            if(!addonsTableView.isVisible()) return;
+
+                            ResultSet feature_addons = Db.find_by("feature_addons", "user_features_id", Integer.toString(user_feature_id));
+                            while(feature_addons.next()){
+                                Db.delete("feature_addons", feature_addons.getInt("id"));
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }

@@ -11,8 +11,8 @@
       <TableView fx:id="userTable" layoutY="89.0" prefHeight="134.0" prefWidth="395.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="196.0" resizable="false" text="Имя" />
-            <TableColumn fx:id="currentPoints" prefWidth="100.0" resizable="false" text="Текущие очки" />
-            <TableColumn fx:id="maxPoints" prefWidth="100.0" resizable="false" text="Макс очков" />
+            <TableColumn fx:id="tableCurrentPoints" prefWidth="100.0" resizable="false" text="Текущие очки" />
+            <TableColumn fx:id="tableMaxPoints" prefWidth="100.0" resizable="false" text="Макс очков" />
         </columns>
       </TableView>
       <TextField fx:id="newName" alignment="CENTER" layoutX="78.0" layoutY="1.0" prefHeight="26.0" prefWidth="219.0" promptText="Имя" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="1.0" />

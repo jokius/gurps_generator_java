@@ -12,92 +12,99 @@ import java.util.HashMap;
 import java.util.prefs.Preferences;
 
 public class ParamsController extends MainController {
-    @FXML
-    private TextField sm;
-    
-    @FXML
-    private CheckBox noFineManipulators;
-    
-    @FXML
-    private TextField st;
+//    @FXML
+//    private TextField sm;
+//
+//    @FXML
+//    private CheckBox noFineManipulators;
+//
+//    @FXML
+//    private TextField st;
+//
+//    @FXML
+//    private Label stCost;
+//
+//    @FXML
+//    private TextField dx;
+//
+//    @FXML
+//    private Label dxCost;
+//
+//    @FXML
+//    private TextField iq;
+//
+//    @FXML
+//    private Label iqCost;
+//
+//    @FXML
+//    private TextField ht;
+//
+//    @FXML
+//    private Label htCost;
+//
+//    @FXML
+//    private TextField hp;
+//
+//    @FXML
+//    private Label hpCost;
+//
+//    @FXML
+//    private TextField will;
+//
+//    @FXML
+//    private Label willCost;
+//
+//    @FXML
+//    private TextField per;
+//
+//    @FXML
+//    private Label perCost;
+//
+//    @FXML
+//    private TextField fp;
+//
+//    @FXML
+//    private Label fpCost;
+//
+//    @FXML
+//    private TextField bs;
+//
+//    @FXML
+//    private Label bsCost;
+//
+//    @FXML
+//    private Label bg;
+//
+//    @FXML
+//    private TextField move;
+//
+//    @FXML
+//    private Label moveCost;
+//
+//    @FXML
+//    private Label doge;
+//
+//    @FXML
+//    private Label thrust;
+//
+//    @FXML
+//    private Label swing;
+//
+//    @FXML
+//    private TextField maxPoints;
+//
+//    @FXML
+//    public Label currentPoints;
 
-    @FXML
-    private Label stCost;
+    public String points;
 
-    @FXML
-    private TextField dx;
-
-    @FXML
-    private Label dxCost;
-
-    @FXML
-    private TextField iq;
-
-    @FXML
-    private Label iqCost;
-
-    @FXML
-    private TextField ht;
-
-    @FXML
-    private Label htCost;
-    
-    @FXML
-    private TextField hp;
-
-    @FXML
-    private Label hpCost;
-
-    @FXML
-    private TextField will;
-
-    @FXML
-    private Label willCost;
-
-    @FXML
-    private TextField per;
-
-    @FXML
-    private Label perCost;
-
-    @FXML
-    private TextField fp;
-
-    @FXML
-    private Label fpCost;
-    
-    @FXML
-    private TextField bs;
-    
-    @FXML
-    private Label bsCost;
-    
-    @FXML
-    private Label bg;
-
-    @FXML
-    private TextField move;
-    
-    @FXML
-    private Label moveCost;
-    
-    @FXML
-    private Label doge;
-
-    @FXML
-    private Label thrust;
-    
-    @FXML
-    private Label swing;
-    
-    @FXML
-    private TextField maxPoints;
-    
-    @FXML
-    private Label currentPoints;
-    
     private HashMap<String, String> params = new HashMap<String, String>();
-    
+
+    public void setPoints(String points) {
+        this.points = points;
+        currentPoints.setText(points);
+    }
+
     @FXML
     private void initialize() {
         setParams();

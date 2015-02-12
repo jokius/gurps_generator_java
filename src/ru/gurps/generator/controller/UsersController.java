@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Db;
 import ru.gurps.generator.lib.UserTableCell;
 import ru.gurps.generator.pojo.User;
@@ -48,12 +49,12 @@ public class UsersController extends MainController {
 
     @FXML
     private TableColumn name = new TableColumn("name");
-    
+
     @FXML
-    private TableColumn currentPoints = new TableColumn("currentPoints");
-    
+    private TableColumn tableCurrentPoints = new TableColumn("currentPoints");
+
     @FXML
-    private TableColumn maxPoints = new TableColumn("maxPoints");
+    private TableColumn tableMaxPoints = new TableColumn("maxPoints");
     
     private int index = -1;
 
@@ -78,11 +79,11 @@ public class UsersController extends MainController {
         name.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
         name.setCellFactory(cellFactory);
 
-        currentPoints.setCellValueFactory(new PropertyValueFactory<User, String>("currentPoints"));
-        currentPoints.setCellFactory(cellFactory);
+        tableCurrentPoints.setCellValueFactory(new PropertyValueFactory<User, String>("currentPoints"));
+        tableCurrentPoints.setCellFactory(cellFactory);
 
-        maxPoints.setCellValueFactory(new PropertyValueFactory<User, String>("maxPoints"));
-        maxPoints.setCellFactory(cellFactory);
+        tableMaxPoints.setCellValueFactory(new PropertyValueFactory<User, String>("maxPoints"));
+        tableMaxPoints.setCellFactory(cellFactory);
         
         userTable.setPlaceholder(new Label("Персонажей не создано"));
         userTable.setItems(usersData);
@@ -175,7 +176,7 @@ public class UsersController extends MainController {
     
     private void createMainWindow(){
         Stage childrenStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/views/main.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
         Parent childrenRoot;
         try {
             childrenRoot = (Parent) loader.load();

@@ -26,7 +26,6 @@ public class Main extends Application {
             ExportResource("/db/gurps.mv.db");
         }
 
-        
         FXMLLoader view = new FXMLLoader(getClass().getResource("resources/views/select_user.fxml"));
         UsersController controller = new UsersController(primaryStage);
         view.setController(controller);

@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.ParamsController">
+<!--<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">-->
    <children>
       <Label layoutX="12.0" layoutY="58.0" prefHeight="26.0" prefWidth="158.0" text="Модификатор размера" AnchorPane.leftAnchor="12.0" />
       <TextField fx:id="sm" alignment="CENTER" layoutX="174.0" layoutY="58.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="174.0" />

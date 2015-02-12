@@ -63,7 +63,8 @@ public class DisadvantagesController extends FeatureAbstractController {
                         "1",
                         disadvantages.getString("max_level"),
                         disadvantages.getString("psi"),
-                        disadvantages.getString("cybernetic")
+                        disadvantages.getString("cybernetic"),
+                        false
                 ));
             }
 

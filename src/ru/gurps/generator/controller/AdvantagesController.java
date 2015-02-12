@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class AdvantagesController extends FeatureAbstractController {
     @FXML
     private void initialize() {
+//        maxPoints.setText("9000");
         initData();
 
         Callback<TableColumn, TableCell> cellFactory =
@@ -61,7 +62,8 @@ public class AdvantagesController extends FeatureAbstractController {
                         "1",
                         advantages.getString("max_level"),
                         advantages.getString("psi"),
-                        advantages.getString("cybernetic")
+                        advantages.getString("cybernetic"),
+                        false
                 ));
             }
 

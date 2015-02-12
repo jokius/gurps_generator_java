@@ -14,8 +14,10 @@ public class Feature {
     private final SimpleStringProperty maxLevel;
     private final SimpleStringProperty psi;
     private final SimpleStringProperty cybernetic;
+    private boolean add;
 
-    public Feature(String id, String advantage, String title, String titleEn, String type, String cost, String description, String oldLevel, String maxLevel, String psi, String cybernetic) {
+    public Feature(String id, String advantage, String title, String titleEn, String type, String cost,
+                   String description, String oldLevel, String maxLevel, String psi, String cybernetic, boolean add) {
         this.id = new SimpleStringProperty(id);
         this.advantage = new SimpleStringProperty(advantage);
         this.title = new SimpleStringProperty(title);
@@ -27,6 +29,7 @@ public class Feature {
         this.maxLevel = new SimpleStringProperty(maxLevel);
         this.psi = new SimpleStringProperty(psi);
         this.cybernetic = new SimpleStringProperty(cybernetic);
+        this.add = add;
     }
 
     public String getId() { return id.get(); }
@@ -83,4 +86,12 @@ public class Feature {
     public String getCybernetic() { return cybernetic.get(); }
 
     public void setCybernetic(String sCybernetic) { cybernetic.set(sCybernetic); }
+
+    public boolean isAdd() {
+        return add;
+    }
+
+    public void setAdd(boolean add) {
+        this.add = add;
+    }
 }

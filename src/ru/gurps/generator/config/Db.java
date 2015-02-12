@@ -130,6 +130,24 @@ public final class Db {
         return null;
     }
     
+    public static boolean isAny(ResultSet records){
+        try {
+            return records.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isEmpty(ResultSet records){
+        try {
+            return !records.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
     private static void createConnection(){
         if(connect != null){
             return;
