@@ -7,7 +7,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.AdvantagesController">
    <children>
-      <TableView fx:id="featureTableView" layoutX="-1.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="featureTableView" prefHeight="399.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columns>
             <TableColumn fx:id="title" prefWidth="136.0" text="Название" />
             <TableColumn fx:id="titleEn" prefWidth="125.0" text="Название англ." />
@@ -17,26 +17,29 @@
          </columns>
       </TableView>
       <!-- bottomMenu -->
-      <AnchorPane fx:id="bottomMenu" layoutY="298.0" prefHeight="101.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="bottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Slider fx:id="lvlSlider" blockIncrement="1.0" layoutX="167.0" layoutY="31.0" majorTickUnit="99.0" min="1.0" minorTickCount="100" showTickLabels="true" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="167.0" />
-            <MenuButton fx:id="menuAddons" layoutY="2.0" mnemonicParsing="false" text="Дополнения" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="6.0">
-               <items>
-               </items>
-            </MenuButton>
-            <Label fx:id="lvlLabel" layoutX="170.0" layoutY="7.0" prefHeight="15.0" prefWidth="131.0" text="Уровень " AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="170.0" />
-            <TextField fx:id="lvlText" layoutX="237.0" layoutY="2.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="237.0" />
+            <Slider fx:id="lvlSlider" blockIncrement="1.0" layoutX="323.0" layoutY="39.0" majorTickUnit="99.0" min="1.0" minorTickCount="100" showTickLabels="true" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="182.0" />
+            <Label fx:id="lvlLabel" layoutX="323.0" layoutY="11.0" prefHeight="15.0" prefWidth="131.0" text="Уровень " AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="191.0" />
+            <TextField fx:id="lvlText" layoutX="390.0" layoutY="6.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="193.0" />
             <Button fx:id="add" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+            <Button fx:id="remove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
             <Button fx:id="full" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Подробнее" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
-            <Label layoutX="364.0" layoutY="7.0" text="Стоимость" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="364.0" />
-            <Label fx:id="finalCost" alignment="CENTER" layoutX="364.0" layoutY="46.0" prefHeight="41.0" prefWidth="74.0" text="0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="364.0">
+            <Label layoutX="459.0" layoutY="6.0" text="Стоимость" AnchorPane.bottomAnchor="79.0" AnchorPane.rightAnchor="118.0" />
+            <Label fx:id="finalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="41.0" prefWidth="74.0" text="0" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="118.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="7.0" prefHeight="15.0" prefWidth="135.0" text="Не все доплнения" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="6.0" />
-            <Label layoutX="9.0" layoutY="24.0" prefHeight="15.0" prefWidth="135.0" text="отображены в этом" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="6.0" />
-            <Label alignment="CENTER" layoutX="9.0" layoutY="36.0" prefHeight="15.0" prefWidth="135.0" text="спискке" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="9.0" />
+            <TableView fx:id="addonsTableView" layoutX="-2.0" prefHeight="111.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                <TableColumn fx:id="activate" prefWidth="46.0" text="Добавить" />
+                <TableColumn fx:id="addonName" prefWidth="107.0" text="Название" />
+                  <TableColumn fx:id="addonNameEn" prefWidth="81.0" text="Название Англ." />
+                  <TableColumn fx:id="addonLevel" prefWidth="44.0" text="Уровень" />
+                  <TableColumn fx:id="addonCost" maxWidth="1.7976931348623157E308" prefWidth="53.0" text="Стоимость" />
+              </columns>
+            </TableView>
          </children>
       </AnchorPane>
       <!-- bottomMenu End -->

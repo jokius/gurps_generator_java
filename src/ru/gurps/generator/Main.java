@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.gurps.generator.controller.UsersController;
 
 import java.io.*;
 
@@ -25,9 +26,12 @@ public class Main extends Application {
             ExportResource("/db/gurps.mv.db");
         }
 
-        Parent root = FXMLLoader.load(getClass().getResource("resources/views/main.fxml"));
-        primaryStage.setScene(new Scene(root, 650, 600));
-        primaryStage.setTitle("GURPSGenerator");
+        FXMLLoader view = new FXMLLoader(getClass().getResource("resources/views/select_user.fxml"));
+        UsersController controller = new UsersController(primaryStage);
+        view.setController(controller);
+        Parent root = view.load();
+        primaryStage.setScene(new Scene(root, 395, 260));
+        primaryStage.setTitle("GURPSGenerator - Выбор персонажа");
         primaryStage.show();
     }
 

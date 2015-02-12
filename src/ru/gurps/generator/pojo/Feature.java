@@ -10,11 +10,14 @@ public class Feature {
     private final SimpleStringProperty type;
     private final SimpleStringProperty cost;
     private final SimpleStringProperty description;
+    private final SimpleStringProperty oldLevel;
     private final SimpleStringProperty maxLevel;
     private final SimpleStringProperty psi;
     private final SimpleStringProperty cybernetic;
+    private boolean add;
 
-    public Feature(String id, String advantage, String title, String titleEn, String type, String cost, String description, String maxLevel, String psi, String cybernetic) {
+    public Feature(String id, String advantage, String title, String titleEn, String type, String cost,
+                   String description, String oldLevel, String maxLevel, String psi, String cybernetic, boolean add) {
         this.id = new SimpleStringProperty(id);
         this.advantage = new SimpleStringProperty(advantage);
         this.title = new SimpleStringProperty(title);
@@ -22,9 +25,11 @@ public class Feature {
         this.type = new SimpleStringProperty(type);
         this.cost = new SimpleStringProperty(cost);
         this.description = new SimpleStringProperty(description);
+        this.oldLevel = new SimpleStringProperty(oldLevel);
         this.maxLevel = new SimpleStringProperty(maxLevel);
         this.psi = new SimpleStringProperty(psi);
         this.cybernetic = new SimpleStringProperty(cybernetic);
+        this.add = add;
     }
 
     public String getId() { return id.get(); }
@@ -70,6 +75,10 @@ public class Feature {
 
     public void setMaxLevel(String sMaxLevel) { maxLevel.set(sMaxLevel); }
 
+    public String getOldLevel() { return oldLevel.get(); }
+
+    public void setOldLevel(String sOldLevel) { oldLevel.set(sOldLevel); }
+
     public String getPsi() { return psi.get(); }
 
     public void setPsi(String sPsi) { psi.set(sPsi); }
@@ -77,4 +86,12 @@ public class Feature {
     public String getCybernetic() { return cybernetic.get(); }
 
     public void setCybernetic(String sCybernetic) { cybernetic.set(sCybernetic); }
+
+    public boolean isAdd() {
+        return add;
+    }
+
+    public void setAdd(boolean add) {
+        this.add = add;
+    }
 }

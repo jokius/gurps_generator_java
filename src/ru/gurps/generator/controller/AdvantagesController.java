@@ -6,20 +6,23 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import ru.gurps.generator.config.Db;
+import ru.gurps.generator.lib.FeatureTableCell;
 import ru.gurps.generator.pojo.Feature;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 public class AdvantagesController extends FeatureAbstractController {
     @FXML
     private void initialize() {
+//        maxPoints.setText("9000");
         initData();
 
         Callback<TableColumn, TableCell> cellFactory =
                 new Callback<TableColumn, TableCell>() {
                     @Override
                     public TableCell call(TableColumn p) {
-                        MyStringTableCell cell = new MyStringTableCell();
-                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+                        FeatureTableCell cell = new FeatureTableCell();
+                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new FeatureEventHandler());
                         return cell;
                     }
                 };
@@ -35,20 +38,17 @@ public class AdvantagesController extends FeatureAbstractController {
 
         cost.setCellValueFactory(new PropertyValueFactory<Feature, String>("cost"));
         cost.setCellFactory(cellFactory);
-
+        
         description.setCellValueFactory(new PropertyValueFactory<Feature, String>("description"));
-        cost.setCellFactory(cellFactory);
+        description.setCellFactory(cellFactory);
 
         featureTableView.setItems(featuresData);
 
     }
 
     private void initData() {
-        new Db();
         try {
-            ResultSet advantages;
-            advantages = Db.connect.createStatement().executeQuery("SELECT * FROM features WHERE advantage = TRUE");
-
+            ResultSet advantages = Db.find_by("features", "advantage", "true");
             featuresData.removeAll();
             while (advantages.next()) {
                 featuresData.add(new Feature(
@@ -59,9 +59,11 @@ public class AdvantagesController extends FeatureAbstractController {
                         advantages.getString("type"),
                         advantages.getString("cost"),
                         advantages.getString("description"),
+                        "1",
                         advantages.getString("max_level"),
                         advantages.getString("psi"),
-                        advantages.getString("cybernetic")
+                        advantages.getString("cybernetic"),
+                        false
                 ));
             }
 
