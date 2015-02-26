@@ -1,27 +1,31 @@
-package ru.gurps.generator.pojo;
+package ru.gurps.generator.models;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import ru.gurps.generator.config.Model;
 
-public class User {
-    private final SimpleIntegerProperty id;
-    private final SimpleStringProperty name;
-    private final SimpleStringProperty currentPoints;
-    private final SimpleStringProperty maxPoints;
-    private final SimpleIntegerProperty st;
-    private final SimpleIntegerProperty dx;
-    private final SimpleIntegerProperty iq;
-    private final SimpleIntegerProperty ht;
-    private final SimpleIntegerProperty hp;
-    private final SimpleIntegerProperty will;
-    private final SimpleIntegerProperty per;
-    private final SimpleIntegerProperty fp;
-    private final SimpleDoubleProperty bs;
-    private final SimpleIntegerProperty move;
-    private final SimpleIntegerProperty sm;
-    private final SimpleBooleanProperty noFineManipulators;
+public class User extends Model {
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty name;
+    private SimpleStringProperty currentPoints;
+    private SimpleStringProperty maxPoints;
+    private SimpleIntegerProperty st;
+    private SimpleIntegerProperty dx;
+    private SimpleIntegerProperty iq;
+    private SimpleIntegerProperty ht;
+    private SimpleIntegerProperty hp;
+    private SimpleIntegerProperty will;
+    private SimpleIntegerProperty per;
+    private SimpleIntegerProperty fp;
+    private SimpleDoubleProperty bs;
+    private SimpleIntegerProperty move;
+    private SimpleIntegerProperty sm;
+    private SimpleBooleanProperty noFineManipulators;
+    
+    public User(){
+    }
 
     public User(int id, String name, String currentPoints, String maxPoints, int st, int dx, int iq, int ht, int hp, int will,
                 int per, int fp, double bs, int move, int sm, boolean noFineManipulators) {
