@@ -90,7 +90,7 @@ public class Model extends Db {
 
     }
 
-    public ResultSet find_by(String table, String column, String value){
+    public ResultSet find_by(String column, String value){
         try {
             createConnection();
             return connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
