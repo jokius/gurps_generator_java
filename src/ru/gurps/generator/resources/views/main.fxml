@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="411.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.MainController">
+<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.MainWindowController">
    <children>
        <Label alignment="CENTER" layoutX="4.0" layoutY="97.0" prefHeight="25.0" prefWidth="192.0" text="Character Generator">
            <font>
@@ -49,19 +49,143 @@
        </MenuButton>
        <TabPane layoutX="-3.0" layoutY="125.0" prefHeight="99.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="125.0">
           <tabs>
-              <Tab text="Основные параметры">
+              <Tab fx:id="tParams" text="Основные параметры">
                  <content>
-                     <fx:include source="params.fxml" />
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
+                         <children>
+                             <Label layoutX="11.0" layoutY="14.0" prefHeight="26.0" prefWidth="158.0" text="Модификатор размера" AnchorPane.leftAnchor="11.0" />
+                             <TextField fx:id="sm" alignment="CENTER" layoutX="173.0" layoutY="14.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="173.0" />
+                             <CheckBox fx:id="noFineManipulators" alignment="CENTER" layoutX="433.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" text="Нет хороших манипуляторов" AnchorPane.rightAnchor="10.0" />
+                             <Label layoutX="13.0" layoutY="262.0" prefHeight="26.0" prefWidth="87.0" text="Базовый груз" AnchorPane.leftAnchor="13.0" />
+                             <Label layoutX="13.0" layoutY="220.0" prefHeight="26.0" prefWidth="115.0" text="Базовая скорость" AnchorPane.leftAnchor="13.0" />
+                             <TextField fx:id="bs" alignment="CENTER" layoutX="139.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="139.0" />
+                             <Label fx:id="bg" alignment="CENTER" layoutX="191.0" layoutY="262.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="191.0" />
+                             <Label fx:id="bsCost" alignment="CENTER" layoutX="191.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="191.0" />
+                             <Label fx:id="moveCost" alignment="CENTER" layoutX="594.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
+                             <TextField fx:id="move" alignment="CENTER" layoutX="549.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
+                             <Label layoutX="412.0" layoutY="220.0" prefHeight="26.0" prefWidth="123.0" text="Базовое движение" AnchorPane.rightAnchor="113.0" />
+                             <Label fx:id="doge" alignment="CENTER" layoutX="594.0" layoutY="262.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
+                             <Label layoutX="466.0" layoutY="262.0" prefHeight="26.0" prefWidth="69.0" text="Уклонение" AnchorPane.rightAnchor="113.0" />
+                             <Label layoutX="359.0" layoutY="296.0" prefHeight="26.0" prefWidth="176.0" text="Повреждение амплитудное" AnchorPane.rightAnchor="113.0" />
+                             <Label fx:id="swing" alignment="CENTER" layoutX="584.0" layoutY="296.0" prefHeight="26.0" prefWidth="49.0" AnchorPane.rightAnchor="15.0" />
+                             <Label fx:id="thrust" alignment="CENTER" layoutX="191.0" layoutY="296.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="191.0" />
+                             <Label layoutX="13.0" layoutY="296.0" prefHeight="26.0" prefWidth="148.0" text="Повреждение прямое" AnchorPane.leftAnchor="13.0" />
+                             <TextField fx:id="hp" alignment="CENTER" layoutX="549.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
+                             <TextField fx:id="st" alignment="CENTER" layoutX="125.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
+                             <Label fx:id="hpCost" alignment="CENTER" layoutX="594.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
+                             <Label alignment="CENTER" layoutX="436.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки здаровья" AnchorPane.rightAnchor="113.0" />
+                             <Label fx:id="stCost" alignment="CENTER" layoutX="174.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
+                             <Label alignment="CENTER" layoutX="13.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Сила" AnchorPane.leftAnchor="13.0" />
+                             <TextField fx:id="will" alignment="CENTER" layoutX="549.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
+                             <TextField fx:id="dx" alignment="CENTER" layoutX="125.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
+                             <Label fx:id="willCost" alignment="CENTER" layoutX="594.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
+                             <Label alignment="CENTER" layoutX="436.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Воля" AnchorPane.rightAnchor="113.0" />
+                             <Label fx:id="dxCost" alignment="CENTER" layoutX="172.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="172.0" />
+                             <Label alignment="CENTER" layoutX="13.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Ловкость" AnchorPane.leftAnchor="13.0" />
+                             <TextField fx:id="fp" alignment="CENTER" layoutX="549.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
+                             <TextField fx:id="per" alignment="CENTER" layoutX="549.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
+                             <Label fx:id="fpCost" alignment="CENTER" layoutX="594.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
+                             <Label alignment="CENTER" layoutX="436.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Восприятие" AnchorPane.rightAnchor="113.0" />
+                             <Label fx:id="iqCost" alignment="CENTER" layoutX="174.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
+                             <Label alignment="CENTER" layoutX="13.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Интелект" AnchorPane.leftAnchor="13.0" />
+                             <TextField fx:id="iq" alignment="CENTER" layoutX="125.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
+                             <TextField fx:id="ht" alignment="CENTER" layoutX="125.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
+                             <Label fx:id="perCost" alignment="CENTER" layoutX="594.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
+                             <Label alignment="CENTER" layoutX="436.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки усталости" AnchorPane.rightAnchor="113.0" />
+                             <Label alignment="CENTER" layoutX="13.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Здаровье" AnchorPane.leftAnchor="13.0" />
+                             <Label fx:id="htCost" alignment="CENTER" layoutX="174.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
+                         </children>
+                     </AnchorPane>
                  </content>
               </Tab>
               <Tab text="Преимущества">
                  <content>
-                     <fx:include source="advantage.fxml" />
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
+                         <children>
+                             <TableView fx:id="advantagesView" prefHeight="399.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                     <TableColumn fx:id="advantagesTitle" prefWidth="136.0" text="Название" />
+                                     <TableColumn fx:id="advantagesTitleEn" prefWidth="125.0" text="Название англ." />
+                                     <TableColumn fx:id="advantagesType" minWidth="0.0" prefWidth="45.0" text="Тип" />
+                                     <TableColumn fx:id="advantagesCost" prefWidth="93.0" text="Стоимость" />
+                                     <TableColumn fx:id="advantagesDescription" prefWidth="240" text="Описание" />
+                                 </columns>
+                             </TableView>
+                             <!-- bottomMenu -->
+                             <AnchorPane fx:id="advantagesBottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                     <Slider fx:id="advantagesLvlSlider" blockIncrement="1.0" layoutX="323.0" layoutY="39.0" majorTickUnit="99.0" min="1.0" minorTickCount="100" showTickLabels="true" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="182.0" />
+                                     <Label fx:id="advantagesLvlLabel" layoutX="323.0" layoutY="11.0" prefHeight="15.0" prefWidth="131.0" text="Уровень " AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="191.0" />
+                                     <TextField fx:id="advantagesLvlText" layoutX="390.0" layoutY="6.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="193.0" />
+                                     <Button fx:id="advantagesAdd" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                                     <Button fx:id="advantagesRemove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                                     <Button fx:id="advantagesFull" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Подробнее" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
+                                     <Label layoutX="459.0" layoutY="6.0" text="Стоимость" AnchorPane.bottomAnchor="79.0" AnchorPane.rightAnchor="118.0" />
+                                     <Label fx:id="advantagesFinalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="41.0" prefWidth="74.0" text="0" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="118.0">
+                                     <TextField fx:id="advantagesFinalCostText" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="41.0" prefWidth="74.0" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="118.0" />
+                                         <font>
+                                             <Font size="18.0" />
+                                         </font>
+                                     </Label>
+                                     <TableView fx:id="advantagesAddonsTableView" layoutX="-2.0" prefHeight="111.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="0.0">
+                                         <columns>
+                                             <TableColumn fx:id="advantagesActivate" prefWidth="46.0" text="Добавить" />
+                                             <TableColumn fx:id="advantagesAddonName" prefWidth="107.0" text="Название" />
+                                             <TableColumn fx:id="advantagesAddonNameEn" prefWidth="81.0" text="Название Англ." />
+                                             <TableColumn fx:id="advantagesAddonLevel" prefWidth="44.0" text="Уровень" />
+                                             <TableColumn fx:id="advantagesAddonCost" maxWidth="1.7976931348623157E308" prefWidth="53.0" text="Стоимость" />
+                                         </columns>
+                                     </TableView>
+                                 </children>
+                             </AnchorPane>
+                             <!-- bottomMenu End -->
+                         </children>
+                     </AnchorPane>
                  </content>
               </Tab>
               <Tab text="Недостатки">
                  <content>
-                     <fx:include source="disadvantage.fxml" />
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
+                         <children>
+                             <TableView fx:id="disadvantagesView" prefHeight="399.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                     <TableColumn fx:id="disadvantagesTitle" prefWidth="136.0" text="Название" />
+                                     <TableColumn fx:id="disadvantagesTitleEn" prefWidth="125.0" text="Название англ." />
+                                     <TableColumn fx:id="disadvantagesType" minWidth="0.0" prefWidth="45.0" text="Тип" />
+                                     <TableColumn fx:id="disadvantagesCost" prefWidth="93.0" text="Стоимость" />
+                                     <TableColumn fx:id="disadvantagesDescription" prefWidth="240" text="Описание" />
+                                 </columns>
+                             </TableView>
+                             <!-- bottomMenu -->
+                             <AnchorPane fx:id="disadvantagesBottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                     <Slider fx:id="disadvantagesLvlSlider" blockIncrement="1.0" layoutX="323.0" layoutY="39.0" majorTickUnit="99.0" min="1.0" minorTickCount="100" showTickLabels="true" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="182.0" />
+                                     <Label fx:id="disadvantagesLvlLabel" layoutX="323.0" layoutY="11.0" prefHeight="15.0" prefWidth="131.0" text="Уровень " AnchorPane.bottomAnchor="74.0" AnchorPane.rightAnchor="191.0" />
+                                     <TextField fx:id="disadvantagesLvlText" layoutX="390.0" layoutY="6.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="193.0" />
+                                     <Button fx:id="disadvantagesAdd" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                                     <Button fx:id="disadvantagesRemove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                                     <Button fx:id="disadvantagesFull" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Подробнее" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
+                                     <Label layoutX="459.0" layoutY="6.0" text="Стоимость" AnchorPane.bottomAnchor="79.0" AnchorPane.rightAnchor="118.0" />
+                                     <Label fx:id="disadvantagesFinalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="41.0" prefWidth="74.0" text="0" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="118.0">
+                                     <TextField fx:id="disadvantagesFinalCostText" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="41.0" prefWidth="74.0" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="118.0" />
+                                         <font>
+                                             <Font size="18.0" />
+                                         </font>
+                                     </Label>
+                                     <TableView fx:id="disadvantagesAddonsTableView" layoutX="-2.0" prefHeight="111.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="0.0">
+                                         <columns>
+                                             <TableColumn fx:id="disadvantagesActivate" prefWidth="46.0" text="Добавить" />
+                                             <TableColumn fx:id="disadvantagesAddonName" prefWidth="107.0" text="Название" />
+                                             <TableColumn fx:id="disadvantagesAddonNameEn" prefWidth="81.0" text="Название Англ." />
+                                             <TableColumn fx:id="disadvantagesAddonLevel" prefWidth="44.0" text="Уровень" />
+                                             <TableColumn fx:id="disadvantagesAddonCost" maxWidth="1.7976931348623157E308" prefWidth="53.0" text="Стоимость" />
+                                         </columns>
+                                     </TableView>
+                                 </children>
+                             </AnchorPane>
+                             <!-- bottomMenu End -->
+                         </children>
+                     </AnchorPane>
                  </content>
               </Tab>
               <Tab text="Умения">
@@ -81,6 +205,10 @@
               </Tab>
           </tabs>
        </TabPane>
+           <Label layoutX="459.0" layoutY="85.0" prefHeight="26.0" prefWidth="115.0" text="Затрачено очков" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="85.0" />
+           <Label fx:id="currentPoints" alignment="CENTER" layoutX="580.0" layoutY="85.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="85.0" />
+           <Label layoutX="294.0" layoutY="90.0" prefHeight="26.0" text="Максимум очков" AnchorPane.rightAnchor="242.0" AnchorPane.topAnchor="85.0" />
+           <TextField fx:id="maxPoints" alignment="CENTER" layoutX="410.0" layoutY="90.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="85.0" />
       <!--<Label fx:id="user" layoutX="200.0" layoutY="28.0" text="Label" visible="false" />-->
    </children>
 </AnchorPane>
