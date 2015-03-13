@@ -10,14 +10,16 @@ import java.util.Objects;
 public class Model extends Db {
     private String table = this.getClass().getSimpleName() + "s";
 
-    public ResultSet create(HashMap<String, String> paramsHash){
+    public Model create() {
         String params = "";
 
-        if(!paramsHash.isEmpty()){
-            for (Map.Entry<String, String> parametr : paramsHash.entrySet()){
-                params += parametr.getKey() + "='" + parametr.getValue() + "',";
+        for (Field field : this.getClass().getDeclaredFields())
+            try {
+                if (field.get(this) != null && !field.getName().equals("id"))
+                    params += field.getName() + "=" + field.get(this) + ",";
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
-        }
 
         try {
             createConnection();
@@ -27,8 +29,25 @@ public class Model extends Db {
             params += "id=" + id;
 
             connect.createStatement().executeUpdate("INSERT INTO " + table + " SET " + params);
+            result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            result.next();
 
-            return connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            for (Field field : this.getClass().getDeclaredFields()) {
+                try {
+                    if (String.class.isAssignableFrom(field.getType()))
+                        field.set(this, result.getString(field.getName()));
+                    else if (Integer.class.isAssignableFrom(field.getType()))
+                        field.set(this, result.getInt(field.getName()));
+                    else if (Double.class.isAssignableFrom(field.getType()))
+                        field.set(this, result.getDouble(field.getName()));
+                    else if (Boolean.class.isAssignableFrom(field.getType()))
+                        field.set(this, result.getBoolean(field.getName()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return this;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,15 +55,15 @@ public class Model extends Db {
         return null;
     }
 
-    public boolean update(int id, HashMap<String, String> paramsHash){
+    public boolean update(int id, HashMap<String, String> paramsHash) {
         String params = "";
 
-        if(!paramsHash.isEmpty()){
-            for (Map.Entry<String, String> parametr : paramsHash.entrySet()){
+        if (!paramsHash.isEmpty()) {
+            for (Map.Entry<String, String> parametr : paramsHash.entrySet()) {
                 params += parametr.getKey() + "='" + parametr.getValue() + "',";
             }
         }
-        params = params.substring(0, params.length()-1);
+        params = params.substring(0, params.length() - 1);
 
         try {
             createConnection();
@@ -57,19 +76,19 @@ public class Model extends Db {
         return false;
     }
 
-    public boolean save(){
+    public boolean save() {
         String params = "";
         String id = "";
-        for( Field field : this.getClass().getDeclaredFields()){
+        for (Field field : this.getClass().getDeclaredFields()) {
             try {
-                if(field.getName().equals("id")) id = Integer.toString((Integer) field.get(this));
-                else if(field.get(this) != null) params += field.getName() + "=" + field.get(this) + ",";
+                if (field.getName().equals("id")) id = Integer.toString((Integer) field.get(this));
+                else if (field.get(this) != null) params += field.getName() + "=" + field.get(this) + ",";
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
 
-        params = params.substring(0, params.length()-1);
+        params = params.substring(0, params.length() - 1);
 
         try {
             createConnection();
@@ -82,7 +101,7 @@ public class Model extends Db {
         return false;
     }
 
-    public boolean delete(int id){
+    public boolean delete(int id) {
         try {
             createConnection();
             connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE id=" + id);
@@ -94,7 +113,7 @@ public class Model extends Db {
         return false;
     }
 
-    public ResultSet all(){
+    public ResultSet all() {
         try {
             createConnection();
             return connect.createStatement().executeQuery("SELECT * FROM " + table);
@@ -105,7 +124,7 @@ public class Model extends Db {
         return null;
     }
 
-    public ResultSet find(int id){
+    public ResultSet find(int id) {
         try {
             createConnection();
             return connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
@@ -117,7 +136,7 @@ public class Model extends Db {
 
     }
 
-    public ResultSet find_by(String column, String value){
+    public ResultSet find_by(String column, String value) {
         try {
             createConnection();
             return connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
@@ -129,14 +148,13 @@ public class Model extends Db {
 
     }
 
-    public ResultSet where(HashMap<String, String> paramsHash){
+    public ResultSet where(HashMap<String, String> paramsHash) {
         String params = "";
         String query;
-        if(paramsHash.isEmpty()){
+        if (paramsHash.isEmpty()) {
             query = "SELECT * FROM " + table;
-        }
-        else{
-            for (Map.Entry<String, String> parametr : paramsHash.entrySet()){
+        } else {
+            for (Map.Entry<String, String> parametr : paramsHash.entrySet()) {
                 params += parametr.getKey() + "='" + parametr.getValue() + "' and ";
             }
             params = params.substring(0, params.length() - 5);
@@ -154,7 +172,7 @@ public class Model extends Db {
         return null;
     }
 
-    public boolean isAny(ResultSet records){
+    public boolean isAny(ResultSet records) {
         try {
             return records.next();
         } catch (SQLException e) {
@@ -163,7 +181,7 @@ public class Model extends Db {
         return false;
     }
 
-    public boolean isEmpty(ResultSet records){
+    public boolean isEmpty(ResultSet records) {
         try {
             return !records.next();
         } catch (SQLException e) {
