@@ -140,11 +140,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         int result = (int) (feature.getCost() * Double.parseDouble(currentLvl) * cost);
         int userCost = 0;
 
-        System.out.println("addon.active" + addon.active);
-        System.out.println("addon.resultCost" + addon.resultCost);
-        System.out.println("intFinalCost" + intFinalCost);
-        System.out.println("result" + result);
-
         if (addon.active) {
             lastCost = intFinalCost + result;
             if (feature.add) userCost = Integer.parseInt(currentPoints.getText()) + result;
@@ -153,8 +148,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             if (feature.add) userCost = Integer.parseInt(currentPoints.getText()) - result;
         }
 
-        System.out.println("userCost" + userCost);
-        System.out.println("lastCost" + lastCost);
         if (feature.add) {
             user.currentPoints = Integer.toString(userCost);
             currentPoints.setText(user.currentPoints);
@@ -195,12 +188,11 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         tableAddonName.setCellValueFactory(new PropertyValueFactory<>("title"));
         tableAddonNameEn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
         tableAddonLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
-        tableAddonCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tableAddonLevel.setEditable(true);
+        tableAddonCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tableAddonCost.setEditable(true);
 
         tableAddonLevel.setCellFactory(TextFieldTableCell.forTableColumn());
-
         tableAddonLevel.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Addon, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Addon, String> event) {
@@ -230,13 +222,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             addButton.setOnAction(t -> {
                 Addon addon = (Addon) getTableRow().getItem();
                 new FeatureAddon().delete(addon.id);
-                HashMap<String, String> addonParams = new HashMap<>();
-                addonParams.put("userFeatureId", Integer.toString(feature.id));
-                addonParams.put("addonId", Integer.toString(addon.id));
-                addonParams.put("level", addon.level);
-                addonParams.put("cost", addon.cost);
-                new FeatureAddon().create(addonParams);
-
+                new FeatureAddon(feature.id, addon.id, addon.cost, Integer.parseInt(addon.level)).create();
                 addon.active = true;
                 double addonCost = currentAddonCost(Integer.parseInt(addon.cost), Integer.parseInt(addon.level));
                 addonCost(addonCost, addon);
@@ -354,10 +340,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         return finalCost.isVisible() ? Integer.parseInt(finalCost.getText()) : Integer.parseInt(finalCostText.getText());
     }
 
-    private String stringCost() {
-        return finalCost.isVisible() ? finalCost.getText() : finalCostText.getText();
-    }
-
     private void setupBottomMenu() {
         final double bottomMenuSize = 134.0;
         AnchorPane.setBottomAnchor(featureTableView, bottomMenuSize);
@@ -394,43 +376,23 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         });
 
         add.setOnAction(actionEvent -> {
-            try {
-                HashMap<String, String> params1 = new HashMap<>();
-                params1.put("userId", Integer.toString(user.id));
-                params1.put("featureId", Integer.toString(feature.id));
-                params1.put("level", currentLvl);
-                params1.put("cost", stringCost());
-                ResultSet user_feature = new UserFeature().create(params1);
+            UserFeature user_feature = (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
+            String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
+            user.currentPoints = setCurrentPoints;
 
-                String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
-                user.currentPoints = setCurrentPoints;
+            HashMap<String, String> userParams = new HashMap<>();
+            userParams.put("currentPoints", setCurrentPoints);
+            new User().update(user.id, userParams);
 
-                HashMap<String, String> userParams = new HashMap<>();
-                userParams.put("currentPoints", setCurrentPoints);
-                new User().update(user.id, userParams);
+            currentPoints.setText(setCurrentPoints);
+            add.setVisible(false);
+            remove.setVisible(true);
 
-                currentPoints.setText(setCurrentPoints);
-
-                add.setVisible(false);
-                remove.setVisible(true);
-
-                if (!addonsTableView.isVisible()) return;
-
-                user_feature.next();
-                for (Addon addon : addonsArray) {
-                    if (addon.active) {
-                        new FeatureAddon().delete(addon.id);
-                        params1.clear();
-                        params1.put("userFeatureId", user_feature.getString("id"));
-                        params1.put("addonId", Integer.toString(addon.id));
-                        params1.put("level", addon.level);
-                        params1.put("cost", addon.cost);
-                        new FeatureAddon().create(params1);
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            if (!addonsTableView.isVisible()) return;
+            addonsArray.stream().filter(addon -> addon.active).forEach(addon -> {
+                new FeatureAddon().delete(addon.id);
+                new FeatureAddon(user_feature.id, addon.id, addon.cost, Integer.parseInt(addon.level)).create();
+            });
         });
 
         remove.setOnAction(actionEvent -> {
