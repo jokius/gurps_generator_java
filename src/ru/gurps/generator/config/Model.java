@@ -42,21 +42,43 @@ public class Model extends Db {
         return null;
     }
 
-    public boolean update(int id, HashMap<String, String> paramsHash) {
+    public boolean update(HashMap<String, String> paramsHash) {
         String params = "";
-
+        try {
         if (!paramsHash.isEmpty()) {
             for (Map.Entry<String, String> parametr : paramsHash.entrySet()) {
+                Field field = this.getClass().getDeclaredField(parametr.getKey());
+                if (String.class.isAssignableFrom(field.getType()))
+                    field.set(this, parametr.getValue());
+                else if (int.class.isAssignableFrom(field.getType()))
+                    field.set(this, Integer.parseInt(parametr.getValue()));
+                else if (double.class.isAssignableFrom(field.getType()))
+                    field.set(this, Double.parseDouble(parametr.getValue()));
+                else if (boolean.class.isAssignableFrom(field.getType()))
+                    field.set(this, Boolean.parseBoolean(parametr.getValue()));
+
                 params += parametr.getKey() + "='" + parametr.getValue() + "',";
             }
         }
         params = params.substring(0, params.length() - 1);
-
-        try {
             createConnection();
-            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + params + " WHERE id=" + id);
+            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + params + " WHERE id=" + id());
             return true;
-        } catch (SQLException e) {
+        } catch (IllegalAccessException | NoSuchFieldException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean update_single(String key, Object value){
+        try {
+            this.getClass().getDeclaredField(key).set(this, value);
+            createConnection();
+
+            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + key + "=" + value + " WHERE id=" + id());
+            return true;
+        } catch (IllegalAccessException | NoSuchFieldException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -102,11 +124,10 @@ public class Model extends Db {
 
     public boolean delete() {
         try {
-            int id = (int) this.getClass().getDeclaredField("id").get(this);
             createConnection();
-            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE id=" + id);
+            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE id=" + id());
             return true;
-        } catch (SQLException | IllegalAccessException | NoSuchFieldException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -202,16 +223,26 @@ public class Model extends Db {
             try {
                 if (String.class.isAssignableFrom(field.getType()))
                     field.set(this, result.getString(field.getName()));
-                else if (Integer.class.isAssignableFrom(field.getType()))
+                else if (int.class.isAssignableFrom(field.getType()))
                     field.set(this, result.getInt(field.getName()));
-                else if (Double.class.isAssignableFrom(field.getType()))
+                else if (double.class.isAssignableFrom(field.getType()))
                     field.set(this, result.getDouble(field.getName()));
-                else if (Boolean.class.isAssignableFrom(field.getType()))
+                else if (boolean.class.isAssignableFrom(field.getType()))
                     field.set(this, result.getBoolean(field.getName()));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
         return this;
+    }
+
+    private int id(){
+        try {
+            return (int) this.getClass().getDeclaredField("id").get(this);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 }
