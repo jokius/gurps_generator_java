@@ -27,12 +27,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 public class FeatureEventHandler implements EventHandler<MouseEvent> {
-    private Feature features;
+    private Feature feature;
     private String currentLvl;
     private String lastId;
 
     private User user;
-    private String labelName;
     private ObservableList<Feature> featuresData;
     private ObservableList<Addon> addonsArray;
     private TableView<Feature> featureTableView;
@@ -60,7 +59,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
                                Label currentPoints) {
 
         this.user = user;
-        this.labelName = lvlLabel.getText() + " ";
         this.featuresData = featuresData;
         this.featureTableView = featureTableView;
         this.addonsTableView = addonsTableView;
@@ -86,8 +84,8 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         try {
             TableRow row = (TableRow) t.getSource();
             int index = row.getIndex();
-            features = featuresData.get(index);
-            String id = Integer.toString(features.getId());
+            feature = featuresData.get(index);
+            String id = Integer.toString(feature.id);
             setupBottomMenu();
             setCurrentLvl();
             setCurrentCost();
@@ -99,9 +97,9 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             params.put("featureId", id);
             ResultSet userFeature = new UserFeature().where(params);
 
-            features.setAdd(new User().isAny(userFeature));
+            feature.add = new User().isAny(userFeature);
 
-            if (features.isAdd()) {
+            if (feature.add) {
                 add.setVisible(false);
                 remove.setVisible(true);
             } else {
@@ -109,7 +107,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
                 remove.setVisible(false);
             }
 
-            defaultParams(features);
+            defaultParams(feature);
             allAddons();
 
             if (!addonsArray.isEmpty()) {
@@ -125,7 +123,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
             buttonsActions();
 
-            if(features.isAdd()) finalCost.setText(userFeature.getString("cost"));
+            if(feature.add) finalCost.setText(userFeature.getString("cost"));
         } catch (JdbcSQLException ignored) {
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,7 +137,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     private void addonCost(double cost, Addon addon) {
         int lastCost;
         int intFinalCost = intCost();
-        int result = (int) (features.getCost() * Double.parseDouble(currentLvl) * cost);
+        int result = (int) (feature.getCost() * Double.parseDouble(currentLvl) * cost);
         int userCost = 0;
 
         System.out.println("addon.active" + addon.active);
@@ -149,15 +147,15 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
         if (addon.active) {
             lastCost = intFinalCost + result;
-            if (features.isAdd()) userCost = Integer.parseInt(currentPoints.getText()) + result;
+            if (feature.add) userCost = Integer.parseInt(currentPoints.getText()) + result;
         } else {
             lastCost = intFinalCost - result;
-            if (features.isAdd()) userCost = Integer.parseInt(currentPoints.getText()) - result;
+            if (feature.add) userCost = Integer.parseInt(currentPoints.getText()) - result;
         }
 
         System.out.println("userCost" + userCost);
         System.out.println("lastCost" + lastCost);
-        if (features.isAdd()) {
+        if (feature.add) {
             user.currentPoints = Integer.toString(userCost);
             currentPoints.setText(user.currentPoints);
             user.save();
@@ -167,7 +165,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void userAddons(ResultSet userFeature) throws SQLException {
-        if (!features.isAdd()) return;
+        if (!feature.add) return;
         ResultSet featureAddons = new FeatureAddon().find_by("userFeatureId", userFeature.getString("id"));
         while (featureAddons.next()) {
             for (Addon addon : addonsArray) {
@@ -233,7 +231,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
                 Addon addon = (Addon) getTableRow().getItem();
                 new FeatureAddon().delete(addon.id);
                 HashMap<String, String> addonParams = new HashMap<>();
-                addonParams.put("userFeatureId", Integer.toString(features.getId()));
+                addonParams.put("userFeatureId", Integer.toString(feature.id));
                 addonParams.put("addonId", Integer.toString(addon.id));
                 addonParams.put("level", addon.level);
                 addonParams.put("cost", addon.cost);
@@ -287,8 +285,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void setCurrentLvl() {
-        int maxLevel = features.getMaxLevel();
-        if (maxLevel == 0) {
+        if (feature.maxLevel == 0) {
             currentLvl = "1";
             lvlText.setText("1");
             lvlText.textProperty().addListener(new ChangeListener<String>() {
@@ -301,12 +298,12 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             lvlLabel.setVisible(true);
             lvlText.setVisible(true);
             lvlComboBox.setVisible(false);
-        } else if (maxLevel > 1) {
+        } else if (feature.maxLevel > 1) {
             lvlLabel.setVisible(true);
             lvlText.setVisible(false);
             lvlComboBox.setVisible(true);
             ObservableList<Integer> levels = FXCollections.observableArrayList();
-            for(int i = 1; maxLevel >= i; i++) levels.add(i);
+            for(int i = 1; feature.maxLevel >= i; i++) levels.add(i);
             lvlComboBox.setItems(levels);
             lvlComboBox.setValue(1);
             lvlComboBox.valueProperty().addListener((observable, oldValue, newValue) -> finalCost((Integer) newValue));
@@ -320,7 +317,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void setCurrentCost() {
-        int cost = features.getCost();
+        int cost = feature.getCost();
         if (cost == 0) {
             finalCost.setVisible(false);
             finalCostText.setVisible(true);
@@ -337,8 +334,8 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void finalCost(int newLevel) {
-        int finalCost = intCost() / features.getOldLevel() * newLevel;
-        features.setOldLevel(newLevel);
+        int finalCost = intCost() / feature.oldLevel * newLevel;
+        feature.oldLevel = newLevel;
         newCost(finalCost);
     }
 
@@ -368,7 +365,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void defaultParams(Feature features) {
-        lastId = Integer.toString(features.getId());
+        lastId = Integer.toString(features.id);
         addonsArray = FXCollections.observableArrayList();
         addonsArray.clear();
         lvlText.setText("1");
@@ -378,12 +375,12 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
     private void buttonsActions() {
         full.setOnAction(actionEvent -> {
-            String name = features.getTitle() + "(" + features.getTitleEn() + ")";
-            String cost = "Стоимость: " + features.getCost();
+            String name = feature.getTitle() + "(" + feature.getTitleEn() + ")";
+            String cost = "Стоимость: " + feature.getCost();
 
             Stage childrenStage = new Stage();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/feature_full.fxml"));
-            FeatureFullController controller = new FeatureFullController(name, cost, features.getType(), features.getDescription());
+            FeatureFullController controller = new FeatureFullController(name, cost, feature.getType(), feature.getDescription());
             loader.setController(controller);
             Parent childrenRoot;
             try {
@@ -400,7 +397,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             try {
                 HashMap<String, String> params1 = new HashMap<>();
                 params1.put("userId", Integer.toString(user.id));
-                params1.put("featureId", Integer.toString(features.getId()));
+                params1.put("featureId", Integer.toString(feature.id));
                 params1.put("level", currentLvl);
                 params1.put("cost", stringCost());
                 ResultSet user_feature = new UserFeature().create(params1);
@@ -440,7 +437,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             try {
                 HashMap<String, String> params1 = new HashMap<>();
                 params1.put("userId", Integer.toString(user.id));
-                params1.put("featureId", Integer.toString(features.getId()));
+                params1.put("featureId", Integer.toString(feature.id));
 
                 ResultSet user_feature = new UserFeature().where(params1);
                 user_feature.next();
