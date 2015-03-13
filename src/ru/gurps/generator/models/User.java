@@ -7,39 +7,25 @@ public class User extends Model {
     public String name;
     public String currentPoints;
     public String maxPoints;
-    public int st;
-    public int dx;
-    public int iq;
-    public int ht;
-    public int hp;
-    public int will;
-    public int per;
-    public int fp;
-    public double bs;
-    public int move;
-    public int sm;
-    public boolean noFineManipulators;
+    public int st = 10;
+    public int dx = 10;
+    public int iq = 10;
+    public int ht = 10;
+    public int hp = 10;
+    public int will = 10;
+    public int per = 10;
+    public int fp = 10;
+    public double bs = 5.0;
+    public int move = 5;
+    public int sm = 0;
+    public boolean noFineManipulators = false;
     
     public User(){
     }
 
-    public User(int id, String name, String currentPoints, String maxPoints, int st, int dx, int iq, int ht, int hp, int will, int per, int fp, double bs, int move, int sm, boolean noFineManipulators) {
-        this.id = id;
+    public User(String name, String maxPoints) {
         this.name = name;
-        this.currentPoints = currentPoints;
         this.maxPoints = maxPoints;
-        this.st = st;
-        this.dx = dx;
-        this.iq = iq;
-        this.ht = ht;
-        this.hp = hp;
-        this.will = will;
-        this.per = per;
-        this.fp = fp;
-        this.bs = bs;
-        this.move = move;
-        this.sm = sm;
-        this.noFineManipulators = noFineManipulators;
     }
 
     public String getName() {
