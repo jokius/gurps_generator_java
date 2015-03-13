@@ -43,7 +43,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("sm", Integer.toString(user.sm));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -57,7 +57,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("noFineManipulators", Boolean.toString(user.noFineManipulators));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -94,7 +94,7 @@ public class AbstractController extends ViewsAbstact {
                 }
                 params.put("st", Integer.toString(user.st));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -120,7 +120,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("dx", Integer.toString(user.dx));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -157,7 +157,7 @@ public class AbstractController extends ViewsAbstact {
                 setPer();
                 params.put("iq", Integer.toString(user.iq));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -189,7 +189,7 @@ public class AbstractController extends ViewsAbstact {
                 setBs();
                 params.put("ht", Integer.toString(user.ht));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -212,7 +212,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("hp", Integer.toString(user.hp));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -235,7 +235,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("will", Integer.toString(user.will));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -258,7 +258,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("per", Integer.toString(user.per));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -281,7 +281,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("fp", Integer.toString(user.fp));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -316,7 +316,7 @@ public class AbstractController extends ViewsAbstact {
 
                 params.put("bs", Double.toString(user.bs));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -338,7 +338,7 @@ public class AbstractController extends ViewsAbstact {
                 params.clear();
                 params.put("move", Integer.toString(user.move));
                 params.put("currentPoints", user.currentPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
 
@@ -356,7 +356,7 @@ public class AbstractController extends ViewsAbstact {
 
                 params.clear();
                 params.put("maxPoints", user.maxPoints);
-                new User().update(user.id, params);
+                user.update(params);
             }
         });
     }
