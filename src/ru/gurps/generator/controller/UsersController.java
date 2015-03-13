@@ -13,12 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
-
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.prefs.Preferences;
 
 public class UsersController extends AbstractController {
     private Stage window;
@@ -59,14 +54,8 @@ public class UsersController extends AbstractController {
 
     @FXML
     private void initialize() {
-        ResultSet users = new User().all();
-        try {
-            while (users.next()) {
-                usersData.add(pojoUser(users));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ObservableList users = new User().all();
+        usersData.addAll(users);
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableCurrentPoints.setCellValueFactory(new PropertyValueFactory<>("currentPoints"));
@@ -76,27 +65,6 @@ public class UsersController extends AbstractController {
         userTable.setItems(usersData);
 
         events();
-    }
-    
-    User pojoUser(ResultSet user) throws SQLException {
-        return new User(
-                user.getInt("id"),
-                user.getString("name"),
-                user.getString("currentPoints"),
-                user.getString("maxPoints"),
-                user.getInt("st"),
-                user.getInt("dx"),
-                user.getInt("iq"),
-                user.getInt("ht"),
-                user.getInt("hp"),
-                user.getInt("will"),
-                user.getInt("per"),
-                user.getInt("fp"),
-                user.getDouble("bs"),
-                user.getInt("move"),
-                user.getInt("sm"),
-                user.getBoolean("noFineManipulators")
-        );
     }
     
     private void events(){
@@ -116,20 +84,7 @@ public class UsersController extends AbstractController {
         });
         
         newUser.setOnAction(event ->{
-            HashMap<String, String> params = new HashMap<>();
-            params.put("name", newName.getText());
-            params.put("maxPoints", points.getText());
-            ResultSet createdUser = new User().create(params);
-
-            try {
-                createdUser.next();
-                user = pojoUser(createdUser);
-                Preferences userPrefs = Preferences.userRoot().node("user");
-                userPrefs.putInt("id", user.id);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
+            user = (User) new User(newName.getText(), points.getText()).create();
             window.close();
             createMainWindow();
         });
@@ -157,7 +112,6 @@ public class UsersController extends AbstractController {
                 
                 index = row.getIndex();
                 user = usersData.get(index);
-                
                 if (event.getClickCount() == 1) {
                     load.setDisable(false);
                     remove.setDisable(false);
