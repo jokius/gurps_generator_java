@@ -1,6 +1,5 @@
 package ru.gurps.generator.models;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import ru.gurps.generator.config.Model;
 
 public class UserFeature extends Model {

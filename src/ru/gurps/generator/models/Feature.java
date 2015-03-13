@@ -1,8 +1,5 @@
 package ru.gurps.generator.models;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import ru.gurps.generator.config.Model;
 
 public class Feature extends Model {
