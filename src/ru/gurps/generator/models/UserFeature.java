@@ -12,8 +12,7 @@ public class UserFeature extends Model {
     public UserFeature() {
     }
 
-    public UserFeature(int id, int userId, int featureId, int cost, int level) {
-        this.id = id;
+    public UserFeature(int userId, int featureId, int cost, int level) {
         this.userId = userId;
         this.featureId = featureId;
         this.cost = cost;
