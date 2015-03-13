@@ -1,9 +1,11 @@
 package ru.gurps.generator.config;
 
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Model extends Db {
     private String table = this.getClass().getSimpleName() + "s";
@@ -42,6 +44,31 @@ public class Model extends Db {
                 params += parametr.getKey() + "='" + parametr.getValue() + "',";
             }
         }
+        params = params.substring(0, params.length()-1);
+
+        try {
+            createConnection();
+            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + params + " WHERE id=" + id);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean save(){
+        String params = "";
+        String id = "";
+        for( Field field : this.getClass().getDeclaredFields()){
+            try {
+                if(field.getName().equals("id")) id = Integer.toString((Integer) field.get(this));
+                else if(field.get(this) != null) params += field.getName() + "=" + field.get(this) + ",";
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
         params = params.substring(0, params.length()-1);
 
         try {
