@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FeatureEventHandler implements EventHandler<MouseEvent> {
     private Feature feature;
@@ -149,9 +150,8 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         }
 
         if (feature.add) {
-            user.currentPoints = Integer.toString(userCost);
+            user.update_single("currentPoints", Integer.toString(userCost));
             currentPoints.setText(user.currentPoints);
-            user.save();
         }
 
         newCost(lastCost);
@@ -378,13 +378,10 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         add.setOnAction(actionEvent -> {
             UserFeature user_feature = (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
             String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
-            user.currentPoints = setCurrentPoints;
-
-            HashMap<String, String> userParams = new HashMap<>();
-            userParams.put("currentPoints", setCurrentPoints);
-            new User().update(user.id, userParams);
+            user.update_single("currentPoints", setCurrentPoints);
 
             currentPoints.setText(setCurrentPoints);
+            feature.add = true;
             add.setVisible(false);
             remove.setVisible(true);
 
@@ -406,13 +403,11 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
                 int user_feature_id = user_feature.getInt("id");
 
                 String setCurrentPoints = Integer.toString(Integer.parseInt(user.currentPoints) - user_feature.getInt("cost"));
-                user.currentPoints = setCurrentPoints;
-                HashMap<String, String> userParams = new HashMap<>();
-                userParams.put("currentPoints", setCurrentPoints);
-                new User().update(user.id, userParams);
+                user.update_single("currentPoints", setCurrentPoints);
                 currentPoints.setText(setCurrentPoints);
 
                 new UserFeature().delete(user_feature_id);
+                feature.add = false;
                 add.setVisible(true);
                 remove.setVisible(false);
 
