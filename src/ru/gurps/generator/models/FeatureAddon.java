@@ -12,8 +12,7 @@ public class FeatureAddon extends Model {
     public FeatureAddon() {
     }
 
-    public FeatureAddon(int id, int userFeatureId, int addonId, String cost, int level) {
-        this.id = id;
+    public FeatureAddon(int userFeatureId, int addonId, String cost, int level) {
         this.userFeatureId = userFeatureId;
         this.addonId = addonId;
         this.cost = cost;
