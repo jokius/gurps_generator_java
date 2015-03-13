@@ -82,8 +82,8 @@ public class UsersController extends AbstractController {
         return new User(
                 user.getInt("id"),
                 user.getString("name"),
-                user.getString("current_points"),
-                user.getString("max_points"),
+                user.getString("currentPoints"),
+                user.getString("maxPoints"),
                 user.getInt("st"),
                 user.getInt("dx"),
                 user.getInt("iq"),
@@ -95,7 +95,7 @@ public class UsersController extends AbstractController {
                 user.getDouble("bs"),
                 user.getInt("move"),
                 user.getInt("sm"),
-                user.getBoolean("no_fine_manipulators")
+                user.getBoolean("noFineManipulators")
         );
     }
     
@@ -118,14 +118,14 @@ public class UsersController extends AbstractController {
         newUser.setOnAction(event ->{
             HashMap<String, String> params = new HashMap<>();
             params.put("name", newName.getText());
-            params.put("max_points", points.getText());
+            params.put("maxPoints", points.getText());
             ResultSet createdUser = new User().create(params);
 
             try {
                 createdUser.next();
                 user = pojoUser(createdUser);
                 Preferences userPrefs = Preferences.userRoot().node("user");
-                userPrefs.putInt("id", pojoUser(createdUser).getId());
+                userPrefs.putInt("id", user.id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -141,7 +141,7 @@ public class UsersController extends AbstractController {
         
         remove.setOnAction(event ->{
             usersData.remove(index);
-            new User().delete(user.getId());
+            new User().delete(user.id);
 
             if (usersData.size() == 0){
                 load.setDisable(true);

@@ -120,7 +120,7 @@ public class ViewsAbstact {
     protected AnchorPane advantagesBottomMenu;
 
     @FXML
-    protected Slider advantagesLvlSlider;
+    protected ComboBox advantagesLvlComboBox;
 
     @FXML
     protected Label advantagesLvlLabel;
@@ -184,7 +184,7 @@ public class ViewsAbstact {
     protected AnchorPane disadvantagesBottomMenu;
 
     @FXML
-    protected Slider disadvantagesLvlSlider;
+    protected ComboBox disadvantagesLvlComboBox;
 
     @FXML
     protected Label disadvantagesLvlLabel;

@@ -7,24 +7,24 @@ public class MainWindowController extends AbstractController {
     public void initialize() {
         textEvents();
         cellEvents();
-        maxPoints.setText(user.getMaxPoints());
-        sm.setText(Integer.toString(user.getSm()));
-        noFineManipulators.setSelected(user.getNoFineManipulators());
+        maxPoints.setText(user.maxPoints);
+        sm.setText(Integer.toString(user.sm));
+        noFineManipulators.setSelected(user.noFineManipulators);
 
-        st.setText(Integer.toString(user.getSt()));
-        dx.setText(Integer.toString(user.getDx()));
-        iq.setText(Integer.toString(user.getIq()));
-        ht.setText(Integer.toString(user.getHt()));
+        st.setText(Integer.toString(user.st));
+        dx.setText(Integer.toString(user.dx));
+        iq.setText(Integer.toString(user.iq));
+        ht.setText(Integer.toString(user.ht));
 
-        hp.setText(Integer.toString(user.getHp()));
-        will.setText(Integer.toString(user.getWill()));
-        per.setText(Integer.toString(user.getPer()));
-        fp.setText(Integer.toString(user.getFp()));
+        hp.setText(Integer.toString(user.hp));
+        will.setText(Integer.toString(user.will));
+        per.setText(Integer.toString(user.per));
+        fp.setText(Integer.toString(user.fp));
         
-        bs.setText(Double.toString(user.getBs()));
-        move.setText(Integer.toString(user.getMove()));
+        bs.setText(Double.toString(user.bs));
+        move.setText(Integer.toString(user.move));
 
-        if(user.getCurrentPoints().equals("0")) {
+        if(user.currentPoints.equals("0")) {
             setSt();
             setDx();
             setIq();
@@ -43,6 +43,6 @@ public class MainWindowController extends AbstractController {
         setDoge();
         setDmg();
         
-        currentPoints.setText(user.getCurrentPoints());
+        currentPoints.setText(user.currentPoints);
     }
 }
