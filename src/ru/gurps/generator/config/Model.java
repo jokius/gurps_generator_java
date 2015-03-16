@@ -3,14 +3,22 @@ package ru.gurps.generator.config;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import static java.lang.annotation.ElementType.FIELD;
 
 public class Model extends Db {
+    @Target(FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Ignore {}
+
     private String table = this.getClass().getSimpleName() + "s";
 
     public Model create() {
@@ -50,11 +58,11 @@ public class Model extends Db {
                 Field field = this.getClass().getDeclaredField(parametr.getKey());
                 if (String.class.isAssignableFrom(field.getType()))
                     field.set(this, parametr.getValue());
-                else if (int.class.isAssignableFrom(field.getType()))
+                else if (Integer.class.isAssignableFrom(field.getType()))
                     field.set(this, Integer.parseInt(parametr.getValue()));
-                else if (double.class.isAssignableFrom(field.getType()))
+                else if (Double.class.isAssignableFrom(field.getType()))
                     field.set(this, Double.parseDouble(parametr.getValue()));
-                else if (boolean.class.isAssignableFrom(field.getType()))
+                else if (Boolean.class.isAssignableFrom(field.getType()))
                     field.set(this, Boolean.parseBoolean(parametr.getValue()));
 
                 params += parametr.getKey() + "='" + parametr.getValue() + "',";
@@ -135,50 +143,74 @@ public class Model extends Db {
     }
 
     public ObservableList all() {
+        ObservableList list = FXCollections.observableArrayList();
         try {
             createConnection();
             ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + table);
 
-            ObservableList list = FXCollections.observableArrayList();
             while (results.next()) {
                 list.add(setModel(results));
             }
-
-            return list;
         } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return list;
             e.printStackTrace();
         }
 
-        return null;
+        return list;
     }
 
-    public ResultSet find(int id) {
+    public Model find(int id) {
         try {
             createConnection();
-            return connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            return setModel(connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id));
         } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return this;
             e.printStackTrace();
         }
 
-        return null;
+        return this;
 
     }
 
-    public ResultSet find_by(String column, String value) {
+    public Model find_by(String column, Object value) {
         try {
             createConnection();
-            return connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            return setModel(connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value));
         } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return this;
             e.printStackTrace();
         }
-
-        return null;
-
+        return this;
     }
 
-    public ResultSet where(HashMap<String, String> paramsHash) {
+    public Model find_by(HashMap<String, Object> paramsHash) {
         String params = "";
         String query;
+        if (paramsHash.isEmpty()) query = "SELECT * FROM " + table;
+        else {
+            for (Map.Entry<String, Object> parametr : paramsHash.entrySet())
+                params += parametr.getKey() + "='" + parametr.getValue() + "' and ";
+
+            params = params.substring(0, params.length() - 5);
+            query = "SELECT * FROM " + table + " WHERE " + params;
+        }
+
+        try {
+            ResultSet results = connect.createStatement().executeQuery(query);
+            results.next();
+            return setModel(results);
+        } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return this;
+            e.printStackTrace();
+        }
+
+        return this;
+    }
+
+    public ObservableList where(HashMap<String, String> paramsHash) {
+        String params = "";
+        String query;
+        ObservableList list = FXCollections.observableArrayList();
         if (paramsHash.isEmpty()) {
             query = "SELECT * FROM " + table;
         } else {
@@ -189,51 +221,57 @@ public class Model extends Db {
 
             query = "SELECT * FROM " + table + " WHERE " + params;
         }
-
         try {
             createConnection();
-            return connect.createStatement().executeQuery(query);
+            ResultSet results = connect.createStatement().executeQuery(query);
+            while (results.next()) {
+                list.add(setModel(results));
+            }
         } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return list;
             e.printStackTrace();
         }
 
-        return null;
+        return list;
     }
 
-    public boolean isAny(ResultSet records) {
+    public ObservableList where(String column, Object value) {
+        ObservableList list = FXCollections.observableArrayList();
         try {
-            return records.next();
+            createConnection();
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            while (results.next()) {
+                list.add(setModel(results));
+            }
         } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return list;
             e.printStackTrace();
         }
-        return false;
-    }
 
-    public boolean isEmpty(ResultSet records) {
-        try {
-            return !records.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return true;
+        return list;
     }
 
     private Model setModel(ResultSet result) throws SQLException {
-        for (Field field : this.getClass().getDeclaredFields()) {
-            try {
-                if (String.class.isAssignableFrom(field.getType()))
-                    field.set(this, result.getString(field.getName()));
-                else if (int.class.isAssignableFrom(field.getType()))
-                    field.set(this, result.getInt(field.getName()));
-                else if (double.class.isAssignableFrom(field.getType()))
-                    field.set(this, result.getDouble(field.getName()));
-                else if (boolean.class.isAssignableFrom(field.getType()))
-                    field.set(this, result.getBoolean(field.getName()));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+        Model model = this;
+        try {
+            model = this.getClass().newInstance();
+        for (Field field : model.getClass().getDeclaredFields()) {
+            if(!field.isAnnotationPresent(Ignore.class)) {
+                    if (String.class.isAssignableFrom(field.getType()))
+                        field.set(model, result.getString(field.getName()));
+                    else if (Integer.class.isAssignableFrom(field.getType()))
+                        field.set(model, result.getInt(field.getName()));
+                    else if (Double.class.isAssignableFrom(field.getType()))
+                        field.set(model, result.getDouble(field.getName()));
+                    else if (Boolean.class.isAssignableFrom(field.getType()))
+                        field.set(model, result.getBoolean(field.getName()));
             }
         }
-        return this;
+
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return model;
     }
 
     private int id(){
