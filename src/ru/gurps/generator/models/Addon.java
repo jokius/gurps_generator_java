@@ -3,23 +3,23 @@ package ru.gurps.generator.models;
 import ru.gurps.generator.config.Model;
 
 public class Addon extends Model {
-    public int id;
-    public int featuresId;
+    public Integer id;
+    public Integer featureId;
     public String title;
     public String titleEn;
     public String cost;
-    public int resultCost;
+    @Ignore public Integer resultCost;
     public String description;
-    public int maxLevel;
-    public boolean active;
-    public String level;
+    public Integer maxLevel;
+    @Ignore public String level;
+    @Ignore public Boolean active = false;
 
     public Addon() {
     }
 
-    public Addon(int id, int featuresId, String title, String titleEn, String cost, int resultCost, String description, int maxLevel, boolean active, String level) {
+    public Addon(Integer id, Integer featureId, String title, String titleEn, String cost, Integer resultCost, String description, Integer maxLevel, Boolean active, String level) {
         this.id = id;
-        this.featuresId = featuresId;
+        this.featureId = featureId;
         this.title = title;
         this.titleEn = titleEn;
         this.cost = cost;

@@ -3,43 +3,29 @@ package ru.gurps.generator.models;
 import ru.gurps.generator.config.Model;
 
 public class User extends Model {
-    public int id;
+    public Integer id;
     public String name;
     public String currentPoints;
     public String maxPoints;
-    public int st;
-    public int dx;
-    public int iq;
-    public int ht;
-    public int hp;
-    public int will;
-    public int per;
-    public int fp;
-    public double bs;
-    public int move;
-    public int sm;
-    public boolean noFineManipulators;
+    public Integer st = 10;
+    public Integer dx = 10;
+    public Integer iq = 10;
+    public Integer ht = 10;
+    public Integer hp = 10;
+    public Integer will = 10;
+    public Integer per = 10;
+    public Integer fp = 10;
+    public Double bs = 5.0;
+    public Integer move = 5;
+    public Integer sm = 0;
+    public Boolean noFineManipulators = false;
     
     public User(){
     }
 
-    public User(int id, String name, String currentPoints, String maxPoints, int st, int dx, int iq, int ht, int hp, int will, int per, int fp, double bs, int move, int sm, boolean noFineManipulators) {
-        this.id = id;
+    public User(String name, String maxPoints) {
         this.name = name;
-        this.currentPoints = currentPoints;
         this.maxPoints = maxPoints;
-        this.st = st;
-        this.dx = dx;
-        this.iq = iq;
-        this.ht = ht;
-        this.hp = hp;
-        this.will = will;
-        this.per = per;
-        this.fp = fp;
-        this.bs = bs;
-        this.move = move;
-        this.sm = sm;
-        this.noFineManipulators = noFineManipulators;
     }
 
     public String getName() {

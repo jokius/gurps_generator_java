@@ -16,23 +16,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.h2.jdbc.JdbcSQLException;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.FeatureFullController;
 import ru.gurps.generator.models.*;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public class FeatureEventHandler implements EventHandler<MouseEvent> {
-    private Feature features;
+    private Feature feature;
     private String currentLvl;
     private String lastId;
 
     private User user;
-    private String labelName;
     private ObservableList<Feature> featuresData;
     private ObservableList<Addon> addonsArray;
     private TableView<Feature> featureTableView;
@@ -60,7 +56,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
                                Label currentPoints) {
 
         this.user = user;
-        this.labelName = lvlLabel.getText() + " ";
         this.featuresData = featuresData;
         this.featureTableView = featureTableView;
         this.addonsTableView = addonsTableView;
@@ -83,53 +78,48 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent t) {
-        try {
-            TableRow row = (TableRow) t.getSource();
-            int index = row.getIndex();
-            features = featuresData.get(index);
-            String id = Integer.toString(features.getId());
-            setupBottomMenu();
-            setCurrentLvl();
-            setCurrentCost();
+        TableRow row = (TableRow) t.getSource();
+        int index = row.getIndex();
+        feature = featuresData.get(index);
+        String id = Integer.toString(feature.id);
+        setupBottomMenu();
+        setCurrentLvl();
+        setCurrentCost();
 
-            if (id.equals(lastId)) return;
+        if(id.equals(lastId)) return;
 
-            HashMap<String, String> params = new HashMap<>();
-            params.put("userId", Integer.toString(user.id));
-            params.put("featureId", id);
-            ResultSet userFeature = new UserFeature().where(params);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("userId", user.id);
+        params.put("featureId", id);
+        UserFeature userFeature = (UserFeature) new UserFeature().find_by(params);
 
-            features.setAdd(new User().isAny(userFeature));
+        feature.add = userFeature.id != null;
 
-            if (features.isAdd()) {
-                add.setVisible(false);
-                remove.setVisible(true);
-            } else {
-                add.setVisible(true);
-                remove.setVisible(false);
-            }
-
-            defaultParams(features);
-            allAddons();
-
-            if (!addonsArray.isEmpty()) {
-                userAddons(userFeature);
-                setCells();
-
-                addonsTableView.setItems(addonsArray);
-                addonsTableView.setEditable(true);
-                addonsTableView.setVisible(true);
-            } else {
-                addonsTableView.setVisible(false);
-            }
-
-            buttonsActions();
-
-            if(features.isAdd()) finalCost.setText(userFeature.getString("cost"));
-        } catch (JdbcSQLException ignored) {
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(feature.add) {
+            add.setVisible(false);
+            remove.setVisible(true);
+        } else {
+            add.setVisible(true);
+            remove.setVisible(false);
         }
+
+        defaultParams(feature);
+        allAddons();
+
+        if(!addonsArray.isEmpty()) {
+            userAddons(userFeature.id);
+            setCells();
+
+            addonsTableView.setItems(addonsArray);
+            addonsTableView.setEditable(true);
+            addonsTableView.setVisible(true);
+        } else {
+            addonsTableView.setVisible(false);
+        }
+
+        buttonsActions();
+
+        if(feature.add) finalCost.setText(Integer.toString(userFeature.cost));
     }
 
     private double currentAddonCost(int cost, int level) {
@@ -139,43 +129,34 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     private void addonCost(double cost, Addon addon) {
         int lastCost;
         int intFinalCost = intCost();
-        int result = (int) (features.getCost() * Double.parseDouble(currentLvl) * cost);
+        int result = (int) (feature.getCost() * Double.parseDouble(currentLvl) * cost);
         int userCost = 0;
 
-        System.out.println("addon.active" + addon.active);
-        System.out.println("addon.resultCost" + addon.resultCost);
-        System.out.println("intFinalCost" + intFinalCost);
-        System.out.println("result" + result);
-
-        if (addon.active) {
+        if(addon.active) {
             lastCost = intFinalCost + result;
-            if (features.isAdd()) userCost = Integer.parseInt(currentPoints.getText()) + result;
+            if(feature.add) userCost = Integer.parseInt(currentPoints.getText()) + result;
         } else {
             lastCost = intFinalCost - result;
-            if (features.isAdd()) userCost = Integer.parseInt(currentPoints.getText()) - result;
+            if(feature.add) userCost = Integer.parseInt(currentPoints.getText()) - result;
         }
 
-        System.out.println("userCost" + userCost);
-        System.out.println("lastCost" + lastCost);
-        if (features.isAdd()) {
-            user.currentPoints = Integer.toString(userCost);
+        if(feature.add) {
+            user.update_single("currentPoints", Integer.toString(userCost));
             currentPoints.setText(user.currentPoints);
-            user.save();
         }
 
         newCost(lastCost);
     }
 
-    private void userAddons(ResultSet userFeature) throws SQLException {
-        if (!features.isAdd()) return;
-        ResultSet featureAddons = new FeatureAddon().find_by("userFeatureId", userFeature.getString("id"));
-        while (featureAddons.next()) {
-            for (Addon addon : addonsArray) {
-                int fId = featureAddons.getInt("addonId");
-                if (addon.id == fId) {
+    private void userAddons(Integer id) {
+        if(id == null) return;
+        ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", id);
+        for(FeatureAddon featureAddon : featureAddons) {
+            for(Addon addon : addonsArray) {
+                if(addon.id == featureAddon.addonId) {
                     addon.active = true;
-                    addon.cost = featureAddons.getString("cost");
-                    addon.level = featureAddons.getString("level");
+                    addon.cost = featureAddon.cost;
+                    addon.level = featureAddon.level;
                 }
             }
         }
@@ -197,18 +178,17 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         tableAddonName.setCellValueFactory(new PropertyValueFactory<>("title"));
         tableAddonNameEn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
         tableAddonLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
-        tableAddonCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tableAddonLevel.setEditable(true);
+        tableAddonCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         tableAddonCost.setEditable(true);
 
         tableAddonLevel.setCellFactory(TextFieldTableCell.forTableColumn());
-
         tableAddonLevel.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Addon, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Addon, String> event) {
-                if ("\\D".matches(event.getNewValue()) || event.getNewValue().equals("0")) return;
+                if("\\D".matches(event.getNewValue()) || event.getNewValue().equals("0")) return;
                 Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
-                if (addon.maxLevel != 1) addon.level = event.getNewValue();
+                if(addon.maxLevel != 1) addon.level = event.getNewValue();
             }
         });
 
@@ -216,9 +196,9 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         tableAddonCost.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Addon, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Addon, String> event) {
-                if ("\\D".matches(event.getNewValue()) || event.getNewValue().equals("0")) return;
+                if("\\D".matches(event.getNewValue()) || event.getNewValue().equals("0")) return;
                 Addon addon = event.getTableView().getItems().get(event.getTablePosition().getRow());
-                if (addon.cost.equals("0")) addon.cost = event.getNewValue();
+                if(addon.cost.equals("0")) addon.cost = event.getNewValue();
             }
         });
     }
@@ -228,17 +208,11 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         Button addButton = new Button("Добавить");
         Button removeButton = new Button("Удалить");
 
-        ButtonCell(){
+        ButtonCell() {
             addButton.setOnAction(t -> {
                 Addon addon = (Addon) getTableRow().getItem();
                 new FeatureAddon().delete(addon.id);
-                HashMap<String, String> addonParams = new HashMap<>();
-                addonParams.put("userFeatureId", Integer.toString(features.getId()));
-                addonParams.put("addonId", Integer.toString(addon.id));
-                addonParams.put("level", addon.level);
-                addonParams.put("cost", addon.cost);
-                new FeatureAddon().create(addonParams);
-
+                new FeatureAddon(feature.id, addon.id, addon.cost, addon.level).create();
                 addon.active = true;
                 double addonCost = currentAddonCost(Integer.parseInt(addon.cost), Integer.parseInt(addon.level));
                 addonCost(addonCost, addon);
@@ -266,47 +240,32 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         }
     }
 
-    private void allAddons() throws SQLException {
-        ResultSet addons = new Addon().find_by("featureId", lastId);
+    private void allAddons() {
+        ObservableList addons = new Addon().where("featureId", lastId);
         addonsArray.removeAll();
-
-        while (addons.next()) {
-            addonsArray.add(new Addon(
-                    addons.getInt("id"),
-                    addons.getInt("featureId"),
-                    addons.getString("title"),
-                    addons.getString("titleEn"),
-                    addons.getString("cost"),
-                    0,
-                    addons.getString("description"),
-                    addons.getInt("maxLevel"),
-                    false,
-                    "1"
-            ));
-        }
+        addonsArray.addAll(addons);
     }
 
     private void setCurrentLvl() {
-        int maxLevel = features.getMaxLevel();
-        if (maxLevel == 0) {
+        if(feature.maxLevel == 0) {
             currentLvl = "1";
             lvlText.setText("1");
             lvlText.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                    if (!oldValue.equals(newValue) || !newValue.equals("")) finalCost(Integer.parseInt(newValue));
+                    if(!oldValue.equals(newValue) || !newValue.equals("")) finalCost(Integer.parseInt(newValue));
                 }
             });
 
             lvlLabel.setVisible(true);
             lvlText.setVisible(true);
             lvlComboBox.setVisible(false);
-        } else if (maxLevel > 1) {
+        } else if(feature.maxLevel > 1) {
             lvlLabel.setVisible(true);
             lvlText.setVisible(false);
             lvlComboBox.setVisible(true);
             ObservableList<Integer> levels = FXCollections.observableArrayList();
-            for(int i = 1; maxLevel >= i; i++) levels.add(i);
+            for(int i = 1; feature.maxLevel >= i; i++) levels.add(i);
             lvlComboBox.setItems(levels);
             lvlComboBox.setValue(1);
             lvlComboBox.valueProperty().addListener((observable, oldValue, newValue) -> finalCost((Integer) newValue));
@@ -320,14 +279,14 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void setCurrentCost() {
-        int cost = features.getCost();
-        if (cost == 0) {
+        int cost = feature.getCost();
+        if(cost == 0) {
             finalCost.setVisible(false);
             finalCostText.setVisible(true);
             finalCostText.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                    if (!oldValue.equals(newValue) || !newValue.equals("")) newCost(newValue);
+                    if(!oldValue.equals(newValue) || !newValue.equals("")) newCost(newValue);
                 }
             });
         } else {
@@ -337,8 +296,8 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void finalCost(int newLevel) {
-        int finalCost = intCost() / features.getOldLevel() * newLevel;
-        features.setOldLevel(newLevel);
+        int finalCost = intCost() / feature.oldLevel * newLevel;
+        feature.oldLevel = newLevel;
         newCost(finalCost);
     }
 
@@ -357,10 +316,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         return finalCost.isVisible() ? Integer.parseInt(finalCost.getText()) : Integer.parseInt(finalCostText.getText());
     }
 
-    private String stringCost() {
-        return finalCost.isVisible() ? finalCost.getText() : finalCostText.getText();
-    }
-
     private void setupBottomMenu() {
         final double bottomMenuSize = 134.0;
         AnchorPane.setBottomAnchor(featureTableView, bottomMenuSize);
@@ -368,7 +323,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     }
 
     private void defaultParams(Feature features) {
-        lastId = Integer.toString(features.getId());
+        lastId = Integer.toString(features.id);
         addonsArray = FXCollections.observableArrayList();
         addonsArray.clear();
         lvlText.setText("1");
@@ -378,12 +333,12 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
     private void buttonsActions() {
         full.setOnAction(actionEvent -> {
-            String name = features.getTitle() + "(" + features.getTitleEn() + ")";
-            String cost = "Стоимость: " + features.getCost();
+            String name = feature.getTitle() + "(" + feature.getTitleEn() + ")";
+            String cost = "Стоимость: " + feature.getCost();
 
             Stage childrenStage = new Stage();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/feature_full.fxml"));
-            FeatureFullController controller = new FeatureFullController(name, cost, features.getType(), features.getDescription());
+            FeatureFullController controller = new FeatureFullController(name, cost, feature.getType(), feature.getDescription());
             loader.setController(controller);
             Parent childrenRoot;
             try {
@@ -391,81 +346,44 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
                 childrenStage.setScene(new Scene(childrenRoot, 325, 400));
                 childrenStage.setTitle("GURPSGenerator - " + name);
                 childrenStage.show();
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
         });
 
         add.setOnAction(actionEvent -> {
-            try {
-                HashMap<String, String> params1 = new HashMap<>();
-                params1.put("userId", Integer.toString(user.id));
-                params1.put("featureId", Integer.toString(features.getId()));
-                params1.put("level", currentLvl);
-                params1.put("cost", stringCost());
-                ResultSet user_feature = new UserFeature().create(params1);
+            UserFeature user_feature = (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
+            String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
+            user.update_single("currentPoints", setCurrentPoints);
 
-                String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
-                user.currentPoints = setCurrentPoints;
+            currentPoints.setText(setCurrentPoints);
+            feature.add = true;
+            add.setVisible(false);
+            remove.setVisible(true);
 
-                HashMap<String, String> userParams = new HashMap<>();
-                userParams.put("currentPoints", setCurrentPoints);
-                new User().update(user.id, userParams);
-
-                currentPoints.setText(setCurrentPoints);
-
-                add.setVisible(false);
-                remove.setVisible(true);
-
-                if (!addonsTableView.isVisible()) return;
-
-                user_feature.next();
-                for (Addon addon : addonsArray) {
-                    if (addon.active) {
-                        new FeatureAddon().delete(addon.id);
-                        params1.clear();
-                        params1.put("userFeatureId", user_feature.getString("id"));
-                        params1.put("addonId", Integer.toString(addon.id));
-                        params1.put("level", addon.level);
-                        params1.put("cost", addon.cost);
-                        new FeatureAddon().create(params1);
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            if(!addonsTableView.isVisible()) return;
+            addonsArray.stream().filter(addon -> addon.active).forEach(addon -> {
+                new FeatureAddon().delete(addon.id);
+                new FeatureAddon(user_feature.id, addon.id, addon.cost, addon.level).create();
+            });
         });
 
         remove.setOnAction(actionEvent -> {
-            try {
-                HashMap<String, String> params1 = new HashMap<>();
-                params1.put("userId", Integer.toString(user.id));
-                params1.put("featureId", Integer.toString(features.getId()));
+            HashMap<String, Object> params1 = new HashMap<>();
+            params1.put("userId", Integer.toString(user.id));
+            params1.put("featureId", feature.id);
+            UserFeature user_feature = (UserFeature) new UserFeature().find_by(params1);
 
-                ResultSet user_feature = new UserFeature().where(params1);
-                user_feature.next();
-                int user_feature_id = user_feature.getInt("id");
-
-                String setCurrentPoints = Integer.toString(Integer.parseInt(user.currentPoints) - user_feature.getInt("cost"));
-                user.currentPoints = setCurrentPoints;
-                HashMap<String, String> userParams = new HashMap<>();
-                userParams.put("currentPoints", setCurrentPoints);
-                new User().update(user.id, userParams);
-                currentPoints.setText(setCurrentPoints);
-
-                new UserFeature().delete(user_feature_id);
-                add.setVisible(true);
-                remove.setVisible(false);
-
-                if (!addonsTableView.isVisible()) return;
-
-                ResultSet feature_addons = new FeatureAddon().find_by("userFeatureId", Integer.toString(user_feature_id));
-                while (feature_addons.next()) {
-                    new FeatureAddon().delete(feature_addons.getInt("id"));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            String setCurrentPoints = Integer.toString(Integer.parseInt(user.currentPoints) - user_feature.cost);
+            user.update_single("currentPoints", setCurrentPoints);
+            currentPoints.setText(setCurrentPoints);
+            user_feature.delete();
+            feature.add = false;
+            add.setVisible(true);
+            remove.setVisible(false);
+            if(!addonsTableView.isVisible()) return;
+            ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", user_feature.id);
+            for(FeatureAddon featureAddon : featureAddons) featureAddon.delete();
         });
     }
 }
