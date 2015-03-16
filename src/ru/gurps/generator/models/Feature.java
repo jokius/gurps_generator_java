@@ -3,23 +3,23 @@ package ru.gurps.generator.models;
 import ru.gurps.generator.config.Model;
 
 public class Feature extends Model {
-    public int id;
-    public boolean advantage;
+    public Integer id;
+    public Boolean advantage;
     public String title;
     public String titleEn;
     public String type;
-    public int cost;
+    public Integer cost;
     public String description;
-    public int oldLevel;
-    public int maxLevel;
-    public boolean psi;
-    public boolean cybernetic;
-    public boolean add;
+    @Ignore public Integer oldLevel;
+    public Integer maxLevel;
+    public Boolean psi;
+    public Boolean cybernetic;
+    @Ignore public Boolean add  = false;
 
     public Feature() {
     }
 
-    public Feature(int id, boolean advantage, String title, String titleEn, String type, int cost, String description, int oldLevel, int maxLevel, boolean psi, boolean cybernetic, boolean add) {
+    public Feature(Integer id, Boolean advantage, String title, String titleEn, String type, Integer cost, String description, Integer oldLevel, Integer maxLevel, Boolean psi, Boolean cybernetic, Boolean add) {
         this.id = id;
         this.advantage = advantage;
         this.title = title;
@@ -55,7 +55,7 @@ public class Feature extends Model {
         return titleEn;
     }
 
-    public int getCost() {
+    public Integer getCost() {
         return cost;
     }
 
