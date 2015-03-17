@@ -7,8 +7,8 @@ public class Skill extends Model {
     public String name;
     public Integer type;
     public Integer complexity;
-    public Integer cost;
-    @Ignore public Integer level;
+    @Ignore public Integer cost = 1;
+    @Ignore public Integer level = 1;
 
     public Skill() {
     }
