@@ -13,6 +13,9 @@ public class ViewsAbstact {
 
     @FXML
     protected Label currentPoints;
+
+    @FXML
+    protected Button userSheet;
     
     
     // params part
