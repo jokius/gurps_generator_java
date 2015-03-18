@@ -8,6 +8,7 @@ public class Spell extends Model {
     public Integer complexity;
     public Integer cost;
     @Ignore public Integer level;
+    @Ignore public Boolean add = false;
 
     public Spell() {
     }

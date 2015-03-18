@@ -9,6 +9,7 @@ public class Skill extends Model {
     public Integer complexity;
     @Ignore public Integer cost = 1;
     @Ignore public Integer level = 1;
+    @Ignore public Boolean add = false;
 
     public Skill() {
     }
