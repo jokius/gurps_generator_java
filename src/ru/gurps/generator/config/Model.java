@@ -1,5 +1,6 @@
 package ru.gurps.generator.config;
 
+import com.sun.javafx.sg.prism.NGShape;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,7 +20,7 @@ public class Model extends Db {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Ignore {}
 
-    private String table = this.getClass().getSimpleName() + "s";
+    protected String table = this.getClass().getSimpleName() + "s";
 
     public Model create() {
         String params = "";
@@ -170,6 +171,26 @@ public class Model extends Db {
 
         return this;
 
+    }
+
+    protected ObservableList hasMany(Model model) {
+        ObservableList list = FXCollections.observableArrayList();
+        try {
+            String column = this.getClass().getSimpleName() + "id";
+            Integer value = (Integer) this.getClass().getDeclaredField("id").get(this);
+            createConnection();
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + model.table + " WHERE " + column + "=" + value);
+            while (results.next()) {
+                list.add(model.setModel(results));
+            }
+        } catch(SQLException e) {
+            if(e.getErrorCode() == 2000) return list;
+            e.printStackTrace();
+        } catch(IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public Model find_by(String column, Object value) {
