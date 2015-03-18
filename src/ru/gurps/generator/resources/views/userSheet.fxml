@@ -206,7 +206,7 @@
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Label>
-                        <Label fx:id="speed" contentDisplay="CENTER" layoutX="104.0" layoutY="242.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label fx:id="bs" contentDisplay="CENTER" layoutX="104.0" layoutY="242.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
                         <Label layoutX="152.0" layoutY="242.0" text="УКЛ">
                             <font>
                                 <Font name="System Bold" size="13.0" />
