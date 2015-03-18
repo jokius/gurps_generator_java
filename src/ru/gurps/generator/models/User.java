@@ -1,6 +1,10 @@
 package ru.gurps.generator.models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ru.gurps.generator.config.Model;
+
+import java.util.stream.Collectors;
 
 public class User extends Model {
     public Integer id;
@@ -50,5 +54,44 @@ public class User extends Model {
 
     public String getMaxPoints() {
         return maxPoints;
+    }
+
+    public ObservableList<Feature> features(){
+        ObservableList<UserFeature> userFeatures = this.hasMany(new UserFeature());
+        ObservableList<Feature> features = FXCollections.observableArrayList();
+        for(UserFeature userFeature : userFeatures){
+            Feature feature = (Feature) new Feature().find(userFeature.featureId);
+            feature.add = true;
+            feature.oldLevel = userFeature.level;
+            feature.cost = userFeature.cost;
+            features.add(feature);
+        }
+        return features;
+    }
+
+    public ObservableList<Skill> skills(){
+        ObservableList<UserSkill> userSkills = this.hasMany(new UserFeature());
+        ObservableList<Skill> skills = FXCollections.observableArrayList();
+        for(UserSkill userSkill : userSkills){
+            Skill skill = (Skill) new Skill().find(userSkill.skillId);
+            skill.add = true;
+            skill.level = userSkill.level;
+            skill.cost = userSkill.cost;
+            skills.add(skill);
+        }
+        return skills;
+    }
+
+    public ObservableList<Spell> spells(){
+        ObservableList<UserSpell> userSpells = this.hasMany(new UserFeature());
+        ObservableList<Spell> spells = FXCollections.observableArrayList();
+        for(UserSpell userSpell : userSpells){
+            Spell spell = (Spell) new Spell().find(userSpell.spellId);
+            spell.add = true;
+            spell.level = userSpell.level;
+            spell.cost = userSpell.cost;
+            spells.add(spell);
+        }
+        return spells;
     }
 }
