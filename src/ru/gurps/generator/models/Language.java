@@ -16,7 +16,7 @@ public class Language extends Model {
         this.name = language;
     }
 
-    public String getLanguage() {
+    public String getName() {
         return name;
     }
 
