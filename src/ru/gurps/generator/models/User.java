@@ -94,4 +94,17 @@ public class User extends Model {
         }
         return spells;
     }
+
+    public ObservableList<Language> languages(){
+        ObservableList<UserLanguage> userLanguages = this.hasMany(new UserLanguage());
+        ObservableList<Language> languages = FXCollections.observableArrayList();
+        for(UserLanguage userLanguage : userLanguages){
+            Language language = (Language) new Language().find(userLanguage.languageId);
+            language.spoken = userLanguage.spoken;
+            language.written = userLanguage.written;
+            language.cost = userLanguage.cost;
+            languages.add(language);
+        }
+        return languages;
+    }
 }
