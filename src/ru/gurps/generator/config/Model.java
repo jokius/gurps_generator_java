@@ -1,10 +1,7 @@
 package ru.gurps.generator.config;
 
-import com.sun.javafx.sg.prism.NGShape;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -163,7 +160,9 @@ public class Model extends Db {
     public Model find(int id) {
         try {
             createConnection();
-            return setModel(connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id));
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            result.next();
+            return setModel(result);
         } catch (SQLException e) {
             if(e.getErrorCode() == 2000) return this;
             e.printStackTrace();
@@ -196,7 +195,9 @@ public class Model extends Db {
     public Model find_by(String column, Object value) {
         try {
             createConnection();
-            return setModel(connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value));
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            result.next();
+            return setModel(result);
         } catch (SQLException e) {
             if(e.getErrorCode() == 2000) return this;
             e.printStackTrace();
