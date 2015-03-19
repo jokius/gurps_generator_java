@@ -70,7 +70,7 @@ public class User extends Model {
     }
 
     public ObservableList<Skill> skills(){
-        ObservableList<UserSkill> userSkills = this.hasMany(new UserFeature());
+        ObservableList<UserSkill> userSkills = this.hasMany(new UserSkill());
         ObservableList<Skill> skills = FXCollections.observableArrayList();
         for(UserSkill userSkill : userSkills){
             Skill skill = (Skill) new Skill().find(userSkill.skillId);
@@ -83,7 +83,7 @@ public class User extends Model {
     }
 
     public ObservableList<Spell> spells(){
-        ObservableList<UserSpell> userSpells = this.hasMany(new UserFeature());
+        ObservableList<UserSpell> userSpells = this.hasMany(new UserSpell());
         ObservableList<Spell> spells = FXCollections.observableArrayList();
         for(UserSpell userSpell : userSpells){
             Spell spell = (Spell) new Spell().find(userSpell.spellId);
