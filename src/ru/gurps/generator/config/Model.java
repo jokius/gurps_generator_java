@@ -97,7 +97,7 @@ public class Model extends Db {
         for (Field field : this.getClass().getDeclaredFields()) {
             try {
                 if (field.getName().equals("id")) id = Integer.toString((Integer) field.get(this));
-                else if (field.get(this) != null) params += field.getName() + "=" + field.get(this) + ",";
+                else if (field.get(this) != null) params += field.getName() + "='" + field.get(this) + "',";
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
