@@ -4,25 +4,20 @@ import ru.gurps.generator.config.Model;
 
 public class Language extends Model {
     public Integer id;
-    public Integer userId;
-    public String language;
-    public Integer spoken = 0;
-    public Integer written = 0;
-    public Integer cost = 0;
+    public String name;
+    @Ignore public Integer spoken = 0;
+    @Ignore public Integer written = 0;
+    @Ignore public Integer cost = 0;
 
     public Language() {
     }
 
-    public Language(Integer userId, String language, Integer spoken, Integer written, Integer cost) {
-        this.userId = userId;
-        this.language = language;
-        this.spoken = spoken;
-        this.written = written;
-        this.cost = cost;
+    public Language(String language) {
+        this.name = language;
     }
 
     public String getLanguage() {
-        return language;
+        return name;
     }
 
     public String getSpoken() {
