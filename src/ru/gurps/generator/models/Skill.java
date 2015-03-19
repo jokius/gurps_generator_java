@@ -5,8 +5,11 @@ import ru.gurps.generator.config.Model;
 public class Skill extends Model {
     public Integer id;
     public String name;
+    public String nameEn;
     public Integer type;
     public Integer complexity;
+    public Boolean parry = false;
+    public Integer parryBonus = 0;
     @Ignore public Integer cost = 1;
     @Ignore public Integer level = 1;
     @Ignore public Boolean add = false;
