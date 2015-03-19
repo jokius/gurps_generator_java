@@ -199,9 +199,10 @@
               </Tab>
           </tabs>
        </TabPane>
-           <Label layoutX="459.0" layoutY="85.0" prefHeight="26.0" prefWidth="115.0" text="Затрачено очков" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="85.0" />
-           <Label fx:id="currentPoints" alignment="CENTER" layoutX="580.0" layoutY="85.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="85.0" />
-           <Label layoutX="294.0" layoutY="90.0" prefHeight="26.0" text="Максимум очков" AnchorPane.rightAnchor="242.0" AnchorPane.topAnchor="85.0" />
-           <TextField fx:id="maxPoints" alignment="CENTER" layoutX="410.0" layoutY="90.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="85.0" />
+           <Label layoutX="471.0" layoutY="97.0" prefHeight="26.0" prefWidth="115.0" text="Затрачено очков" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="97.0" />
+           <Label fx:id="currentPoints" alignment="CENTER" contentDisplay="CENTER" layoutX="590.0" layoutY="97.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="49.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="97.0" />
+           <Label layoutX="298.0" layoutY="97.0" prefHeight="26.0" text="Максимум очков" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="97.0" />
+           <TextField fx:id="maxPoints" alignment="CENTER" layoutX="414.0" layoutY="97.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="97.0" />
+      <Button fx:id="userSheet" layoutX="210.0" layoutY="36.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="163.0" text="Перейти к листу персонажа" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="36.0" />
    </children>
 </AnchorPane>

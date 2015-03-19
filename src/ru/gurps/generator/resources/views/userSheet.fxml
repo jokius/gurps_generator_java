@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+    <tabs>
+        <Tab text="Параметры">
+            <content>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="759.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/gurps.jpg" />
+                            </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="73.0" prefHeight="25.0" prefWidth="192.0" text="Лист персонажа">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="232.0" layoutY="13.0" text="Имя" />
+                        <Label fx:id="name" alignment="CENTER" layoutX="264.0" layoutY="13.0" prefHeight="16.0" prefWidth="98.0" text="Персонаж" />
+                        <Label layoutX="373.0" layoutY="13.0" text="Игрок" />
+                        <TextField fx:id="player" layoutX="425.0" layoutY="8.0" prefHeight="26.0" prefWidth="98.0" />
+                        <Label layoutX="535.0" layoutY="13.0" text="Всего очков" />
+                        <Label fx:id="maxPoints" layoutX="654.0" layoutY="13.0" text="9999" />
+                        <GridPane layoutX="14.0" layoutY="98.0" prefHeight="120.0" prefWidth="200.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="25.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="36.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="35.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="33.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="380.0" minWidth="10.0" prefWidth="34.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="40.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="СЛ">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ЛВ" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ИН" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ЗД" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ОЗ" GridPane.columnIndex="3">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ВОЛ" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ВОС" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label text="ЕУ" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="st" text="9999" GridPane.columnIndex="1" />
+                                <Label fx:id="dx" text="9999" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label fx:id="iq" text="9999" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="ht" text="9999" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label fx:id="stCost" text="9999" GridPane.columnIndex="2" />
+                                <Label fx:id="dxCost" text="9999" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <Label fx:id="iqCost" text="9999" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <Label fx:id="htCost" text="9999" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                <Label fx:id="hp" text="9999" GridPane.columnIndex="4" />
+                                <Label fx:id="will" text="9999" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                <Label fx:id="per" text="9999" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                <Label fx:id="fp" text="9999" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                <Label fx:id="hpCost" text="9999" GridPane.columnIndex="5" />
+                                <Label fx:id="willCost" text="9999" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                <Label fx:id="perCost" text="9999" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                                <Label fx:id="fpCost" text="9999" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                            </children>
+                        </GridPane>
+                        <Label layoutX="232.0" layoutY="51.0" prefHeight="16.0" prefWidth="38.0" text="Рост" />
+                        <TextField fx:id="growth" layoutX="270.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
+                        <TextField fx:id="weight" layoutX="362.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
+                        <Label layoutX="324.0" layoutY="51.0" prefHeight="16.0" prefWidth="38.0" text="Вес" />
+                        <Label layoutX="411.0" layoutY="51.0" prefHeight="16.0" prefWidth="59.0" text="Врзраст" />
+                        <TextField fx:id="age" layoutX="479.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
+                        <Label fx:id="remainingPoints" layoutX="654.0" layoutY="51.0" text="9999" />
+                        <Label layoutX="535.0" layoutY="51.0" text="Осталось очков" />
+                        <TableView fx:id="languagesTableView" layoutX="232.0" layoutY="85.0" prefHeight="126.0" prefWidth="462.0">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Языки">
+                                    <columns>
+                                        <TableColumn fx:id="languageNameColumn" prefWidth="184.0" text="Язык" />
+                                        <TableColumn fx:id="spokenColumn" minWidth="0.0" prefWidth="107.0" text="Разговор" />
+                                        <TableColumn fx:id="writtenColumn" minWidth="0.0" prefWidth="88.0" text="Письмо" />
+                                        <TableColumn fx:id="languageCostColumn" minWidth="0.0" prefWidth="81.0" text="Стоимость" />
+                                    </columns>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+                        <Label alignment="CENTER" layoutX="235.0" layoutY="217.0" prefHeight="16.0" prefWidth="216.0" text="СП">
+                            <font>
+                                <Font name="System Bold Italic" size="13.0" />
+                            </font>
+                        </Label>
+                        <GridPane layoutX="233.0" layoutY="233.0" prefHeight="90.0" prefWidth="216.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="99.0" text="Торс" GridPane.rowIndex="1" />
+                                <TextField fx:id="head" GridPane.columnIndex="1" />
+                                <TextField fx:id="torse" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="arm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="leg" GridPane.columnIndex="3" />
+                                <TextField fx:id="hand" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                <TextField fx:id="foot" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="99.0" text="Руки" GridPane.rowIndex="2" />
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="99.0" text="Ноги" GridPane.columnIndex="2" />
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="99.0" text="Кисти" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="99.0" text="Ступни" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="99.0" text="Голава" />
+                            </children>
+                        </GridPane>
+                        <Label layoutX="466.0" layoutY="217.0" text="ТУ">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tl" layoutX="496.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Label layoutX="563.0" layoutY="217.0" text="Стоимость">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tlCost" layoutX="642.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
+                        <TableView fx:id="culturasTableView" layoutX="455.0" layoutY="238.0" prefHeight="84.0" prefWidth="243.0">
+                            <columns>
+                                <TableColumn fx:id="culturaNameColumn" prefWidth="159.0" text="Культура" />
+                                <TableColumn fx:id="culturaCostColumn" prefWidth="83.0" text="Стоимость" />
+                            </columns>
+                        </TableView>
+                        <Label layoutX="11.0" layoutY="243.0" text="БГ">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="bl" contentDisplay="CENTER" layoutX="34.0" layoutY="243.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label layoutX="69.0" layoutY="264.0" text="Урон ">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="127.0" layoutY="264.0" text="Пр ">
+                            <font>
+                                <Font name="System Italic" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="thrust" contentDisplay="CENTER" layoutX="151.0" layoutY="264.0" prefHeight="16.0" prefWidth="65.0" text="9999" />
+                        <Label fx:id="swing" contentDisplay="CENTER" layoutX="151.0" layoutY="282.0" prefHeight="16.0" prefWidth="65.0" text="9999" />
+                        <Label layoutX="129.0" layoutY="282.0" text="Ам ">
+                            <font>
+                                <Font name="System Italic" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="move" contentDisplay="CENTER" layoutX="34.0" layoutY="264.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label layoutX="11.0" layoutY="264.0" text="БП">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="78.0" layoutY="242.0" text="БС">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="bs" contentDisplay="CENTER" layoutX="104.0" layoutY="242.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label layoutX="152.0" layoutY="242.0" text="УКЛ">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="doge" contentDisplay="CENTER" layoutX="186.0" layoutY="242.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label layoutX="16.0" layoutY="306.0" text="Блок">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="block" contentDisplay="CENTER" layoutX="54.0" layoutY="306.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label fx:id="parry" contentDisplay="CENTER" layoutX="192.0" layoutY="306.0" prefHeight="16.0" prefWidth="30.0" text="9999" />
+                        <Label layoutX="95.0" layoutY="306.0" text="Парирование">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+
+                        <TableView fx:id="advantagesTableView" layoutX="6.0" layoutY="334.0" prefHeight="240.0" prefWidth="344.0">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Преимущества и перки">
+                                    <columns>
+                                        <TableColumn fx:id="advantagesNameColumn" prefWidth="261.0" text="Название" />
+                                        <TableColumn fx:id="advantagesCostColumn" minWidth="0.0" prefWidth="83.0" text="Стоимость" />
+                                    </columns>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+
+                        <TableView fx:id="disadvantagesTableView" layoutX="350.0" layoutY="334.0" prefHeight="240.0" prefWidth="345.0">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Недостатки и квирки">
+                                    <columns>
+                                        <TableColumn fx:id="disadvantagesNameColumn" prefWidth="262.0" text="Название" />
+                                        <TableColumn fx:id="disadvantagesCostColumn" minWidth="0.0" prefWidth="82.0" text="Стоимость" />
+                                    </columns>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+
+                        <TableView fx:id="skillsTableView" layoutX="6.0" layoutY="574.0" prefHeight="186.0" prefWidth="346.0">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Навыки">
+                                    <columns>
+                                        <TableColumn fx:id="skillsName" prefWidth="146.0" text="Название" />
+                                        <TableColumn fx:id="skillsTypeColumn" prefWidth="69.0" text="Параметр" />
+                                        <TableColumn fx:id="skillsComplexityColumn" prefWidth="65.0" text="Сложность" />
+                                        <TableColumn fx:id="skillsLevelColumn" prefWidth="63.0" text="Стоимость" />
+                                    </columns>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+
+                        <TableView fx:id="spellsTableView" layoutX="350.0" layoutY="574.0" prefHeight="186.0" prefWidth="346.0">
+                            <columns>
+                                <TableColumn prefWidth="75.0" text="Заклинания">
+                                    <columns>
+                                        <TableColumn fx:id="spellsNameColumn" prefWidth="171.0" text="Название" />
+                                        <TableColumn fx:id="spellsComplexityColumn" prefWidth="84.0" text="Сложность" />
+                                        <TableColumn fx:id="spellsCostColumn" prefWidth="90.0" text="Стоимость" />
+                                    </columns>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Инвентарь">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

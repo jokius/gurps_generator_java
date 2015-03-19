@@ -1,12 +1,17 @@
 package ru.gurps.generator.controller;
 
 import javafx.fxml.FXML;
+import ru.gurps.generator.lib.UserParams;
 
 public class MainWindowController extends AbstractController {
     @FXML
     public void initialize() {
+        userParams = new UserParams(stCost, dxCost, iqCost, htCost, hpCost, willCost, perCost, fpCost, bsCost, moveCost,
+                bg, doge, thrust, swing);
+
         textEvents();
         cellEvents();
+        buttonEvents();
         maxPoints.setText(user.maxPoints);
         sm.setText(Integer.toString(user.sm));
         noFineManipulators.setSelected(user.noFineManipulators);
@@ -24,24 +29,22 @@ public class MainWindowController extends AbstractController {
         bs.setText(Double.toString(user.bs));
         move.setText(Integer.toString(user.move));
 
-        if(user.currentPoints.equals("0")) {
-            setSt();
-            setDx();
-            setIq();
-            setHt();
+        userParams.setSt();
+        userParams.setDx();
+        userParams.setIq();
+        userParams.setHt();
 
-            setHp();
-            setWill();
-            setPer();
-            setFp();
+        userParams.setHp();
+        userParams.setWill();
+        userParams.setPer();
+        userParams.setFp();
 
-            setBs();
-            setMove();
-        }
+        userParams.setBs();
+        userParams.setMove();
 
-        setBg();
-        setDoge();
-        setDmg();
+        userParams.setBg();
+        userParams.setDoge();
+        userParams.setDmg();
         
         currentPoints.setText(user.currentPoints);
     }

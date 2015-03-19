@@ -2,8 +2,6 @@ package ru.gurps.generator.config;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -19,7 +17,7 @@ public class Model extends Db {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Ignore {}
 
-    private String table = this.getClass().getSimpleName() + "s";
+    protected String table = this.getClass().getSimpleName() + "s";
 
     public Model create() {
         String params = "";
@@ -99,7 +97,7 @@ public class Model extends Db {
         for (Field field : this.getClass().getDeclaredFields()) {
             try {
                 if (field.getName().equals("id")) id = Integer.toString((Integer) field.get(this));
-                else if (field.get(this) != null) params += field.getName() + "=" + field.get(this) + ",";
+                else if (field.get(this) != null) params += field.getName() + "='" + field.get(this) + "',";
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -162,7 +160,9 @@ public class Model extends Db {
     public Model find(int id) {
         try {
             createConnection();
-            return setModel(connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id));
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            result.next();
+            return setModel(result);
         } catch (SQLException e) {
             if(e.getErrorCode() == 2000) return this;
             e.printStackTrace();
@@ -172,10 +172,32 @@ public class Model extends Db {
 
     }
 
+    protected ObservableList hasMany(Model model) {
+        ObservableList list = FXCollections.observableArrayList();
+        try {
+            String column = this.getClass().getSimpleName() + "id";
+            Integer value = (Integer) this.getClass().getDeclaredField("id").get(this);
+            createConnection();
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + model.table + " WHERE " + column + "=" + value);
+            while (results.next()) {
+                list.add(model.setModel(results));
+            }
+        } catch(SQLException e) {
+            if(e.getErrorCode() == 2000) return list;
+            e.printStackTrace();
+        } catch(IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public Model find_by(String column, Object value) {
         try {
             createConnection();
-            return setModel(connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value));
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            result.next();
+            return setModel(result);
         } catch (SQLException e) {
             if(e.getErrorCode() == 2000) return this;
             e.printStackTrace();
