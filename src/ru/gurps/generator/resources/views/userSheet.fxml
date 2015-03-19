@@ -226,23 +226,23 @@
                             </font>
                         </Label>
 
-                        <TableView fx:id="advantagesTableView" layoutX="6.0" layoutY="334.0" prefHeight="240.0" prefWidth="346.0">
+                        <TableView fx:id="advantagesTableView" layoutX="6.0" layoutY="334.0" prefHeight="240.0" prefWidth="344.0">
                             <columns>
                                 <TableColumn prefWidth="75.0" text="Преимущества и перки">
                                     <columns>
-                                        <TableColumn fx:id="advantagesNameColumn" prefWidth="269.0" text="Название" />
-                                        <TableColumn fx:id="advantagesCostColumn" minWidth="0.0" prefWidth="78.0" text="Стоимость" />
+                                        <TableColumn fx:id="advantagesNameColumn" prefWidth="261.0" text="Название" />
+                                        <TableColumn fx:id="advantagesCostColumn" minWidth="0.0" prefWidth="83.0" text="Стоимость" />
                                     </columns>
                                 </TableColumn>
                             </columns>
                         </TableView>
 
-                        <TableView fx:id="disadvantagesTableView" layoutX="350.0" layoutY="334.0" prefHeight="240.0" prefWidth="346.0">
+                        <TableView fx:id="disadvantagesTableView" layoutX="350.0" layoutY="334.0" prefHeight="240.0" prefWidth="345.0">
                             <columns>
                                 <TableColumn prefWidth="75.0" text="Недостатки и квирки">
                                     <columns>
-                                        <TableColumn fx:id="disadvantagesNameColumn" prefWidth="269.0" text="Название" />
-                                        <TableColumn fx:id="disadvantagesCostColumn" minWidth="0.0" prefWidth="78.0" text="Стоимость" />
+                                        <TableColumn fx:id="disadvantagesNameColumn" prefWidth="262.0" text="Название" />
+                                        <TableColumn fx:id="disadvantagesCostColumn" minWidth="0.0" prefWidth="82.0" text="Стоимость" />
                                     </columns>
                                 </TableColumn>
                             </columns>
