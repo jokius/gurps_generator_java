@@ -390,6 +390,8 @@ public class AbstractController extends ViewsAbstact {
         userSheet.setOnAction(event -> {
             Stage childrenStage = new Stage();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
+            UserSheetController controller = new UserSheetController(currentPoints);
+            loader.setController(controller);
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
