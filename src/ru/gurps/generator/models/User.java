@@ -107,4 +107,15 @@ public class User extends Model {
         }
         return languages;
     }
+
+    public ObservableList<Cultura> cultures(){
+        ObservableList<UserCultura> userCulturas = this.hasMany(new UserCultura());
+        ObservableList<Cultura> culturas = FXCollections.observableArrayList();
+        for(UserCultura userCultura : userCulturas){
+            Cultura cultura = (Cultura) new Cultura().find(userCultura.culturaId);
+            cultura.cost = userCultura.cost;
+            culturas.add(cultura);
+        }
+        return culturas;
+    }
 }
