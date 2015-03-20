@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.ViewsAbstact;
@@ -389,8 +391,10 @@ public class AbstractController extends ViewsAbstact {
     protected void buttonEvents(){
         userSheet.setOnAction(event -> {
             Stage childrenStage = new Stage();
+            userSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
-            UserSheetController controller = new UserSheetController(currentPoints);
+            UserSheetController controller = new UserSheetController(currentPoints, userSheet);
             loader.setController(controller);
             Parent childrenRoot;
             try {
@@ -398,6 +402,7 @@ public class AbstractController extends ViewsAbstact {
                 childrenStage.setScene(new Scene(childrenRoot, 700, 795));
                 childrenStage.setTitle("GURPS Лист персонажа");
                 childrenStage.show();
+                childrenStage.setResizable(false);
             } catch(IOException e) {
                 e.printStackTrace();
             }
