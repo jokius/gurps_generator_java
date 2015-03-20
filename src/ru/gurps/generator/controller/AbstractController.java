@@ -42,11 +42,11 @@ public class AbstractController extends ViewsAbstact {
                 user.sm = intValue;
                 int oldStCost = Integer.parseInt(stCost.getText());
                 userParams.setSt();
-                currentPoints(st, oldStCost);
+                currentPoints(stCost, oldStCost);
 
                 int oldHpCost = Integer.parseInt(hpCost.getText());
                 userParams.setHp();
-                currentPoints(hp, oldHpCost);
+                currentPoints(hpCost, oldHpCost);
                 user.save();
             }
         });
@@ -57,11 +57,11 @@ public class AbstractController extends ViewsAbstact {
                 user.noFineManipulators = newValue;
                 int oldStCost = Integer.parseInt(stCost.getText());
                 userParams.setSt();
-                currentPoints(st, oldStCost);
+                currentPoints(stCost, oldStCost);
 
                 int oldDxCost = Integer.parseInt(dxCost.getText());
                 userParams.setDx();
-                currentPoints(dx, oldDxCost);
+                currentPoints(dxCost, oldDxCost);
                 user.save();
             }
         });
@@ -86,11 +86,11 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldStCost = Integer.parseInt(stCost.getText());
                 userParams.setSt();
-                currentPoints(st, oldStCost);
+                currentPoints(stCost, oldStCost);
 
                 int oldHpCost = Integer.parseInt(hpCost.getText());
                 userParams.setHp();
-                currentPoints(hp, oldHpCost);
+                currentPoints(hpCost, oldHpCost);
 
                 userParams.setBg();
                 userParams.setDmg();
@@ -118,15 +118,15 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldDxCost = Integer.parseInt(dxCost.getText());
                 userParams.setDx();
-                currentPoints(dx, oldDxCost);
+                currentPoints(dxCost, oldDxCost);
 
                 int oldBsCost = Integer.parseInt(bsCost.getText());
                 userParams.setBs();
-                currentPoints(bs, oldBsCost);
+                currentPoints(bsCost, oldBsCost);
 
                 int oldMoveCost = Integer.parseInt(bsCost.getText());
                 userParams.setMove();
-                currentPoints(move, oldMoveCost);
+                currentPoints(moveCost, oldMoveCost);
 
                 userParams.setDoge();
                 user.save();
@@ -148,7 +148,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldIqCost = Integer.parseInt(iqCost.getText());
                 userParams.setIq();
-                currentPoints(iq, oldIqCost);
+                currentPoints(iqCost, oldIqCost);
 
                 if(intValue > user.will) {
                     user.will = intValue;
@@ -162,11 +162,11 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldWillCost = Integer.parseInt(willCost.getText());
                 userParams.setWill();
-                currentPoints(will, oldWillCost);
+                currentPoints(willCost, oldWillCost);
 
                 int oldPerCost = Integer.parseInt(perCost.getText());
                 userParams.setPer();
-                currentPoints(per, oldPerCost);
+                currentPoints(perCost, oldPerCost);
                 user.save();
             }
         });
@@ -186,7 +186,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldHtCost = Integer.parseInt(htCost.getText());
                 userParams.setHt();
-                currentPoints(ht, oldHtCost);
+                currentPoints(htCost, oldHtCost);
 
                 if(intValue > user.fp) {
                     user.fp = intValue;
@@ -195,11 +195,11 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldFpCost = Integer.parseInt(fpCost.getText());
                 userParams.setFp();
-                currentPoints(ht, oldFpCost);
+                currentPoints(htCost, oldFpCost);
 
                 int oldBsCost = Integer.parseInt(bsCost.getText());
                 userParams.setBs();
-                currentPoints(bs, oldBsCost);
+                currentPoints(bsCost, oldBsCost);
                 user.save();
             }
         });
@@ -219,7 +219,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldHpCost = Integer.parseInt(hpCost.getText());
                 userParams.setHp();
-                currentPoints(hp, oldHpCost);
+                currentPoints(hpCost, oldHpCost);
                 user.save();
             }
         });
@@ -239,7 +239,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldWillCost = Integer.parseInt(willCost.getText());
                 userParams.setWill();
-                currentPoints(will, oldWillCost);
+                currentPoints(willCost, oldWillCost);
                 user.save();
             }
         });
@@ -259,7 +259,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldPerCost = Integer.parseInt(perCost.getText());
                 userParams.setPer();
-                currentPoints(per, oldPerCost);
+                currentPoints(perCost, oldPerCost);
                 user.save();
             }
         });
@@ -279,7 +279,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldFpCost = Integer.parseInt(fpCost.getText());
                 userParams.setFp();
-                currentPoints(ht, oldFpCost);
+                currentPoints(htCost, oldFpCost);
                 user.save();
             }
         });
@@ -301,7 +301,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldBsCost = Integer.parseInt(bsCost.getText());
                 userParams.setBs();
-                currentPoints(bs, oldBsCost);
+                currentPoints(bsCost, oldBsCost);
 
                 int intNewValue = (int) dNewValue;
                 if(intNewValue > user.move) {
@@ -311,7 +311,7 @@ public class AbstractController extends ViewsAbstact {
 
                 int oldMoveCost = Integer.parseInt(bsCost.getText());
                 userParams.setMove();
-                currentPoints(move, oldMoveCost);
+                currentPoints(moveCost, oldMoveCost);
 
                 userParams.setDoge();
                 user.save();
@@ -333,7 +333,7 @@ public class AbstractController extends ViewsAbstact {
                 user.move = intNewValue;
                 int oldMoveCost = Integer.parseInt(bsCost.getText());
                 userParams.setMove();
-                currentPoints(move, oldMoveCost);
+                currentPoints(moveCost, oldMoveCost);
                 user.save();
             }
         });
@@ -434,7 +434,7 @@ public class AbstractController extends ViewsAbstact {
         disadvantagesData.addAll(disadvantages);
     }
 
-    private void currentPoints(TextField cost, int oldStCost){
+    private void currentPoints(Label cost, int oldStCost){
         user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + Integer.parseInt(cost.getText()) - oldStCost);
         currentPoints.setText(user.currentPoints);
     }
