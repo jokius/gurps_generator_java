@@ -5,10 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import ru.gurps.generator.lib.UserParams;
@@ -20,6 +17,7 @@ public class UserSheetController {
     private User user = UsersController.user;
     private UserParams userParams;
     private Label globalUserPints;
+    private Button userSheet;
 
     public Label name;
     public TextField player;
@@ -100,8 +98,9 @@ public class UserSheetController {
     public TableColumn<Cultura, String> culturaNameColumn;
     public TableColumn<Cultura, Integer> culturaCostColumn;
 
-    public UserSheetController(Label globalUserPints) {
+    public UserSheetController(Label globalUserPints, Button userSheet) {
         this.globalUserPints = globalUserPints;
+        this.userSheet = userSheet;
     }
 
     @FXML
