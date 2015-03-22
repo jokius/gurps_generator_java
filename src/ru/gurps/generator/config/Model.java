@@ -273,6 +273,22 @@ public class Model extends Db {
         return list;
     }
 
+    public ObservableList where(String query) {
+        ObservableList list = FXCollections.observableArrayList();
+        try {
+            createConnection();
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + query);
+            while (results.next()) {
+                list.add(setModel(results));
+            }
+        } catch (SQLException e) {
+            if(e.getErrorCode() == 2000) return list;
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     private Model setModel(ResultSet result) throws SQLException {
         Model model = this;
         try {
