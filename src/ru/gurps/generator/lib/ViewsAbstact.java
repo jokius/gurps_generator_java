@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import ru.gurps.generator.models.Addon;
 import ru.gurps.generator.models.Feature;
+import ru.gurps.generator.models.Language;
 
 public class ViewsAbstact {
     // global part
@@ -296,4 +297,20 @@ public class ViewsAbstact {
 
     @FXML
     protected TextField disadvantagesSearchText;
+
+    //languages part
+
+    public TableView<Language> languagesTableView;
+    public TableColumn<Language, String> languagesNameColumn;
+    public TableColumn<Language, String> languageSpokenColumn;
+    public TableColumn<Language, String> languagesWrittenColumn;
+    public TableColumn<Language, String> languagesCostColumn;
+    public TableColumn<Language, String> languagesUserColumn;
+    public TableColumn<Language, String> languagesDbColumn;
+
+    public TextField languageNameText;
+    public ChoiceBox languageSpokenChoiceBox;
+    public ChoiceBox languageWrittenChoiceBox;
+    public TextField languageCostText;
+    public Button languageAddButton;
 }
