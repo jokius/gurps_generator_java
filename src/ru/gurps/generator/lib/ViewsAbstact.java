@@ -175,6 +175,27 @@ public class ViewsAbstact {
 
     @FXML
     protected CheckBox advantage5CheckBox;
+
+    @FXML
+    protected MenuButton advantagesSearchButton;
+
+    @FXML
+    protected MenuItem advantagesSearchAll;
+
+    @FXML
+    protected MenuItem advantagesSearchTitle;
+
+    @FXML
+    protected MenuItem advantagesSearchTitleEn;
+
+    @FXML
+    protected MenuItem advantagesSearchCost;
+
+    @FXML
+    protected MenuItem advantagesSearchDescription;
+
+    @FXML
+    protected TextField advantagesSearchText;
     
     // disadvantages part
     @FXML
@@ -254,4 +275,25 @@ public class ViewsAbstact {
 
     @FXML
     protected CheckBox disadvantage5CheckBox;
+
+    @FXML
+    protected MenuButton disadvantagesSearchButton;
+
+    @FXML
+    protected MenuItem disadvantagesSearchAll;
+
+    @FXML
+    protected MenuItem disadvantagesSearchTitle;
+
+    @FXML
+    protected MenuItem disadvantagesSearchTitleEn;
+
+    @FXML
+    protected MenuItem disadvantagesSearchCost;
+
+    @FXML
+    protected MenuItem disadvantagesSearchDescription;
+
+    @FXML
+    protected TextField disadvantagesSearchText;
 }
