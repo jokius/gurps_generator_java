@@ -4,7 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,12 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.ViewsAbstact;
 import ru.gurps.generator.models.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ru.gurps.generator.lib.FeatureEventHandler;
 
@@ -26,6 +25,8 @@ public class AbstractController extends ViewsAbstact {
     protected UserParams userParams;
     protected ObservableList<Feature> advantagesData = FXCollections.observableArrayList();
     protected ObservableList<Feature> disadvantagesData = FXCollections.observableArrayList();
+    protected ArrayList<Integer> advantagesNumbers = new ArrayList<>();
+    protected ArrayList<Integer> disadvantagesNumbers = new ArrayList<>();
 
 
     protected void textEvents() {
@@ -388,7 +389,7 @@ public class AbstractController extends ViewsAbstact {
         setDisadvantages();
     }
 
-    protected void buttonEvents(){
+    protected void buttonEvents() {
         userSheet.setOnAction(event -> {
             Stage childrenStage = new Stage();
             userSheet.setDisable(true);
@@ -409,6 +410,49 @@ public class AbstractController extends ViewsAbstact {
         });
     }
 
+    protected void checkBoxEvents() {
+        Integer[] numbers = {1, 2, 3, 4, 5};
+        for(Integer number : numbers) {
+            try {
+                CheckBox checkBox = (CheckBox) ViewsAbstact.class.getDeclaredField("advantage" + number + "CheckBox").get(this);
+                checkBox.setSelected(true);
+                checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                    String query = "advantage=true and type like ";
+                    if(newValue) advantagesNumbers.add(number);
+                    else advantagesNumbers.remove(number);
+                    for(Integer lNumber : advantagesNumbers) {
+                        if(query.equals("advantage=true and type like ")) query += "'%" + lNumber + "%'";
+                        else query += " or type like '%" + lNumber + "%'";
+                    }
+                    if(query.equals("advantage=true and type like ")) query = "advantage=true and type='6'";
+                    advantagesView.setItems(new Feature().where(query));
+                });
+            } catch(NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for(Integer number : numbers) {
+            try {
+                CheckBox checkBox = (CheckBox) ViewsAbstact.class.getDeclaredField("disadvantage" + number + "CheckBox").get(this);
+                checkBox.setSelected(true);
+                checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                    String query = "advantage=false and type like ";
+                    if(newValue) disadvantagesNumbers.add(number);
+                    else disadvantagesNumbers.remove(number);
+                    for(Integer lNumber : disadvantagesNumbers) {
+                        if(query.equals("advantage=false and type like ")) query += "'%" + lNumber + "%'";
+                        else query += " or type like '%" + lNumber + "%'";
+                    }
+                    if(query.equals("advantage=false and type like ")) query = "advantage=false and type='6'";
+                    disadvantagesView.setItems(new Feature().where(query));
+                });
+            } catch(NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void setAdvantages() {
         advantagesTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         advantagesTitleEn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
@@ -416,6 +460,7 @@ public class AbstractController extends ViewsAbstact {
         advantagesCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         advantagesDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
+        advantagesView.setPlaceholder(new Label("Преимуществ нет"));
         advantagesView.setItems(advantagesData);
     }
 
@@ -426,6 +471,7 @@ public class AbstractController extends ViewsAbstact {
         disadvantagesCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         disadvantagesDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
+        advantagesView.setPlaceholder(new Label("Недостатков нет"));
         disadvantagesView.setItems(disadvantagesData);
     }
 
@@ -439,7 +485,7 @@ public class AbstractController extends ViewsAbstact {
         disadvantagesData.addAll(disadvantages);
     }
 
-    private void currentPoints(Label cost, int oldStCost){
+    private void currentPoints(Label cost, int oldStCost) {
         user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + Integer.parseInt(cost.getText()) - oldStCost);
         currentPoints.setText(user.currentPoints);
     }
