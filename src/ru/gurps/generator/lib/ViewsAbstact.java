@@ -160,6 +160,21 @@ public class ViewsAbstact {
 
     @FXML
     protected TableColumn<Addon, String> advantagesAddonCost = new TableColumn<>("cost");
+
+    @FXML
+    protected CheckBox advantage1CheckBox;
+
+    @FXML
+    protected CheckBox advantage2CheckBox;
+
+    @FXML
+    protected CheckBox advantage3CheckBox;
+
+    @FXML
+    protected CheckBox advantage4CheckBox;
+
+    @FXML
+    protected CheckBox advantage5CheckBox;
     
     // disadvantages part
     @FXML
@@ -224,4 +239,19 @@ public class ViewsAbstact {
 
     @FXML
     protected TableColumn<Addon, String> disadvantagesAddonCost = new TableColumn<>("cost");
+
+    @FXML
+    protected CheckBox disadvantage1CheckBox;
+
+    @FXML
+    protected CheckBox disadvantage2CheckBox;
+
+    @FXML
+    protected CheckBox disadvantage3CheckBox;
+
+    @FXML
+    protected CheckBox disadvantage4CheckBox;
+
+    @FXML
+    protected CheckBox disadvantage5CheckBox;
 }

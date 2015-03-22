@@ -6,12 +6,18 @@ import ru.gurps.generator.lib.UserParams;
 public class MainWindowController extends AbstractController {
     @FXML
     public void initialize() {
+        for(int i = 1; 5 >= i; i++){
+            advantagesNumbers.add(i);
+            disadvantagesNumbers.add(i);
+        }
+
         userParams = new UserParams(stCost, dxCost, iqCost, htCost, hpCost, willCost, perCost, fpCost, bsCost, moveCost,
                 bg, doge, thrust, swing);
 
         textEvents();
         cellEvents();
         buttonEvents();
+        checkBoxEvents();
         maxPoints.setText(user.maxPoints);
         sm.setText(Integer.toString(user.sm));
         noFineManipulators.setSelected(user.noFineManipulators);
