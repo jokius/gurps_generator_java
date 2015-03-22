@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="570.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.MainWindowController">
+<AnchorPane prefHeight="621.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.MainWindowController">
    <children>
        <Label alignment="CENTER" layoutX="4.0" layoutY="97.0" prefHeight="25.0" prefWidth="192.0" text="Character Generator">
            <font>
@@ -102,7 +102,7 @@
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
                          <children>
-                             <TableView fx:id="advantagesView" layoutY="28.0" prefHeight="384.0" prefWidth="657.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+                             <TableView fx:id="advantagesView" layoutY="58.0" prefHeight="405.0" prefWidth="657.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
                                  <columns>
                                      <TableColumn fx:id="advantagesTitle" prefWidth="136.0" text="Название" />
                                      <TableColumn fx:id="advantagesTitleEn" prefWidth="125.0" text="Название англ." />
@@ -154,6 +154,16 @@
                               <CheckBox fx:id="advantage5CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="154.0" text="Сверхестествинные" GridPane.columnIndex="4" />
                            </children>
                         </GridPane>
+                        <MenuButton fx:id="advantagesSearchButton" disable="true" layoutX="552.0" layoutY="27.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="16.0">
+                           <items>
+                              <MenuItem fx:id="advantagesSearchAll" mnemonicParsing="false" text="Везде" />
+                              <MenuItem fx:id="advantagesSearchTitle" mnemonicParsing="false" text="Названия" />
+                              <MenuItem fx:id="advantagesSearchTitleEn" mnemonicParsing="false" text="Название англ." />
+                              <MenuItem fx:id="advantagesSearchCost" mnemonicParsing="false" text="Стоимость" />
+                              <MenuItem fx:id="advantagesSearchDescription" mnemonicParsing="false" text="Описание" />
+                           </items>
+                        </MenuButton>
+                        <TextField fx:id="advantagesSearchText" layoutX="371.0" layoutY="27.0" AnchorPane.rightAnchor="100.0" />
                              <!-- bottomMenu End -->
                          </children>
                      </AnchorPane>
@@ -215,6 +225,16 @@
                                      <CheckBox fx:id="disadvantage5CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="154.0" text="Сверхестествинные" GridPane.columnIndex="4" />
                                  </children>
                              </GridPane>
+                             <MenuButton fx:id="disadvantagesSearchButton" disable="true" layoutX="552.0" layoutY="27.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="16.0">
+                                 <items>
+                                     <MenuItem fx:id="disadvantagesSearchAll" mnemonicParsing="false" text="Везде" />
+                                     <MenuItem fx:id="disadvantagesSearchTitle" mnemonicParsing="false" text="Названия" />
+                                     <MenuItem fx:id="disadvantagesSearchTitleEn" mnemonicParsing="false" text="Название англ." />
+                                     <MenuItem fx:id="disadvantagesSearchCost" mnemonicParsing="false" text="Стоимость" />
+                                     <MenuItem fx:id="disadvantagesSearchDescription" mnemonicParsing="false" text="Описание" />
+                                 </items>
+                             </MenuButton>
+                             <TextField fx:id="disadvantagesSearchText" layoutX="371.0" layoutY="27.0" AnchorPane.rightAnchor="100.0" />
                              <!-- bottomMenu End -->
                          </children>
                      </AnchorPane>
