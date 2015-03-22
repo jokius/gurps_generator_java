@@ -17,6 +17,7 @@ public class MainWindowController extends AbstractController {
         textEvents();
         cellEvents();
         buttonEvents();
+        SearchEvents();
         checkBoxEvents();
         maxPoints.setText(user.maxPoints);
         sm.setText(Integer.toString(user.sm));

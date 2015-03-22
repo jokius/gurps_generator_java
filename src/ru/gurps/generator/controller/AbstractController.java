@@ -356,6 +356,22 @@ public class AbstractController extends ViewsAbstact {
                 user.save();
             }
         });
+
+        advantagesSearchText.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.equals("")) advantagesSearchButton.setDisable(true);
+                else advantagesSearchButton.setDisable(false);
+            }
+        });
+
+        disadvantagesSearchText.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue.equals("")) disadvantagesSearchButton.setDisable(true);
+                else disadvantagesSearchButton.setDisable(false);
+            }
+        });
     }
 
     protected void cellEvents() {
@@ -410,6 +426,34 @@ public class AbstractController extends ViewsAbstact {
         });
     }
 
+    protected void SearchEvents(){
+        advantagesSearchAll.setOnAction(event ->{
+            String query = "advantage=true and UPPER(title) like UPPER('%" + advantagesSearchText.getText() + "%') or " +
+                    "advantage=true and UPPER(titleEn) like UPPER('%" + advantagesSearchText.getText() + "%') or " +
+                    "advantage=true and UPPER(cost) like UPPER('%" + advantagesSearchText.getText() + "%') or " +
+                    "advantage=true and UPPER(description) like UPPER('%" + advantagesSearchText.getText() + "%')";
+            advantagesView.setItems(new Feature().where(query));
+        });
+
+        for(String feature : new String[] {"Title", "TitleEn", "Cost", "Description"}){
+            try {
+                MenuItem menuItem = (MenuItem) ViewsAbstact.class.getDeclaredField("advantagesSearch" + feature).get(this);
+                menuItem.setOnAction(event ->{
+                    String query = "advantage=true and UPPER("+ feature + ") like UPPER('%" + advantagesSearchText.getText() + "%')";
+                    advantagesView.setItems(new Feature().where(query));
+                });
+
+                menuItem = (MenuItem) ViewsAbstact.class.getDeclaredField("disadvantagesSearch" + feature).get(this);
+                menuItem.setOnAction(event ->{
+                    String query = "advantage=false and "+ feature + " like '%" + disadvantagesSearchText.getText() + "%'";
+                    disadvantagesView.setItems(new Feature().where(query));
+                });
+            } catch(IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     protected void checkBoxEvents() {
         Integer[] numbers = {1, 2, 3, 4, 5};
         for(Integer number : numbers) {
@@ -422,7 +466,7 @@ public class AbstractController extends ViewsAbstact {
                     else advantagesNumbers.remove(number);
                     for(Integer lNumber : advantagesNumbers) {
                         if(query.equals("advantage=true and type like ")) query += "'%" + lNumber + "%'";
-                        else query += " or type like '%" + lNumber + "%'";
+                        else query += " or advantage=true and type like '%" + lNumber + "%'";
                     }
                     if(query.equals("advantage=true and type like ")) query = "advantage=true and type='6'";
                     advantagesView.setItems(new Feature().where(query));
@@ -442,7 +486,7 @@ public class AbstractController extends ViewsAbstact {
                     else disadvantagesNumbers.remove(number);
                     for(Integer lNumber : disadvantagesNumbers) {
                         if(query.equals("advantage=false and type like ")) query += "'%" + lNumber + "%'";
-                        else query += " or type like '%" + lNumber + "%'";
+                        else query += " or advantage=false and type like '%" + lNumber + "%'";
                     }
                     if(query.equals("advantage=false and type like ")) query = "advantage=false and type='6'";
                     disadvantagesView.setItems(new Feature().where(query));
@@ -471,7 +515,7 @@ public class AbstractController extends ViewsAbstact {
         disadvantagesCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         disadvantagesDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        advantagesView.setPlaceholder(new Label("Недостатков нет"));
+        disadvantagesView.setPlaceholder(new Label("Недостатков нет"));
         disadvantagesView.setItems(disadvantagesData);
     }
 
