@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.lib.LanguagesTable;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.ViewsAbstact;
 import ru.gurps.generator.models.*;
@@ -403,6 +404,10 @@ public class AbstractController extends ViewsAbstact {
 
         setAdvantages();
         setDisadvantages();
+
+        new LanguagesTable(languagesTableView, languagesNameColumn, languageSpokenColumn, languagesWrittenColumn,
+                languagesCostColumn, languagesUserColumn, languagesDbColumn, languageNameText, languageSpokenChoiceBox,
+                languageWrittenChoiceBox, languageCostText, languageAddButton);
     }
 
     protected void buttonEvents() {
