@@ -64,8 +64,8 @@ public class Language extends Model {
         }
     }
 
-    public Integer getCost() {
-        return cost;
+    public String getCost() {
+        return Integer.toString(cost);
     }
 
     public Boolean getAdd() {
