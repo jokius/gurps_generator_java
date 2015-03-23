@@ -24,8 +24,8 @@ public class Model extends Db {
 
         for (Field field : this.getClass().getDeclaredFields())
             try {
-                if (field.get(this) != null && !field.getName().equals("id"))
-                    params += field.getName() + "=" + field.get(this) + ",";
+                if (!field.isAnnotationPresent(Ignore.class) && field.get(this) != null && !field.getName().equals("id"))
+                    params += field.getName() + "='" + field.get(this) + "',";
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
