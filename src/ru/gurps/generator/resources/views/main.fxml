@@ -261,7 +261,7 @@
                               <TableColumn fx:id="languagesWrittenColumn" prefWidth="92.0" text="Письмо" />
                               <TableColumn fx:id="languagesCostColumn" prefWidth="94.0" text="Стоимость" />
                               <TableColumn fx:id="languagesUserColumn" prefWidth="92.0" text="Персонаж" />
-                              <TableColumn fx:id="languagesDbColumn" prefWidth="98.0" text="База" />
+                              <TableColumn fx:id="languagesDbColumn" prefWidth="89.0" text="База" />
                           </columns>
                         </TableView>
                         <Label alignment="CENTER" layoutX="7.0" layoutY="415.0" prefHeight="16.0" prefWidth="125.0" text="Язык" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="5.0" />
