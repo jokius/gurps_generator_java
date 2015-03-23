@@ -138,8 +138,7 @@ public class LanguagesTable {
         LanguagesUserButtonCell() {
             addButton.setOnAction(t -> {
                 Language language = (Language) getTableRow().getItem();
-                new UserLanguage().delete(language.id);
-                new UserLanguage(user.id, language.cost, language.spoken, language.written, language.cost).create();
+                new UserLanguage(user.id, language.id, language.spoken, language.written, language.cost).create();
                 language.add = true;
                 String points = Integer.toString(Integer.parseInt(user.currentPoints) + language.cost);
                 currentPoints.setText(points);
