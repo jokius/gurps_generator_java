@@ -8,8 +8,16 @@ public class Language extends Model {
     @Ignore public Integer spoken = 0;
     @Ignore public Integer written = 0;
     @Ignore public Integer cost = 0;
+    @Ignore public Boolean add = false;
 
     public Language() {
+    }
+
+    public Language(String name, Integer spoken, Integer written, Integer cost) {
+        this.name = name;
+        this.spoken = spoken;
+        this.written = written;
+        this.cost = cost;
     }
 
     public Language(String language) {
@@ -58,5 +66,9 @@ public class Language extends Model {
 
     public Integer getCost() {
         return cost;
+    }
+
+    public Boolean getAdd() {
+        return add;
     }
 }
