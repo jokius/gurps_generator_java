@@ -304,9 +304,9 @@ public class ViewsAbstact {
     public TableColumn<Language, String> languagesNameColumn;
     public TableColumn<Language, String> languageSpokenColumn;
     public TableColumn<Language, String> languagesWrittenColumn;
-    public TableColumn<Language, String> languagesCostColumn;
-    public TableColumn<Language, String> languagesUserColumn;
-    public TableColumn<Language, String> languagesDbColumn;
+    public TableColumn<Language, Integer> languagesCostColumn;
+    public TableColumn<Language, Boolean> languagesUserColumn;
+    public TableColumn<Language, Boolean> languagesDbColumn;
 
     public TextField languageNameText;
     public ChoiceBox languageSpokenChoiceBox;
