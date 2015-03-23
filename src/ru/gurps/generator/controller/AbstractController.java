@@ -12,14 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.lib.LanguagesTable;
-import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.lib.ViewsAbstract;
+import ru.gurps.generator.lib.*;
 import ru.gurps.generator.models.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import ru.gurps.generator.lib.FeatureEventHandler;
 
 public class AbstractController extends ViewsAbstract {
     public static User user;
@@ -408,6 +404,9 @@ public class AbstractController extends ViewsAbstract {
         new LanguagesTable(languagesTableView, languagesNameColumn, languageSpokenColumn, languagesWrittenColumn,
                 languagesCostColumn, languagesUserColumn, languagesDbColumn, languageNameText, languageSpokenChoiceBox,
                 languageWrittenChoiceBox, languageCostText, languageAddButton, currentPoints);
+
+        new CulturasTable(culturasTableView, culturasNameColumn, culturasCostColumn, culturasUserColumn, culturasDbColumn,
+                culturaNameText, culturaCostText, culturaAddButton, currentPoints);
     }
 
     protected void buttonEvents() {
