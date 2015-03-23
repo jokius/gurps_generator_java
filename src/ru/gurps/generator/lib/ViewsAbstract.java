@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import ru.gurps.generator.models.Addon;
+import ru.gurps.generator.models.Cultura;
 import ru.gurps.generator.models.Feature;
 import ru.gurps.generator.models.Language;
 
@@ -313,4 +314,16 @@ public class ViewsAbstract {
     public ChoiceBox languageWrittenChoiceBox;
     public TextField languageCostText;
     public Button languageAddButton;
+
+    //culturas part
+
+    public TableView<Cultura> culturasTableView;
+    public TableColumn<Cultura, String> culturasNameColumn;
+    public TableColumn<Cultura, String> culturasCostColumn;
+    public TableColumn<Cultura, Boolean> culturasUserColumn;
+    public TableColumn<Cultura, Boolean> culturasDbColumn;
+
+    public TextField culturaNameText;
+    public TextField culturaCostText;
+    public Button culturaAddButton;
 }
