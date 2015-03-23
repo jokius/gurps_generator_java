@@ -12,15 +12,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.lib.LanguagesTable;
 import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.lib.ViewsAbstact;
+import ru.gurps.generator.lib.ViewsAbstract;
 import ru.gurps.generator.models.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import ru.gurps.generator.lib.FeatureEventHandler;
 
-public class AbstractController extends ViewsAbstact {
+public class AbstractController extends ViewsAbstract {
     public static User user;
     protected UserParams userParams;
     protected ObservableList<Feature> advantagesData = FXCollections.observableArrayList();
@@ -403,6 +404,10 @@ public class AbstractController extends ViewsAbstact {
 
         setAdvantages();
         setDisadvantages();
+
+        new LanguagesTable(languagesTableView, languagesNameColumn, languageSpokenColumn, languagesWrittenColumn,
+                languagesCostColumn, languagesUserColumn, languagesDbColumn, languageNameText, languageSpokenChoiceBox,
+                languageWrittenChoiceBox, languageCostText, languageAddButton, currentPoints);
     }
 
     protected void buttonEvents() {
@@ -437,13 +442,13 @@ public class AbstractController extends ViewsAbstact {
 
         for(String feature : new String[] {"Title", "TitleEn", "Cost", "Description"}){
             try {
-                MenuItem menuItem = (MenuItem) ViewsAbstact.class.getDeclaredField("advantagesSearch" + feature).get(this);
+                MenuItem menuItem = (MenuItem) ViewsAbstract.class.getDeclaredField("advantagesSearch" + feature).get(this);
                 menuItem.setOnAction(event ->{
                     String query = "advantage=true and UPPER("+ feature + ") like UPPER('%" + advantagesSearchText.getText() + "%')";
                     advantagesView.setItems(new Feature().where(query));
                 });
 
-                menuItem = (MenuItem) ViewsAbstact.class.getDeclaredField("disadvantagesSearch" + feature).get(this);
+                menuItem = (MenuItem) ViewsAbstract.class.getDeclaredField("disadvantagesSearch" + feature).get(this);
                 menuItem.setOnAction(event ->{
                     String query = "advantage=false and "+ feature + " like '%" + disadvantagesSearchText.getText() + "%'";
                     disadvantagesView.setItems(new Feature().where(query));
@@ -458,7 +463,7 @@ public class AbstractController extends ViewsAbstact {
         Integer[] numbers = {1, 2, 3, 4, 5};
         for(Integer number : numbers) {
             try {
-                CheckBox checkBox = (CheckBox) ViewsAbstact.class.getDeclaredField("advantage" + number + "CheckBox").get(this);
+                CheckBox checkBox = (CheckBox) ViewsAbstract.class.getDeclaredField("advantage" + number + "CheckBox").get(this);
                 checkBox.setSelected(true);
                 checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
                     String query = "advantage=true and type like ";
@@ -478,7 +483,7 @@ public class AbstractController extends ViewsAbstact {
 
         for(Integer number : numbers) {
             try {
-                CheckBox checkBox = (CheckBox) ViewsAbstact.class.getDeclaredField("disadvantage" + number + "CheckBox").get(this);
+                CheckBox checkBox = (CheckBox) ViewsAbstract.class.getDeclaredField("disadvantage" + number + "CheckBox").get(this);
                 checkBox.setSelected(true);
                 checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
                     String query = "advantage=false and type like ";

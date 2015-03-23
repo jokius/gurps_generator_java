@@ -24,8 +24,8 @@ public class Model extends Db {
 
         for (Field field : this.getClass().getDeclaredFields())
             try {
-                if (field.get(this) != null && !field.getName().equals("id"))
-                    params += field.getName() + "=" + field.get(this) + ",";
+                if (!field.isAnnotationPresent(Ignore.class) && field.get(this) != null && !field.getName().equals("id"))
+                    params += field.getName() + "='" + field.get(this) + "',";
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -132,6 +132,30 @@ public class Model extends Db {
         try {
             createConnection();
             connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE id=" + id());
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean delete_all(ObservableList<Model> models){
+        if(models.isEmpty()) return true;
+        String params = "";
+        for(Model model : models){
+            try {
+                Integer id = (Integer) model.getClass().getDeclaredField("id").get(model);
+                if(params.equals("")) params += "id='" + id + "'";
+                else params += " or id='" + id + "'";
+            } catch(IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            createConnection();
+            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE " + params);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
