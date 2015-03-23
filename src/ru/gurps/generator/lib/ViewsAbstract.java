@@ -7,7 +7,7 @@ import ru.gurps.generator.models.Addon;
 import ru.gurps.generator.models.Feature;
 import ru.gurps.generator.models.Language;
 
-public class ViewsAbstact {
+public class ViewsAbstract {
     // global part
     @FXML
     protected TextField maxPoints;
