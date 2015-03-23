@@ -407,7 +407,7 @@ public class AbstractController extends ViewsAbstract {
 
         new LanguagesTable(languagesTableView, languagesNameColumn, languageSpokenColumn, languagesWrittenColumn,
                 languagesCostColumn, languagesUserColumn, languagesDbColumn, languageNameText, languageSpokenChoiceBox,
-                languageWrittenChoiceBox, languageCostText, languageAddButton);
+                languageWrittenChoiceBox, languageCostText, languageAddButton, currentPoints);
     }
 
     protected void buttonEvents() {
