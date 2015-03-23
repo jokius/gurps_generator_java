@@ -19,7 +19,7 @@ public class Cultura extends Model {
         return name;
     }
 
-    public Integer getCost() {
-        return cost;
+    public String getCost() {
+        return Integer.toString(cost);
     }
 }
