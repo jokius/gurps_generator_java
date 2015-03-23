@@ -128,6 +128,8 @@ public class LanguagesTable {
             }
             languages.add(language);
             languagesTableView.setItems(languages);
+            languageNameText.setText("");
+            languageAddButton.setDisable(true);
         });
     }
 
