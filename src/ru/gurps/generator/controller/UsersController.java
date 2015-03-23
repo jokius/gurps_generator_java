@@ -128,6 +128,8 @@ public class UsersController extends AbstractController {
     private void createMainWindow(){
         Stage childrenStage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
+        childrenStage.setMinWidth(640);
+        childrenStage.setMinHeight(292);
         Parent childrenRoot;
         try {
             childrenRoot = loader.load();
