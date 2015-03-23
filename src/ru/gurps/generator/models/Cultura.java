@@ -6,6 +6,7 @@ public class Cultura extends Model {
     public Integer id;
     public String name;
     @Ignore public Integer cost = 0;
+    @Ignore public Boolean add = false;
 
     public Cultura() {
     }
@@ -18,7 +19,7 @@ public class Cultura extends Model {
         return name;
     }
 
-    public Integer getCost() {
-        return cost;
+    public String getCost() {
+        return Integer.toString(cost);
     }
 }
