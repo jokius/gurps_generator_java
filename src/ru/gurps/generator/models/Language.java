@@ -13,13 +13,6 @@ public class Language extends Model {
     public Language() {
     }
 
-    public Language(String name, Integer spoken, Integer written, Integer cost) {
-        this.name = name;
-        this.spoken = spoken;
-        this.written = written;
-        this.cost = cost;
-    }
-
     public Language(String language) {
         this.name = language;
     }
