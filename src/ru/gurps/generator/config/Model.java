@@ -140,6 +140,30 @@ public class Model extends Db {
         return false;
     }
 
+    public boolean delete_all(ObservableList<Model> models){
+        if(models.isEmpty()) return true;
+        String params = "";
+        for(Model model : models){
+            try {
+                Integer id = (Integer) model.getClass().getDeclaredField("id").get(model);
+                if(params.equals("")) params += "id='" + id + "'";
+                else params += " or id='" + id + "'";
+            } catch(IllegalAccessException | NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            createConnection();
+            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE " + params);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public ObservableList all() {
         ObservableList list = FXCollections.observableArrayList();
         try {
