@@ -6,6 +6,7 @@ public class Cultura extends Model {
     public Integer id;
     public String name;
     @Ignore public Integer cost = 0;
+    @Ignore public Boolean add = false;
 
     public Cultura() {
     }
