@@ -1,6 +1,7 @@
 package ru.gurps.generator.controller;
 
 import javafx.fxml.FXML;
+import ru.gurps.generator.lib.TabConfigure;
 import ru.gurps.generator.lib.UserParams;
 
 public class MainWindowController extends AbstractController {
@@ -10,6 +11,9 @@ public class MainWindowController extends AbstractController {
             advantagesNumbers.add(i);
             disadvantagesNumbers.add(i);
         }
+
+        new TabConfigure(viewMenu, mainTabPanel, paramsTab, advantagesTab, disadvantagesTab, modesTab, skillsTab,
+                techniquesTab, spellTab, languagesTab, culturasTab, equipmentTab);
 
         userParams = new UserParams(stCost, dxCost, iqCost, htCost, hpCost, willCost, perCost, fpCost, bsCost, moveCost,
                 bg, doge, thrust, swing);
