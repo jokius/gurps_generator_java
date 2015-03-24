@@ -1,6 +1,5 @@
 package ru.gurps.generator.lib;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import ru.gurps.generator.models.Addon;
@@ -10,297 +9,132 @@ import ru.gurps.generator.models.Language;
 
 public class ViewsAbstract {
     // global part
-    @FXML
-    protected TextField maxPoints;
+    public TextField maxPoints;
+    public Label currentPoints;
+    public Button userSheet;
 
-    @FXML
-    protected Label currentPoints;
+    // menus
+    public Menu viewMenu;
 
-    @FXML
-    protected Button userSheet;
-    
+    // tabs
+    public TabPane mainTabPanel;
+
+    public Tab paramsTab;
+    public Tab advantagesTab;
+    public Tab disadvantagesTab;
+    public Tab modesTab;
+    public Tab skillsTab;
+    public Tab techniquesTab;
+    public Tab spellTab;
+    public Tab languagesTab;
+    public Tab culturasTab;
+    public Tab equipmentTab;
     
     // params part
-    @FXML
-    protected TextField sm;
-
-    @FXML
-    protected CheckBox noFineManipulators;
-
-    @FXML
-    protected TextField st;
-
-    @FXML
-    protected Label stCost;
-
-    @FXML
-    protected TextField dx;
-
-    @FXML
-    protected Label dxCost;
-
-    @FXML
-    protected TextField iq;
-
-    @FXML
-    protected Label iqCost;
-
-    @FXML
-    protected TextField ht;
-
-    @FXML
-    protected Label htCost;
-
-    @FXML
-    protected TextField hp;
-
-    @FXML
-    protected Label hpCost;
-
-    @FXML
-    protected TextField will;
-
-    @FXML
-    protected Label willCost;
-
-    @FXML
-    protected TextField per;
-
-    @FXML
-    protected Label perCost;
-
-    @FXML
-    protected TextField fp;
-
-    @FXML
-    protected Label fpCost;
-
-    @FXML
-    protected TextField bs;
-
-    @FXML
-    protected Label bsCost;
-
-    @FXML
-    protected Label bg;
-
-    @FXML
-    protected TextField move;
-
-    @FXML
-    protected Label moveCost;
-
-    @FXML
-    protected Label doge;
-
-    @FXML
-    protected Label thrust;
-
-    @FXML
-    protected Label swing;
+    public TextField sm;
+    public CheckBox noFineManipulators;
+    public TextField st;
+    public Label stCost;
+    public TextField dx;
+    public Label dxCost;
+    public TextField iq;
+    public Label iqCost;
+    public TextField ht;
+    public Label htCost;
+    public TextField hp;
+    public Label hpCost;
+    public TextField will;
+    public Label willCost;
+    public TextField per;
+    public Label perCost;
+    public TextField fp;
+    public Label fpCost;
+    public TextField bs;
+    public Label bsCost;
+    public Label bg;
+    public TextField move;
+    public Label moveCost;
+    public Label doge;
+    public Label thrust;
+    public Label swing;
     
     // advantages part
-    @FXML
-    protected TableView<Feature> advantagesView;
+    public TableView<Feature> advantagesView;
+    public TableView<Addon> advantagesAddonsTableView;
+    public TableColumn<Feature, String> advantagesTitle;
+    public TableColumn<Feature, String> advantagesTitleEn;
+    public TableColumn<Feature, String> advantagesType;
+    public TableColumn<Feature, String> advantagesCost;
+    public TableColumn<Feature, String> advantagesDescription;
 
-    @FXML
-    protected TableView<Addon> advantagesAddonsTableView;
+    public AnchorPane advantagesBottomMenu;
+    public ComboBox advantagesLvlComboBox;
+    public Label advantagesLvlLabel;
+    public TextField advantagesLvlText;
+    public Button advantagesAdd;
+    public Button advantagesRemove;
+    public Button advantagesFull;
+    public Label advantagesFinalCost;
+    public TextField advantagesFinalCostText;
+    public TableColumn<Addon, Boolean> advantagesActivate;
+    public TableColumn<Addon, String> advantagesAddonName;
+    public TableColumn<Addon, String> advantagesAddonNameEn;
+    public TableColumn<Addon, String> advantagesAddonLevel;
+    public TableColumn<Addon, String> advantagesAddonCost;
 
-    @FXML
-    protected TableColumn<Feature, String> advantagesTitle = new TableColumn<>("title");
+    public CheckBox advantage1CheckBox;
+    public CheckBox advantage2CheckBox;
+    public CheckBox advantage3CheckBox;
+    public CheckBox advantage4CheckBox;
+    public CheckBox advantage5CheckBox;
 
-    @FXML
-    protected TableColumn<Feature, String> advantagesTitleEn = new TableColumn<>("titleEn");
-
-    @FXML
-    protected TableColumn<Feature, String> advantagesType = new TableColumn<>("type");
-
-    @FXML
-    protected TableColumn<Feature, String> advantagesCost = new TableColumn<>("cost");
-
-    @FXML
-    protected TableColumn<Feature, String> advantagesDescription = new TableColumn<>("description");
-
-    @FXML
-    protected AnchorPane advantagesBottomMenu;
-
-    @FXML
-    protected ComboBox advantagesLvlComboBox;
-
-    @FXML
-    protected Label advantagesLvlLabel;
-
-    @FXML
-    protected TextField advantagesLvlText;
-
-    @FXML
-    protected Button advantagesAdd;
-
-    @FXML
-    protected Button advantagesRemove;
-
-    @FXML
-    protected Button advantagesFull;
-
-    @FXML
-    protected Label advantagesFinalCost;
-
-    @FXML
-    protected TextField advantagesFinalCostText;
-
-    @FXML
-    protected TableColumn<Addon, Boolean> advantagesActivate = new TableColumn<>("activate");
-
-    @FXML
-    protected TableColumn<Addon, String> advantagesAddonName = new TableColumn<>("title");
-
-    @FXML
-    protected TableColumn<Addon, String> advantagesAddonNameEn = new TableColumn<>("title_en");
-
-    @FXML
-    protected TableColumn<Addon, String> advantagesAddonLevel= new TableColumn<>("level");
-
-    @FXML
-    protected TableColumn<Addon, String> advantagesAddonCost = new TableColumn<>("cost");
-
-    @FXML
-    protected CheckBox advantage1CheckBox;
-
-    @FXML
-    protected CheckBox advantage2CheckBox;
-
-    @FXML
-    protected CheckBox advantage3CheckBox;
-
-    @FXML
-    protected CheckBox advantage4CheckBox;
-
-    @FXML
-    protected CheckBox advantage5CheckBox;
-
-    @FXML
-    protected MenuButton advantagesSearchButton;
-
-    @FXML
-    protected MenuItem advantagesSearchAll;
-
-    @FXML
-    protected MenuItem advantagesSearchTitle;
-
-    @FXML
-    protected MenuItem advantagesSearchTitleEn;
-
-    @FXML
-    protected MenuItem advantagesSearchCost;
-
-    @FXML
-    protected MenuItem advantagesSearchDescription;
-
-    @FXML
-    protected TextField advantagesSearchText;
+    public MenuButton advantagesSearchButton;
+    public MenuItem advantagesSearchAll;
+    public MenuItem advantagesSearchTitle;
+    public MenuItem advantagesSearchTitleEn;
+    public MenuItem advantagesSearchCost;
+    public MenuItem advantagesSearchDescription;
+    public TextField advantagesSearchText;
     
     // disadvantages part
-    @FXML
-    protected TableView<Feature> disadvantagesView;
+    public TableView<Feature> disadvantagesView;
+    public TableView<Addon> disadvantagesAddonsTableView;
+    public TableColumn<Feature, String> disadvantagesTitle;
+    public TableColumn<Feature, String> disadvantagesTitleEn;
+    public TableColumn<Feature, String> disadvantagesType;
+    public TableColumn<Feature, Integer> disadvantagesCost;
+    public TableColumn<Feature, String> disadvantagesDescription;
 
-    @FXML
-    protected TableView<Addon> disadvantagesAddonsTableView;
+    public AnchorPane disadvantagesBottomMenu;
+    public ComboBox disadvantagesLvlComboBox;
+    public Label disadvantagesLvlLabel;
+    public TextField disadvantagesLvlText;
+    public Button disadvantagesAdd;
+    public Button disadvantagesRemove;
+    public Button disadvantagesFull;
+    public Label disadvantagesFinalCost;
+    public TextField disadvantagesFinalCostText;
+    public TableColumn<Addon, Boolean> disadvantagesActivate;
+    public TableColumn<Addon, String> disadvantagesAddonName;
+    public TableColumn<Addon, String> disadvantagesAddonNameEn;
+    public TableColumn<Addon, String> disadvantagesAddonLevel;
+    public TableColumn<Addon, String> disadvantagesAddonCost;
 
-    @FXML
-    protected TableColumn<Feature, String> disadvantagesTitle = new TableColumn<>("title");
+    public CheckBox disadvantage1CheckBox;
+    public CheckBox disadvantage2CheckBox;
+    public CheckBox disadvantage3CheckBox;
+    public CheckBox disadvantage4CheckBox;
+    public CheckBox disadvantage5CheckBox;
 
-    @FXML
-    protected TableColumn<Feature, String> disadvantagesTitleEn = new TableColumn<>("title_en");
-
-    @FXML
-    protected TableColumn<Feature, String> disadvantagesType = new TableColumn<>("type");
-
-    @FXML
-    protected TableColumn<Feature, Integer> disadvantagesCost = new TableColumn<>("cost");
-
-    @FXML
-    protected TableColumn<Feature, String> disadvantagesDescription = new TableColumn<>("description");
-
-    @FXML
-    protected AnchorPane disadvantagesBottomMenu;
-
-    @FXML
-    protected ComboBox disadvantagesLvlComboBox;
-
-    @FXML
-    protected Label disadvantagesLvlLabel;
-
-    @FXML
-    protected TextField disadvantagesLvlText;
-
-    @FXML
-    protected Button disadvantagesAdd;
-
-    @FXML
-    protected Button disadvantagesRemove;
-
-    @FXML
-    protected Button disadvantagesFull;
-
-    @FXML
-    protected Label disadvantagesFinalCost;
-
-    @FXML
-    protected TextField disadvantagesFinalCostText;
-
-    @FXML
-    protected TableColumn<Addon, Boolean> disadvantagesActivate = new TableColumn<>("activate");
-
-    @FXML
-    protected TableColumn<Addon, String> disadvantagesAddonName = new TableColumn<>("title");
-
-    @FXML
-    protected TableColumn<Addon, String> disadvantagesAddonNameEn = new TableColumn<>("title_en");
-
-    @FXML
-    protected TableColumn<Addon, String> disadvantagesAddonLevel = new TableColumn<>("level");
-
-    @FXML
-    protected TableColumn<Addon, String> disadvantagesAddonCost = new TableColumn<>("cost");
-
-    @FXML
-    protected CheckBox disadvantage1CheckBox;
-
-    @FXML
-    protected CheckBox disadvantage2CheckBox;
-
-    @FXML
-    protected CheckBox disadvantage3CheckBox;
-
-    @FXML
-    protected CheckBox disadvantage4CheckBox;
-
-    @FXML
-    protected CheckBox disadvantage5CheckBox;
-
-    @FXML
-    protected MenuButton disadvantagesSearchButton;
-
-    @FXML
-    protected MenuItem disadvantagesSearchAll;
-
-    @FXML
-    protected MenuItem disadvantagesSearchTitle;
-
-    @FXML
-    protected MenuItem disadvantagesSearchTitleEn;
-
-    @FXML
-    protected MenuItem disadvantagesSearchCost;
-
-    @FXML
-    protected MenuItem disadvantagesSearchDescription;
-
-    @FXML
-    protected TextField disadvantagesSearchText;
+    public MenuButton disadvantagesSearchButton;
+    public MenuItem disadvantagesSearchAll;
+    public MenuItem disadvantagesSearchTitle;
+    public MenuItem disadvantagesSearchTitleEn;
+    public MenuItem disadvantagesSearchCost;
+    public MenuItem disadvantagesSearchDescription;
+    public TextField disadvantagesSearchText;
 
     //languages part
-
     public TableView<Language> languagesTableView;
     public TableColumn<Language, String> languagesNameColumn;
     public TableColumn<Language, String> languageSpokenColumn;

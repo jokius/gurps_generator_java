@@ -19,15 +19,11 @@
                  <items>
                      <MenuItem mnemonicParsing="false" text="Новый" />
                      <MenuItem mnemonicParsing="false" text="Открыть" />
-                     <MenuItem mnemonicParsing="false" text="Сохранить" />
-                     <Menu mnemonicParsing="false" text="Главное меню">
-                        <items>
-                            <MenuItem mnemonicParsing="false" text="Основные парметры" />
-                            <MenuItem mnemonicParsing="false" text="Снаряжение" />
-                        </items>
-                     </Menu>
+                     <MenuItem mnemonicParsing="false" text="Загрузить" />
+                  <MenuItem mnemonicParsing="false" text="Выгрузить" />
                  </items>
               </Menu>
+            <Menu fx:id="viewMenu" mnemonicParsing="false" text="Вид" />
               <Menu mnemonicParsing="false" text="Помощь">
                  <items>
                      <MenuItem mnemonicParsing="false" text="Справочник" />
@@ -47,9 +43,9 @@
                <MenuItem mnemonicParsing="false" text="Преимущества" />
            </items>
        </MenuButton>
-       <TabPane layoutX="-3.0" layoutY="125.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+       <TabPane fx:id="mainTabPanel" layoutX="-3.0" layoutY="125.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
           <tabs>
-              <Tab text="Основные параметры">
+              <Tab fx:id="paramsTab" text="Основные параметры">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
                          <children>
@@ -98,7 +94,7 @@
                      </AnchorPane>
                  </content>
               </Tab>
-              <Tab text="Преимущества">
+              <Tab fx:id="advantagesTab" text="Преимущества">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
                          <children>
@@ -169,7 +165,7 @@
                      </AnchorPane>
                  </content>
               </Tab>
-              <Tab text="Недостатки">
+              <Tab fx:id="disadvantagesTab" text="Недостатки">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
                          <children>
@@ -240,27 +236,27 @@
                      </AnchorPane>
                  </content>
               </Tab>
-              <Tab text="Модификаторы">
+              <Tab fx:id="modesTab" text="Модификаторы">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                  </content>
               </Tab>
-            <Tab text="Умения">
+            <Tab fx:id="skillsTab" text="Умения">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-              <Tab text="Техники">
+              <Tab fx:id="techniquesTab" text="Техники">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                  </content>
               </Tab>
-            <Tab text="Заклинания">
+            <Tab fx:id="spellTab" text="Заклинания">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-              <Tab text="Языки">
+              <Tab fx:id="languagesTab" text="Языки">
                  <content>
                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -286,7 +282,7 @@
                      </children></AnchorPane>
                  </content>
               </Tab>
-            <Tab text="Культуры">
+            <Tab fx:id="culturasTab" text="Культуры">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -307,7 +303,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Снаряжения">
+            <Tab fx:id="equipmentTab" text="Снаряжения">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
@@ -319,6 +315,5 @@
            <Label layoutX="298.0" layoutY="97.0" prefHeight="26.0" text="Максимум очков" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="97.0" />
            <TextField fx:id="maxPoints" alignment="CENTER" layoutX="414.0" layoutY="97.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="97.0" />
       <Button fx:id="userSheet" layoutX="210.0" layoutY="36.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="163.0" text="Перейти к листу персонажа" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="36.0" />
-      <AnchorPane layoutX="14.0" layoutY="-85.0" prefHeight="26.0" prefWidth="590.0" />
    </children>
 </AnchorPane>
