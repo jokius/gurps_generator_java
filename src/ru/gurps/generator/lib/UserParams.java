@@ -25,6 +25,9 @@ public class UserParams {
     private Label block;
     private Label parry;
 
+    public UserParams() {
+    }
+
     public UserParams(Label stCost, Label dxCost, Label iqCost, Label htCost, Label hpCost, Label willCost, Label perCost, Label fpCost, Label bsCost, Label moveCost, Label bg, Label doge, Label thrust, Label swing) {
         this.stCost = stCost;
         this.dxCost = dxCost;
@@ -148,15 +151,19 @@ public class UserParams {
         swing.setText(Dmg.swing(user.st));
     }
 
-    public void setParry(ObservableList<Skill> skills) {
+    public String getParry(ObservableList<Skill> skills) {
         int resultSkill = user.dx - 4;
         for(Skill skill : skills)
             if(skill.parry && skill.level > resultSkill) resultSkill = skill.level + skill.parryBonus;
-        parry.setText(Integer.toString(3 + resultSkill / 2));
+        return Integer.toString(3 + resultSkill / 2);
+    }
+
+    public void setParry(ObservableList<Skill> skills) {
+        parry.setText(getParry(skills));
     }
 
 
-    public void setBlock(ObservableList<Skill> skills) {
+    public String getBlock(ObservableList<Skill> skills) {
         int shield = user.dx - 4;
         int cloak = 0;
         for(Skill skill : skills){
@@ -168,7 +175,11 @@ public class UserParams {
         }
 
         if(cloak == 0) cloak = user.dx - 5;
-        if(shield >= cloak) block.setText(Integer.toString(3 + shield / 2));
-        else block.setText(Integer.toString(3 + cloak / 2));
+        if(shield >= cloak) return Integer.toString(3 + shield / 2);
+        else return Integer.toString(3 + cloak / 2);
+    }
+
+    public void setBlock(ObservableList<Skill> skills) {
+        block.setText(getBlock(skills));
     }
 }
