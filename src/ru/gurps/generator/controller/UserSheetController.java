@@ -14,7 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.lib.exxport.ExcelJokSheetFormat;
+import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
+import ru.gurps.generator.lib.export.ExportToJson;
 import ru.gurps.generator.models.*;
 
 import java.io.File;
@@ -105,6 +106,7 @@ public class UserSheetController {
     public TableColumn<Cultura, Integer> culturaCostColumn;
 
     public Button jokXlsxButton;
+    public Button jsonButton;
 
     public UserSheetController(Label globalUserPint) {
         this.globalUserPints = globalUserPints;
@@ -272,12 +274,22 @@ public class UserSheetController {
     private void exportButtons(){
         jokXlsxButton.setOnAction(event ->{
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Image");
+            fileChooser.setTitle("Сохронить лист персонажа");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx");
             fileChooser.getExtensionFilters().add(extFilter);
             fileChooser.setInitialFileName(user.name);
             File file = fileChooser.showSaveDialog(new Stage());
             new ExcelJokSheetFormat(file);
+        });
+
+        jsonButton.setOnAction(event ->{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Сохронить лист персонажа");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("json files (*.json)", "*.json");
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialFileName(user.name);
+            File file = fileChooser.showSaveDialog(new Stage());
+            new ExportToJson(file);
         });
     }
 }
