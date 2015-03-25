@@ -287,6 +287,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="jokXlsxButton" layoutX="141.0" layoutY="20.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="384.0" text="Выгрузить Jok .xlsx" />
+                  <Button fx:id="jsonButton" layoutX="141.0" layoutY="65.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="384.0" text="Выгрузить .json" />
                </children>
             </AnchorPane>
          </content>
