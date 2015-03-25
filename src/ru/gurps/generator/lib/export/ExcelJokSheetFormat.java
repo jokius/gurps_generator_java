@@ -1,4 +1,4 @@
-package ru.gurps.generator.lib.exxport;
+package ru.gurps.generator.lib.export;
 
 import javafx.collections.ObservableList;
 import org.apache.poi.ss.usermodel.*;
