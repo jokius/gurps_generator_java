@@ -415,7 +415,7 @@ public class AbstractController extends ViewsAbstract {
             userSheet.setDisable(true);
             childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
-            UserSheetController controller = new UserSheetController(currentPoints, userSheet);
+            UserSheetController controller = new UserSheetController(currentPoints);
             loader.setController(controller);
             Parent childrenRoot;
             try {

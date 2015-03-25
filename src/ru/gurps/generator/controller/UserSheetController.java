@@ -6,18 +6,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.exxport.ExcelJokSheetFormat;
 import ru.gurps.generator.models.*;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 public class UserSheetController {
     private User user = UsersController.user;
     private UserParams userParams;
     private Label globalUserPints;
-    private Button userSheet;
 
     public Label name;
     public TextField player;
@@ -98,9 +104,10 @@ public class UserSheetController {
     public TableColumn<Cultura, String> culturaNameColumn;
     public TableColumn<Cultura, Integer> culturaCostColumn;
 
-    public UserSheetController(Label globalUserPints, Button userSheet) {
+    public Button jokXlsxButton;
+
+    public UserSheetController(Label globalUserPint) {
         this.globalUserPints = globalUserPints;
-        this.userSheet = userSheet;
     }
 
     @FXML
@@ -162,6 +169,7 @@ public class UserSheetController {
 
         setTextProperty();
 
+        exportButtons();
     }
 
     private void initFeatures() {
@@ -259,5 +267,17 @@ public class UserSheetController {
         remainingPoints.setText(Integer.toString(remaining));
         if(remaining > 0) remainingPoints.setTextFill(Color.GREEN);
         else remainingPoints.setTextFill(Color.RED);
+    }
+
+    private void exportButtons(){
+        jokXlsxButton.setOnAction(event ->{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Image");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx");
+            fileChooser.getExtensionFilters().add(extFilter);
+            fileChooser.setInitialFileName(user.name);
+            File file = fileChooser.showSaveDialog(new Stage());
+            new ExcelJokSheetFormat(file);
+        });
     }
 }

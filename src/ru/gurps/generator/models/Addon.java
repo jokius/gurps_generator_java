@@ -8,10 +8,10 @@ public class Addon extends Model {
     public String title;
     public String titleEn;
     public String cost;
-    @Ignore public Integer resultCost;
+    @Ignore public Integer resultCost = 0;
     public String description;
     public Integer maxLevel;
-    @Ignore public String level;
+    @Ignore public String level = "1";
     @Ignore public Boolean active = false;
 
     public Addon() {
