@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class ExcelJokSheetFormat {
 
-    public ExcelJokSheetFormat() {
+    public ExcelJokSheetFormat(File newFile) {
         String parent = "\\w*.jar";
         String jarFolder = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, "");
         try {
@@ -170,14 +170,10 @@ public class ExcelJokSheetFormat {
                 }
             }
 
-            String path = jarFolder+"export"+File.separator+ user.name+".xlsx";
-            File f = new File(path);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            FileOutputStream newFile = new FileOutputStream(f);
-            wb.write(newFile);
-            newFile.flush();
-            newFile.close();
+            FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+            wb.write(fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
             file.close();
         } catch(IOException e) {
             e.printStackTrace();
