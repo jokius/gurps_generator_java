@@ -7,6 +7,8 @@ import ru.gurps.generator.lib.UserParams;
 public class MainWindowController extends AbstractController {
     @FXML
     public void initialize() {
+        globalCost = currentPoints;
+
         for(int i = 1; 5 >= i; i++){
             advantagesNumbers.add(i);
             disadvantagesNumbers.add(i);
