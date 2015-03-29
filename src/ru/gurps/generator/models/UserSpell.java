@@ -6,16 +6,16 @@ public class UserSpell extends Model {
     public Integer id;
     public Integer userId;
     public Integer spellId;
-    public Integer cost;
     public Integer level;
+    public Integer cost;
 
     public UserSpell() {
     }
 
-    public UserSpell(Integer userId, Integer spellId, Integer cost, Integer level) {
+    public UserSpell(Integer userId, Integer spellId, Integer level, Integer cost) {
         this.userId = userId;
         this.spellId = spellId;
-        this.cost = cost;
         this.level = level;
+        this.cost = cost;
     }
 }
