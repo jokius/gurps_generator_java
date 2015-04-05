@@ -1,7 +1,5 @@
 package ru.gurps.generator.controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,17 +39,17 @@ public class SpellsController {
     public TextField searchText;
 
 
-    public CheckBox t0CheckBox;
-    public CheckBox t1CheckBox;
-    public CheckBox t2CheckBox;
-    public CheckBox t3CheckBox;
-    public CheckBox t4CheckBox;
-    public CheckBox t5CheckBox;
-    public CheckBox t6CheckBox;
-    public CheckBox t7CheckBox;
-    public CheckBox t8CheckBox;
+    public CheckMenuItem t0CheckBox;
+    public CheckMenuItem t1CheckBox;
+    public CheckMenuItem t2CheckBox;
+    public CheckMenuItem t3CheckBox;
+    public CheckMenuItem t4CheckBox;
+    public CheckMenuItem t5CheckBox;
+    public CheckMenuItem t6CheckBox;
+    public CheckMenuItem t7CheckBox;
+    public CheckMenuItem t8CheckBox;
 
-    public CheckBox s0CheckBox;
+    public CheckMenuItem s0CheckBox;
 
 
     public TextField level;
@@ -225,7 +223,7 @@ public class SpellsController {
         Integer[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         for(Integer number : numbers) {
             try {
-                CheckBox checkBox = (CheckBox) this.getClass().getDeclaredField("t" + number + "CheckBox").get(this);
+                CheckMenuItem checkBox = (CheckMenuItem) this.getClass().getDeclaredField("t" + number + "CheckBox").get(this);
                 checkBox.setSelected(true);
                 checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
                     String query = "spellType like ";
@@ -236,13 +234,10 @@ public class SpellsController {
                         else query += " or spellType like '%" + tNumber + "%'";
 
                         for(Integer sNumber : schoolNumbers) {
-                            if(query.contains("and")) query += " or school like '%" + sNumber + "%'";
-                            else query += " and school like '%" + sNumber + "%'";
+                            query += " and school like '%" + sNumber + "%'";
                         }
                     }
                     if(query.equals("spellType like ")) query = "spellType='-1'";
-
-                    System.out.println(query);
                     tableView.setItems(new Spell().where(query));
                 });
             } catch(NoSuchFieldException | IllegalAccessException e) {
@@ -252,23 +247,22 @@ public class SpellsController {
 
         for(Integer number : numbers) {
             try {
-                CheckBox checkBox = (CheckBox) this.getClass().getDeclaredField("s" + number + "CheckBox").get(this);
+                CheckMenuItem checkBox = (CheckMenuItem) this.getClass().getDeclaredField("s" + number + "CheckBox").get(this);
                 checkBox.setSelected(true);
                 checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
                     String query = "school like ";
                     if(newValue) schoolNumbers.add(number);
                     else schoolNumbers.remove(number);
+
                     for(Integer sNumber : schoolNumbers) {
                         if(query.equals("school like ")) query += "'%" + sNumber + "%'";
                         else query += " or school like '%" + sNumber + "%'";
 
                         for(Integer tNumber : typeNumbers) {
-                            if(query.contains("and")) query += " or spellType like '%" + tNumber + "%'";
-                            else query += " and spellType like '%" + tNumber + "%'";
+                            query += " and spellType like '%" + tNumber + "%'";
                         }
                     }
                     if(query.equals("school like ")) query = "school='-1'";
-                    System.out.println(query);
                     tableView.setItems(new Spell().where(query));
                 });
             } catch(NoSuchFieldException | IllegalAccessException e) {

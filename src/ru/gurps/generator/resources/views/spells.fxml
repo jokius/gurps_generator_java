@@ -6,7 +6,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.SpellsController">
     <children>
-        <TableView fx:id="tableView" prefHeight="399.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+        <TableView fx:id="tableView" layoutY="48.0" prefHeight="351.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="136.0" text="Название" />
                 <TableColumn fx:id="nameEnColumn" prefWidth="109.0" text="Название англ." />
@@ -18,7 +18,7 @@
             </columns>
         </TableView>
 
-        <MenuButton fx:id="searchButton" disable="true" layoutX="557.0" layoutY="98.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="98.0">
+        <MenuButton fx:id="searchButton" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false" text="Поск" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0">
             <items>
                 <MenuItem fx:id="searchAll" mnemonicParsing="false" text="Везде" />
                 <MenuItem fx:id="searchName" mnemonicParsing="false" text="Названия" />
@@ -27,17 +27,7 @@
                 <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="Описание" />
             </items>
         </MenuButton>
-        <TextField fx:id="searchText" layoutX="390.0" layoutY="98.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="98.0" />
-        <CheckBox fx:id="t0CheckBox" layoutX="32.0" layoutY="12.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="89.0" text="Обычные" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="12.0" />
-        <CheckBox fx:id="t1CheckBox" layoutX="132.0" layoutY="15.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="99.0" text="Облостные" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="12.0" />
-        <CheckBox fx:id="t2CheckBox" layoutX="236.0" layoutY="12.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="115.0" text="Касательные" AnchorPane.leftAnchor="236.0" AnchorPane.topAnchor="12.0" />
-        <CheckBox fx:id="t3CheckBox" layoutX="359.0" layoutY="12.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="115.0" text="Метательные" AnchorPane.leftAnchor="359.0" AnchorPane.topAnchor="12.0" />
-        <CheckBox fx:id="t4CheckBox" layoutX="482.0" layoutY="12.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="115.0" text="Блокирующие" AnchorPane.leftAnchor="482.0" AnchorPane.topAnchor="12.0" />
-        <CheckBox fx:id="t5CheckBox" layoutX="32.0" layoutY="41.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="139.0" text="Сопротивляемые" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="41.0" />
-        <CheckBox fx:id="t6CheckBox" layoutX="174.0" layoutY="41.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="144.0" text="Информационные" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="41.0" />
-        <CheckBox fx:id="t7CheckBox" layoutX="327.0" layoutY="37.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="63.0" text="Чары" AnchorPane.leftAnchor="327.0" AnchorPane.topAnchor="41.0" />
-        <CheckBox fx:id="t8CheckBox" layoutX="402.0" layoutY="41.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="80.0" text="Особое" AnchorPane.leftAnchor="402.0" AnchorPane.topAnchor="41.0" />
-        <CheckBox fx:id="s0CheckBox" layoutX="32.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Воздух" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="73.0" />
+        <TextField fx:id="searchText" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="14.0" />
 
         <AnchorPane fx:id="bottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
@@ -61,5 +51,23 @@
                 <Label fx:id="thing" layoutX="51.0" layoutY="112.0" prefHeight="16.0" prefWidth="449.0" text="Трусы, футболка" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="114.0" />
             </children>
         </AnchorPane>
+      <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Типы заклинания" AnchorPane.leftAnchor="6.0">
+        <items>
+            <CheckMenuItem fx:id="t0CheckBox" mnemonicParsing="false" text="Обычные" />
+            <CheckMenuItem fx:id="t1CheckBox" mnemonicParsing="false" text="Облостные" />
+            <CheckMenuItem fx:id="t2CheckBox" mnemonicParsing="false" text="Касательные" />
+            <CheckMenuItem fx:id="t3CheckBox" mnemonicParsing="false" text="Метательные" />
+            <CheckMenuItem fx:id="t4CheckBox" mnemonicParsing="false" text="Блокирующие" />
+            <CheckMenuItem fx:id="t5CheckBox" mnemonicParsing="false" text="Сопротивляемые" />
+            <CheckMenuItem fx:id="t6CheckBox" mnemonicParsing="false" text="Информационные" />
+            <CheckMenuItem fx:id="t7CheckBox" mnemonicParsing="false" text="Чары" />
+            <CheckMenuItem fx:id="t8CheckBox" mnemonicParsing="false" text="Особое" />
+        </items>
+      </MenuButton>
+      <MenuButton layoutX="167.0" layoutY="14.0" mnemonicParsing="false" text="Школы" AnchorPane.leftAnchor="170.0">
+        <items>
+            <CheckMenuItem fx:id="s0CheckBox" mnemonicParsing="false" text="Воздух" />
+        </items>
+      </MenuButton>
     </children>
 </AnchorPane>
