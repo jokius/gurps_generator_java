@@ -308,7 +308,8 @@ public class SpellsController {
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
-                childrenStage.setScene(new Scene(childrenRoot, 525, 400));
+                childrenStage.setResizable(false);
+                childrenStage.setScene(new Scene(childrenRoot, 635, 572));
                 childrenStage.setTitle("GURPSGenerator - " + name);
                 childrenStage.show();
             } catch(IOException e) {
