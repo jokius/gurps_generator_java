@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class AbstractController extends ViewsAbstract {
     public static User user;
+    public static Label globalCost;
     protected UserParams userParams;
     protected ObservableList<Feature> advantagesData = FXCollections.observableArrayList();
     protected ObservableList<Feature> disadvantagesData = FXCollections.observableArrayList();
@@ -415,8 +416,6 @@ public class AbstractController extends ViewsAbstract {
             userSheet.setDisable(true);
             childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
-            UserSheetController controller = new UserSheetController(currentPoints);
-            loader.setController(controller);
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();

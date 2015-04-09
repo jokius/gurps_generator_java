@@ -22,9 +22,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 
 public class UserSheetController {
-    private User user = UsersController.user;
+    private User user = AbstractController.user;
     private UserParams userParams;
-    private Label globalUserPints;
 
     public Label name;
     public TextField player;
@@ -107,10 +106,6 @@ public class UserSheetController {
 
     public Button jokXlsxButton;
     public Button jsonButton;
-
-    public UserSheetController(Label globalUserPint) {
-        this.globalUserPints = globalUserPints;
-    }
 
     @FXML
     private void initialize() {
@@ -245,7 +240,7 @@ public class UserSheetController {
                                     user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) +
                                             Integer.parseInt(newValue) - user.tlCost);
 
-                                    globalUserPints.setText(user.currentPoints);
+                                    AbstractController.globalCost.setText(user.currentPoints);
                                     setRemainingPoints();
                                 }
                                 if(Integer.class.isAssignableFrom(setField.getType()))
