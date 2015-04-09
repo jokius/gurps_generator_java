@@ -30,34 +30,6 @@ public class ViewsAbstract {
     public Tab culturasTab;
     public Tab equipmentTab;
     
-    // params part
-    public TextField sm;
-    public CheckBox noFineManipulators;
-    public TextField st;
-    public Label stCost;
-    public TextField dx;
-    public Label dxCost;
-    public TextField iq;
-    public Label iqCost;
-    public TextField ht;
-    public Label htCost;
-    public TextField hp;
-    public Label hpCost;
-    public TextField will;
-    public Label willCost;
-    public TextField per;
-    public Label perCost;
-    public TextField fp;
-    public Label fpCost;
-    public TextField bs;
-    public Label bsCost;
-    public Label bg;
-    public TextField move;
-    public Label moveCost;
-    public Label doge;
-    public Label thrust;
-    public Label swing;
-    
     // advantages part
     public TableView<Feature> advantagesView;
     public TableView<Addon> advantagesAddonsTableView;
