@@ -112,11 +112,14 @@ public class UserParams {
         fpCost.setText(Integer.toString(cost));
     }
 
+    public double defaultBs(){
+        return  (user.dx + user.ht) / 4;
+    }
+
     public void setBs() {
-        double defaultBs = (user.dx + user.ht) / 4;
         int cost = 0;
         double periods;
-        periods = user.bs - defaultBs;
+        periods = user.bs - defaultBs();
 
         if(periods >= 0.25) {
             do {
