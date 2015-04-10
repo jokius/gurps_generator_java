@@ -2,28 +2,17 @@ package ru.gurps.generator.controller;
 
 import javafx.fxml.FXML;
 import ru.gurps.generator.lib.TabConfigure;
-import ru.gurps.generator.lib.UserParams;
 
 public class MainWindowController extends AbstractController {
     @FXML
     public void initialize() {
         globalCost = currentPoints;
 
-        for(int i = 1; 5 >= i; i++){
-            advantagesNumbers.add(i);
-            disadvantagesNumbers.add(i);
-        }
-
         new TabConfigure(viewMenu, mainTabPanel, paramsTab, advantagesTab, disadvantagesTab, modesTab, skillsTab,
                 techniquesTab, spellTab, languagesTab, culturasTab, equipmentTab);
 
-
-
-        textEvents();
         cellEvents();
         buttonEvents();
-        SearchEvents();
-        checkBoxEvents();
         maxPoints.setText(user.maxPoints);
 
         
