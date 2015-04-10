@@ -118,4 +118,15 @@ public class User extends Model {
         }
         return culturas;
     }
+
+    public ObservableList<Quirk> quirks(){
+        ObservableList<UserQuirk> userQuirks = this.hasMany(new UserQuirk());
+        ObservableList<Quirk> quirks = FXCollections.observableArrayList();
+        for(UserQuirk userQuirk : userQuirks){
+            Quirk quirk = (Quirk) new Quirk().find(userQuirk.quirkId);
+            quirk.cost = userQuirk.cost;
+            quirks.add(quirk);
+        }
+        return quirks;
+    }
 }
