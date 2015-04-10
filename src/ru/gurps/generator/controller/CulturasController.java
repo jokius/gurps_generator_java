@@ -1,47 +1,29 @@
-package ru.gurps.generator.lib;
+package ru.gurps.generator.controller;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import ru.gurps.generator.controller.UsersController;
-import ru.gurps.generator.models.*;
+import ru.gurps.generator.models.Cultura;
+import ru.gurps.generator.models.UserCultura;
 
+public class CulturasController extends AbstractController {
+    public TableView<Cultura> tableView;
+    public TableColumn<Cultura, String> nameColumn;
+    public TableColumn<Cultura, String> costColumn;
+    public TableColumn<Cultura, Boolean> userColumn;
+    public TableColumn<Cultura, Boolean> dbColumn;
 
-public class CulturasTable {
-    private User user = UsersController.user;
-    private TableView<Cultura> culturasTableView;
-    private TableColumn<Cultura, String> culturasNameColumn;
-    private TableColumn<Cultura, String> culturasCostColumn;
-    private TableColumn<Cultura, Boolean> culturasUserColumn;
-    private TableColumn<Cultura, Boolean> culturasDbColumn;
-
-    private TextField culturaNameText;
-    private TextField culturaCostText;
-    private Button culturaAddButton;
-
-    private Label currentPoints;
+    public TextField nameText;
+    public TextField costText;
+    public Button addButton;
     private ObservableList<Cultura> culturas = FXCollections.observableArrayList();
 
-    public CulturasTable(TableView<Cultura> culturasTableView, TableColumn<Cultura, String> culturasNameColumn,
-                         TableColumn<Cultura, String> culturasCostColumn, TableColumn<Cultura, Boolean> culturasUserColumn,
-                         TableColumn<Cultura, Boolean> culturasDbColumn, TextField culturaNameText, TextField culturaCostText,
-                         Button culturaAddButton, Label currentPoints) {
-        this.culturasTableView = culturasTableView;
-        this.culturasNameColumn = culturasNameColumn;
-        this.culturasCostColumn = culturasCostColumn;
-        this.culturasUserColumn = culturasUserColumn;
-        this.culturasDbColumn = culturasDbColumn;
-        this.culturaNameText = culturaNameText;
-        this.culturaCostText = culturaCostText;
-        this.culturaAddButton = culturaAddButton;
-        this.currentPoints = currentPoints;
-        run();
-    }
-
-    private void run() {
+    @FXML
+    private void initialize() {
         for(Object object : new Cultura().all()){
             Cultura cultura = (Cultura) object;
             for(Cultura userCultura : user.cultures()){
@@ -54,48 +36,48 @@ public class CulturasTable {
             culturas.add(cultura);
         }
 
-        culturasNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        culturasCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        culturasCostColumn.setOnEditCommit(event -> {
-                    if(event.getNewValue().equals("0") || "\\D".matches(event.getNewValue())) return;
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        costColumn.setOnEditCommit(event -> {
+            if(event.getNewValue().equals("0") || "\\D".matches(event.getNewValue())) return;
             Cultura cultura = event.getTableView().getItems().get(event.getTablePosition().getRow());
             if(cultura.cost != Integer.parseInt(event.getNewValue()))
                 cultura.cost = Integer.parseInt(event.getNewValue());
         });
 
-        culturasCostColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        costColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        culturasUserColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
-        culturasUserColumn.setCellFactory(p -> new CulturasUserButtonCell());
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
+        userColumn.setCellFactory(p -> new CulturasUserButtonCell());
 
-        culturasDbColumn.setCellValueFactory(p -> new SimpleBooleanProperty(true));
-        culturasDbColumn.setCellFactory(p -> new CulturasDbButtonCell());
+        dbColumn.setCellValueFactory(p -> new SimpleBooleanProperty(true));
+        dbColumn.setCellFactory(p -> new CulturasDbButtonCell());
 
-        culturasTableView.setItems(culturas);
-        culturasTableView.setPlaceholder(new Label("Культур нет"));
-        culturasTableView.setEditable(true);
+        tableView.setItems(culturas);
+        tableView.setPlaceholder(new Label("Культур нет"));
+        tableView.setEditable(true);
 
-        culturaNameText.textProperty().addListener((observable, oldValue, newValue) -> {
+        nameText.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            culturaAddButton.setDisable(false);
+            addButton.setDisable(false);
         });
 
-        culturaAddButton.setOnAction(event -> {
-            Cultura cultura = (Cultura) new Cultura(culturaNameText.getText()).create();
-            cultura.cost = Integer.parseInt(culturaCostText.getText());
+        addButton.setOnAction(event -> {
+            Cultura cultura = (Cultura) new Cultura(nameText.getText()).create();
+            cultura.cost = Integer.parseInt(costText.getText());
             cultura.add = true;
 
             new UserCultura(user.id, cultura.id, cultura.cost).create();
             if(cultura.cost != 0){
                 String points = Integer.toString(Integer.parseInt(user.currentPoints) + cultura.cost);
-                currentPoints.setText(points);
+                globalCost.setText(points);
                 user.update_single("currentPoints", points);
             }
             culturas.add(cultura);
-            culturasTableView.setItems(culturas);
-            culturaNameText.setText("");
-            culturaAddButton.setDisable(true);
+            tableView.setItems(culturas);
+            nameText.setText("");
+            addButton.setDisable(true);
         });
     }
 
@@ -109,18 +91,18 @@ public class CulturasTable {
                 new UserCultura(user.id, cultura.id, cultura.cost).create();
                 cultura.add = true;
                 String points = Integer.toString(Integer.parseInt(user.currentPoints) + cultura.cost);
-                currentPoints.setText(points);
+                globalCost.setText(points);
                 user.update_single("currentPoints", points);
                 setGraphic(removeButton);
             });
 
             removeButton.setOnAction(t -> {
                 Cultura cultura = (Cultura) getTableRow().getItem();
-                new UserLanguage().find_by("culturaId", cultura.id).delete();
+                new UserCultura().find_by("culturaId", cultura.id).delete();
 
                 cultura.add = false;
                 String points = Integer.toString(Integer.parseInt(user.currentPoints) - cultura.cost);
-                currentPoints.setText(points);
+                globalCost.setText(points);
                 user.update_single("currentPoints", points);
                 setGraphic(addButton);
             });
@@ -146,7 +128,7 @@ public class CulturasTable {
                 cultura.delete();
                 new UserCultura().delete_all(new UserCultura().where("culturaId", cultura.id));
                 culturas.remove(cultura);
-                culturasTableView.setItems(culturas);
+                tableView.setItems(culturas);
             });
         }
 

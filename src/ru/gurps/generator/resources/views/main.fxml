@@ -47,193 +47,17 @@
           <tabs>
               <Tab fx:id="paramsTab" text="Основные параметры">
                  <content>
-                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
-                         <children>
-                             <Label layoutX="11.0" layoutY="14.0" prefHeight="26.0" prefWidth="158.0" text="Модификатор размера" AnchorPane.leftAnchor="11.0" />
-                             <TextField fx:id="sm" alignment="CENTER" layoutX="173.0" layoutY="14.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="173.0" />
-                             <CheckBox fx:id="noFineManipulators" alignment="CENTER" layoutX="433.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" text="Нет хороших манипуляторов" AnchorPane.rightAnchor="10.0" />
-                             <Label layoutX="13.0" layoutY="262.0" prefHeight="26.0" prefWidth="87.0" text="Базовый груз" AnchorPane.leftAnchor="13.0" />
-                             <Label layoutX="13.0" layoutY="220.0" prefHeight="26.0" prefWidth="115.0" text="Базовая скорость" AnchorPane.leftAnchor="13.0" />
-                             <TextField fx:id="bs" alignment="CENTER" layoutX="139.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="139.0" />
-                             <Label fx:id="bg" alignment="CENTER" layoutX="191.0" layoutY="262.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="191.0" />
-                             <Label fx:id="bsCost" alignment="CENTER" layoutX="191.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="191.0" />
-                             <Label fx:id="moveCost" alignment="CENTER" layoutX="594.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-                             <TextField fx:id="move" alignment="CENTER" layoutX="549.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-                             <Label layoutX="412.0" layoutY="220.0" prefHeight="26.0" prefWidth="123.0" text="Базовое движение" AnchorPane.rightAnchor="113.0" />
-                             <Label fx:id="doge" alignment="CENTER" layoutX="594.0" layoutY="262.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-                             <Label layoutX="466.0" layoutY="262.0" prefHeight="26.0" prefWidth="69.0" text="Уклонение" AnchorPane.rightAnchor="113.0" />
-                             <Label layoutX="359.0" layoutY="296.0" prefHeight="26.0" prefWidth="176.0" text="Повреждение амплитудное" AnchorPane.rightAnchor="113.0" />
-                             <Label fx:id="swing" alignment="CENTER" layoutX="584.0" layoutY="296.0" prefHeight="26.0" prefWidth="49.0" AnchorPane.rightAnchor="15.0" />
-                             <Label fx:id="thrust" alignment="CENTER" layoutX="191.0" layoutY="296.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="191.0" />
-                             <Label layoutX="13.0" layoutY="296.0" prefHeight="26.0" prefWidth="148.0" text="Повреждение прямое" AnchorPane.leftAnchor="13.0" />
-                             <TextField fx:id="hp" alignment="CENTER" layoutX="549.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-                             <TextField fx:id="st" alignment="CENTER" layoutX="125.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-                             <Label fx:id="hpCost" alignment="CENTER" layoutX="594.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-                             <Label alignment="CENTER" layoutX="436.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки здаровья" AnchorPane.rightAnchor="113.0" />
-                             <Label fx:id="stCost" alignment="CENTER" layoutX="174.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
-                             <Label alignment="CENTER" layoutX="13.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Сила" AnchorPane.leftAnchor="13.0" />
-                             <TextField fx:id="will" alignment="CENTER" layoutX="549.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-                             <TextField fx:id="dx" alignment="CENTER" layoutX="125.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-                             <Label fx:id="willCost" alignment="CENTER" layoutX="594.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-                             <Label alignment="CENTER" layoutX="436.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Воля" AnchorPane.rightAnchor="113.0" />
-                             <Label fx:id="dxCost" alignment="CENTER" layoutX="172.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="172.0" />
-                             <Label alignment="CENTER" layoutX="13.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Ловкость" AnchorPane.leftAnchor="13.0" />
-                             <TextField fx:id="fp" alignment="CENTER" layoutX="549.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-                             <TextField fx:id="per" alignment="CENTER" layoutX="549.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-                             <Label fx:id="fpCost" alignment="CENTER" layoutX="594.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-                             <Label alignment="CENTER" layoutX="436.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Восприятие" AnchorPane.rightAnchor="113.0" />
-                             <Label fx:id="iqCost" alignment="CENTER" layoutX="174.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
-                             <Label alignment="CENTER" layoutX="13.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Интелект" AnchorPane.leftAnchor="13.0" />
-                             <TextField fx:id="iq" alignment="CENTER" layoutX="125.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-                             <TextField fx:id="ht" alignment="CENTER" layoutX="125.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-                             <Label fx:id="perCost" alignment="CENTER" layoutX="594.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-                             <Label alignment="CENTER" layoutX="436.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки усталости" AnchorPane.rightAnchor="113.0" />
-                             <Label alignment="CENTER" layoutX="13.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Здаровье" AnchorPane.leftAnchor="13.0" />
-                             <Label fx:id="htCost" alignment="CENTER" layoutX="174.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
-                         </children>
-                     </AnchorPane>
+                     <fx:include source="params.fxml" />
                  </content>
               </Tab>
               <Tab fx:id="advantagesTab" text="Преимущества">
                   <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
-                          <children>
-                              <TableView fx:id="advantagesView" layoutY="56.0" prefHeight="407.0" prefWidth="650.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
-                                  <columns>
-                                      <TableColumn fx:id="advantagesTitle" prefWidth="136.0" text="Название" />
-                                      <TableColumn fx:id="advantagesTitleEn" prefWidth="125.0" text="Название англ." />
-                                      <TableColumn fx:id="advantagesType" minWidth="0.0" prefWidth="45.0" text="Тип" />
-                                      <TableColumn fx:id="advantagesCost" prefWidth="93.0" text="Стоимость" />
-                                      <TableColumn fx:id="advantagesDescription" prefWidth="240" text="Описание" />
-                                  </columns>
-                              </TableView>
-                              <!-- bottomMenu -->
-                              <AnchorPane fx:id="advantagesBottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                  <children>
-                                      <ComboBox fx:id="advantagesLvlComboBox" layoutX="323.0" layoutY="27.0" value="1.0" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="182.0" />
-                                      <Label fx:id="advantagesLvlLabel" layoutX="323.0" layoutY="11.0" text="Уровень " AnchorPane.bottomAnchor="89.0" AnchorPane.rightAnchor="191.0" />
-                                      <TextField fx:id="advantagesLvlText" layoutX="390.0" layoutY="6.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="193.0" />
-                                      <Button fx:id="advantagesAdd" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
-                                      <Button fx:id="advantagesRemove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
-                                      <Button fx:id="advantagesFull" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Подробнее" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
-                                      <Label layoutX="459.0" layoutY="6.0" text="Стоимость" AnchorPane.bottomAnchor="89.0" AnchorPane.rightAnchor="118.0" />
-                                      <Label fx:id="advantagesFinalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" text="0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
-                                      <TextField fx:id="advantagesFinalCostText" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
-
-                                      <TableView fx:id="advantagesAddonsTableView" layoutX="-2.0" prefHeight="111.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="0.0">
-                                          <columns>
-                                              <TableColumn fx:id="advantagesActivate" prefWidth="46.0" text="Добавить" />
-                                              <TableColumn fx:id="advantagesAddonName" prefWidth="107.0" text="Название" />
-                                              <TableColumn fx:id="advantagesAddonNameEn" prefWidth="81.0" text="Название Англ." />
-                                              <TableColumn fx:id="advantagesAddonLevel" prefWidth="44.0" text="Уровень" />
-                                              <TableColumn fx:id="advantagesAddonCost" maxWidth="1.7976931348623157E308" prefWidth="53.0" text="Стоимость" />
-                                          </columns>
-                                      </TableView>
-                                  </children>
-                              </AnchorPane>
-                              <GridPane layoutX="26.0" layoutY="2.0" prefHeight="25.0" prefWidth="606.0">
-                                  <columnConstraints>
-                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="113.0" />
-                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="119.0" />
-                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="115.0" />
-                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="120.0" />
-                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
-                                  </columnConstraints>
-                                  <rowConstraints>
-                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  </rowConstraints>
-                                  <children>
-                                      <CheckBox fx:id="advantage1CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="Физические" />
-                                      <CheckBox fx:id="advantage2CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="116.0" text="Социальные" GridPane.columnIndex="1" />
-                                      <CheckBox fx:id="advantage3CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="Ментальные" GridPane.columnIndex="2" />
-                                      <CheckBox fx:id="advantage4CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="115.0" text="Экзотические" GridPane.columnIndex="3" />
-                                      <CheckBox fx:id="advantage5CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="154.0" text="Сверхестествинные" GridPane.columnIndex="4" />
-                                  </children>
-                              </GridPane>
-                              <MenuButton fx:id="advantagesSearchButton" disable="true" layoutX="552.0" layoutY="27.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="16.0">
-                                  <items>
-                                      <MenuItem fx:id="advantagesSearchAll" mnemonicParsing="false" text="Везде" />
-                                      <MenuItem fx:id="advantagesSearchTitle" mnemonicParsing="false" text="Названия" />
-                                      <MenuItem fx:id="advantagesSearchTitleEn" mnemonicParsing="false" text="Название англ." />
-                                      <MenuItem fx:id="advantagesSearchCost" mnemonicParsing="false" text="Стоимость" />
-                                      <MenuItem fx:id="advantagesSearchDescription" mnemonicParsing="false" text="Описание" />
-                                  </items>
-                              </MenuButton>
-                              <TextField fx:id="advantagesSearchText" layoutX="371.0" layoutY="27.0" AnchorPane.rightAnchor="100.0" />
-                              <!-- bottomMenu End -->
-                          </children>
-                      </AnchorPane>
+                      <fx:include source="advantages.fxml" />
                   </content>
               </Tab>
               <Tab fx:id="disadvantagesTab" text="Недостатки">
                  <content>
-                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0">
-                         <children>
-                             <TableView fx:id="disadvantagesView" layoutY="56.0" prefHeight="407.0" prefWidth="650.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
-                                 <columns>
-                                     <TableColumn fx:id="disadvantagesTitle" prefWidth="136.0" text="Название" />
-                                     <TableColumn fx:id="disadvantagesTitleEn" prefWidth="125.0" text="Название англ." />
-                                     <TableColumn fx:id="disadvantagesType" minWidth="0.0" prefWidth="45.0" text="Тип" />
-                                     <TableColumn fx:id="disadvantagesCost" prefWidth="93.0" text="Стоимость" />
-                                     <TableColumn fx:id="disadvantagesDescription" prefWidth="240" text="Описание" />
-                                 </columns>
-                             </TableView>
-                             <!-- bottomMenu -->
-                             <AnchorPane fx:id="disadvantagesBottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                 <children>
-                                     <ComboBox fx:id="disadvantagesLvlComboBox" layoutX="323.0" layoutY="27.0" value="1.0" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="182.0" />
-                                     <Label fx:id="disadvantagesLvlLabel" layoutX="323.0" layoutY="11.0" text="Уровень " AnchorPane.bottomAnchor="89.0" AnchorPane.rightAnchor="191.0" />
-                                     <TextField fx:id="disadvantagesLvlText" layoutX="390.0" layoutY="6.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="193.0" />
-                                     <Button fx:id="disadvantagesAdd" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
-                                     <Button fx:id="disadvantagesRemove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
-                                     <Button fx:id="disadvantagesFull" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Подробнее" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
-                                     <Label layoutX="459.0" layoutY="6.0" text="Стоимость" AnchorPane.bottomAnchor="89.0" AnchorPane.rightAnchor="118.0" />
-                                     <Label fx:id="disadvantagesFinalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" text="0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
-                                     <TextField fx:id="disadvantagesFinalCostText" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
-                                     
-                                     <TableView fx:id="disadvantagesAddonsTableView" layoutX="-2.0" prefHeight="111.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="0.0">
-                                         <columns>
-                                             <TableColumn fx:id="disadvantagesActivate" prefWidth="46.0" text="Добавить" />
-                                             <TableColumn fx:id="disadvantagesAddonName" prefWidth="107.0" text="Название" />
-                                             <TableColumn fx:id="disadvantagesAddonNameEn" prefWidth="81.0" text="Название Англ." />
-                                             <TableColumn fx:id="disadvantagesAddonLevel" prefWidth="44.0" text="Уровень" />
-                                             <TableColumn fx:id="disadvantagesAddonCost" maxWidth="1.7976931348623157E308" prefWidth="53.0" text="Стоимость" />
-                                         </columns>
-                                     </TableView>
-                                 </children>
-                             </AnchorPane>
-                             <GridPane layoutX="26.0" layoutY="2.0" prefHeight="25.0" prefWidth="606.0">
-                                 <columnConstraints>
-                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="113.0" />
-                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="119.0" />
-                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="115.0" />
-                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="120.0" />
-                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                     <CheckBox fx:id="disadvantage1CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="Физические" />
-                                     <CheckBox fx:id="disadvantage2CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="116.0" text="Социальные" GridPane.columnIndex="1" />
-                                     <CheckBox fx:id="disadvantage3CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="Ментальные" GridPane.columnIndex="2" />
-                                     <CheckBox fx:id="disadvantage4CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="115.0" text="Экзотические" GridPane.columnIndex="3" />
-                                     <CheckBox fx:id="disadvantage5CheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="154.0" text="Сверхестествинные" GridPane.columnIndex="4" />
-                                 </children>
-                             </GridPane>
-                             <MenuButton fx:id="disadvantagesSearchButton" disable="true" layoutX="552.0" layoutY="27.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="16.0">
-                                 <items>
-                                     <MenuItem fx:id="disadvantagesSearchAll" mnemonicParsing="false" text="Везде" />
-                                     <MenuItem fx:id="disadvantagesSearchTitle" mnemonicParsing="false" text="Названия" />
-                                     <MenuItem fx:id="disadvantagesSearchTitleEn" mnemonicParsing="false" text="Название англ." />
-                                     <MenuItem fx:id="disadvantagesSearchCost" mnemonicParsing="false" text="Стоимость" />
-                                     <MenuItem fx:id="disadvantagesSearchDescription" mnemonicParsing="false" text="Описание" />
-                                 </items>
-                             </MenuButton>
-                             <TextField fx:id="disadvantagesSearchText" layoutX="371.0" layoutY="27.0" AnchorPane.rightAnchor="100.0" />
-                             <!-- bottomMenu End -->
-                         </children>
-                     </AnchorPane>
+                     <fx:include source="disadvantages.fxml" />
                  </content>
               </Tab>
               <Tab fx:id="modesTab" text="Модификаторы">
@@ -262,49 +86,12 @@
 
               <Tab fx:id="languagesTab" text="Языки">
                  <content>
-                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="languagesTableView" prefHeight="415.0" prefWidth="657.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn fx:id="languagesNameColumn" prefWidth="169.0" text="Язык" />
-                            <TableColumn fx:id="languageSpokenColumn" minWidth="0.0" prefWidth="111.0" text="Разговор" />
-                              <TableColumn fx:id="languagesWrittenColumn" prefWidth="92.0" text="Письмо" />
-                              <TableColumn fx:id="languagesCostColumn" prefWidth="94.0" text="Стоимость" />
-                              <TableColumn fx:id="languagesUserColumn" prefWidth="92.0" text="Персонаж" />
-                              <TableColumn fx:id="languagesDbColumn" prefWidth="89.0" text="База" />
-                          </columns>
-                        </TableView>
-                        <Label alignment="CENTER" layoutX="7.0" layoutY="415.0" prefHeight="16.0" prefWidth="125.0" text="Язык" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="5.0" />
-                        <TextField fx:id="languageNameText" layoutY="431.0" prefHeight="26.0" prefWidth="124.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" />
-                        <ChoiceBox fx:id="languageSpokenChoiceBox" layoutX="138.0" layoutY="431.0" prefWidth="150.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="138.0" />
-                        <Label alignment="CENTER" layoutX="139.0" layoutY="415.0" prefHeight="16.0" prefWidth="149.0" text="Разговор" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="139.0" />
-                        <ChoiceBox fx:id="languageWrittenChoiceBox" layoutX="299.0" layoutY="431.0" prefWidth="150.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="299.0" />
-                        <Label alignment="CENTER" layoutX="300.0" layoutY="415.0" prefHeight="16.0" prefWidth="149.0" text="Письмо" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="300.0" />
-                        <Button fx:id="languageAddButton" disable="true" layoutX="558.0" layoutY="431.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Добавить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" />
-                        <TextField fx:id="languageCostText" layoutX="457.0" layoutY="431.0" prefHeight="26.0" prefWidth="80.0" text="0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="457.0" />
-                        <Label alignment="CENTER" layoutX="457.0" layoutY="415.0" prefHeight="16.0" prefWidth="80.0" text="Стоимость" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="457.0" />
-                     </children></AnchorPane>
+                     <fx:include source="languages.fxml" />
                  </content>
               </Tab>
             <Tab fx:id="culturasTab" text="Культуры">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="culturasTableView" prefHeight="415.0" prefWidth="657.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn fx:id="culturasNameColumn" prefWidth="392.0" text="Культура" />
-                              <TableColumn fx:id="culturasCostColumn" minWidth="0.0" prefWidth="89.0" text="Стоимость" />
-                              <TableColumn fx:id="culturasUserColumn" prefWidth="81.0" text="Персонаж" />
-                              <TableColumn fx:id="culturasDbColumn" prefWidth="84.0" text="База" />
-                           </columns>
-                        </TableView>
-                        <Label alignment="CENTER" layoutX="229.0" layoutY="415.0" prefHeight="16.0" prefWidth="125.0" text="Культура" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="229.0" />
-                        <TextField fx:id="culturaNameText" layoutX="230.0" layoutY="431.0" prefHeight="26.0" prefWidth="124.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="230.0" />
-                        <Button fx:id="culturaAddButton" disable="true" layoutX="461.0" layoutY="431.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Добавить" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="461.0" />
-                        <TextField fx:id="culturaCostText" layoutX="366.0" layoutY="431.0" prefHeight="26.0" prefWidth="80.0" text="0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="366.0" />
-                        <Label alignment="CENTER" layoutX="366.0" layoutY="415.0" prefHeight="16.0" prefWidth="80.0" text="Стоимость" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="366.0" />
-                     </children>
-                  </AnchorPane>
+                   <fx:include source="culturas.fxml" />
                </content>
             </Tab>
             <Tab fx:id="equipmentTab" text="Снаряжения">

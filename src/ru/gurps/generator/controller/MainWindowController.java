@@ -1,64 +1,106 @@
 package ru.gurps.generator.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import ru.gurps.generator.lib.TabConfigure;
-import ru.gurps.generator.lib.UserParams;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import ru.gurps.generator.Main;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class MainWindowController extends AbstractController {
+    // global part
+    public TextField maxPoints;
+    public Label currentPoints;
+    public Button userSheet;
+
+    // menus
+    public Menu viewMenu;
+
+    // tabs
+    public TabPane mainTabPanel;
+
+    public Tab paramsTab;
+    public Tab advantagesTab;
+    public Tab disadvantagesTab;
+    public Tab modesTab;
+    public Tab skillsTab;
+    public Tab techniquesTab;
+    public Tab spellTab;
+    public Tab languagesTab;
+    public Tab culturasTab;
+    public Tab equipmentTab;
+
     @FXML
     public void initialize() {
         globalCost = currentPoints;
-
-        for(int i = 1; 5 >= i; i++){
-            advantagesNumbers.add(i);
-            disadvantagesNumbers.add(i);
-        }
-
-        new TabConfigure(viewMenu, mainTabPanel, paramsTab, advantagesTab, disadvantagesTab, modesTab, skillsTab,
-                techniquesTab, spellTab, languagesTab, culturasTab, equipmentTab);
-
-        userParams = new UserParams(stCost, dxCost, iqCost, htCost, hpCost, willCost, perCost, fpCost, bsCost, moveCost,
-                bg, doge, thrust, swing);
-
-        textEvents();
-        cellEvents();
-        buttonEvents();
-        SearchEvents();
-        checkBoxEvents();
+        tabsConfigure();
         maxPoints.setText(user.maxPoints);
-        sm.setText(Integer.toString(user.sm));
-        noFineManipulators.setSelected(user.noFineManipulators);
+        globalCost.setText(user.currentPoints);
 
-        st.setText(Integer.toString(user.st));
-        dx.setText(Integer.toString(user.dx));
-        iq.setText(Integer.toString(user.iq));
-        ht.setText(Integer.toString(user.ht));
+        maxPoints.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) return;
+            if("\\D".matches(newValue)) {
+                maxPoints.setText(user.maxPoints);
+                return;
+            }
 
-        hp.setText(Integer.toString(user.hp));
-        will.setText(Integer.toString(user.will));
-        per.setText(Integer.toString(user.per));
-        fp.setText(Integer.toString(user.fp));
-        
-        bs.setText(Double.toString(user.bs));
-        move.setText(Integer.toString(user.move));
+            if(user.maxPoints.equals(newValue)) return;
+            user.maxPoints = newValue;
+            maxPoints.setText(newValue);
+            user.save();
+        });
 
-        userParams.setSt();
-        userParams.setDx();
-        userParams.setIq();
-        userParams.setHt();
+        userSheet.setOnAction(event -> {
+            Stage childrenStage = new Stage();
+            userSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
+            Parent childrenRoot;
+            try {
+                childrenRoot = loader.load();
+                childrenStage.setScene(new Scene(childrenRoot, 700, 795));
+                childrenStage.setTitle("GURPS Лист персонажа");
+                childrenStage.show();
+                childrenStage.setResizable(false);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-        userParams.setHp();
-        userParams.setWill();
-        userParams.setPer();
-        userParams.setFp();
+    private void tabsConfigure(){
+        ObservableList<CheckMenuItem> checkMenuItems = FXCollections.observableArrayList();
+        for(Field field : this.getClass().getDeclaredFields()){
+            if(Tab.class.isAssignableFrom(field.getType())){
+                try {
+                    Tab tab = (Tab) field.get(this);
+                    CheckMenuItem checkMenuItem = new CheckMenuItem(tab.getText());
+                    checkMenuItem.setSelected(false);
+                    for(Tab viewTab : mainTabPanel.getTabs()){
+                        if(viewTab == tab){
+                            checkMenuItem.setSelected(true);
+                            break;
+                        }
+                    }
 
-        userParams.setBs();
-        userParams.setMove();
+                    checkMenuItem.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                        if(newValue) mainTabPanel.getTabs().add(tab);
+                        else mainTabPanel.getTabs().remove(tab);
+                    });
 
-        userParams.setBg();
-        userParams.setDoge();
-        userParams.setDmg();
-        
-        currentPoints.setText(user.currentPoints);
+                    tab.setOnClosed(event -> checkMenuItem.setSelected(false));
+                    checkMenuItems.add(checkMenuItem);
+                } catch(IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        viewMenu.getItems().addAll(checkMenuItems);
     }
 }
