@@ -11,7 +11,6 @@ public class MainWindowController extends AbstractController {
         new TabConfigure(viewMenu, mainTabPanel, paramsTab, advantagesTab, disadvantagesTab, modesTab, skillsTab,
                 techniquesTab, spellTab, languagesTab, culturasTab, equipmentTab);
 
-        cellEvents();
         buttonEvents();
         maxPoints.setText(user.maxPoints);
 

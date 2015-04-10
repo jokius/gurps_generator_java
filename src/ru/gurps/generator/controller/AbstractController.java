@@ -14,11 +14,6 @@ public class AbstractController extends ViewsAbstract {
     public static User user;
     public static Label globalCost;
 
-    protected void cellEvents() {
-        new CulturasTable(culturasTableView, culturasNameColumn, culturasCostColumn, culturasUserColumn, culturasDbColumn,
-                culturaNameText, culturaCostText, culturaAddButton, currentPoints);
-    }
-
     protected void buttonEvents() {
         userSheet.setOnAction(event -> {
             Stage childrenStage = new Stage();
