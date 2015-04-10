@@ -15,11 +15,6 @@ public class AbstractController extends ViewsAbstract {
     public static Label globalCost;
 
     protected void cellEvents() {
-
-        new LanguagesTable(languagesTableView, languagesNameColumn, languageSpokenColumn, languagesWrittenColumn,
-                languagesCostColumn, languagesUserColumn, languagesDbColumn, languageNameText, languageSpokenChoiceBox,
-                languageWrittenChoiceBox, languageCostText, languageAddButton, currentPoints);
-
         new CulturasTable(culturasTableView, culturasNameColumn, culturasCostColumn, culturasUserColumn, culturasDbColumn,
                 culturaNameText, culturaCostText, culturaAddButton, currentPoints);
     }
