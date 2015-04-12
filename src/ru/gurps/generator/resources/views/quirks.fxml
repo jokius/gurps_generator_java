@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.QuirksController">
+    <children>
+        <TableView fx:id="tableView" prefHeight="415.0" prefWidth="657.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="319.0" text="Название" />
+                <TableColumn fx:id="costColumn" minWidth="3.0" prefWidth="91.0" text="Стоимость" />
+                <TableColumn fx:id="userColumn" prefWidth="94.0" text="Персонаж" />
+                <TableColumn fx:id="dbColumn" prefWidth="140.0" text="База" />
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" layoutX="7.0" layoutY="415.0" prefHeight="16.0" prefWidth="441.0" text="Название" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="5.0" />
+        <TextField fx:id="nameText" layoutY="431.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" />
+        <Button fx:id="addButton" disable="true" layoutX="558.0" layoutY="431.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Добавить" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+        <TextField fx:id="costText" layoutX="457.0" layoutY="431.0" prefHeight="26.0" prefWidth="80.0" text="0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="457.0" />
+        <Label alignment="CENTER" layoutX="457.0" layoutY="415.0" prefHeight="16.0" prefWidth="80.0" text="Стоимость" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="457.0" />
+    </children>
+</AnchorPane>
