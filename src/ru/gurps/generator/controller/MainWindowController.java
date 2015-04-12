@@ -28,6 +28,7 @@ public class MainWindowController extends AbstractController {
     public Tab paramsTab;
     public Tab advantagesTab;
     public Tab disadvantagesTab;
+    public Tab quirksTab;
     public Tab modesTab;
     public Tab skillsTab;
     public Tab techniquesTab;
