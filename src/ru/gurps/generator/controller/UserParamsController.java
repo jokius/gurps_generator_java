@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 
 public class UserParamsController extends AbstractController {
@@ -33,14 +34,16 @@ public class UserParamsController extends AbstractController {
     public Label doge;
     public Label thrust;
     public Label swing;
-
-    private UserParams userParams;
+    public TextField name;
+    public TextField player;
+    public TextField growth;
+    public TextField weight;
+    public TextField age;
+    public TextField tl;
+    public TextField tlCost;
 
     @FXML
     public void initialize() {
-        userParams = new UserParams(stCost, dxCost, iqCost, htCost, hpCost, willCost, perCost, fpCost, bsCost, moveCost,
-                bg, doge, thrust, swing);
-
         sm.setText(Integer.toString(user.sm));
         noFineManipulators.setSelected(user.noFineManipulators);
 
@@ -57,22 +60,33 @@ public class UserParamsController extends AbstractController {
         bs.setText(Double.toString(user.bs));
         move.setText(Integer.toString(user.move));
 
-        userParams.setSt();
-        userParams.setDx();
-        userParams.setIq();
-        userParams.setHt();
+        name.setText(user.name);
+        player.setText(user.player);
+        growth.setText(Integer.toString(user.growth));
+        weight.setText(Integer.toString(user.weight));
+        age.setText(Integer.toString(user.age));
 
-        userParams.setHp();
-        userParams.setWill();
-        userParams.setPer();
-        userParams.setFp();
+        tl.setText(Integer.toString(user.tl));
+        tlCost.setText(Integer.toString(user.tlCost));
 
-        userParams.setBs();
-        userParams.setMove();
+        stCost.setText(Integer.toString(UserParams.stCost()));
+        dxCost.setText(Integer.toString(UserParams.dxCost()));
+        iqCost.setText(Integer.toString(UserParams.iqCost()));
+        htCost.setText(Integer.toString(UserParams.htCost()));
 
-        userParams.setBg();
-        userParams.setDoge();
-        userParams.setDmg();
+        hpCost.setText(Integer.toString(UserParams.hpCost()));
+        willCost.setText(Integer.toString(UserParams.willCost()));
+        perCost.setText(Integer.toString(UserParams.perCost()));
+        fpCost.setText(Integer.toString(UserParams.fpCost()));
+
+        bsCost.setText(Integer.toString(UserParams.bsCost()));
+        moveCost.setText(Integer.toString(UserParams.moveCost()));
+
+        bg.setText(Integer.toString(UserParams.bg()));
+        doge.setText(Integer.toString(UserParams.doge()));
+
+        thrust.setText(Dmg.thrust(user.st));
+        swing.setText(Dmg.swing(user.st));
 
         textEvents();
     }
@@ -80,7 +94,7 @@ public class UserParamsController extends AbstractController {
     protected void textEvents() {
         sm.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 sm.setText(Integer.toString(user.sm));
                 return;
             }
@@ -90,11 +104,11 @@ public class UserParamsController extends AbstractController {
 
             user.sm = intValue;
             int oldStCost = Integer.parseInt(stCost.getText());
-            userParams.setSt();
+            stCost.setText(Integer.toString(UserParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            userParams.setHp();
+            hpCost.setText(Integer.toString(UserParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
             user.save();
         });
@@ -102,18 +116,18 @@ public class UserParamsController extends AbstractController {
         noFineManipulators.selectedProperty().addListener((observable, oldValue, newValue) -> {
             user.noFineManipulators = newValue;
             int oldStCost = Integer.parseInt(stCost.getText());
-            userParams.setSt();
+            stCost.setText(Integer.toString(UserParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldDxCost = Integer.parseInt(dxCost.getText());
-            userParams.setDx();
+            dxCost.setText(Integer.toString(UserParams.dxCost()));
             currentPoints(dxCost, oldDxCost);
             user.save();
         });
 
         st.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if(newValue.matches("\\D")) {
+            if(!newValue.matches("\\d+")) {
                 st.setText(Integer.toString(user.st));
                 return;
             }
@@ -128,22 +142,23 @@ public class UserParamsController extends AbstractController {
             }
 
             int oldStCost = Integer.parseInt(stCost.getText());
-            userParams.setSt();
+            stCost.setText(Integer.toString(UserParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            userParams.setHp();
+            hpCost.setText(Integer.toString(UserParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
 
-            userParams.setBg();
-            userParams.setDmg();
+            bg.setText(Integer.toString(UserParams.bg()));
+            thrust.setText(Dmg.thrust(user.st));
+            swing.setText(Dmg.swing(user.st));
 
             user.save();
         });
 
         dx.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 dx.setText(Integer.toString(user.dx));
                 return;
             }
@@ -153,24 +168,24 @@ public class UserParamsController extends AbstractController {
             user.dx = intValue;
 
             int oldDxCost = Integer.parseInt(dxCost.getText());
-            userParams.setDx();
+            dxCost.setText(Integer.toString(UserParams.dxCost()));
             currentPoints(dxCost, oldDxCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            userParams.setBs();
+            bsCost.setText(Integer.toString(UserParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            userParams.setMove();
+            moveCost.setText(Integer.toString(UserParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
 
-            userParams.setDoge();
+            doge.setText(Integer.toString(UserParams.doge()));
             user.save();
         });
 
         iq.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if(newValue.matches("\\D")) {
+            if(!newValue.matches("\\d+")) {
                 iq.setText(Integer.toString(user.iq));
                 return;
             }
@@ -180,7 +195,7 @@ public class UserParamsController extends AbstractController {
             user.iq = intValue;
 
             int oldIqCost = Integer.parseInt(iqCost.getText());
-            userParams.setIq();
+            iqCost.setText(Integer.toString(UserParams.iqCost()));
             currentPoints(iqCost, oldIqCost);
 
             if(intValue > user.will) {
@@ -194,18 +209,18 @@ public class UserParamsController extends AbstractController {
             }
 
             int oldWillCost = Integer.parseInt(willCost.getText());
-            userParams.setWill();
+            willCost.setText(Integer.toString(UserParams.willCost()));
             currentPoints(willCost, oldWillCost);
 
             int oldPerCost = Integer.parseInt(perCost.getText());
-            userParams.setPer();
+            perCost.setText(Integer.toString(UserParams.perCost()));
             currentPoints(perCost, oldPerCost);
             user.save();
         });
 
         ht.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 ht.setText(Integer.toString(user.ht));
                 return;
             }
@@ -215,7 +230,7 @@ public class UserParamsController extends AbstractController {
             user.ht = intValue;
 
             int oldHtCost = Integer.parseInt(htCost.getText());
-            userParams.setHt();
+            htCost.setText(Integer.toString(UserParams.htCost()));
             currentPoints(htCost, oldHtCost);
 
             if(intValue > user.fp) {
@@ -224,18 +239,18 @@ public class UserParamsController extends AbstractController {
             }
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
-            userParams.setFp();
+            fpCost.setText(Integer.toString(UserParams.fpCost()));
             currentPoints(htCost, oldFpCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            userParams.setBs();
+            bsCost.setText(Integer.toString(UserParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
             user.save();
         });
 
         hp.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 hp.setText(Integer.toString(user.hp));
                 return;
             }
@@ -245,14 +260,14 @@ public class UserParamsController extends AbstractController {
             user.hp = intValue;
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            userParams.setHp();
+            hpCost.setText(Integer.toString(UserParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
             user.save();
         });
 
         will.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 will.setText(Integer.toString(user.will));
                 return;
             }
@@ -262,14 +277,14 @@ public class UserParamsController extends AbstractController {
             user.will = intValue;
 
             int oldWillCost = Integer.parseInt(willCost.getText());
-            userParams.setWill();
+            willCost.setText(Integer.toString(UserParams.willCost()));
             currentPoints(willCost, oldWillCost);
             user.save();
         });
 
         per.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 per.setText(Integer.toString(user.per));
                 return;
             }
@@ -279,14 +294,14 @@ public class UserParamsController extends AbstractController {
             user.per = intValue;
 
             int oldPerCost = Integer.parseInt(perCost.getText());
-            userParams.setPer();
+            perCost.setText(Integer.toString(UserParams.perCost()));
             currentPoints(perCost, oldPerCost);
             user.save();
         });
 
         fp.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 fp.setText(Integer.toString(user.fp));
                 return;
             }
@@ -296,14 +311,15 @@ public class UserParamsController extends AbstractController {
             user.per = intValue;
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
-            userParams.setFp();
+            fpCost.setText(Integer.toString(UserParams.fpCost()));
             currentPoints(htCost, oldFpCost);
             user.save();
         });
 
         bs.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if(newValue.matches("\\D[^.]")) {
+            if(newValue.matches(".\\d+") && !newValue.matches("\\d+.\\d+") || newValue.matches("\\d+.") && !newValue.matches("\\d+.\\d+")) return;
+            if(!newValue.matches("\\d+.\\d+|\\d+")) {
                 bs.setText(Double.toString(user.bs));
                 return;
             }
@@ -319,20 +335,20 @@ public class UserParamsController extends AbstractController {
             }
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            userParams.setBs();
+            bsCost.setText(Integer.toString(UserParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            userParams.setMove();
+            moveCost.setText(Integer.toString(UserParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
 
-            userParams.setDoge();
+            doge.setText(Integer.toString(UserParams.doge()));
             user.save();
         });
 
         move.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 move.setText(Integer.toString(user.move));
                 return;
             }
@@ -342,9 +358,46 @@ public class UserParamsController extends AbstractController {
 
             user.move = intNewValue;
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            userParams.setMove();
+            moveCost.setText(Integer.toString(UserParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
             user.save();
+        });
+
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(user.name.equals(newValue)) return;
+            user.update_single("name", newValue);
+        });
+
+        player.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(user.player.equals(newValue)) return;
+            user.update_single("player", newValue);
+        });
+
+        tl.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) return;
+            if(!newValue.matches("\\d+")) {
+                tl.setText(Integer.toString(user.tl));
+                return;
+            }
+
+            int intNewValue = Integer.parseInt(newValue);
+            if(user.tl == intNewValue) return;
+            user.update_single("tl", intNewValue);
+        });
+
+        tlCost.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) return;
+            if(newValue.equals("-")) return;
+            try {
+                int intNewValue = Integer.parseInt(newValue);
+                if(user.tlCost == intNewValue) return;
+                user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + intNewValue - user.tlCost);
+                globalCost.setText(user.currentPoints);
+                user.tlCost = intNewValue;
+                user.save();
+            } catch(NumberFormatException e){
+                tlCost.setText(Integer.toString(user.tlCost));
+            }
         });
     }
 
