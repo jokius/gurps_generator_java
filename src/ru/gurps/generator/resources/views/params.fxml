@@ -6,46 +6,60 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.UserParamsController">
     <children>
-        <Label layoutX="11.0" layoutY="14.0" prefHeight="26.0" prefWidth="158.0" text="Модификатор размера" AnchorPane.leftAnchor="11.0" />
-        <TextField fx:id="sm" alignment="CENTER" layoutX="173.0" layoutY="14.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="173.0" />
-        <CheckBox fx:id="noFineManipulators" alignment="CENTER" layoutX="433.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" text="Нет хороших манипуляторов" AnchorPane.rightAnchor="10.0" />
-        <Label layoutX="13.0" layoutY="262.0" prefHeight="26.0" prefWidth="87.0" text="Базовый груз" AnchorPane.leftAnchor="13.0" />
-        <Label layoutX="13.0" layoutY="220.0" prefHeight="26.0" prefWidth="115.0" text="Базовая скорость" AnchorPane.leftAnchor="13.0" />
-        <TextField fx:id="bs" alignment="CENTER" layoutX="139.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="139.0" />
-        <Label fx:id="bg" alignment="CENTER" layoutX="191.0" layoutY="262.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="191.0" />
-        <Label fx:id="bsCost" alignment="CENTER" layoutX="191.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="191.0" />
-        <Label fx:id="moveCost" alignment="CENTER" layoutX="594.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-        <TextField fx:id="move" alignment="CENTER" layoutX="549.0" layoutY="220.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-        <Label layoutX="412.0" layoutY="220.0" prefHeight="26.0" prefWidth="123.0" text="Базовое движение" AnchorPane.rightAnchor="113.0" />
-        <Label fx:id="doge" alignment="CENTER" layoutX="594.0" layoutY="262.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-        <Label layoutX="466.0" layoutY="262.0" prefHeight="26.0" prefWidth="69.0" text="Уклонение" AnchorPane.rightAnchor="113.0" />
-        <Label layoutX="359.0" layoutY="296.0" prefHeight="26.0" prefWidth="176.0" text="Повреждение амплитудное" AnchorPane.rightAnchor="113.0" />
-        <Label fx:id="swing" alignment="CENTER" layoutX="584.0" layoutY="296.0" prefHeight="26.0" prefWidth="49.0" AnchorPane.rightAnchor="15.0" />
-        <Label fx:id="thrust" alignment="CENTER" layoutX="191.0" layoutY="296.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="191.0" />
-        <Label layoutX="13.0" layoutY="296.0" prefHeight="26.0" prefWidth="148.0" text="Повреждение прямое" AnchorPane.leftAnchor="13.0" />
-        <TextField fx:id="hp" alignment="CENTER" layoutX="549.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-        <TextField fx:id="st" alignment="CENTER" layoutX="125.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-        <Label fx:id="hpCost" alignment="CENTER" layoutX="594.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-        <Label alignment="CENTER" layoutX="436.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки здаровья" AnchorPane.rightAnchor="113.0" />
-        <Label fx:id="stCost" alignment="CENTER" layoutX="174.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
-        <Label alignment="CENTER" layoutX="13.0" layoutY="53.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Сила" AnchorPane.leftAnchor="13.0" />
-        <TextField fx:id="will" alignment="CENTER" layoutX="549.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-        <TextField fx:id="dx" alignment="CENTER" layoutX="125.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-        <Label fx:id="willCost" alignment="CENTER" layoutX="594.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-        <Label alignment="CENTER" layoutX="436.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Воля" AnchorPane.rightAnchor="113.0" />
-        <Label fx:id="dxCost" alignment="CENTER" layoutX="172.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="172.0" />
-        <Label alignment="CENTER" layoutX="13.0" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Ловкость" AnchorPane.leftAnchor="13.0" />
-        <TextField fx:id="fp" alignment="CENTER" layoutX="549.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-        <TextField fx:id="per" alignment="CENTER" layoutX="549.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="60.0" />
-        <Label fx:id="fpCost" alignment="CENTER" layoutX="594.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-        <Label alignment="CENTER" layoutX="436.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Восприятие" AnchorPane.rightAnchor="113.0" />
-        <Label fx:id="iqCost" alignment="CENTER" layoutX="174.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
-        <Label alignment="CENTER" layoutX="13.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Интелект" AnchorPane.leftAnchor="13.0" />
-        <TextField fx:id="iq" alignment="CENTER" layoutX="125.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-        <TextField fx:id="ht" alignment="CENTER" layoutX="125.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" AnchorPane.leftAnchor="125.0" />
-        <Label fx:id="perCost" alignment="CENTER" layoutX="594.0" layoutY="130.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="15.0" />
-        <Label alignment="CENTER" layoutX="436.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки усталости" AnchorPane.rightAnchor="113.0" />
-        <Label alignment="CENTER" layoutX="13.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Здаровье" AnchorPane.leftAnchor="13.0" />
-        <Label fx:id="htCost" alignment="CENTER" layoutX="174.0" layoutY="167.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="174.0" />
+        <Label layoutX="10.0" layoutY="68.0" prefHeight="26.0" prefWidth="158.0" text="Модификатор размера" AnchorPane.leftAnchor="10.0" />
+        <TextField fx:id="sm" alignment="CENTER" layoutX="172.0" layoutY="68.0" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="172.0" />
+        <CheckBox fx:id="noFineManipulators" alignment="CENTER" layoutX="431.0" layoutY="67.0" mnemonicParsing="false" prefHeight="26.0" text="Нет хороших манипуляторов" AnchorPane.rightAnchor="9.0" />
+        <Label layoutX="12.0" layoutY="316.0" prefHeight="26.0" prefWidth="87.0" text="Базовый груз" AnchorPane.leftAnchor="12.0" />
+        <Label layoutX="12.0" layoutY="274.0" prefHeight="26.0" prefWidth="115.0" text="Базовая скорость" AnchorPane.leftAnchor="12.0" />
+        <TextField fx:id="bs" alignment="CENTER" layoutX="138.0" layoutY="274.0" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="138.0" />
+        <Label fx:id="bg" alignment="CENTER" layoutX="190.0" layoutY="316.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="190.0" />
+        <Label fx:id="bsCost" alignment="CENTER" layoutX="190.0" layoutY="274.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="190.0" />
+        <Label fx:id="moveCost" alignment="CENTER" layoutX="590.0" layoutY="274.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="16.0" />
+        <TextField fx:id="move" alignment="CENTER" layoutX="545.0" layoutY="274.0" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="61.0" />
+        <Label layoutX="408.0" layoutY="274.0" prefHeight="26.0" prefWidth="123.0" text="Базовое движение" AnchorPane.rightAnchor="114.0" />
+        <Label fx:id="doge" alignment="CENTER" layoutX="590.0" layoutY="316.0" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="16.0" />
+        <Label layoutX="462.0" layoutY="316.0" prefHeight="26.0" prefWidth="69.0" text="Уклонение" AnchorPane.rightAnchor="114.0" />
+        <Label layoutX="357.0" layoutY="349.0" prefHeight="26.0" prefWidth="176.0" text="Повреждение амплитудное" AnchorPane.rightAnchor="112.0" />
+        <Label fx:id="swing" alignment="CENTER" layoutX="582.0" layoutY="349.0" prefHeight="26.0" prefWidth="49.0" text="1" AnchorPane.rightAnchor="14.0" />
+        <Label fx:id="thrust" alignment="CENTER" layoutX="190.0" layoutY="350.0" prefHeight="26.0" prefWidth="39.0" text="1" AnchorPane.leftAnchor="190.0" />
+        <Label layoutX="12.0" layoutY="350.0" prefHeight="26.0" prefWidth="148.0" text="Повреждение прямое" AnchorPane.leftAnchor="12.0" />
+        <TextField fx:id="hp" alignment="CENTER" layoutX="545.0" layoutY="107.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="61.0" />
+        <TextField fx:id="st" alignment="CENTER" layoutX="124.0" layoutY="107.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="124.0" />
+        <Label fx:id="hpCost" alignment="CENTER" layoutX="590.0" layoutY="107.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="16.0" />
+        <Label alignment="CENTER" layoutX="432.0" layoutY="107.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки здаровья" AnchorPane.rightAnchor="114.0" />
+        <Label fx:id="stCost" alignment="CENTER" layoutX="173.0" layoutY="107.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="173.0" />
+        <Label alignment="CENTER" layoutX="12.0" layoutY="107.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Сила" AnchorPane.leftAnchor="12.0" />
+        <TextField fx:id="will" alignment="CENTER" layoutX="545.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="61.0" />
+        <TextField fx:id="dx" alignment="CENTER" layoutX="124.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="124.0" />
+        <Label fx:id="willCost" alignment="CENTER" layoutX="590.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="16.0" />
+        <Label alignment="CENTER" layoutX="432.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Воля" AnchorPane.rightAnchor="114.0" />
+        <Label fx:id="dxCost" alignment="CENTER" layoutX="171.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="171.0" />
+        <Label alignment="CENTER" layoutX="12.0" layoutY="144.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Ловкость" AnchorPane.leftAnchor="12.0" />
+        <TextField fx:id="fp" alignment="CENTER" layoutX="545.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="61.0" />
+        <TextField fx:id="per" alignment="CENTER" layoutX="545.0" layoutY="184.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="61.0" />
+        <Label fx:id="fpCost" alignment="CENTER" layoutX="590.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="16.0" />
+        <Label alignment="CENTER" layoutX="432.0" layoutY="184.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Восприятие" AnchorPane.rightAnchor="114.0" />
+        <Label fx:id="iqCost" alignment="CENTER" layoutX="173.0" layoutY="184.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="173.0" />
+        <Label alignment="CENTER" layoutX="12.0" layoutY="184.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Интелект" AnchorPane.leftAnchor="12.0" />
+        <TextField fx:id="iq" alignment="CENTER" layoutX="124.0" layoutY="184.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="124.0" />
+        <TextField fx:id="ht" alignment="CENTER" layoutX="124.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="124.0" />
+        <Label fx:id="perCost" alignment="CENTER" layoutX="590.0" layoutY="184.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.rightAnchor="16.0" />
+        <Label alignment="CENTER" layoutX="432.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Очки усталости" AnchorPane.rightAnchor="114.0" />
+        <Label alignment="CENTER" layoutX="12.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="99.0" text="Здаровье" AnchorPane.leftAnchor="12.0" />
+        <Label fx:id="htCost" alignment="CENTER" layoutX="173.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="39.0" text="0" AnchorPane.leftAnchor="173.0" />
+      <Label layoutX="16.0" layoutY="6.0" text="Имя персонаж" />
+      <TextField fx:id="name" layoutX="16.0" layoutY="22.0" prefHeight="26.0" prefWidth="92.0" />
+      <TextField fx:id="age" layoutX="368.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0" />
+      <Label layoutX="365.0" layoutY="6.0" prefHeight="16.0" prefWidth="55.0" text="Врзраст" />
+      <Label alignment="CENTER" layoutX="302.0" layoutY="6.0" prefHeight="16.0" prefWidth="55.0" text="Вес" />
+      <TextField fx:id="weight" layoutX="302.0" layoutY="22.0" prefHeight="26.0" prefWidth="55.0" />
+      <TextField fx:id="growth" layoutX="240.0" layoutY="22.0" prefHeight="26.0" prefWidth="55.0" />
+      <Label alignment="CENTER" layoutX="240.0" layoutY="6.0" prefHeight="16.0" prefWidth="55.0" text="Рост" />
+      <TextField fx:id="player" layoutX="122.0" layoutY="22.0" prefHeight="26.0" prefWidth="92.0" />
+      <Label alignment="CENTER" layoutX="122.0" layoutY="6.0" prefHeight="16.0" prefWidth="92.0" text="Имя игрока" />
+      <Label alignment="CENTER" layoutX="469.0" layoutY="6.0" prefHeight="16.0" prefWidth="55.0" text="ТУ" />
+      <TextField fx:id="tl" layoutX="472.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0" />
+      <TextField fx:id="tlCost" layoutX="565.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0" />
+      <Label alignment="CENTER" layoutX="545.0" layoutY="6.0" prefHeight="16.0" prefWidth="87.0" text="СтоимостьТУ" />
     </children>
 </AnchorPane>
