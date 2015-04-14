@@ -173,11 +173,19 @@ public class UserParams extends AbstractController {
     }
 
     public void setBg() {
-        bg.setText(Integer.toString((user.st * user.st) / 5));
+        bg.setText(Integer.toString(bg()));
+    }
+
+    public static int bg(){
+        return (user.st * user.st) / 5;
     }
 
     public void setDoge() {
-        doge.setText(Integer.toString((int) (user.bs + 3)));
+        doge.setText(Integer.toString(doge()));
+    }
+
+    public static int doge(){
+        return (int) (user.bs + 3);
     }
 
     public void setDmg() {
