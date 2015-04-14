@@ -13,27 +13,32 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setResizable(false);
         String parent = "\\w*.jar";
         String jarFolder = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, "");
         File file = new File(jarFolder + "db/gurps.mv.db");
 
         if(!file.exists() || file.isDirectory()) {
             File dir = new File(jarFolder + "db");
-            if(!dir.exists() || !dir.isDirectory()){
-                dir.mkdir();
-            }
-
+            if(!dir.exists() || !dir.isDirectory()) dir.mkdir();
             ExportResource("/db/gurps.mv.db");
         }
 
-        FXMLLoader view = new FXMLLoader(getClass().getResource("resources/views/select_user.fxml"));
-        UsersController controller = new UsersController(primaryStage);
+        usersStage(primaryStage);
+    }
+
+    protected void usersStage(Stage stage){
+        stage.setResizable(false);
+        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/select_user.fxml"));
+        UsersController controller = new UsersController(stage);
         view.setController(controller);
-        Parent root = view.load();
-        primaryStage.setScene(new Scene(root, 395, 260));
-        primaryStage.setTitle("GURPSGenerator - Выбор персонажа");
-        primaryStage.show();
+        try {
+            Parent root = view.load();
+            stage.setScene(new Scene(root, 395, 260));
+            stage.setTitle("GURPSGenerator - Выбор персонажа");
+            stage.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
