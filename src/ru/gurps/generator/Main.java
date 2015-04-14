@@ -28,7 +28,7 @@ public class Main extends Application {
 
     protected void usersStage(Stage stage){
         stage.setResizable(false);
-        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/select_user.fxml"));
+        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/selectUser.fxml"));
         UsersController controller = new UsersController(stage);
         view.setController(controller);
         try {
