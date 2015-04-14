@@ -33,7 +33,7 @@ public class Main extends Application {
         view.setController(controller);
         try {
             Parent root = view.load();
-            stage.setScene(new Scene(root, 395, 260));
+            stage.setScene(new Scene(root, 397, 293));
             stage.setTitle("GURPSGenerator - Выбор персонажа");
             stage.show();
         } catch(IOException e) {
