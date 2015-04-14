@@ -1,51 +1,27 @@
 package ru.gurps.generator.controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
-import java.io.IOException;
 
 public class UsersController extends AbstractController {
+    public Button newUser;
+    public Button load;
+    public Button remove;
+    public Button generate;
+    public TextField newName;
+    public TextField points;
+    public TableView<User> userTable;
+    public TableColumn<User, String> name;
+    public TableColumn<User, String> tableCurrentPoints;
+    public TableColumn<User, String> tableMaxPoints;
+
     private Stage window;
     private ObservableList<User> usersData = FXCollections.observableArrayList();
-
-    @FXML
-    private Button newUser;
-
-    @FXML
-    private Button load;
-
-    @FXML
-    private Button remove;
-
-    @FXML
-    private TextField newName;
-
-    @FXML
-    private TextField points;
-
-    @FXML
-    private TableView<User> userTable;
-
-    @FXML
-    private TableColumn<User, String> name = new TableColumn<>("name");
-
-    @FXML
-    private TableColumn<User, String> tableCurrentPoints = new TableColumn<>("currentPoints");
-
-    @FXML
-    private TableColumn<User, String> tableMaxPoints = new TableColumn<>("maxPoints");
-
     private int index = -1;
 
     public UsersController(Stage window) {
@@ -54,8 +30,7 @@ public class UsersController extends AbstractController {
 
     @FXML
     private void initialize() {
-        ObservableList users = new User().all();
-        usersData.addAll(users);
+        usersData.addAll(new User().all());
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableCurrentPoints.setCellValueFactory(new PropertyValueFactory<>("currentPoints"));
@@ -68,30 +43,23 @@ public class UsersController extends AbstractController {
     }
     
     private void events(){
-        newName.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                newUser.setDisable(newValue.equals("") || points.getText().equals(""));
-
-            }
+        newName.textProperty().addListener((observable, oldValue, newValue) -> {
+            newUser.setDisable(newValue.equals("") || points.getText().equals(""));
         });
 
-        points.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                newUser.setDisable(newValue.equals("") || newName.getText().equals(""));
-            }
+        points.textProperty().addListener((observable, oldValue, newValue) -> {
+            newUser.setDisable(newValue.equals("") || newName.getText().equals(""));
         });
         
-        newUser.setOnAction(event ->{
+        newUser.setOnAction(event -> {
             user = (User) new User(newName.getText(), points.getText()).create();
             window.close();
-            createMainWindow();
+            createMainStage();
         });
         
         load.setOnAction(event ->{
             window.close();
-            createMainWindow();
+            createMainStage();
         });
         
         remove.setOnAction(event ->{
@@ -104,6 +72,10 @@ public class UsersController extends AbstractController {
             }
         });
 
+        generate.setOnAction(event -> {
+            window.close();
+            createGenerateStage();
+        });
 
         userTable.setRowFactory(tv -> {
             TableRow<User> row = new TableRow<>();
@@ -118,26 +90,10 @@ public class UsersController extends AbstractController {
                 }
                 else {
                     window.close();
-                    createMainWindow();
+                    createMainStage();
                 }
             });
             return row;
         });
-    }
-
-    private void createMainWindow(){
-        Stage childrenStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
-        childrenStage.setMinWidth(640);
-        childrenStage.setMinHeight(292);
-        Parent childrenRoot;
-        try {
-            childrenRoot = loader.load();
-            childrenStage.setScene(new Scene(childrenRoot, 650, 500));
-            childrenStage.setTitle("GURPSGenerator");
-            childrenStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
