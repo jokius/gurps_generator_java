@@ -2,12 +2,10 @@ package ru.gurps.generator.lib;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-import ru.gurps.generator.controller.UsersController;
+import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.models.Skill;
-import ru.gurps.generator.models.User;
 
-public class UserParams {
-    private User user = UsersController.user;
+public class UserParams extends AbstractController {
     private Label stCost;
     private Label dxCost;
     private Label iqCost;
@@ -65,58 +63,89 @@ public class UserParams {
     }
 
     public void setSt() {
+        stCost.setText(Integer.toString(stCost()));
+    }
+
+    public static int stCost(){
         int cost = (user.st - 10) * 10;
         if(cost != 0) {
             if(user.noFineManipulators) cost = (int) (cost - (cost * 0.4));
             if(user.sm > 0) cost = user.sm < 8 ? (int) (cost - (cost * (0.1 * user.sm))) : (int) (cost - (cost * 0.8));
         }
-        stCost.setText(Integer.toString(cost));
+        return cost;
     }
 
     public void setDx() {
+        dxCost.setText(Integer.toString(dxCost()));
+    }
+
+    public static int dxCost(){
         int cost = (user.dx - 10) * 20;
         if(user.noFineManipulators && cost != 0) cost = (int) (cost - (cost * 0.4));
-        dxCost.setText(Integer.toString(cost));
+        return cost;
     }
 
     public void setIq() {
-        int cost = (user.iq - 10) * 20;
-        iqCost.setText(Integer.toString(cost));
+        iqCost.setText(Integer.toString(iqCost()));
+    }
+
+    public static int iqCost(){
+        return (user.iq - 10) * 20;
     }
 
     public void setHt() {
-        int cost = (user.ht - 10) * 10;
-        htCost.setText(Integer.toString(cost));
+        htCost.setText(Integer.toString(htCost()));
+    }
+
+    public static int htCost(){
+        return (user.ht - 10) * 10;
     }
 
     public void setHp() {
+        hpCost.setText(Integer.toString(hpCost()));
+    }
+
+    public static int hpCost(){
         int cost = (user.hp - user.st) * 2;
         if(user.sm > 0 && cost != 0)
             cost = user.sm < 8 ? (int) (cost - (cost * (0.1 * user.sm))) : (int) (cost - (cost * 0.8));
-        hpCost.setText(Integer.toString(cost));
+        return cost;
     }
 
     public void setWill() {
-        int cost = (user.will - user.iq) * 5;
-        willCost.setText(Integer.toString(cost));
+        willCost.setText(Integer.toString(willCost()));
+    }
+
+    public static int willCost(){
+        return (user.will - user.iq) * 5;
     }
 
     public void setPer() {
-        int cost = (user.per - user.iq) * 5;
-        perCost.setText(Integer.toString(cost));
+        perCost.setText(Integer.toString(perCost()));
     }
 
+    public static int perCost(){
+        return (user.per - user.iq) * 5;
+    }
 
     public void setFp() {
-        int cost = (user.fp - user.ht) * 3;
-        fpCost.setText(Integer.toString(cost));
+        fpCost.setText(Integer.toString(fpCost()));
     }
 
-    public double defaultBs(){
-        return  (user.dx + user.ht) / 4;
+    public static int fpCost(){
+        return (user.fp - user.ht) * 3;
     }
 
     public void setBs() {
+        bsCost.setText(Integer.toString(bsCost()));
+    }
+
+    public static double defaultBs()
+    {
+        return (user.dx + user.ht) / 4;
+    }
+
+    public static int bsCost(){
         int cost = 0;
         double periods;
         periods = user.bs - defaultBs();
@@ -132,13 +161,15 @@ public class UserParams {
                 cost -= 5;
             } while(periods <= -0.25);
         }
-
-        bsCost.setText(Integer.toString(cost));
+        return cost;
     }
 
     public void setMove() {
-        int cost = (int) (user.move - user.bs);
-        moveCost.setText(Integer.toString(cost));
+        moveCost.setText(Integer.toString(moveCost()));
+    }
+
+    public static int moveCost(){
+        return (int) (user.move - user.bs);
     }
 
     public void setBg() {
