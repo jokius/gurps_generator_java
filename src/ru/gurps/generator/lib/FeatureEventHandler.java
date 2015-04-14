@@ -17,18 +17,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.controller.FeatureFullController;
 import ru.gurps.generator.models.*;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-public class FeatureEventHandler implements EventHandler<MouseEvent> {
+public class FeatureEventHandler extends AbstractController implements EventHandler<MouseEvent> {
     private Feature feature;
     private String currentLvl;
     private String lastId;
 
-    private User user;
     private ObservableList<Feature> featuresData;
     private ObservableList<Addon> addonsArray;
     private TableView<Feature> featureTableView;
@@ -47,15 +47,12 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
     private Label lvlLabel;
     private TextField lvlText;
     private ComboBox lvlComboBox;
-    private Label currentPoints;
 
-    public FeatureEventHandler(User user, ObservableList<Feature> featuresData, TableView<Feature> featureTableView, TableView<Addon> addonsTableView, AnchorPane bottomMenu,
+    public FeatureEventHandler(ObservableList<Feature> featuresData, TableView<Feature> featureTableView, TableView<Addon> addonsTableView, AnchorPane bottomMenu,
                                Button add, Button remove, TableColumn tableActivate, TableColumn tableAddonName,
                                TableColumn<Addon, String> tableAddonNameEn, TableColumn tableAddonLevel, TableColumn tableAddonCost, Button full,
-                               Label finalCost, Label lvlLabel, TextField lvlText, ComboBox lvlComboBox, TextField finalCostText,
-                               Label currentPoints) {
+                               Label finalCost, Label lvlLabel, TextField lvlText, ComboBox lvlComboBox, TextField finalCostText) {
 
-        this.user = user;
         this.featuresData = featuresData;
         this.featureTableView = featureTableView;
         this.addonsTableView = addonsTableView;
@@ -73,7 +70,6 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
         this.lvlText = lvlText;
         this.lvlComboBox = lvlComboBox;
         this.finalCostText = finalCostText;
-        this.currentPoints = currentPoints;
     }
 
     @Override
@@ -134,15 +130,15 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
         if(addon.active) {
             lastCost = intFinalCost + result;
-            if(feature.add) userCost = Integer.parseInt(currentPoints.getText()) + result;
+            if(feature.add) userCost = Integer.parseInt(globalCost.getText()) + result;
         } else {
             lastCost = intFinalCost - result;
-            if(feature.add) userCost = Integer.parseInt(currentPoints.getText()) - result;
+            if(feature.add) userCost = Integer.parseInt(globalCost.getText()) - result;
         }
 
         if(feature.add) {
             user.update_single("currentPoints", Integer.toString(userCost));
-            currentPoints.setText(user.currentPoints);
+            globalCost.setText(user.currentPoints);
         }
 
         newCost(lastCost);
@@ -356,7 +352,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
             String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
             user.update_single("currentPoints", setCurrentPoints);
 
-            currentPoints.setText(setCurrentPoints);
+            globalCost.setText(setCurrentPoints);
             feature.add = true;
             add.setVisible(false);
             remove.setVisible(true);
@@ -376,7 +372,7 @@ public class FeatureEventHandler implements EventHandler<MouseEvent> {
 
             String setCurrentPoints = Integer.toString(Integer.parseInt(user.currentPoints) - user_feature.cost);
             user.update_single("currentPoints", setCurrentPoints);
-            currentPoints.setText(setCurrentPoints);
+            globalCost.setText(setCurrentPoints);
             user_feature.delete();
             feature.add = false;
             add.setVisible(true);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="260.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="name" alignment="CENTER" layoutX="88.0" layoutY="25.0" prefHeight="26.0" prefWidth="219.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="25.0" />
+      <TextField fx:id="params" alignment="CENTER" layoutX="88.0" layoutY="67.0" prefHeight="26.0" prefWidth="219.0" text="0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="67.0" />
+      <Button fx:id="generate" disable="true" layoutX="200.0" layoutY="225.0" mnemonicParsing="false" text="Сгенерировать" />
+      <Label alignment="CENTER" layoutX="90.0" layoutY="6.0" prefHeight="16.0" prefWidth="219.0" text="Имя" />
+      <Label alignment="CENTER" layoutX="66.0" layoutY="51.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на параметры" />
+      <Label alignment="CENTER" layoutX="70.0" layoutY="93.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на преимущества" />
+      <TextField fx:id="advantages" alignment="CENTER" layoutX="90.0" layoutY="109.0" prefHeight="26.0" prefWidth="219.0" text="0" />
+      <Label alignment="CENTER" layoutX="70.0" layoutY="135.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на недостатки" />
+      <TextField fx:id="disadvantages" alignment="CENTER" layoutX="90.0" layoutY="151.0" prefHeight="26.0" prefWidth="219.0" text="0" />
+      <Label alignment="CENTER" layoutX="70.0" layoutY="177.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на заклинания" />
+      <TextField fx:id="spells" alignment="CENTER" layoutX="90.0" layoutY="193.0" prefHeight="26.0" prefWidth="219.0" text="0" />
+      <Button fx:id="back" layoutX="88.0" layoutY="225.0" mnemonicParsing="false" text="Назад" />
+   </children>
+</AnchorPane>

@@ -96,9 +96,9 @@ public class FeaturesAbstractController extends AbstractController {
 
     private void run(){
         data.addAll(new Feature().where("advantage", isAdvantage));
-        FeatureEventHandler featureEventHandler = new FeatureEventHandler(user, data, view, tableView,
+        FeatureEventHandler featureEventHandler = new FeatureEventHandler(data, view, tableView,
                 bottomMenu, add, remove, activate, addonName, addonNameEn, addonLevel, addonCost, full, finalCost,
-                lvlLabel, lvlText, lvlComboBox, finalCostText, globalCost);
+                lvlLabel, lvlText, lvlComboBox, finalCostText);
 
         view.setRowFactory(tv -> {
             TableRow<Feature> row = new TableRow<>();
