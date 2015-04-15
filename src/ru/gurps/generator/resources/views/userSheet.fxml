@@ -6,11 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.UserSheetController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="713.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.UserSheetController">
     <tabs>
         <Tab text="Параметры">
             <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="759.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                <ScrollPane>
+            <content>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
                     <children>
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -165,8 +167,8 @@
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="tlCost" layoutX="642.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
-                        <TableView fx:id="culturasTableView" layoutX="455.0" layoutY="238.0" prefHeight="84.0" prefWidth="243.0">
+                        <TextField fx:id="tlCost" layoutX="640.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
+                        <TableView fx:id="culturasTableView" layoutX="453.0" layoutY="238.0" prefHeight="84.0" prefWidth="243.0">
                             <columns>
                                 <TableColumn fx:id="culturaNameColumn" prefWidth="159.0" text="Культура" />
                                 <TableColumn fx:id="culturaCostColumn" prefWidth="83.0" text="Стоимость" />
@@ -248,7 +250,7 @@
                             </columns>
                         </TableView>
 
-                        <TableView fx:id="skillsTableView" layoutX="6.0" layoutY="574.0" prefHeight="186.0" prefWidth="346.0">
+                        <TableView fx:id="skillsTableView" layoutX="6.0" layoutY="574.0" prefHeight="186.0" prefWidth="344.0">
                             <columns>
                                 <TableColumn prefWidth="75.0" text="Навыки">
                                     <columns>
@@ -261,13 +263,13 @@
                             </columns>
                         </TableView>
 
-                        <TableView fx:id="spellsTableView" layoutX="350.0" layoutY="574.0" prefHeight="186.0" prefWidth="346.0">
+                        <TableView fx:id="spellsTableView" layoutX="350.0" layoutY="574.0" prefHeight="186.0" prefWidth="345.0">
                             <columns>
-                                <TableColumn prefWidth="75.0" text="Заклинания">
+                                <TableColumn prefWidth="335.0" text="Заклинания">
                                     <columns>
-                                        <TableColumn fx:id="spellsNameColumn" prefWidth="171.0" text="Название" />
+                                        <TableColumn fx:id="spellsNameColumn" prefWidth="168.0" text="Название" />
                                         <TableColumn fx:id="spellsComplexityColumn" prefWidth="84.0" text="Сложность" />
-                                        <TableColumn fx:id="spellsCostColumn" prefWidth="90.0" text="Стоимость" />
+                                        <TableColumn fx:id="spellsCostColumn" prefWidth="78.0" text="Стоимость" />
                                     </columns>
                                 </TableColumn>
                             </columns>
@@ -275,6 +277,8 @@
 
                     </children>
                 </AnchorPane>
+                </content>
+                </ScrollPane>
             </content>
         </Tab>
         <Tab text="Инвентарь">
