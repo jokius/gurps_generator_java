@@ -386,8 +386,7 @@ public class UserParamsController extends AbstractController {
         });
 
         tlCost.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("")) return;
-            if(newValue.equals("-")) return;
+            if(newValue.equals("") || newValue.equals("-")) return;
             try {
                 int intNewValue = Integer.parseInt(newValue);
                 if(user.tlCost == intNewValue) return;
