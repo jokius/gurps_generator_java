@@ -391,8 +391,7 @@ public class UserParamsController extends AbstractController {
             try {
                 int intNewValue = Integer.parseInt(newValue);
                 if(user.tlCost == intNewValue) return;
-                user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + intNewValue - user.tlCost);
-                globalCost.setText(user.currentPoints);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) + intNewValue - user.tlCost);
                 user.tlCost = intNewValue;
                 user.save();
             } catch(NumberFormatException e){
@@ -402,7 +401,6 @@ public class UserParamsController extends AbstractController {
     }
 
     private void currentPoints(Label cost, int oldStCost) {
-        user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + Integer.parseInt(cost.getText()) - oldStCost);
-        globalCost.setText(user.currentPoints);
+        setCurrentPoints(Integer.parseInt(user.currentPoints) + Integer.parseInt(cost.getText()) - oldStCost);
     }
 }
