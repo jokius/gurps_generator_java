@@ -246,21 +246,14 @@ public class FeaturesAbstractController extends AbstractController {
             int lastCost;
             int intFinalCost = intCost();
             int result = (int) (feature.getCost() * Double.parseDouble(currentLvl) * cost);
-            int userCost = 0;
 
             if(addon.active) {
                 lastCost = intFinalCost + result;
-                if(feature.add) userCost = Integer.parseInt(globalCost.getText()) + result;
+                if(feature.add)  setCurrentPoints(Integer.parseInt(globalCost.getText()) + result);
             } else {
                 lastCost = intFinalCost - result;
-                if(feature.add) userCost = Integer.parseInt(globalCost.getText()) - result;
+                if(feature.add)  setCurrentPoints(Integer.parseInt(globalCost.getText()) - result);
             }
-
-            if(feature.add) {
-                user.update_single("currentPoints", Integer.toString(userCost));
-                globalCost.setText(user.currentPoints);
-            }
-
             newCost(lastCost);
         }
 
@@ -452,10 +445,7 @@ public class FeaturesAbstractController extends AbstractController {
 
             add.setOnAction(actionEvent -> {
                 UserFeature user_feature = (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
-                String setCurrentPoints = Integer.toString(intCost() + Integer.parseInt(user.currentPoints));
-                user.update_single("currentPoints", setCurrentPoints);
-
-                globalCost.setText(setCurrentPoints);
+                setCurrentPoints(intCost() + Integer.parseInt(user.currentPoints));
                 feature.add = true;
                 add.setVisible(false);
                 remove.setVisible(true);
@@ -472,10 +462,7 @@ public class FeaturesAbstractController extends AbstractController {
                 params1.put("userId", Integer.toString(user.id));
                 params1.put("featureId", feature.id);
                 UserFeature user_feature = (UserFeature) new UserFeature().find_by(params1);
-
-                String setCurrentPoints = Integer.toString(Integer.parseInt(user.currentPoints) - user_feature.cost);
-                user.update_single("currentPoints", setCurrentPoints);
-                globalCost.setText(setCurrentPoints);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) - user_feature.cost);
                 user_feature.delete();
                 feature.add = false;
                 add.setVisible(true);
