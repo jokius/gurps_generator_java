@@ -1,7 +1,5 @@
 package ru.gurps.generator.controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
 import ru.gurps.generator.lib.export.ExportToJson;
@@ -21,10 +20,8 @@ import ru.gurps.generator.models.*;
 import java.io.File;
 import java.lang.reflect.Field;
 
-public class UserSheetController {
+public class UserSheetController extends AbstractController {
     private User user = AbstractController.user;
-    private UserParams userParams;
-
     public Label name;
     public TextField player;
     public Label maxPoints;
@@ -109,9 +106,6 @@ public class UserSheetController {
 
     @FXML
     private void initialize() {
-        userParams = new UserParams(stCost, dxCost, iqCost, htCost, hpCost, willCost, perCost, fpCost, null,
-                null, bl, doge, thrust, swing, block, parry);
-
         name.setText(user.name);
         player.setText(user.player);
         maxPoints.setText(user.maxPoints);
@@ -134,22 +128,24 @@ public class UserSheetController {
         bs.setText(Double.toString(user.bs));
         move.setText(Integer.toString(user.move));
 
-        userParams.setSt();
-        userParams.setDx();
-        userParams.setIq();
-        userParams.setHt();
-
-        userParams.setHp();
-        userParams.setWill();
-        userParams.setPer();
-        userParams.setFp();
-
-        userParams.setBg();
-        userParams.setDoge();
-        userParams.setDmg();
-
         tl.setText(Integer.toString(user.tl));
         tlCost.setText(Integer.toString(user.tlCost));
+
+        stCost.setText(Integer.toString(UserParams.stCost()));
+        dxCost.setText(Integer.toString(UserParams.dxCost()));
+        iqCost.setText(Integer.toString(UserParams.iqCost()));
+        htCost.setText(Integer.toString(UserParams.htCost()));
+
+        hpCost.setText(Integer.toString(UserParams.hpCost()));
+        willCost.setText(Integer.toString(UserParams.willCost()));
+        perCost.setText(Integer.toString(UserParams.perCost()));
+        fpCost.setText(Integer.toString(UserParams.fpCost()));
+
+        bl.setText(Integer.toString(UserParams.bg()));
+        doge.setText(Integer.toString(UserParams.doge()));
+
+        thrust.setText(Dmg.thrust(user.st));
+        swing.setText(Dmg.swing(user.st));
 
         head.setText(Integer.toString(user.head));
         torse.setText(Integer.toString(user.torse));
@@ -195,8 +191,8 @@ public class UserSheetController {
         skillsLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
         skillsTableView.setItems(skills);
         skillsTableView.setPlaceholder(new Label("Навыков нет"));
-        userParams.setParry(skills);
-        userParams.setBlock(skills);
+        parry.setText(UserParams.getParry(skills));
+        parry.setText(UserParams.getBlock(skills));
     }
 
     private void intSpells() {
@@ -225,37 +221,40 @@ public class UserSheetController {
 
     private void setTextProperty() {
         for(Field field : this.getClass().getDeclaredFields()) {
-            if(TextField.class.isAssignableFrom(field.getType()))
+            if(TextField.class.isAssignableFrom(field.getType())) {
                 try {
                     TextField textField = (TextField) field.get(this);
-                    textField.textProperty().addListener(new ChangeListener<String>() {
-                        @Override
-                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                            if(newValue.equals("")) return;
-                            try {
-                                Field setField = user.getClass().getDeclaredField(field.getName());
+                    textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                        if(newValue.equals("")) return;
+                        try {
+                            Field setField = user.getClass().getDeclaredField(field.getName());
 
-                                if(field.getName().equals("tlCost")) {
-                                    if("\\D".matches(newValue) || newValue.equals("-")) return;
-                                    user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) +
-                                            Integer.parseInt(newValue) - user.tlCost);
-
-                                    AbstractController.globalCost.setText(user.currentPoints);
+                            if(field.getName().equals("tlCost")) {
+                                if(newValue.equals("") || newValue.equals("-")) return;
+                                try {
+                                    int intNewValue = Integer.parseInt(newValue);
+                                    if(user.tlCost == intNewValue) return;
+                                    setCurrentPoints(Integer.parseInt(user.currentPoints) + intNewValue - user.tlCost);
+                                    user.tlCost = intNewValue;
+                                    user.save();
                                     setRemainingPoints();
+                                } catch(NumberFormatException e) {
+                                    tlCost.setText(Integer.toString(user.tlCost));
                                 }
-                                if(Integer.class.isAssignableFrom(setField.getType()))
-                                    setField.set(user, Integer.parseInt(newValue));
-                                else setField.set(user, newValue);
-                            } catch(IllegalAccessException | NoSuchFieldException e) {
-                                e.printStackTrace();
                             }
-                            user.save();
-
+                            if(Integer.class.isAssignableFrom(setField.getType()))
+                                setField.set(user, Integer.parseInt(newValue));
+                            else setField.set(user, newValue);
+                        } catch(IllegalAccessException | NoSuchFieldException e) {
+                            e.printStackTrace();
                         }
+                        user.save();
+
                     });
                 } catch(IllegalAccessException e) {
                     e.printStackTrace();
                 }
+            }
         }
     }
 
@@ -266,8 +265,8 @@ public class UserSheetController {
         else remainingPoints.setTextFill(Color.RED);
     }
 
-    private void exportButtons(){
-        jokXlsxButton.setOnAction(event ->{
+    private void exportButtons() {
+        jokXlsxButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Сохронить лист персонажа");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx");
@@ -277,7 +276,7 @@ public class UserSheetController {
             new ExcelJokSheetFormat(file);
         });
 
-        jsonButton.setOnAction(event ->{
+        jsonButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Сохронить лист персонажа");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("json files (*.json)", "*.json");
