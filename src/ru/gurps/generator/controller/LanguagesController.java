@@ -21,8 +21,8 @@ public class LanguagesController extends AbstractController {
     public TableColumn<Language, Boolean> dbColumn;
 
     public TextField nameText;
-    public ChoiceBox spokenChoiceBox;
-    public ChoiceBox writtenChoiceBox;
+    public ChoiceBox<String> spokenChoiceBox;
+    public ChoiceBox<String> writtenChoiceBox;
     public TextField costText;
     public Button addButton;
 
@@ -65,7 +65,7 @@ public class LanguagesController extends AbstractController {
 
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         costColumn.setOnEditCommit(event -> {
-            if(event.getNewValue().equals("0") || "\\D".matches(event.getNewValue())) return;
+            if(event.getNewValue().equals("0") || !event.getNewValue().matches("\\d+")) return;
             Language language = event.getTableView().getItems().get(event.getTablePosition().getRow());
             if(language.cost != Integer.parseInt(event.getNewValue()))
                 language.cost = Integer.parseInt(event.getNewValue());
@@ -99,12 +99,7 @@ public class LanguagesController extends AbstractController {
             language.add = true;
 
             new UserLanguage(user.id, language.id, language.spoken, language.written, language.cost).create();
-            if(language.cost != 0){
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) + language.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
-            }
-
+            if(language.cost != 0) setCurrentPoints(Integer.parseInt(user.currentPoints) + language.cost);
             languages.add(language);
             tableView.setItems(languages);
             nameText.setText("");
@@ -121,20 +116,15 @@ public class LanguagesController extends AbstractController {
                 Language language = (Language) getTableRow().getItem();
                 new UserLanguage(user.id, language.id, language.spoken, language.written, language.cost).create();
                 language.add = true;
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) + language.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) + language.cost);
                 setGraphic(removeButton);
             });
 
             removeButton.setOnAction(t -> {
                 Language language = (Language) getTableRow().getItem();
                 new UserLanguage().find_by("languageId", language.id).delete();
-
                 language.add = false;
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) - language.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) - language.cost);
                 setGraphic(addButton);
             });
         }
