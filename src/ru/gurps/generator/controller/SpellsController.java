@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SpellsController {
+public class SpellsController extends AbstractController {
     User user = AbstractController.user;
 
     public TableView<Spell> tableView;
@@ -75,12 +75,8 @@ public class SpellsController {
 
     @FXML
     private void initialize() {
-        for(int i = 0; 8 >= i; i++){
-            typeNumbers.add(i);
-        }
-
+        for(int i = 0; 8 >= i; i++) typeNumbers.add(i);
         schoolNumbers.add(0);
-
         setCheckBox();
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -107,7 +103,6 @@ public class SpellsController {
         }
 
         tableView.setItems(spells);
-
         tableView.setRowFactory(tv -> {
             TableRow<Spell> row = new TableRow<>();
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> bottomMenu(tableView.getFocusModel().getFocusedIndex()));
@@ -154,7 +149,6 @@ public class SpellsController {
             finalCost.setText(finalCost(spell));
             spell.finalCost = Integer.parseInt(finalCost.getText());
         });
-
         setButtons(spell);
     }
 
@@ -229,13 +223,12 @@ public class SpellsController {
                     String query = "spellType like ";
                     if(newValue) typeNumbers.add(number);
                     else typeNumbers.remove(number);
+
                     for(Integer tNumber : typeNumbers) {
                         if(query.equals("spellType like ")) query += "'%" + tNumber + "%'";
                         else query += " or spellType like '%" + tNumber + "%'";
 
-                        for(Integer sNumber : schoolNumbers) {
-                            query += " and school like '%" + sNumber + "%'";
-                        }
+                        for(Integer sNumber : schoolNumbers) query += " and school like '%" + sNumber + "%'";
                     }
                     if(query.equals("spellType like ")) query = "spellType='-1'";
                     tableView.setItems(new Spell().where(query));
@@ -258,9 +251,7 @@ public class SpellsController {
                         if(query.equals("school like ")) query += "'%" + sNumber + "%'";
                         else query += " or school like '%" + sNumber + "%'";
 
-                        for(Integer tNumber : typeNumbers) {
-                            query += " and spellType like '%" + tNumber + "%'";
-                        }
+                        for(Integer tNumber : typeNumbers) query += " and spellType like '%" + tNumber + "%'";
                     }
                     if(query.equals("school like ")) query = "school='-1'";
                     tableView.setItems(new Spell().where(query));
@@ -274,10 +265,7 @@ public class SpellsController {
     private void setButtons(Spell spell){
         add.setOnAction(event -> {
             new UserSpell(user.id, spell.id, spell.level, spell.finalCost).create();
-            String setCurrentPoints = Integer.toString(spell.finalCost + Integer.parseInt(user.currentPoints));
-            user.update_single("currentPoints", setCurrentPoints);
-
-            AbstractController.globalCost.setText(setCurrentPoints);
+            setCurrentPoints(spell.finalCost + Integer.parseInt(user.currentPoints));
             spell.add = true;
             add.setVisible(false);
             remove.setVisible(true);
@@ -288,10 +276,7 @@ public class SpellsController {
             params1.put("userId", user.id);
             params1.put("spellId", spell.id);
             UserSpell userSpell = (UserSpell) new UserSpell().find_by(params1);
-
-            String setCurrentPoints = Integer.toString(Integer.parseInt(user.currentPoints) - userSpell.cost);
-            user.update_single("currentPoints", setCurrentPoints);
-            AbstractController.globalCost.setText(setCurrentPoints);
+            setCurrentPoints(Integer.parseInt(user.currentPoints) - userSpell.cost);
             userSpell.delete();
             spell.add = false;
             add.setVisible(true);
@@ -299,8 +284,6 @@ public class SpellsController {
         });
 
         full.setOnAction(actionEvent -> {
-            String name = spell.name + "(" + spell.nameEn + ")";
-
             Stage childrenStage = new Stage();
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/spellFull.fxml"));
             SpellFullController controller = new SpellFullController(spell);
@@ -310,7 +293,7 @@ public class SpellsController {
                 childrenRoot = loader.load();
                 childrenStage.setResizable(false);
                 childrenStage.setScene(new Scene(childrenRoot, 635, 572));
-                childrenStage.setTitle("GURPSGenerator - " + name);
+                childrenStage.setTitle("GURPSGenerator - " + spell.name + " (" + spell.nameEn + ")");
                 childrenStage.show();
             } catch(IOException e) {
                 e.printStackTrace();

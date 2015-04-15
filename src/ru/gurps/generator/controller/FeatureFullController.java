@@ -3,33 +3,24 @@ package ru.gurps.generator.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+import ru.gurps.generator.models.Feature;
 
 public class FeatureFullController {
-    private String nameValue;
-    private String costValue;
-    private String typeValue;
-    private String descriptionValue;
-    @FXML
-    private Label name;
-    @FXML
-    private Label cost;
-    @FXML
-    private Label type;
-    @FXML
-    private Text fullDescription;
+    private Feature feature;
+    public Label name;
+    public Label cost;
+    public Label type;
+    public Text fullDescription;
 
-    public FeatureFullController(String nameValue, String costValue, String typeValue, String descriptionValue) {
-        this.nameValue = nameValue;
-        this.costValue = costValue;
-        this.typeValue = typeValue;
-        this.descriptionValue = descriptionValue;
+    public FeatureFullController(Feature feature) {
+        this.feature = feature;
     }
-    
+
     @FXML
     private void initialize() {
-        name.setText(nameValue);
-        cost.setText(costValue);
-        type.setText(typeValue);
-        fullDescription.setText(descriptionValue);
+        name.setText(feature.title + " (" + feature.titleEn + ")");
+        cost.setText("Стоимость: " + feature.cost);
+        type.setText(feature.getTypeFull());
+        fullDescription.setText(feature.description);
     }
 }

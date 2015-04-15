@@ -6,26 +6,16 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.DisadvantagesController">
     <children>
-        <GridPane layoutX="26.0" layoutY="2.0" prefHeight="25.0" prefWidth="606.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="113.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="119.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="115.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <CheckBox fx:id="checkBox1" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="Физические" />
-                <CheckBox fx:id="checkBox2" mnemonicParsing="false" prefHeight="18.0" prefWidth="116.0" text="Социальные" GridPane.columnIndex="1" />
-                <CheckBox fx:id="checkBox3" mnemonicParsing="false" prefHeight="18.0" prefWidth="105.0" text="Ментальные" GridPane.columnIndex="2" />
-                <CheckBox fx:id="checkBox4" mnemonicParsing="false" prefHeight="18.0" prefWidth="115.0" text="Экзотические" GridPane.columnIndex="3" />
-                <CheckBox fx:id="checkBox5" mnemonicParsing="false" prefHeight="18.0" prefWidth="154.0" text="Сверхестествинные" GridPane.columnIndex="4" />
-            </children>
-        </GridPane>
-        <MenuButton fx:id="searchButton" disable="true" layoutX="552.0" layoutY="27.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="16.0">
+        <MenuButton alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="Типы" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0">
+            <items>
+                <CheckMenuItem fx:id="checkBox1" mnemonicParsing="false" text="Физические" />
+                <CheckMenuItem fx:id="checkBox2" mnemonicParsing="false" text="Социальные" />
+                <CheckMenuItem fx:id="checkBox3" mnemonicParsing="false" text="Ментальные" />
+                <CheckMenuItem fx:id="checkBox4" mnemonicParsing="false" text="Экзотические" />
+                <CheckMenuItem fx:id="checkBox5" mnemonicParsing="false" text="Сверхестествинные" />
+            </items>
+        </MenuButton>
+        <MenuButton fx:id="searchButton" disable="true" layoutX="551.0" layoutY="14.0" mnemonicParsing="false" text="Искать" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
             <items>
                 <MenuItem fx:id="searchAll" mnemonicParsing="false" text="Везде" />
                 <MenuItem fx:id="searchTitle" mnemonicParsing="false" text="Названия" />
@@ -34,9 +24,9 @@
                 <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="Описание" />
             </items>
         </MenuButton>
-        <TextField fx:id="searchText" layoutX="371.0" layoutY="27.0" AnchorPane.rightAnchor="100.0" />
+        <TextField fx:id="searchText" layoutX="384.0" layoutY="14.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="7.0" />
 
-        <TableView fx:id="view" layoutY="56.0" prefHeight="407.0" prefWidth="650.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="58.0">
+        <TableView fx:id="tableView" layoutY="39.0" prefHeight="360.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
             <columns>
                 <TableColumn fx:id="title" prefWidth="136.0" text="Название" />
                 <TableColumn fx:id="titleEn" prefWidth="125.0" text="Название англ." />
@@ -58,13 +48,13 @@
                 <Label fx:id="finalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" text="0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
                 <TextField fx:id="finalCostText" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
 
-                <TableView fx:id="tableView" layoutX="-2.0" prefHeight="111.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="addonsTableView" layoutX="-2.0" prefHeight="134.0" prefWidth="388.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                        <TableColumn fx:id="activate" prefWidth="46.0" text="Добавить" />
-                        <TableColumn fx:id="addonName" prefWidth="107.0" text="Название" />
-                        <TableColumn fx:id="addonNameEn" prefWidth="81.0" text="Название Англ." />
-                        <TableColumn fx:id="addonLevel" prefWidth="44.0" text="Уровень" />
-                        <TableColumn fx:id="addonCost" maxWidth="1.7976931348623157E308" prefWidth="53.0" text="Стоимость" />
+                        <TableColumn fx:id="activate" prefWidth="86.0" text="Добавить" />
+                        <TableColumn fx:id="addonName" prefWidth="87.0" text="Название" />
+                        <TableColumn fx:id="addonNameEn" prefWidth="95.0" text="Название Англ." />
+                        <TableColumn fx:id="addonLevel" prefWidth="63.0" text="Уровень" />
+                        <TableColumn fx:id="addonCost" maxWidth="1.7976931348623157E308" text="Стоимость" />
                     </columns>
                 </TableView>
             </children>

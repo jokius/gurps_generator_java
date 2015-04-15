@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 
@@ -44,17 +45,22 @@ public class MainWindowController extends AbstractController {
         maxPoints.setText(user.maxPoints);
         globalCost.setText(user.currentPoints);
 
+        if(Integer.parseInt(user.maxPoints) >= Integer.parseInt(user.currentPoints)) globalCost.setTextFill(Color.GREEN);
+        else globalCost.setTextFill(Color.RED);
+
         maxPoints.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
-            if("\\D".matches(newValue)) {
+            if(!newValue.matches("\\d+")) {
                 maxPoints.setText(user.maxPoints);
                 return;
             }
 
             if(user.maxPoints.equals(newValue)) return;
-            user.maxPoints = newValue;
+            user.update_single("maxPoints", newValue);
             maxPoints.setText(newValue);
-            user.save();
+
+            if(Integer.parseInt(user.maxPoints) >= Integer.parseInt(user.currentPoints)) globalCost.setTextFill(Color.GREEN);
+            else globalCost.setTextFill(Color.RED);
         });
 
         userSheet.setOnAction(event -> {
@@ -65,10 +71,9 @@ public class MainWindowController extends AbstractController {
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
-                childrenStage.setScene(new Scene(childrenRoot, 700, 795));
+                childrenStage.setScene(new Scene(childrenRoot, 713, 740));
                 childrenStage.setTitle("GURPS Лист персонажа");
                 childrenStage.show();
-                childrenStage.setResizable(false);
             } catch(IOException e) {
                 e.printStackTrace();
             }

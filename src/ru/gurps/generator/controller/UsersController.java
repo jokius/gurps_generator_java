@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ru.gurps.generator.models.User;
 
@@ -20,12 +21,12 @@ public class UsersController extends AbstractController {
     public TableColumn<User, String> tableCurrentPoints;
     public TableColumn<User, String> tableMaxPoints;
 
-    private Stage window;
+    private Stage stage;
     private ObservableList<User> usersData = FXCollections.observableArrayList();
     private int index = -1;
 
-    public UsersController(Stage window) {
-        this.window = window;
+    public UsersController(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -34,6 +35,18 @@ public class UsersController extends AbstractController {
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableCurrentPoints.setCellValueFactory(new PropertyValueFactory<>("currentPoints"));
+        tableCurrentPoints.setCellFactory(column -> new TableCell<User, String>(){
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (getTableRow().getItem() != null) {
+                    setText(item);
+                    User user = (User) getTableRow().getItem();
+                    if(Integer.parseInt(user.currentPoints) < Integer.parseInt(user.maxPoints)) setTextFill(Color.GREEN);
+                    else setTextFill(Color.RED);
+                } else setText(null);
+            }
+        });
         tableMaxPoints.setCellValueFactory(new PropertyValueFactory<>("maxPoints"));
 
         userTable.setPlaceholder(new Label("Персонажей не создано"));
@@ -44,36 +57,34 @@ public class UsersController extends AbstractController {
     
     private void events(){
         newName.textProperty().addListener((observable, oldValue, newValue) -> {
-            newUser.setDisable(newValue.equals("") || points.getText().equals(""));
+            newUser.setDisable(newValue.equals("") || !newValue.matches("\\d+"));
         });
 
         points.textProperty().addListener((observable, oldValue, newValue) -> {
-            newUser.setDisable(newValue.equals("") || newName.getText().equals(""));
+            newUser.setDisable(newValue.equals("") || !newValue.matches("\\d+"));
         });
         
         newUser.setOnAction(event -> {
             user = (User) new User(newName.getText(), points.getText()).create();
-            window.close();
+            stage.close();
             createMainStage();
         });
         
         load.setOnAction(event ->{
-            window.close();
+            stage.close();
             createMainStage();
         });
         
         remove.setOnAction(event ->{
             usersData.remove(index);
             new User().delete(user.id);
-
-            if (usersData.size() == 0){
-                load.setDisable(true);
-                remove.setDisable(true);
-            }
+            userTable.setItems(usersData);
+            load.setDisable(true);
+            remove.setDisable(true);
         });
 
         generate.setOnAction(event -> {
-            window.close();
+            stage.close();
             createGenerateStage();
         });
 
@@ -89,7 +100,7 @@ public class UsersController extends AbstractController {
                     remove.setDisable(false);
                 }
                 else {
-                    window.close();
+                    stage.close();
                     createMainStage();
                 }
             });

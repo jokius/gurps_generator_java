@@ -40,7 +40,7 @@ public class CulturasController extends AbstractController {
 
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         costColumn.setOnEditCommit(event -> {
-            if(event.getNewValue().equals("0") || "\\D".matches(event.getNewValue())) return;
+            if(event.getNewValue().equals("0") || !event.getNewValue().matches("\\d+")) return;
             Cultura cultura = event.getTableView().getItems().get(event.getTablePosition().getRow());
             if(cultura.cost != Integer.parseInt(event.getNewValue()))
                 cultura.cost = Integer.parseInt(event.getNewValue());
@@ -69,11 +69,7 @@ public class CulturasController extends AbstractController {
             cultura.add = true;
 
             new UserCultura(user.id, cultura.id, cultura.cost).create();
-            if(cultura.cost != 0){
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) + cultura.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
-            }
+            if(cultura.cost != 0) setCurrentPoints(Integer.parseInt(user.currentPoints) + cultura.cost);
             culturas.add(cultura);
             tableView.setItems(culturas);
             nameText.setText("");
@@ -90,9 +86,7 @@ public class CulturasController extends AbstractController {
                 Cultura cultura = (Cultura) getTableRow().getItem();
                 new UserCultura(user.id, cultura.id, cultura.cost).create();
                 cultura.add = true;
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) + cultura.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) + cultura.cost);
                 setGraphic(removeButton);
             });
 
@@ -101,9 +95,7 @@ public class CulturasController extends AbstractController {
                 new UserCultura().find_by("culturaId", cultura.id).delete();
 
                 cultura.add = false;
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) - cultura.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) - cultura.cost);
                 setGraphic(addButton);
             });
         }

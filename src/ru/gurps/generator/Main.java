@@ -28,12 +28,12 @@ public class Main extends Application {
 
     protected void usersStage(Stage stage){
         stage.setResizable(false);
-        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/select_user.fxml"));
+        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/selectUser.fxml"));
         UsersController controller = new UsersController(stage);
         view.setController(controller);
         try {
             Parent root = view.load();
-            stage.setScene(new Scene(root, 395, 260));
+            stage.setScene(new Scene(root, 397, 293));
             stage.setTitle("GURPSGenerator - Выбор персонажа");
             stage.show();
         } catch(IOException e) {

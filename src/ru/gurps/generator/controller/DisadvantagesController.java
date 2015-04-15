@@ -7,8 +7,8 @@ import ru.gurps.generator.models.Addon;
 import ru.gurps.generator.models.Feature;
 
 public class DisadvantagesController {
-    public TableView<Feature> view;
-    public TableView<Addon> tableView;
+    public TableView<Feature> tableView;
+    public TableView<Addon> addonsTableView;
     public TableColumn<Feature, String> title;
     public TableColumn<Feature, String> titleEn;
     public TableColumn<Feature, String> type;
@@ -16,7 +16,7 @@ public class DisadvantagesController {
     public TableColumn<Feature, String> description;
 
     public AnchorPane bottomMenu;
-    public ComboBox lvlComboBox;
+    public ComboBox<Integer> lvlComboBox;
     public Label lvlLabel;
     public TextField lvlText;
     public Button add;
@@ -30,11 +30,11 @@ public class DisadvantagesController {
     public TableColumn<Addon, String> addonLevel;
     public TableColumn<Addon, String> addonCost;
 
-    public CheckBox checkBox1;
-    public CheckBox checkBox2;
-    public CheckBox checkBox3;
-    public CheckBox checkBox4;
-    public CheckBox checkBox5;
+    public CheckMenuItem checkBox1;
+    public CheckMenuItem checkBox2;
+    public CheckMenuItem checkBox3;
+    public CheckMenuItem checkBox4;
+    public CheckMenuItem checkBox5;
 
     public MenuButton searchButton;
     public MenuItem searchAll;
@@ -46,7 +46,7 @@ public class DisadvantagesController {
 
     @FXML
     private void initialize() {
-        new FeaturesAbstractController(view, tableView, title, titleEn, type, cost, description, bottomMenu, lvlComboBox,
+        new FeaturesAbstractController(tableView, addonsTableView, title, titleEn, type, cost, description, bottomMenu, lvlComboBox,
                 lvlLabel, lvlText, add, remove, full, finalCost, finalCostText, activate, addonName, addonNameEn,
                 addonLevel, addonCost, checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, searchButton, searchAll,
                 searchTitle, searchTitleEn, searchCost, searchDescription, searchText, false);
