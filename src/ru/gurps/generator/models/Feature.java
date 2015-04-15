@@ -34,7 +34,7 @@ public class Feature extends Model {
         this.add = add;
     }
 
-    public String getType() { 
+    public String getType() {
         String new_type = type;
         new_type = new_type.replace("[", "");
         new_type = new_type.replace("]", "");
@@ -44,6 +44,19 @@ public class Feature extends Model {
         new_type = new_type.replace("3", "М ");
         new_type = new_type.replace("4", "Э ");
         new_type = new_type.replace("5", "С ");
+        return new_type;
+    }
+
+    public String getTypeFull() {
+        String new_type = type;
+        new_type = new_type.replace("[", "");
+        new_type = new_type.replace("]", "");
+        new_type = new_type.replace(",", "/ ");
+        new_type = new_type.replace("1", "Физическая ");
+        new_type = new_type.replace("2", "Социальная ");
+        new_type = new_type.replace("3", "Ментальная ");
+        new_type = new_type.replace("4", "Экзотическая ");
+        new_type = new_type.replace("5", "Сверхъестественная ");
         return new_type;
     }
 
