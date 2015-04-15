@@ -40,7 +40,7 @@ public class QuirksController extends AbstractController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         costColumn.setOnEditCommit(event -> {
-            if(event.getNewValue().equals("0") || "\\D".matches(event.getNewValue())) return;
+            if(event.getNewValue().equals("0") || !event.getNewValue().matches("\\d+")) return;
             Quirk quirk = event.getTableView().getItems().get(event.getTablePosition().getRow());
             if(quirk.cost != Integer.parseInt(event.getNewValue()))
                 quirk.cost = Integer.parseInt(event.getNewValue());
@@ -68,12 +68,7 @@ public class QuirksController extends AbstractController {
             quirk.add = true;
 
             new UserQuirk(user.id, quirk.id, quirk.cost).create();
-            if(quirk.cost != 0){
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) + quirk.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
-            }
-
+            if(quirk.cost != 0) setCurrentPoints(Integer.parseInt(user.currentPoints) + quirk.cost);
             quirks.add(quirk);
             tableView.setItems(quirks);
             nameText.setText("");
@@ -90,20 +85,15 @@ public class QuirksController extends AbstractController {
                 Quirk quirk = (Quirk) getTableRow().getItem();
                 new UserQuirk(user.id, quirk.id, quirk.cost).create();
                 quirk.add = true;
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) + quirk.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) + quirk.cost);
                 setGraphic(removeButton);
             });
 
             removeButton.setOnAction(t -> {
                 Quirk quirk = (Quirk) getTableRow().getItem();
                 new UserQuirk().find_by("quirkId", quirk.id).delete();
-
                 quirk.add = false;
-                String points = Integer.toString(Integer.parseInt(user.currentPoints) - quirk.cost);
-                globalCost.setText(points);
-                user.update_single("currentPoints", points);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) - quirk.cost);
                 setGraphic(addButton);
             });
         }
