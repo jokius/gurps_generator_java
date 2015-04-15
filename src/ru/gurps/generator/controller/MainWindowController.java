@@ -71,10 +71,9 @@ public class MainWindowController extends AbstractController {
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
-                childrenStage.setScene(new Scene(childrenRoot, 700, 795));
+                childrenStage.setScene(new Scene(childrenRoot, 713, 740));
                 childrenStage.setTitle("GURPS Лист персонажа");
                 childrenStage.show();
-                childrenStage.setResizable(false);
             } catch(IOException e) {
                 e.printStackTrace();
             }
