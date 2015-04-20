@@ -20,25 +20,26 @@ public class Model extends Db {
     protected String table = this.getClass().getSimpleName() + "s";
 
     public Model create() {
-        String params = "";
+        String names = "(id,";
+        String values = "VALUES(DEFAULT,";
 
         for (Field field : this.getClass().getDeclaredFields())
             try {
-                if (!field.isAnnotationPresent(Ignore.class) && field.get(this) != null && !field.getName().equals("id"))
-                    params += field.getName() + "='" + field.get(this) + "',";
+                if (!field.isAnnotationPresent(Ignore.class) && field.get(this) != null && !field.getName().equals("id")) {
+                    names += " " + field.getName() + ",";
+                    values += " '" + field.get(this) + "',";
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
+        names = names.substring(0, names.length() - 1) + ")";
+        values = values.substring(0, values.length() - 1) + ")";
         try {
             createConnection();
-            ResultSet result = connect.createStatement().executeQuery("SELECT id FROM " + table);
+            connect.createStatement().executeUpdate("INSERT INTO " + table + names + " " + values);
+            ResultSet result = connect.createStatement().executeQuery("SELECT id FROM " + table + " ORDER BY id ASC");
             result.last();
-            int id = result.getRow() + 1;
-            params += "id=" + id;
-
-            connect.createStatement().executeUpdate("INSERT INTO " + table + " SET " + params);
-            result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + result.getRow());
             result.next();
             return setModel(result);
         } catch (SQLException e) {
