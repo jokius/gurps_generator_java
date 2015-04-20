@@ -15,10 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.models.Addon;
-import ru.gurps.generator.models.Feature;
-import ru.gurps.generator.models.FeatureAddon;
-import ru.gurps.generator.models.UserFeature;
+import ru.gurps.generator.models.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +60,7 @@ public class FeaturesAbstractController extends AbstractController {
     private MenuItem searchDescription;
     private TextField searchText;
     private boolean isAdvantage;
+    private int lastId;
 
     protected ArrayList<Integer> featuresNumbers = new ArrayList<>();
     protected ObservableList<Feature> data = FXCollections.observableArrayList();
@@ -112,29 +110,45 @@ public class FeaturesAbstractController extends AbstractController {
         FeatureEventHandler featureEventHandler = new FeatureEventHandler();
 
         tableView.setRowFactory(tv -> {
-            TableRow<Feature> row = new TableRow<>();
+            final TableRow<Feature> row = new TableRow<>();
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, featureEventHandler);
             return row;
         });
-
         setFeatures();
         setSearch();
         checkBoxEvents();
     }
 
-    private void setFeatures(){
+    private void setFeatures() {
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         titleEn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        title.setCellFactory(column -> new TableCell<Feature, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if(item != null || !empty) {
+                    setText(item);
+                    TableRow currentRow = getTableRow();
+                    Feature feature = tableView.getItems().get(currentRow.getIndex());
+                    HashMap<String, Object> featureParams = new HashMap<>();
+                    featureParams.put("userId", user.id);
+                    featureParams.put("featureId", feature.id);
+                    UserFeature userFeature = (UserFeature) new UserFeature().find_by(featureParams);
+                    if(userFeature.id == null) currentRow.getStyleClass().remove("isAdd");
+                    else currentRow.getStyleClass().add("isAdd");
+                }
+            }
+        });
 
         if(isAdvantage) tableView.setPlaceholder(new Label("Преимуществ нет"));
         else tableView.setPlaceholder(new Label("Недостаков нет"));
         tableView.setItems(data);
     }
 
-    protected void setSearch(){
+    protected void setSearch() {
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) searchButton.setDisable(true);
             else searchButton.setDisable(false);
@@ -148,11 +162,11 @@ public class FeaturesAbstractController extends AbstractController {
             tableView.setItems(new Feature().where(query));
         });
 
-        for(String feature : new String[] {"Title", "TitleEn", "Cost", "Description"}){
+        for(String feature : new String[]{"Title", "TitleEn", "Cost", "Description"}) {
             try {
                 MenuItem menuItem = (MenuItem) this.getClass().getDeclaredField("search" + feature).get(this);
-                menuItem.setOnAction(event ->{
-                    String query = "advantage="+ isAdvantage +" and UPPER("+ feature + ") like UPPER('%" + searchText.getText() + "%')";
+                menuItem.setOnAction(event -> {
+                    String query = "advantage=" + isAdvantage + " and UPPER(" + feature + ") like UPPER('%" + searchText.getText() + "%')";
                     tableView.setItems(new Feature().where(query));
                 });
             } catch(IllegalAccessException | NoSuchFieldException e) {
@@ -161,7 +175,7 @@ public class FeaturesAbstractController extends AbstractController {
         }
     }
 
-    protected void checkBoxEvents(){
+    protected void checkBoxEvents() {
         Integer[] numbers = {1, 2, 3, 4, 5};
         for(Integer number : numbers) {
             try {
@@ -175,7 +189,8 @@ public class FeaturesAbstractController extends AbstractController {
                         if(query.equals("advantage=" + isAdvantage + " and type like ")) query += "'%" + lNumber + "%'";
                         else query += " or advantage=" + isAdvantage + " and type like '%" + lNumber + "%'";
                     }
-                    if(query.equals("advantage=" + isAdvantage + " and type like ")) query = "advantage=" + isAdvantage + " and type='6'";
+                    if(query.equals("advantage=" + isAdvantage + " and type like "))
+                        query = "advantage=" + isAdvantage + " and type='6'";
                     tableView.setItems(new Feature().where(query));
                 });
             } catch(NoSuchFieldException | IllegalAccessException e) {
@@ -184,19 +199,19 @@ public class FeaturesAbstractController extends AbstractController {
         }
     }
 
-
     class FeatureEventHandler implements EventHandler<MouseEvent> {
-        private int lastId;
         private ObservableList<Addon> addonsArray;
         private Feature feature;
         private String currentLvl;
+        private TableRow row;
+        private UserFeature userFeature;
 
         public FeatureEventHandler() {
         }
 
         @Override
         public void handle(MouseEvent t) {
-            TableRow row = (TableRow) t.getSource();
+            row = (TableRow) t.getSource();
             feature = tableView.getItems().get(row.getIndex());
             setupBottomMenu();
             setCurrentLvl();
@@ -207,7 +222,7 @@ public class FeaturesAbstractController extends AbstractController {
             HashMap<String, Object> params = new HashMap<>();
             params.put("userId", user.id);
             params.put("featureId", feature.id);
-            UserFeature userFeature = (UserFeature) new UserFeature().find_by(params);
+            userFeature = (UserFeature) new UserFeature().find_by(params);
 
             feature.add = userFeature.id != null;
 
@@ -238,26 +253,30 @@ public class FeaturesAbstractController extends AbstractController {
             if(feature.add) finalCost.setText(Integer.toString(userFeature.cost));
         }
 
-        private double currentAddonCost(int cost, int level) {
-            return cost * level / 100.0;
+        double currentAddonCost(Addon addon) {
+            return Double.parseDouble(addon.cost) * Double.parseDouble(addon.level) / 100.0;
         }
 
-        private void addonCost(double cost, Addon addon) {
+        int pointsCostAddon(Addon addon){
+            return (int) (feature.getCost() * Double.parseDouble(currentLvl) * currentAddonCost(addon));
+        }
+
+        void addonCost(Addon addon) {
             int lastCost;
             int intFinalCost = intCost();
-            int result = (int) (feature.getCost() * Double.parseDouble(currentLvl) * cost);
+            int result = pointsCostAddon(addon);
 
             if(addon.active) {
                 lastCost = intFinalCost + result;
-                if(feature.add)  setCurrentPoints(Integer.parseInt(globalCost.getText()) + result);
+                if(feature.add) setCurrentPoints(Integer.parseInt(globalCost.getText()) + result);
             } else {
                 lastCost = intFinalCost - result;
-                if(feature.add)  setCurrentPoints(Integer.parseInt(globalCost.getText()) - result);
+                if(feature.add) setCurrentPoints(Integer.parseInt(globalCost.getText()) - result);
             }
             newCost(lastCost);
         }
 
-        private void userAddons(Integer id) {
+        void userAddons(Integer id) {
             if(id == null) return;
             ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", id);
             for(FeatureAddon featureAddon : featureAddons) {
@@ -271,7 +290,7 @@ public class FeaturesAbstractController extends AbstractController {
             }
         }
 
-        private void setCells() {
+        void setCells() {
             activate.setCellValueFactory(p -> new SimpleBooleanProperty(p.getValue() != null));
             activate.setCellFactory(p -> new ButtonCell());
 
@@ -295,38 +314,64 @@ public class FeaturesAbstractController extends AbstractController {
                 Addon addon = addonsTableView.getItems().get(event.getTablePosition().getRow());
                 try {
                     Integer.parseInt(event.getNewValue());
-                } catch(NumberFormatException e){
+                } catch(NumberFormatException e) {
                     return;
                 }
 
                 if(addon.cost.equals("0")) addon.cost = event.getNewValue();
             });
+
+            addonName.setCellFactory(column -> new TableCell<Addon, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if(item != null || !empty) {
+                        setText(item);
+                        TableRow currentRow = getTableRow();
+                        Addon addon = addonsTableView.getItems().get(currentRow.getIndex());
+                        if(userFeature.id == null) return;
+                        HashMap<String, Object> params = new HashMap<>();
+                        params.put("userFeatureId", userFeature.id);
+                        params.put("addonId", addon.id);
+                        FeatureAddon featureAddon = (FeatureAddon) new FeatureAddon().find_by(params);
+                        if(featureAddon.id == null) currentRow.getStyleClass().remove("isAdd");
+                        else currentRow.getStyleClass().add("isAdd");
+                    }
+                }
+            });
         }
 
         //Define the button cell
-        private class ButtonCell extends TableCell<Addon, Boolean> {
+        class ButtonCell extends TableCell<Addon, Boolean> {
             Button addButton = new Button("Добавить");
             Button removeButton = new Button("Удалить");
 
             ButtonCell() {
                 addButton.setOnAction(t -> {
                     Addon addon = (Addon) getTableRow().getItem();
-                    new FeatureAddon().delete(addon.id);
-                    new FeatureAddon(feature.id, addon.id, addon.cost, addon.level).create();
                     addon.active = true;
-                    double addonCost = currentAddonCost(Integer.parseInt(addon.cost), Integer.parseInt(addon.level));
-                    addonCost(addonCost, addon);
+                    addonCost(addon);
+
+                    if(userFeature.id == null) userFeature = createUserFeature();
+                    new FeatureAddon(userFeature.id, addon.id, addon.cost, addon.level).create();
+
                     setGraphic(removeButton);
+                    getTableRow().getStyleClass().add("isAdd");
                 });
 
                 removeButton.setOnAction(t -> {
                     Addon addon = (Addon) getTableRow().getItem();
-                    new FeatureAddon().delete(addon.id);
-
+                    HashMap<String, Object> params = new HashMap<>();
+                    params.put("userFeatureId", userFeature.id);
+                    params.put("addonId", addon.id);
+                    FeatureAddon featureAddon = (FeatureAddon) new FeatureAddon().find_by(params);
+                    System.out.println(pointsCostAddon(addon));
+                    userFeature.update_single("cost", userFeature.cost - pointsCostAddon(addon));
+                    featureAddon.delete();
                     addon.active = false;
-                    double addonCost = currentAddonCost(Integer.parseInt(addon.cost), Integer.parseInt(addon.level));
-                    addonCost(addonCost, addon);
+                    addonCost(addon);
                     setGraphic(addButton);
+                    getTableRow().getStyleClass().remove("isAdd");
                 });
             }
 
@@ -340,13 +385,13 @@ public class FeaturesAbstractController extends AbstractController {
             }
         }
 
-        private void allAddons() {
+        void allAddons() {
             ObservableList addons = new Addon().where("featureId", lastId);
             addonsArray.removeAll();
             addonsArray.addAll(addons);
         }
 
-        private void setCurrentLvl() {
+        void setCurrentLvl() {
             if(feature.maxLevel == 0) {
                 currentLvl = "1";
                 lvlText.setText("1");
@@ -375,7 +420,7 @@ public class FeaturesAbstractController extends AbstractController {
             }
         }
 
-        private void setCurrentCost() {
+        void setCurrentCost() {
             int cost = feature.getCost();
             if(cost == 0) {
                 finalCost.setVisible(false);
@@ -389,34 +434,34 @@ public class FeaturesAbstractController extends AbstractController {
             }
         }
 
-        private void finalCost(int newLevel) {
+        void finalCost(int newLevel) {
             int finalCost = intCost() / feature.oldLevel * newLevel;
             feature.oldLevel = newLevel;
             newCost(finalCost);
         }
 
-        private void newCost(int changeCost) {
+        void newCost(int changeCost) {
             String result = Integer.toString(changeCost);
             finalCost.setText(result);
             finalCostText.setText(result);
         }
 
-        private void newCost(String changeCost) {
+        void newCost(String changeCost) {
             finalCost.setText(changeCost);
             finalCostText.setText(changeCost);
         }
 
-        private int intCost() {
+        int intCost() {
             return finalCost.isVisible() ? Integer.parseInt(finalCost.getText()) : Integer.parseInt(finalCostText.getText());
         }
 
-        private void setupBottomMenu() {
+        void setupBottomMenu() {
             final double bottomMenuSize = 134.0;
             AnchorPane.setBottomAnchor(tableView, bottomMenuSize);
             bottomMenu.setVisible(true);
         }
 
-        private void defaultParams() {
+        void defaultParams() {
             lastId = feature.id;
             addonsArray = FXCollections.observableArrayList();
             addonsArray.clear();
@@ -425,7 +470,7 @@ public class FeaturesAbstractController extends AbstractController {
             finalCostText.setText(Integer.toString(feature.cost));
         }
 
-        private void buttonsActions() {
+        void buttonsActions() {
             full.setOnAction(actionEvent -> {
                 Stage childrenStage = new Stage();
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/featureFull.fxml"));
@@ -443,34 +488,44 @@ public class FeaturesAbstractController extends AbstractController {
                 }
             });
 
-            add.setOnAction(actionEvent -> {
-                UserFeature user_feature = (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
-                setCurrentPoints(intCost() + Integer.parseInt(user.currentPoints));
-                feature.add = true;
-                add.setVisible(false);
-                remove.setVisible(true);
-
-                if(!addonsTableView.isVisible()) return;
-                addonsArray.stream().filter(addon -> addon.active).forEach(addon -> {
-                    new FeatureAddon().delete(addon.id);
-                    new FeatureAddon(user_feature.id, addon.id, addon.cost, addon.level).create();
-                });
-            });
+            add.setOnAction(actionEvent -> createUserFeature());
 
             remove.setOnAction(actionEvent -> {
-                HashMap<String, Object> params1 = new HashMap<>();
-                params1.put("userId", Integer.toString(user.id));
-                params1.put("featureId", feature.id);
-                UserFeature user_feature = (UserFeature) new UserFeature().find_by(params1);
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - user_feature.cost);
-                user_feature.delete();
-                feature.add = false;
+                HashMap<String, Object> userFeatureParams = new HashMap<>();
+                userFeatureParams.put("userId", Integer.toString(user.id));
+                userFeatureParams.put("featureId", feature.id);
+
+                UserFeature userFeature = (UserFeature) new UserFeature().find_by(userFeatureParams);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) - userFeature.cost);
+                userFeature.delete();
+
                 add.setVisible(true);
                 remove.setVisible(false);
+
                 if(!addonsTableView.isVisible()) return;
-                ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", user_feature.id);
-                for(FeatureAddon featureAddon : featureAddons) featureAddon.delete();
+
+                ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", userFeature.id);
+
+                featureAddons.forEach(FeatureAddon::delete);
+
+                addonsTableView.setItems(new Addon().where("featureId", feature.id));
+                row.getStyleClass().remove("isAdd");
+                defaultFeature();
             });
+        }
+
+        UserFeature createUserFeature(){
+            setCurrentPoints(intCost() + Integer.parseInt(user.currentPoints));
+            feature.add = true;
+            add.setVisible(false);
+            remove.setVisible(true);
+            row.getStyleClass().add("isAdd");
+            return (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
+        }
+
+        void defaultFeature(){
+            feature = (Feature) new Feature().find(feature.id);
+            defaultParams();
         }
     }
 }

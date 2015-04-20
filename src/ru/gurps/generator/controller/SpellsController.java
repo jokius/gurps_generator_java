@@ -1,6 +1,7 @@
 package ru.gurps.generator.controller;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,10 +69,10 @@ public class SpellsController extends AbstractController {
 
     public AnchorPane bottomMenu;
 
-    private int lastIndex = -1;
-    private ObservableList<Spell> spells;
     protected ArrayList<Integer> typeNumbers = new ArrayList<>();
     protected ArrayList<Integer> schoolNumbers = new ArrayList<>();
+
+    private int lastId = -1;
 
     @FXML
     private void initialize() {
@@ -86,9 +87,27 @@ public class SpellsController extends AbstractController {
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         demandsColumn.setCellValueFactory(new PropertyValueFactory<>("demands"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        nameColumn.setCellFactory(column -> new TableCell<Spell, String>() {
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            getTableRow().getStyleClass().remove("isAdd");
+
+            if(item != null || !empty) {
+                setText(item);
+                Spell spell = tableView.getItems().get(getTableRow().getIndex());
+                HashMap<String, Object> params = new HashMap<>();
+                params.put("userId", user.id);
+                params.put("spellId", spell.id);
+                UserSpell userSpell = (UserSpell) new UserSpell().find_by(params);
+                if(userSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
+                else getTableRow().getStyleClass().add("isAdd");
+            }
+        }
+    });
 
         tableView.setPlaceholder(new Label("Заклинаний нет"));
-        spells = new Spell().all();
+        ObservableList<Spell> spells = new Spell().all();
         HashMap<String, Object> params = new HashMap<>();
         params.put("userId", user.id);
 
@@ -105,112 +124,9 @@ public class SpellsController extends AbstractController {
         tableView.setItems(spells);
         tableView.setRowFactory(tv -> {
             TableRow<Spell> row = new TableRow<>();
-            row.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> bottomMenu(tableView.getFocusModel().getFocusedIndex()));
+            row.addEventFilter(MouseEvent.MOUSE_CLICKED, new SpellEventHandler());
             return row;
         });
-
-        tableView.setOnKeyPressed(event -> {
-            KeyCode keyCode = event.getCode();
-            int index = -1;
-            if(keyCode == KeyCode.UP) {
-                if(tableView.getFocusModel().getFocusedIndex() == 0)
-                    index = tableView.getFocusModel().getFocusedIndex();
-                else index = tableView.getFocusModel().getFocusedIndex() - 1;
-            }
-
-            if(keyCode == KeyCode.DOWN) {
-                if(tableView.getFocusModel().getFocusedIndex() == spells.size() - 1)
-                    index = tableView.getFocusModel().getFocusedIndex();
-                else index = tableView.getFocusModel().getFocusedIndex() + 1;
-            }
-            bottomMenu(index);
-        });
-    }
-
-    private void bottomMenu(int index){
-        if(index == lastIndex) return;
-        lastIndex = index;
-        setupBottomMenu();
-
-        Spell spell = spells.get(index);
-        defaultParams(spell);
-
-        if(spell.add) {
-            add.setVisible(false);
-            remove.setVisible(true);
-        } else {
-            add.setVisible(true);
-            remove.setVisible(false);
-        }
-
-        level.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (oldValue.equals(newValue) || newValue.equals("")) return;
-            spell.level = Integer.parseInt(newValue);
-            finalCost.setText(finalCost(spell));
-            spell.finalCost = Integer.parseInt(finalCost.getText());
-        });
-        setButtons(spell);
-    }
-
-    private void setupBottomMenu() {
-        final double bottomMenuSize = 134.0;
-        AnchorPane.setBottomAnchor(tableView, bottomMenuSize);
-        bottomMenu.setVisible(true);
-    }
-
-    private void defaultParams(Spell spell) {
-        level.setText(Integer.toString(spell.level));
-        if(spell.complexity == 2){
-            if(spell.level < user.iq - 2) level.setText(Integer.toString(user.iq - 2));
-        } else{
-            if(spell.level < user.iq - 3) level.setText(Integer.toString(user.iq - 3));
-        }
-
-        if(spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
-        else finalCost.setText(finalCost(spell));
-        complexity.setText(spell.getComplexity());
-        needTime.setText(spell.needTime);
-        duration.setText(spell.duration);
-        maintainingCost.setText(spell.maintainingCost);
-        createCost.setText(spell.createCost);
-        thing.setText(spell.thing);
-    }
-
-    private String finalCost(Spell spell){
-        if(spell.complexity == 2){
-            if(spell.level <= user.iq - 2) return "1";
-            else if(spell.level == user.iq - 1) return "2";
-            else if(spell.level == user.iq) return "4";
-            else if(spell.level == user.iq + 1) return "8";
-            else if(spell.level == user.iq + 2) return "12";
-            else if(spell.level == user.iq + 3) return "16";
-            else{
-                int i = spell.level;
-                int cost = 16;
-                while(i > user.iq + 3){
-                    cost += 4;
-                    i --;
-                }
-                return Integer.toString(cost);
-            }
-        } else {
-            if(spell.level <= user.iq - 3) return "1";
-            else if(spell.level == user.iq - 2) return "2";
-            else if(spell.level == user.iq - 1) return "4";
-            else if(spell.level == user.iq) return "8";
-            else if(spell.level == user.iq + 1) return "12";
-            else if(spell.level == user.iq + 2) return "16";
-            else if(spell.level == user.iq + 3) return "20";
-            else {
-                int i = spell.level;
-                int cost = 20;
-                while(i == user.iq + 3) {
-                    cost += 4;
-                    i--;
-                }
-                return Integer.toString(cost);
-            }
-        }
     }
 
     private void setCheckBox(){
@@ -262,42 +178,145 @@ public class SpellsController extends AbstractController {
         }
     }
 
-    private void setButtons(Spell spell){
-        add.setOnAction(event -> {
-            new UserSpell(user.id, spell.id, spell.level, spell.finalCost).create();
-            setCurrentPoints(spell.finalCost + Integer.parseInt(user.currentPoints));
-            spell.add = true;
-            add.setVisible(false);
-            remove.setVisible(true);
-        });
+    class SpellEventHandler implements EventHandler<MouseEvent> {
+        private Spell spell;
+        private TableRow row;
 
-        remove.setOnAction(event -> {
-            HashMap<String, Object> params1 = new HashMap<>();
-            params1.put("userId", user.id);
-            params1.put("spellId", spell.id);
-            UserSpell userSpell = (UserSpell) new UserSpell().find_by(params1);
-            setCurrentPoints(Integer.parseInt(user.currentPoints) - userSpell.cost);
-            userSpell.delete();
-            spell.add = false;
-            add.setVisible(true);
-            remove.setVisible(false);
-        });
+        public SpellEventHandler() {
+        }
 
-        full.setOnAction(actionEvent -> {
-            Stage childrenStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/spellFull.fxml"));
-            SpellFullController controller = new SpellFullController(spell);
-            loader.setController(controller);
-            Parent childrenRoot;
-            try {
-                childrenRoot = loader.load();
-                childrenStage.setResizable(false);
-                childrenStage.setScene(new Scene(childrenRoot, 635, 572));
-                childrenStage.setTitle("GURPSGenerator - " + spell.name + " (" + spell.nameEn + ")");
-                childrenStage.show();
-            } catch(IOException e) {
-                e.printStackTrace();
+        @Override
+        public void handle(MouseEvent t) {
+            row = (TableRow) t.getSource();
+            spell = tableView.getItems().get(row.getIndex());
+            System.out.println(spell.id);
+            System.out.println(lastId);
+            if(spell.id == lastId) return;
+            lastId = spell.id;
+            bottomMenu();
+        }
+
+        void bottomMenu(){
+            setupBottomMenu();
+            defaultParams();
+
+            if(spell.add) {
+                add.setVisible(false);
+                remove.setVisible(true);
+            } else {
+                add.setVisible(true);
+                remove.setVisible(false);
             }
-        });
+
+            level.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                if(oldValue.equals(newValue) || newValue.equals("")) return;
+                spell.level = Integer.parseInt(newValue);
+                finalCost.setText(finalCost());
+                spell.finalCost = Integer.parseInt(finalCost.getText());
+            });
+            setButtons();
+        }
+
+        void defaultParams() {
+            level.setText(Integer.toString(spell.level));
+            if(spell.complexity == 2){
+                if(spell.level < user.iq - 2) level.setText(Integer.toString(user.iq - 2));
+            } else{
+                if(spell.level < user.iq - 3) level.setText(Integer.toString(user.iq - 3));
+            }
+
+            if(spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
+            else finalCost.setText(finalCost());
+            complexity.setText(spell.getComplexity());
+            needTime.setText(spell.needTime);
+            duration.setText(spell.duration);
+            maintainingCost.setText(spell.maintainingCost);
+            createCost.setText(spell.createCost);
+            thing.setText(spell.thing);
+        }
+
+        String finalCost(){
+            if(spell.complexity == 2){
+                if(spell.level <= user.iq - 2) return "1";
+                else if(spell.level == user.iq - 1) return "2";
+                else if(spell.level == user.iq) return "4";
+                else if(spell.level == user.iq + 1) return "8";
+                else if(spell.level == user.iq + 2) return "12";
+                else if(spell.level == user.iq + 3) return "16";
+                else{
+                    int i = spell.level;
+                    int cost = 16;
+                    while(i > user.iq + 3){
+                        cost += 4;
+                        i --;
+                    }
+                    return Integer.toString(cost);
+                }
+            } else {
+                if(spell.level <= user.iq - 3) return "1";
+                else if(spell.level == user.iq - 2) return "2";
+                else if(spell.level == user.iq - 1) return "4";
+                else if(spell.level == user.iq) return "8";
+                else if(spell.level == user.iq + 1) return "12";
+                else if(spell.level == user.iq + 2) return "16";
+                else if(spell.level == user.iq + 3) return "20";
+                else {
+                    int i = spell.level;
+                    int cost = 20;
+                    while(i == user.iq + 3) {
+                        cost += 4;
+                        i--;
+                    }
+                    return Integer.toString(cost);
+                }
+            }
+        }
+
+        void setButtons(){
+            add.setOnAction(event -> {
+                new UserSpell(user.id, spell.id, spell.level, spell.finalCost).create();
+                setCurrentPoints(spell.finalCost + Integer.parseInt(user.currentPoints));
+                spell.add = true;
+                add.setVisible(false);
+                remove.setVisible(true);
+                row.getStyleClass().add("isAdd");
+            });
+
+            remove.setOnAction(event -> {
+                HashMap<String, Object> params1 = new HashMap<>();
+                params1.put("userId", user.id);
+                params1.put("spellId", spell.id);
+                UserSpell userSpell = (UserSpell) new UserSpell().find_by(params1);
+                setCurrentPoints(Integer.parseInt(user.currentPoints) - userSpell.cost);
+                userSpell.delete();
+                spell.add = false;
+                add.setVisible(true);
+                remove.setVisible(false);
+                row.getStyleClass().remove("isAdd");
+            });
+
+            full.setOnAction(actionEvent -> {
+                Stage childrenStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/spellFull.fxml"));
+                SpellFullController controller = new SpellFullController(spell);
+                loader.setController(controller);
+                Parent childrenRoot;
+                try {
+                    childrenRoot = loader.load();
+                    childrenStage.setResizable(false);
+                    childrenStage.setScene(new Scene(childrenRoot, 635, 572));
+                    childrenStage.setTitle("GURPSGenerator - " + spell.name + " (" + spell.nameEn + ")");
+                    childrenStage.show();
+                } catch(IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        void setupBottomMenu() {
+            final double bottomMenuSize = 134.0;
+            AnchorPane.setBottomAnchor(tableView, bottomMenuSize);
+            bottomMenu.setVisible(true);
+        }
     }
 }
