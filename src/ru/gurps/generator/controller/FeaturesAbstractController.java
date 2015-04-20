@@ -60,6 +60,7 @@ public class FeaturesAbstractController extends AbstractController {
     private MenuItem searchDescription;
     private TextField searchText;
     private boolean isAdvantage;
+    private int lastId;
 
     protected ArrayList<Integer> featuresNumbers = new ArrayList<>();
     protected ObservableList<Feature> data = FXCollections.observableArrayList();
@@ -199,7 +200,6 @@ public class FeaturesAbstractController extends AbstractController {
     }
 
     class FeatureEventHandler implements EventHandler<MouseEvent> {
-        private int lastId;
         private ObservableList<Addon> addonsArray;
         private Feature feature;
         private String currentLvl;
