@@ -8,6 +8,11 @@ public class Skill extends Model {
     public String nameEn;
     public Integer type;
     public Integer complexity;
+    public String defaultUse;
+    public String demands;
+    public String description;
+    public String modifiers;
+    public Boolean twoHands = false;
     public Boolean parry = false;
     public Integer parryBonus = 0;
     @Ignore public Integer cost = 1;
