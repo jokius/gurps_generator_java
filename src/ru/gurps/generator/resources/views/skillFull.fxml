@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="139.0" text="Описание" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="179.0" />
+      <Label fx:id="name" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="574.0" text="name" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="complexity" layoutX="14.0" layoutY="57.0" prefHeight="16.0" text="Сложность: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="57.0" />
+      <Label fx:id="type" layoutX="14.0" layoutY="41.0" prefHeight="16.0" text="Основан на параметре: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="37.0" />
+      <Label fx:id="twoHands" layoutX="24.0" layoutY="67.0" prefHeight="16.0" text="Требует обе руки: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="117.0" />
+      <Label fx:id="parry" layoutX="34.0" layoutY="77.0" prefHeight="16.0" text="Парирование: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="137.0" />
+      <Label fx:id="parryBonus" layoutX="44.0" layoutY="87.0" prefHeight="16.0" text="Бонус парирования: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="157.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="197.0" prefHeight="368.0" prefWidth="607.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="197.0">
+         <content>
+            <TextFlow prefHeight="368.0" prefWidth="601.0">
+                     <children>
+                        <Text fx:id="fullDescription" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="489.6829261779785" />
+                     </children>
+                  </TextFlow>
+         </content>
+      </ScrollPane>
+      <Label fx:id="defaultUse" layoutX="24.0" layoutY="67.0" prefHeight="16.0" text="По умолчанию: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="77.0" />
+      <Label fx:id="demands" layoutX="34.0" layoutY="77.0" prefHeight="16.0" text="Требования: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="97.0" />
+   </children>
+</AnchorPane>
