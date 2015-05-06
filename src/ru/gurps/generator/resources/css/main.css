@@ -6,3 +6,8 @@
 .redText {
     -fx-text-fill: red;
 }
+
+.modifiers {
+    -fx-font: bold italic 13px "Arial";
+    -fx-fill: #1f8587;
+}
