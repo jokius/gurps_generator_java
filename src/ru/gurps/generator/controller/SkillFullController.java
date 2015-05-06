@@ -18,6 +18,7 @@ public class SkillFullController {
     public Label parry;
     public Label parryBonus;
     public Text fullDescription;
+    public Text modifiers;
 
     public SkillFullController(Skill skill) {
         this.skill = skill;
@@ -33,6 +34,7 @@ public class SkillFullController {
         twoHands.setText(twoHands.getText() + skill.getTwoHands());
         parry.setText(parry.getText() + skill.getParry());
         parryBonus.setText(parryBonus.getText() + skill.parryBonus);
-        fullDescription.setText(skill.description);
+        fullDescription.setText(skill.description + "\n");
+        modifiers.setText(skill.getModifiers());
     }
 }
