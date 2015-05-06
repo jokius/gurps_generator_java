@@ -4,7 +4,7 @@ import ru.gurps.generator.config.Model;
 
 public class UserSkillSpecialization extends Model {
     public Integer id;
-    public Integer userSkillId;
+    public Integer userId;
     public Integer skillSpecializationId;
     public String cost;
     public String level;
@@ -12,9 +12,8 @@ public class UserSkillSpecialization extends Model {
     public UserSkillSpecialization() {
     }
 
-    public UserSkillSpecialization(Integer id, Integer userSkillId, Integer skillSpecializationId, String cost, String level) {
-        this.id = id;
-        this.userSkillId = userSkillId;
+    public UserSkillSpecialization(Integer userId, Integer skillSpecializationId, String cost, String level) {
+        this.userId = userId;
         this.skillSpecializationId = skillSpecializationId;
         this.cost = cost;
         this.level = level;
