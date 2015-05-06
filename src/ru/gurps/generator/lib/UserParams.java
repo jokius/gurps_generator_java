@@ -105,4 +105,130 @@ public class UserParams extends AbstractController {
         if(shield >= cloak) return Integer.toString(3 + shield / 2);
         else return Integer.toString(3 + cloak / 2);
     }
+
+    public static int skillLevel(Skill skill){
+        int parameter = 0;
+        switch(skill.type){
+            case 0:
+                parameter = user.st;
+                break;
+            case 1:
+                parameter = user.dx;
+                break;
+            case 2:
+                parameter = user.iq;
+                break;
+            case 3:
+                parameter = user.ht;
+                break;
+            case 4:
+                parameter = user.hp;
+                break;
+            case 5:
+                parameter = user.will;
+                break;
+            case 6:
+                parameter = user.per;
+                break;
+            case 7:
+                parameter = user.fp;
+                break;
+        }
+        switch(skill.complexity){
+            case 0: return parameter;
+            case 1: return parameter - 1;
+            case 2: return parameter - 2;
+            case 3: return parameter - 3;
+        }
+
+        return 0;
+    }
+
+    public static int skillCost(Skill skill){
+        int parameter = 0;
+        switch(skill.type){
+            case 0:
+                parameter = user.st;
+                break;
+            case 1:
+                parameter = user.dx;
+                break;
+            case 2:
+                parameter = user.iq;
+                break;
+            case 3:
+                parameter = user.ht;
+                break;
+            case 4:
+                parameter = user.hp;
+                break;
+            case 5:
+                parameter = user.will;
+                break;
+            case 6:
+                parameter = user.per;
+                break;
+            case 7:
+                parameter = user.fp;
+                break;
+        }
+
+        int i = 0;
+        int cost = 0;
+        switch(skill.complexity) {
+            case 0:
+                if(skill.level <= parameter) return 1;
+                else if(skill.level <= parameter + 1) return 2;
+                else if(skill.level <= parameter + 2) return 4;
+                else if(skill.level <= parameter + 3) return 8;
+                else {
+                    i = skill.level;
+                    cost = 8;
+                    break;
+                }
+
+            case 1:
+                if(skill.level <= parameter - 1) return 1;
+                else if(skill.level <= parameter) return 2;
+                else if(skill.level <= parameter + 1) return 4;
+                else if(skill.level <= parameter + 2) return 8;
+                else if(skill.level <= parameter + 3) return 12;
+                else {
+                    i = skill.level;
+                    cost = 12;
+                    break;
+                }
+
+            case 2:
+                if(skill.level <= parameter - 2) return 1;
+                else if(skill.level <= parameter - 1) return 2;
+                else if(skill.level <= parameter) return 4;
+                else if(skill.level <= parameter + 1) return 8;
+                else if(skill.level <= parameter + 2) return 12;
+                else if(skill.level <= parameter + 3) return 16;
+                else {
+                    i = skill.level;
+                    cost = 16;
+                    break;
+                }
+            case 3:
+                if(skill.level <= parameter - 3) return 1;
+                else if(skill.level <= parameter - 2) return 2;
+                else if(skill.level <= parameter - 1) return 4;
+                else if(skill.level <= parameter) return 8;
+                else if(skill.level <= parameter + 1) return 12;
+                else if(skill.level <= parameter + 2) return 16;
+                else if(skill.level <= parameter + 3) return 20;
+                else {
+                    i = skill.level;
+                    cost = 20;
+                    break;
+                }
+        }
+        while(i > parameter + 3) {
+            cost += 4;
+            i--;
+        }
+        return cost;
+    }
 }
