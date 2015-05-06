@@ -2,3 +2,7 @@
     -fx-background-color: #13863e;
     -fx-border-color: #3ab260;
 }
+
+.redText {
+    -fx-text-fill: red;
+}
