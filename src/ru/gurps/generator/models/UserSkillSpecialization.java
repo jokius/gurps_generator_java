@@ -6,13 +6,13 @@ public class UserSkillSpecialization extends Model {
     public Integer id;
     public Integer userId;
     public Integer skillSpecializationId;
-    public String cost;
-    public String level;
+    public Integer cost;
+    public Integer level;
 
     public UserSkillSpecialization() {
     }
 
-    public UserSkillSpecialization(Integer userId, Integer skillSpecializationId, String cost, String level) {
+    public UserSkillSpecialization(Integer userId, Integer skillSpecializationId, Integer cost, Integer level) {
         this.userId = userId;
         this.skillSpecializationId = skillSpecializationId;
         this.cost = cost;
