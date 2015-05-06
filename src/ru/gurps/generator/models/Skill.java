@@ -75,4 +75,12 @@ public class Skill extends Model {
     public Integer getLevel() {
         return level;
     }
+
+    public String getDefaultUse() {
+        return defaultUse;
+    }
+
+    public String getDemands() {
+        return demands;
+    }
 }
