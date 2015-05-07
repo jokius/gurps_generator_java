@@ -41,11 +41,11 @@
                 <Label layoutX="42.0" layoutY="31.0" text="Требует обе руки" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="34.0" />
                 <Label fx:id="twoHands" layoutX="129.0" layoutY="34.0" prefHeight="16.0" prefWidth="123.0" text="нет" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="34.0" />
                 <Label layoutY="74.0" text="Бонус парирования" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="74.0" />
-            <Label fx:id="specialization" layoutX="503.0" layoutY="42.0" prefHeight="16.0" prefWidth="132.0" styleClass="redText" stylesheets="@../css/main.css" text="Нажмите подробнее" visible="false" />
+            <Label fx:id="specialization" layoutX="482.0" layoutY="42.0" prefHeight="20.0" prefWidth="163.0" styleClass="redText" stylesheets="@../css/main.css" text="Нажмите подробнее" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
             <Label fx:id="parryBonus" layoutX="136.0" layoutY="74.0" prefHeight="16.0" prefWidth="94.0" text="1" />
             <Label fx:id="parry" layoutX="129.0" layoutY="53.0" prefHeight="16.0" prefWidth="123.0" text="нет" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="53.0" />
             <Label layoutX="10.0" layoutY="53.0" text="Парирование" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="53.0" />
-            <Label layoutX="292.0" layoutY="31.0" prefHeight="16.0" prefWidth="62.0" text="Уровень" />
+            <Label layoutX="292.0" layoutY="31.0" prefHeight="16.0" prefWidth="62.0" text="Уровень" AnchorPane.bottomAnchor="87.0" AnchorPane.rightAnchor="291.0" />
             </children>
         </AnchorPane>
       <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Параметр" AnchorPane.leftAnchor="6.0">
