@@ -137,8 +137,8 @@ public class FeaturesAbstractController extends AbstractController {
                     featureParams.put("userId", user.id);
                     featureParams.put("featureId", feature.id);
                     UserFeature userFeature = (UserFeature) new UserFeature().find_by(featureParams);
-                    if(userFeature.id == null) currentRow.getStyleClass().remove("isAdd");
-                    else currentRow.getStyleClass().add("isAdd");
+                    currentRow.getStyleClass().remove("isAdd");
+                    if(userFeature.id != null) currentRow.getStyleClass().add("isAdd");
                 }
             }
         });

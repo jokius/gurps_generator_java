@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="635.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="337.0" text="Описание" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="337.0" />
+      <Label fx:id="name" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="574.0" text="name" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="67.0" prefHeight="16.0" prefWidth="117.0" text="Требует обе руки: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="504.0" AnchorPane.topAnchor="77.0" />
+      <Label layoutX="34.0" layoutY="77.0" prefHeight="16.0" prefWidth="80.0" text="Стоимость: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="541.0" AnchorPane.topAnchor="97.0" />
+      <Label layoutX="44.0" layoutY="87.0" prefHeight="16.0" prefWidth="61.0" text="Уровень: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="560.0" AnchorPane.topAnchor="117.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="353.0" prefHeight="212.0" prefWidth="607.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="353.0">
+         <content>
+            <TextFlow prefHeight="213.0" prefWidth="601.0" stylesheets="@../css/main.css">
+                     <children>
+                        <Text fx:id="fullDescription" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="489.6829261779785" />
+                        <Text fx:id="modifiers" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="modifiers" wrappingWidth="489.6829261779785" />
+                     </children>
+                  </TextFlow>
+         </content>
+      </ScrollPane>
+      <Label layoutX="24.0" layoutY="67.0" prefHeight="16.0" prefWidth="102.0" text="По умолчанию: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="519.0" AnchorPane.topAnchor="37.0" />
+      <Label layoutX="34.0" layoutY="77.0" prefHeight="16.0" prefWidth="86.0" text="Требования: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="535.0" AnchorPane.topAnchor="57.0" />
+      <TableView fx:id="tableView" layoutX="6.0" layoutY="144.0" prefHeight="191.0" prefWidth="623.0" tableMenuButtonVisible="true" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="136.0" text="Название" />
+            <TableColumn fx:id="nameEnColumn" prefWidth="109.0" text="Название англ." />
+            <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="72.0" text="Параметр" />
+            <TableColumn fx:id="complexityColumn" minWidth="0.0" text="Сложность" />
+            <TableColumn fx:id="parryColumn" prefWidth="96.0" text="Парирование" />
+            <TableColumn fx:id="parryBonusColumn" prefWidth="126.0" text="Бонус парирования" />
+         </columns>
+      </TableView>
+      <Label fx:id="defaultUse" layoutX="116.0" layoutY="37.0" prefHeight="16.0" prefWidth="510.0" text="нет" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="37.0" />
+      <Label fx:id="twoHands" layoutX="131.0" layoutY="77.0" prefHeight="16.0" prefWidth="510.0" text="нет" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="77.0" />
+      <Label fx:id="finalCost" layoutX="94.0" layoutY="97.0" prefHeight="16.0" prefWidth="510.0" text="нет" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="97.0" />
+      <TextField fx:id="level" layoutX="75.0" layoutY="113.0" prefHeight="27.0" prefWidth="61.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="113.0" />
+      <Button fx:id="remove" layoutX="551.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="113.0" />
+      <Button fx:id="add" disable="true" layoutX="529.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="113.0" />
+      <Label fx:id="demands" layoutX="94.0" layoutY="57.0" prefHeight="16.0" prefWidth="510.0" text="нет" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="57.0" />
+   </children>
+</AnchorPane>

@@ -39,7 +39,7 @@ public class Model extends Db {
             connect.createStatement().executeUpdate("INSERT INTO " + table + names + " " + values);
             ResultSet result = connect.createStatement().executeQuery("SELECT id FROM " + table + " ORDER BY id ASC");
             result.last();
-            result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + result.getRow());
+            result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + result.getInt("id"));
             result.next();
             return setModel(result);
         } catch (SQLException e) {
