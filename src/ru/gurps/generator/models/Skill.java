@@ -1,5 +1,6 @@
 package ru.gurps.generator.models;
 
+import javafx.collections.ObservableList;
 import ru.gurps.generator.config.Model;
 
 public class Skill extends Model {
@@ -129,5 +130,9 @@ public class Skill extends Model {
     public String getModifiers() {
         if(modifiers == null) return "";
         else return "Модификатры: " + modifiers;
+    }
+
+    public ObservableList<SkillSpecialization> specializations(){
+        return this.hasMany(new SkillSpecialization());
     }
 }
