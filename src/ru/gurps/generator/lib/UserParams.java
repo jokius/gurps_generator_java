@@ -3,6 +3,7 @@ package ru.gurps.generator.lib;
 import javafx.collections.ObservableList;
 import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.models.Skill;
+import ru.gurps.generator.models.SkillSpecialization;
 
 public class UserParams extends AbstractController {
     public static int stCost(){
@@ -106,9 +107,17 @@ public class UserParams extends AbstractController {
         else return Integer.toString(3 + cloak / 2);
     }
 
+    public static int skillLevel(SkillSpecialization skill){
+        return skillLevelResult(skill.type, skill.complexity);
+    }
+
     public static int skillLevel(Skill skill){
+        return skillLevelResult(skill.type, skill.complexity);
+    }
+
+    public static int skillLevelResult(int type, int complexity){
         int parameter = 0;
-        switch(skill.type){
+        switch(type){
             case 0:
                 parameter = user.st;
                 break;
@@ -134,7 +143,7 @@ public class UserParams extends AbstractController {
                 parameter = user.fp;
                 break;
         }
-        switch(skill.complexity){
+        switch(complexity){
             case 0: return parameter;
             case 1: return parameter - 1;
             case 2: return parameter - 2;
@@ -144,9 +153,18 @@ public class UserParams extends AbstractController {
         return 0;
     }
 
+
+    public static int skillCost(SkillSpecialization skill){
+        return skillCostResult(skill.type, skill.complexity, skill.level);
+    }
+
     public static int skillCost(Skill skill){
+        return skillCostResult(skill.type, skill.complexity, skill.level);
+    }
+
+    public static int skillCostResult(int type, int complexity, int level){
         int parameter = 0;
-        switch(skill.type){
+        switch(type){
             case 0:
                 parameter = user.st;
                 break;
@@ -175,52 +193,52 @@ public class UserParams extends AbstractController {
 
         int i = 0;
         int cost = 0;
-        switch(skill.complexity) {
+        switch(complexity) {
             case 0:
-                if(skill.level <= parameter) return 1;
-                else if(skill.level <= parameter + 1) return 2;
-                else if(skill.level <= parameter + 2) return 4;
-                else if(skill.level <= parameter + 3) return 8;
+                if(level <= parameter) return 1;
+                else if(level <= parameter + 1) return 2;
+                else if(level <= parameter + 2) return 4;
+                else if(level <= parameter + 3) return 8;
                 else {
-                    i = skill.level;
+                    i = level;
                     cost = 8;
                     break;
                 }
 
             case 1:
-                if(skill.level <= parameter - 1) return 1;
-                else if(skill.level <= parameter) return 2;
-                else if(skill.level <= parameter + 1) return 4;
-                else if(skill.level <= parameter + 2) return 8;
-                else if(skill.level <= parameter + 3) return 12;
+                if(level <= parameter - 1) return 1;
+                else if(level <= parameter) return 2;
+                else if(level <= parameter + 1) return 4;
+                else if(level <= parameter + 2) return 8;
+                else if(level <= parameter + 3) return 12;
                 else {
-                    i = skill.level;
+                    i = level;
                     cost = 12;
                     break;
                 }
 
             case 2:
-                if(skill.level <= parameter - 2) return 1;
-                else if(skill.level <= parameter - 1) return 2;
-                else if(skill.level <= parameter) return 4;
-                else if(skill.level <= parameter + 1) return 8;
-                else if(skill.level <= parameter + 2) return 12;
-                else if(skill.level <= parameter + 3) return 16;
+                if(level <= parameter - 2) return 1;
+                else if(level <= parameter - 1) return 2;
+                else if(level <= parameter) return 4;
+                else if(level <= parameter + 1) return 8;
+                else if(level <= parameter + 2) return 12;
+                else if(level <= parameter + 3) return 16;
                 else {
-                    i = skill.level;
+                    i = level;
                     cost = 16;
                     break;
                 }
             case 3:
-                if(skill.level <= parameter - 3) return 1;
-                else if(skill.level <= parameter - 2) return 2;
-                else if(skill.level <= parameter - 1) return 4;
-                else if(skill.level <= parameter) return 8;
-                else if(skill.level <= parameter + 1) return 12;
-                else if(skill.level <= parameter + 2) return 16;
-                else if(skill.level <= parameter + 3) return 20;
+                if(level <= parameter - 3) return 1;
+                else if(level <= parameter - 2) return 2;
+                else if(level <= parameter - 1) return 4;
+                else if(level <= parameter) return 8;
+                else if(level <= parameter + 1) return 12;
+                else if(level <= parameter + 2) return 16;
+                else if(level <= parameter + 3) return 20;
                 else {
-                    i = skill.level;
+                    i = level;
                     cost = 20;
                     break;
                 }
