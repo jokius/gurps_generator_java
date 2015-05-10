@@ -9,15 +9,15 @@
    <children>
       <TextField fx:id="name" alignment="CENTER" layoutX="88.0" layoutY="25.0" prefHeight="26.0" prefWidth="219.0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="25.0" />
       <TextField fx:id="params" alignment="CENTER" layoutX="88.0" layoutY="67.0" prefHeight="26.0" prefWidth="219.0" text="0" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="67.0" />
-      <Button fx:id="generate" disable="true" layoutX="200.0" layoutY="225.0" mnemonicParsing="false" text="Сгенерировать" />
-      <Label alignment="CENTER" layoutX="90.0" layoutY="6.0" prefHeight="16.0" prefWidth="219.0" text="Имя" />
-      <Label alignment="CENTER" layoutX="66.0" layoutY="51.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на параметры" />
-      <Label alignment="CENTER" layoutX="70.0" layoutY="93.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на преимущества" />
+      <Button fx:id="generate" disable="true" layoutX="200.0" layoutY="225.0" mnemonicParsing="false" text="%generate" />
+      <Label alignment="CENTER" layoutX="90.0" layoutY="6.0" prefHeight="16.0" prefWidth="219.0" text="%nickname" />
+      <Label alignment="CENTER" layoutX="66.0" layoutY="51.0" prefHeight="16.0" prefWidth="259.0" text="%count_points_on_parameters" />
+      <Label alignment="CENTER" layoutX="70.0" layoutY="93.0" prefHeight="16.0" prefWidth="259.0" text="%count_points_on_advantages" />
       <TextField fx:id="advantages" alignment="CENTER" layoutX="90.0" layoutY="109.0" prefHeight="26.0" prefWidth="219.0" text="0" />
-      <Label alignment="CENTER" layoutX="70.0" layoutY="135.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на недостатки" />
+      <Label alignment="CENTER" layoutX="70.0" layoutY="135.0" prefHeight="16.0" prefWidth="259.0" text="%count_points_on_disadvantages" />
       <TextField fx:id="disadvantages" alignment="CENTER" layoutX="90.0" layoutY="151.0" prefHeight="26.0" prefWidth="219.0" text="0" />
-      <Label alignment="CENTER" layoutX="70.0" layoutY="177.0" prefHeight="16.0" prefWidth="259.0" text="Количество очков на заклинания" />
+      <Label alignment="CENTER" layoutX="70.0" layoutY="177.0" prefHeight="16.0" prefWidth="259.0" text="%count_points_on_spells" />
       <TextField fx:id="spells" alignment="CENTER" layoutX="90.0" layoutY="193.0" prefHeight="26.0" prefWidth="219.0" text="0" />
-      <Button fx:id="back" layoutX="88.0" layoutY="225.0" mnemonicParsing="false" text="Назад" />
+      <Button fx:id="back" layoutX="88.0" layoutY="225.0" mnemonicParsing="false" text="%back" />
    </children>
 </AnchorPane>

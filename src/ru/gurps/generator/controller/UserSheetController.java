@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
@@ -175,12 +176,12 @@ public class UserSheetController extends AbstractController {
         advantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         advantagesCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         advantagesTableView.setItems(advantagesData);
-        advantagesTableView.setPlaceholder(new Label("Преимуществ нет"));
+        advantagesTableView.setPlaceholder(new Label(Main.locale.getString("advantages_not_found")));
 
         disadvantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         disadvantagesCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         disadvantagesTableView.setItems(disadvantagesData);
-        disadvantagesTableView.setPlaceholder(new Label("Недостатков нет"));
+        disadvantagesTableView.setPlaceholder(new Label(Main.locale.getString("disadvantages_not_found")));
     }
 
     private void initSkills() {
@@ -190,7 +191,7 @@ public class UserSheetController extends AbstractController {
         skillsComplexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
         skillsLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
         skillsTableView.setItems(skills);
-        skillsTableView.setPlaceholder(new Label("Навыков нет"));
+        skillsTableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
         parry.setText(UserParams.getParry(skills));
         parry.setText(UserParams.getBlock(skills));
     }
@@ -200,7 +201,7 @@ public class UserSheetController extends AbstractController {
         spellsComplexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
         spellsCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         spellsTableView.setItems(user.spells());
-        spellsTableView.setPlaceholder(new Label("Заклинаний нет"));
+        spellsTableView.setPlaceholder(new Label(Main.locale.getString("spells_not_found")));
     }
 
     private void initLanguages() {
@@ -209,14 +210,14 @@ public class UserSheetController extends AbstractController {
         writtenColumn.setCellValueFactory(new PropertyValueFactory<>("written"));
         languageCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         languagesTableView.setItems(user.languages());
-        languagesTableView.setPlaceholder(new Label("Языков нет"));
+        languagesTableView.setPlaceholder(new Label(Main.locale.getString("languages_not_found")));
     }
 
     private void initCultures() {
         culturaNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         culturaCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         culturasTableView.setItems(user.cultures());
-        culturasTableView.setPlaceholder(new Label("Культур нет"));
+        culturasTableView.setPlaceholder(new Label(Main.locale.getString("cultures_not_found")));
     }
 
     private void setTextProperty() {
@@ -268,7 +269,7 @@ public class UserSheetController extends AbstractController {
     private void exportButtons() {
         jokXlsxButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Сохронить лист персонажа");
+            fileChooser.setTitle(Main.locale.getString("save_sheet"));
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx");
             fileChooser.getExtensionFilters().add(extFilter);
             fileChooser.setInitialFileName(user.name);
@@ -278,7 +279,7 @@ public class UserSheetController extends AbstractController {
 
         jsonButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Сохронить лист персонажа");
+            fileChooser.setTitle(Main.locale.getString("save_sheet"));
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("json files (*.json)", "*.json");
             fileChooser.getExtensionFilters().add(extFilter);
             fileChooser.setInitialFileName(user.name);

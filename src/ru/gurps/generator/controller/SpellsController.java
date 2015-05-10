@@ -106,7 +106,7 @@ public class SpellsController extends AbstractController {
         }
     });
 
-        tableView.setPlaceholder(new Label("Заклинаний нет"));
+        tableView.setPlaceholder(new Label(Main.locale.getString("spells_not_found")));
         ObservableList<Spell> spells = new Spell().all();
         HashMap<String, Object> params = new HashMap<>();
         params.put("userId", user.id);
@@ -300,6 +300,7 @@ public class SpellsController extends AbstractController {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/spellFull.fxml"));
                 SpellFullController controller = new SpellFullController(spell);
                 loader.setController(controller);
+                loader.setResources(Main.locale);
                 Parent childrenRoot;
                 try {
                     childrenRoot = loader.load();

@@ -136,10 +136,10 @@ public class ExcelJokSheetFormat {
                 for(Object object : new FeatureAddon().where("userFeatureId", userFeature.id)){
                     FeatureAddon featureAddon = (FeatureAddon) object;
                     Addon addon = (Addon) new Addon().find(featureAddon.addonId);
-                    if(stringAddons.equals("")) stringAddons = " (" + addon.title + ", уровень: " + featureAddon.level +
-                            ", стоимость: " + featureAddon.cost + "%";
-                    else stringAddons += "; " + addon.title + ", уровень: " + featureAddon.level +
-                            ", стоимость: " + featureAddon.cost + "%";
+                    if(stringAddons.equals("")) stringAddons = " (" + addon.title + ", "+Main.locale.getString("level")+": " + featureAddon.level +
+                            ", "+Main.locale.getString("cost")+": " + featureAddon.cost + "%";
+                    else stringAddons += "; " + addon.title + ", "+Main.locale.getString("level")+": " + featureAddon.level +
+                            ", "+Main.locale.getString("cost")+": " + featureAddon.cost + "%";
                 }
                 if(!stringAddons.equals("")) stringAddons += ")";
 

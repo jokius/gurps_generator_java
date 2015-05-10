@@ -1,5 +1,6 @@
 package ru.gurps.generator.models;
 
+import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 
 public class Spell extends Model {
@@ -76,52 +77,50 @@ public class Spell extends Model {
 
     public String getSchool() {
         switch(school){
-            case 0: return "Воздух";
+            case 0: return Main.locale.getString("air");
         }
         return null;
     }
 
     public String getSpellType() {
         switch(spellType){
-            case 0: return "Обычное";
-            case 1: return "Областное";
-            case 2: return "Касательное";
-            case 3: return "Метательное";
-            case 4: return "Блокирующие";
-            case 5: return "Сопротивляемое";
-            case 6: return "Информационное";
-            case 7: return "Чары";
-            case 8: return "Особое";
+            case 0: return Main.locale.getString("usual");
+            case 1: return Main.locale.getString("area");
+            case 2: return Main.locale.getString("contact");
+            case 3: return Main.locale.getString("throw");
+            case 4: return Main.locale.getString("block_spell");
+            case 5: return Main.locale.getString("resistance");
+            case 6: return Main.locale.getString("information");
+            case 7: return Main.locale.getString("charm");
+            case 8: return Main.locale.getString("special");
         }
         return null;
     }
 
     public String getComplexity() {
         switch(complexity){
-            case 0: return "Л";
-            case 1: return "С";
-            case 2: return "Т";
-            case 3: return "ОТ";
+            case 0: return Main.locale.getString("easy_short");
+            case 1: return Main.locale.getString("medium_short");
+            case 2: return Main.locale.getString("hard_short");
+            case 3: return Main.locale.getString("very_hard_short");
         }
         return null;
     }
 
     public String getComplexityFull() {
         switch(complexity){
-            case 0: return "Ллегко";
-            case 1: return "Средне";
-            case 2: return "Трудно";
-            case 3: return "Очень Трудно";
+            case 0: return Main.locale.getString("easy");
+            case 1: return Main.locale.getString("medium");
+            case 2: return Main.locale.getString("hard");
+            case 3: return Main.locale.getString("very_hard");
         }
         return null;
     }
 
-    public void setСomplexity(String complexity) {
-        switch(complexity){
-            case "Л": this.complexity = 0;
-            case "С": this.complexity = 1;
-            case "Т": this.complexity = 2;
-            case "ОТ": this.complexity = 3;
-        }
+    public void setComplexity(String complexity) {
+        if(complexity.equals(Main.locale.getString("easy_short"))) this.complexity = 0;
+        else if(complexity.equals(Main.locale.getString("medium_short"))) this.complexity = 1;
+        else if(complexity.equals(Main.locale.getString("hard_short"))) this.complexity = 2;
+        else if(complexity.equals(Main.locale.getString("very_hard_short"))) this.complexity = 3;
     }
 }

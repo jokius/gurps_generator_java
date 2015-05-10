@@ -68,11 +68,12 @@ public class MainWindowController extends AbstractController {
             userSheet.setDisable(true);
             childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
+            loader.setResources(Main.locale);
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
                 childrenStage.setScene(new Scene(childrenRoot, 713, 740));
-                childrenStage.setTitle("GURPS Лист персонажа");
+                childrenStage.setTitle(Main.locale.getString("app_user_sheet"));
                 childrenStage.show();
             } catch(IOException e) {
                 e.printStackTrace();

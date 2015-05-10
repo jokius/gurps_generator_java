@@ -8,22 +8,22 @@
     <children>
         <TableView fx:id="tableView" layoutY="48.0" prefHeight="351.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="136.0" text="Название" />
-                <TableColumn fx:id="nameEnColumn" prefWidth="109.0" text="Название англ." />
-                <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="72.0" text="Параметр" />
-                <TableColumn fx:id="complexityColumn" minWidth="0.0" prefWidth="57.0" text="Сложность" />
-                <TableColumn fx:id="demandsColumn" prefWidth="119.0" text="Требования" />
-                <TableColumn fx:id="defaultUseColumn" prefWidth="151.0" text="По умочанию" />
+                <TableColumn fx:id="nameColumn" prefWidth="136.0" text="%name" />
+                <TableColumn fx:id="nameEnColumn" prefWidth="109.0" text="%name_en" />
+                <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="72.0" text="%parameter" />
+                <TableColumn fx:id="complexityColumn" minWidth="0.0" prefWidth="57.0" text="%complexity" />
+                <TableColumn fx:id="demandsColumn" prefWidth="119.0" text="%demands" />
+                <TableColumn fx:id="defaultUseColumn" prefWidth="151.0" text="%default" />
             </columns>
         </TableView>
 
-        <MenuButton fx:id="searchButton" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false" text="Поск" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0">
+        <MenuButton fx:id="searchButton" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0">
             <items>
-                <MenuItem fx:id="searchAll" mnemonicParsing="false" text="Везде" />
-                <MenuItem fx:id="searchName" mnemonicParsing="false" text="Названия" />
-                <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="Название англ." />
-                <MenuItem fx:id="searchCost" mnemonicParsing="false" text="Стоимость" />
-                <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="Описание" />
+                <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere" />
+                <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name" />
+                <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en" />
+                <MenuItem fx:id="searchCost" mnemonicParsing="false" text="%cost" />
+                <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description" />
             </items>
         </MenuButton>
         <TextField fx:id="searchText" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="14.0" />
@@ -32,40 +32,40 @@
             <children>
                 <TextField fx:id="level" alignment="CENTER" layoutX="292.0" layoutY="49.0" prefHeight="25.0" prefWidth="62.0" text="1" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="291.0" />
                 <Label fx:id="finalCost" alignment="CENTER" layoutX="368.0" layoutY="50.0" prefHeight="25.0" prefWidth="62.0" text="1" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="215.0" />
-                <Button fx:id="add" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Добавить" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
-                <Button fx:id="remove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Удалить" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
-                <Button fx:id="full" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Подробнее" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
-                <Label layoutX="365.0" layoutY="31.0" text="Стоимость" AnchorPane.bottomAnchor="87.0" AnchorPane.rightAnchor="212.0" />
-                <Label layoutX="14.0" layoutY="14.0" text="Сложность" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="14.0" />
-                <Label fx:id="complexity" layoutX="91.0" layoutY="14.0" text="ОТ" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="14.0" />
-                <Label layoutX="42.0" layoutY="31.0" text="Требует обе руки" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="34.0" />
-                <Label fx:id="twoHands" layoutX="129.0" layoutY="34.0" prefHeight="16.0" prefWidth="123.0" text="нет" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="34.0" />
-                <Label layoutY="74.0" text="Бонус парирования" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="74.0" />
-            <Label fx:id="specialization" layoutX="482.0" layoutY="42.0" prefHeight="20.0" prefWidth="163.0" styleClass="redText" stylesheets="@../css/main.css" text="Нажмите подробнее" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                <Button fx:id="add" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%add" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                <Button fx:id="remove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%remove" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                <Button fx:id="full" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%full" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
+                <Label layoutX="365.0" layoutY="31.0" text="%cost" AnchorPane.bottomAnchor="87.0" AnchorPane.rightAnchor="212.0" />
+                <Label layoutX="14.0" layoutY="14.0" text="%complexity" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="14.0" />
+                <Label fx:id="complexity" layoutX="91.0" layoutY="14.0" text="" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="14.0" />
+                <Label layoutX="42.0" layoutY="31.0" text="%two_hands" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="34.0" />
+                <Label fx:id="twoHands" layoutX="129.0" layoutY="34.0" prefHeight="16.0" prefWidth="123.0" text="%no" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="34.0" />
+                <Label layoutY="74.0" text="%parry_bonus" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="74.0" />
+            <Label fx:id="specialization" layoutX="482.0" layoutY="42.0" prefHeight="20.0" prefWidth="163.0" styleClass="redText" stylesheets="@../css/main.css" text="%push_full" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
             <Label fx:id="parryBonus" layoutX="136.0" layoutY="74.0" prefHeight="16.0" prefWidth="94.0" text="1" />
-            <Label fx:id="parry" layoutX="129.0" layoutY="53.0" prefHeight="16.0" prefWidth="123.0" text="нет" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="53.0" />
-            <Label layoutX="10.0" layoutY="53.0" text="Парирование" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="53.0" />
-            <Label layoutX="292.0" layoutY="31.0" prefHeight="16.0" prefWidth="62.0" text="Уровень" AnchorPane.bottomAnchor="87.0" AnchorPane.rightAnchor="291.0" />
+            <Label fx:id="parry" layoutX="129.0" layoutY="53.0" prefHeight="16.0" prefWidth="123.0" text="%no" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="53.0" />
+            <Label layoutX="10.0" layoutY="53.0" text="%parry" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="53.0" />
+            <Label layoutX="292.0" layoutY="31.0" prefHeight="16.0" prefWidth="62.0" text="%level" AnchorPane.bottomAnchor="87.0" AnchorPane.rightAnchor="291.0" />
             </children>
         </AnchorPane>
-      <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Параметр" AnchorPane.leftAnchor="6.0">
+      <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="%parameter" AnchorPane.leftAnchor="6.0">
         <items>
-            <CheckMenuItem fx:id="t0CheckBox" mnemonicParsing="false" text="Сила" />
-            <CheckMenuItem fx:id="t1CheckBox" mnemonicParsing="false" text="Ловкость" />
-            <CheckMenuItem fx:id="t2CheckBox" mnemonicParsing="false" text="Интелект" />
-            <CheckMenuItem fx:id="t3CheckBox" mnemonicParsing="false" text="Здоровье" />
-            <CheckMenuItem fx:id="t4CheckBox" mnemonicParsing="false" text="Очки здаровья" />
-            <CheckMenuItem fx:id="t5CheckBox" mnemonicParsing="false" text="Воля" />
-            <CheckMenuItem fx:id="t6CheckBox" mnemonicParsing="false" text="Восприятие" />
-            <CheckMenuItem fx:id="t7CheckBox" mnemonicParsing="false" text="Очки усталости" />
+            <CheckMenuItem fx:id="t0CheckBox" mnemonicParsing="false" text="%strength" />
+            <CheckMenuItem fx:id="t1CheckBox" mnemonicParsing="false" text="%dexterity" />
+            <CheckMenuItem fx:id="t2CheckBox" mnemonicParsing="false" text="%intellect" />
+            <CheckMenuItem fx:id="t3CheckBox" mnemonicParsing="false" text="%health" />
+            <CheckMenuItem fx:id="t4CheckBox" mnemonicParsing="false" text="%health_points" />
+            <CheckMenuItem fx:id="t5CheckBox" mnemonicParsing="false" text="%will" />
+            <CheckMenuItem fx:id="t6CheckBox" mnemonicParsing="false" text="%perception" />
+            <CheckMenuItem fx:id="t7CheckBox" mnemonicParsing="false" text="%fatigue_points" />
         </items>
       </MenuButton>
-      <MenuButton layoutX="167.0" layoutY="14.0" mnemonicParsing="false" text="Сложность" AnchorPane.leftAnchor="170.0">
+      <MenuButton layoutX="167.0" layoutY="14.0" mnemonicParsing="false" text="%complexity" AnchorPane.leftAnchor="170.0">
         <items>
-            <CheckMenuItem fx:id="c0CheckBox" mnemonicParsing="false" text="Легко" />
-            <CheckMenuItem fx:id="c1CheckBox" mnemonicParsing="false" text="Средне" />
-            <CheckMenuItem fx:id="c2CheckBox" mnemonicParsing="false" text="Трудно" />
-            <CheckMenuItem fx:id="c3CheckBox" mnemonicParsing="false" text="Очень Трудно" />
+            <CheckMenuItem fx:id="c0CheckBox" mnemonicParsing="false" text="%easy" />
+            <CheckMenuItem fx:id="c1CheckBox" mnemonicParsing="false" text="%medium" />
+            <CheckMenuItem fx:id="c2CheckBox" mnemonicParsing="false" text="%hard" />
+            <CheckMenuItem fx:id="c3CheckBox" mnemonicParsing="false" text="%very_hard" />
         </items>
       </MenuButton>
     </children>
