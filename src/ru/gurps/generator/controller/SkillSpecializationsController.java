@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.models.Skill;
 import ru.gurps.generator.models.SkillSpecialization;
@@ -77,7 +78,7 @@ public class SkillSpecializationsController extends AbstractController {
             }
         });
 
-        tableView.setPlaceholder(new Label("Специализаций нет"));
+        tableView.setPlaceholder(new Label(Main.locale.getString("skill_specializations_not_found")));
         ObservableList<SkillSpecialization> specializations = skill.specializations();
         HashMap<String, Object> params = new HashMap<>();
         params.put("userId", user.id);

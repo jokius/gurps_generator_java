@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Cultura;
 import ru.gurps.generator.models.UserCultura;
 
@@ -55,7 +56,7 @@ public class CulturasController extends AbstractController {
         dbColumn.setCellFactory(p -> new CulturasDbButtonCell());
 
         tableView.setItems(culturas);
-        tableView.setPlaceholder(new Label("Культур нет"));
+        tableView.setPlaceholder(new Label(Main.locale.getString("cultures_not_found")));
         tableView.setEditable(true);
 
         nameText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,8 +79,8 @@ public class CulturasController extends AbstractController {
     }
 
     private class CulturasUserButtonCell extends TableCell<Cultura, Boolean> {
-        Button addButton = new Button("Добавить");
-        Button removeButton = new Button("Удалить");
+        Button addButton = new Button(Main.locale.getString("add"));
+        Button removeButton = new Button(Main.locale.getString("remove"));
 
         CulturasUserButtonCell() {
             addButton.setOnAction(t -> {
@@ -112,7 +113,7 @@ public class CulturasController extends AbstractController {
     }
 
     private class CulturasDbButtonCell extends TableCell<Cultura, Boolean> {
-        Button removeButton = new Button("Удалить");
+        Button removeButton = new Button(Main.locale.getString("remove"));
 
         CulturasDbButtonCell() {
             removeButton.setOnAction(t -> {

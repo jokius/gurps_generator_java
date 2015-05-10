@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Language;
 import ru.gurps.generator.models.UserLanguage;
 
@@ -44,8 +45,15 @@ public class LanguagesController extends AbstractController {
             languages.add(language);
         }
 
-        ObservableList<String> spokenValues = FXCollections.observableArrayList("Отсутствует", "Ломаный", "Акцент", "Родной");
-        ObservableList<String> writtenValues = FXCollections.observableArrayList("Неграмотность", "Полу-грамотность", "Грамотность");
+        ObservableList<String> spokenValues = FXCollections.observableArrayList(
+                Main.locale.getString("not_have"),
+                Main.locale.getString("broken"),
+                Main.locale.getString("accent"),
+                Main.locale.getString("native"));
+        ObservableList<String> writtenValues = FXCollections.observableArrayList(
+                Main.locale.getString("illiteracy"),
+                Main.locale.getString("semi-literate"),
+                Main.locale.getString("literacy"));
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -79,7 +87,7 @@ public class LanguagesController extends AbstractController {
         dbColumn.setCellFactory(p -> new LanguagesDbButtonCell());
 
         tableView.setItems(languages);
-        tableView.setPlaceholder(new Label("Языков нет"));
+        tableView.setPlaceholder(new Label(Main.locale.getString("languages_not_found")));
         tableView.setEditable(true);
 
         nameText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -108,8 +116,8 @@ public class LanguagesController extends AbstractController {
     }
 
     private class LanguagesUserButtonCell extends TableCell<Language, Boolean> {
-        Button addButton = new Button("Добавить");
-        Button removeButton = new Button("Удалить");
+        Button addButton = new Button(Main.locale.getString("add"));
+        Button removeButton = new Button(Main.locale.getString("remove"));
 
         LanguagesUserButtonCell() {
             addButton.setOnAction(t -> {
@@ -141,7 +149,7 @@ public class LanguagesController extends AbstractController {
     }
 
     private class LanguagesDbButtonCell extends TableCell<Language, Boolean> {
-        Button removeButton = new Button("Удалить");
+        Button removeButton = new Button(Main.locale.getString("remove"));
 
         LanguagesDbButtonCell() {
             removeButton.setOnAction(t -> {

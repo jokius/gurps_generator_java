@@ -8,8 +8,11 @@ import javafx.stage.Stage;
 import ru.gurps.generator.controller.UsersController;
 
 import java.io.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
+    public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -29,12 +32,13 @@ public class Main extends Application {
     protected void usersStage(Stage stage){
         stage.setResizable(false);
         FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/selectUser.fxml"));
+        view.setResources(locale);
         UsersController controller = new UsersController(stage);
         view.setController(controller);
         try {
             Parent root = view.load();
             stage.setScene(new Scene(root, 397, 293));
-            stage.setTitle("GURPSGenerator - Выбор персонажа");
+            stage.setTitle(locale.getString("app_name_user_select"));
             stage.show();
         } catch(IOException e) {
             e.printStackTrace();

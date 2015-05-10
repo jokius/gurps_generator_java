@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
 
 public class UsersController extends AbstractController {
@@ -49,7 +50,7 @@ public class UsersController extends AbstractController {
         });
         tableMaxPoints.setCellValueFactory(new PropertyValueFactory<>("maxPoints"));
 
-        userTable.setPlaceholder(new Label("Персонажей не создано"));
+        userTable.setPlaceholder(new Label(Main.locale.getString("users_not_found")));
         userTable.setItems(usersData);
 
         events();

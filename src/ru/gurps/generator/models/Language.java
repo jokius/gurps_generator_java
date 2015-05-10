@@ -1,5 +1,6 @@
 package ru.gurps.generator.models;
 
+import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 
 public class Language extends Model {
@@ -23,38 +24,34 @@ public class Language extends Model {
 
     public String getSpoken() {
         switch(spoken){
-            case 0: return "Отсутствует";
-            case 1: return "Ломаный";
-            case 2: return "Акцент";
-            case 3: return "Родной";
+            case 0: return Main.locale.getString("not_have");
+            case 1: return Main.locale.getString("broken");
+            case 2: return Main.locale.getString("accent");
+            case 3: return Main.locale.getString("native");
         }
         return null;
     }
 
     public void setSpoken(String spoken) {
-        switch(spoken){
-            case "Отсутствует": this.spoken = 0;
-            case "Ломаный": this.spoken = 1;
-            case "Акцент": this.spoken = 2;
-            case "Родной": this.spoken = 3;
-        }
+        if(spoken.equals(Main.locale.getString("not_have"))) this.spoken = 0;
+        else if(spoken.equals(Main.locale.getString("broken"))) this.spoken = 1;
+        else if(spoken.equals(Main.locale.getString("accent"))) this.spoken = 2;
+        else if(spoken.equals(Main.locale.getString("native"))) this.spoken = 3;
     }
 
     public String getWritten() {
         switch(written){
-            case 0: return "Неграмотность";
-            case 1: return "Полу-грамотность";
-            case 2: return "Грамотность";
+            case 0: return Main.locale.getString("illiteracy");
+            case 1: return Main.locale.getString("semi-literate");
+            case 2: return Main.locale.getString("literacy");
         }
         return null;
     }
 
     public void setWritten(String written) {
-        switch(written){
-            case "Неграмотность": this.written = 0;
-            case "Полу-грамотность": this.written = 1;
-            case "Грамотность": this.written = 2;
-        }
+        if(written.equals(Main.locale.getString("illiteracy"))) this.written = 0;
+        else if(written.equals(Main.locale.getString("semi-literate"))) this.written = 1;
+        else if(written.equals(Main.locale.getString("literacy"))) this.written = 2;
     }
 
     public String getCost() {

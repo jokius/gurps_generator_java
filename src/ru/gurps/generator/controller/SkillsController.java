@@ -123,7 +123,7 @@ public class SkillsController extends AbstractController {
         }
     });
 
-        tableView.setPlaceholder(new Label("Навыков нет"));
+        tableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
         ObservableList<Skill> skills = new Skill().all();
         HashMap<String, Object> params = new HashMap<>();
         params.put("userId", user.id);
@@ -260,7 +260,7 @@ public class SkillsController extends AbstractController {
 
             complexity.setText(skill.getComplexity());
             twoHands.setText(skill.getTwoHands());
-            parry.setText(skill.parry ? "да" : "нет");
+            parry.setText(skill.parry ? Main.locale.getString("yes") : Main.locale.getString("no"));
             parryBonus.setText(Integer.toString(skill.parryBonus));
         }
 
@@ -299,6 +299,7 @@ public class SkillsController extends AbstractController {
                     loader.setController(new SkillSpecializationsController(skill, row));
                 }
 
+                loader.setResources(Main.locale);
                 Parent childrenRoot;
                 try {
                     childrenRoot = loader.load();

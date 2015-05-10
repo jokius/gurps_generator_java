@@ -1,6 +1,7 @@
 package ru.gurps.generator.models;
 
 import javafx.collections.ObservableList;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 
 public class Skill extends Model {
@@ -33,80 +34,76 @@ public class Skill extends Model {
 
     public String getType() {
         switch(type){
-            case 0: return "CЛ";
-            case 1: return "ЛВ";
-            case 2: return "ИН";
-            case 3: return "ЗД";
-            case 4: return "ОЗ";
-            case 5: return "Вол";
-            case 6: return "Восп";
-            case 7: return "ОУ";
+            case 0: return Main.locale.getString("strength_short");
+            case 1: return Main.locale.getString("dexterity_short");
+            case 2: return Main.locale.getString("intellect_short");
+            case 3: return Main.locale.getString("health_short");
+            case 4: return Main.locale.getString("health_points_short");
+            case 5: return Main.locale.getString("will_short");
+            case 6: return Main.locale.getString("perception_short");
+            case 7: return Main.locale.getString("fatigue_points_short");
         }
         return null;
     }
 
     public String getTypeFull() {
         switch(type){
-            case 0: return "Сила";
-            case 1: return "Ловкость";
-            case 2: return "Интелект";
-            case 3: return "Здоровье";
-            case 4: return "Очки Здаровья";
-            case 5: return "Воля";
-            case 6: return "Восприятие";
-            case 7: return "Очки Усталости";
+            case 0: return Main.locale.getString("strength");
+            case 1: return Main.locale.getString("dexterity");
+            case 2: return Main.locale.getString("intellect");
+            case 3: return Main.locale.getString("health");
+            case 4: return Main.locale.getString("health_points");
+            case 5: return Main.locale.getString("will");
+            case 6: return Main.locale.getString("perception");
+            case 7: return Main.locale.getString("fatigue_points");
         }
         return null;
     }
 
     public void setType(String type) {
-        switch(type){
-            case "CЛ": this.type = 0;
-            case "ЛВ": this.type = 1;
-            case "ИН": this.type = 2;
-            case "ЗД": this.type = 3;
-            case "ОЗ": this.type = 4;
-            case "Вол": this.type = 5;
-            case "Восп": this.type = 6;
-            case "ОУ": this.type = 7;
-        }
+        if(type.equals(Main.locale.getString("strength_short"))) this.type = 0;
+        else if(type.equals(Main.locale.getString("dexterity_short"))) this.type = 1;
+        else if(type.equals(Main.locale.getString("intellect_short"))) this.type = 2;
+        else if(type.equals(Main.locale.getString("health_short"))) this.type = 3;
+        else if(type.equals(Main.locale.getString("health_points_short"))) this.type = 4;
+        else if(type.equals(Main.locale.getString("will_short"))) this.type = 5;
+        else if(type.equals(Main.locale.getString("perception_short"))) this.type = 6;
+        else if(type.equals(Main.locale.getString("fatigue_points_short"))) this.type = 7;
     }
 
     public String getComplexity() {
         switch(complexity){
-            case 0: return "Л";
-            case 1: return "С";
-            case 2: return "Т";
-            case 3: return "ОТ";
+            case 0: return Main.locale.getString("easy_short");
+            case 1: return Main.locale.getString("medium_short");
+            case 2: return Main.locale.getString("hard_short");
+            case 3: return Main.locale.getString("very_hard_short");
         }
         return null;
     }
 
     public String getComplexityFull() {
         switch(complexity){
-            case 0: return "Ллегко";
-            case 1: return "Средне";
-            case 2: return "Трудно";
-            case 3: return "Очень Трудно";
+            case 0: return Main.locale.getString("easy");
+            case 1: return Main.locale.getString("medium");
+            case 2: return Main.locale.getString("hard");
+            case 3: return Main.locale.getString("very_hard");
         }
         return null;
     }
 
-    public void setСomplexity(String complexity) {
-        switch(complexity){
-            case "Л": this.complexity = 0;
-            case "С": this.complexity = 1;
-            case "Т": this.complexity = 2;
-            case "ОТ": this.complexity = 3;
-        }
+    public void setComplexity(String complexity) {
+        if(complexity.equals(Main.locale.getString("easy_short"))) this.complexity = 0;
+        else if(complexity.equals(Main.locale.getString("medium_short"))) this.complexity = 1;
+        else if(complexity.equals(Main.locale.getString("hard_short"))) this.complexity = 2;
+        else if(complexity.equals(Main.locale.getString("very_hard_short"))) this.complexity = 3;
     }
 
     public String getTwoHands(){
-        return twoHands ? "да" : "нет";
+        return twoHands ? Main.locale.getString("yes") : Main.locale.getString("no");
     }
 
     public String getParry(){
-        return parry ? "да" : "нет";
+        return parry ? Main.locale.getString("yes") : Main.locale.getString("no");
     }
 
     public Integer getCost() {
@@ -118,18 +115,18 @@ public class Skill extends Model {
     }
 
     public String getDefaultUse() {
-        if(defaultUse == null) return "нет";
+        if(defaultUse == null) return Main.locale.getString("no");
         return defaultUse;
     }
 
     public String getDemands() {
-        if(demands == null) return "нет";
+        if(demands == null) return Main.locale.getString("no");
         return demands;
     }
 
     public String getModifiers() {
         if(modifiers == null) return "";
-        else return "Модификатры: " + modifiers;
+        else return Main.locale.getString("modifiers")+": " + modifiers;
     }
 
     public ObservableList<SkillSpecialization> specializations(){

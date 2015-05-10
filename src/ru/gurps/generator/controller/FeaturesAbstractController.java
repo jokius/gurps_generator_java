@@ -143,8 +143,8 @@ public class FeaturesAbstractController extends AbstractController {
             }
         });
 
-        if(isAdvantage) tableView.setPlaceholder(new Label("Преимуществ нет"));
-        else tableView.setPlaceholder(new Label("Недостаков нет"));
+        if(isAdvantage) tableView.setPlaceholder(new Label(Main.locale.getString("advantages_not_found")));
+        else tableView.setPlaceholder(new Label(Main.locale.getString("disadvantages_not_found")));
         tableView.setItems(data);
     }
 
@@ -343,8 +343,8 @@ public class FeaturesAbstractController extends AbstractController {
 
         //Define the button cell
         class ButtonCell extends TableCell<Addon, Boolean> {
-            Button addButton = new Button("Добавить");
-            Button removeButton = new Button("Удалить");
+            Button addButton = new Button(Main.locale.getString("add"));
+            Button removeButton = new Button(Main.locale.getString("remove"));
 
             ButtonCell() {
                 addButton.setOnAction(t -> {
@@ -477,6 +477,7 @@ public class FeaturesAbstractController extends AbstractController {
                 FeatureFullController controller = new FeatureFullController(feature);
                 loader.setController(controller);
                 Parent childrenRoot;
+                loader.setResources(Main.locale);
                 try {
                     childrenRoot = loader.load();
                     childrenStage.setResizable(false);

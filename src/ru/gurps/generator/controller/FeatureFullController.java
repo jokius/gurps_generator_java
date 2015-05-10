@@ -3,6 +3,7 @@ package ru.gurps.generator.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Feature;
 
 public class FeatureFullController {
@@ -19,7 +20,7 @@ public class FeatureFullController {
     @FXML
     private void initialize() {
         name.setText(feature.title + " (" + feature.titleEn + ")");
-        cost.setText("Стоимость: " + feature.cost);
+        cost.setText(Main.locale.getString("cost") +": " + feature.cost);
         type.setText(feature.getTypeFull());
         fullDescription.setText(feature.description);
     }

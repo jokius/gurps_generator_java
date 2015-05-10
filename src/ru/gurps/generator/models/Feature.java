@@ -1,5 +1,6 @@
 package ru.gurps.generator.models;
 
+import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 
 public class Feature extends Model {
@@ -39,11 +40,11 @@ public class Feature extends Model {
         new_type = new_type.replace("[", "");
         new_type = new_type.replace("]", "");
         new_type = new_type.replace(",", "/ ");
-        new_type = new_type.replace("1", "Ф ");
-        new_type = new_type.replace("2", "Соц ");
-        new_type = new_type.replace("3", "М ");
-        new_type = new_type.replace("4", "Э ");
-        new_type = new_type.replace("5", "С ");
+        new_type = new_type.replace("1", Main.locale.getString("physical_short")+" ");
+        new_type = new_type.replace("2", Main.locale.getString("social_short")+" ");
+        new_type = new_type.replace("3", Main.locale.getString("mental_short")+" ");
+        new_type = new_type.replace("4", Main.locale.getString("exotic_short")+" ");
+        new_type = new_type.replace("5", Main.locale.getString("supernatural_short")+" ");
         return new_type;
     }
 
@@ -52,11 +53,11 @@ public class Feature extends Model {
         new_type = new_type.replace("[", "");
         new_type = new_type.replace("]", "");
         new_type = new_type.replace(",", "/ ");
-        new_type = new_type.replace("1", "Физическая ");
-        new_type = new_type.replace("2", "Социальная ");
-        new_type = new_type.replace("3", "Ментальная ");
-        new_type = new_type.replace("4", "Экзотическая ");
-        new_type = new_type.replace("5", "Сверхъестественная ");
+        new_type = new_type.replace("1", Main.locale.getString("physical_single")+" ");
+        new_type = new_type.replace("2", Main.locale.getString("social_single")+" ");
+        new_type = new_type.replace("3", Main.locale.getString("mental_single")+" ");
+        new_type = new_type.replace("4", Main.locale.getString("exotic_single")+" ");
+        new_type = new_type.replace("5", Main.locale.getString("supernatural_single")+" ");
         return new_type;
     }
 

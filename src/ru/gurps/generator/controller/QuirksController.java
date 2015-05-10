@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Quirk;
 import ru.gurps.generator.models.UserQuirk;
 
@@ -54,7 +55,7 @@ public class QuirksController extends AbstractController {
         dbColumn.setCellFactory(p -> new QuirksDbButtonCell());
 
         tableView.setItems(quirks);
-        tableView.setPlaceholder(new Label("Причуд нет"));
+        tableView.setPlaceholder(new Label(Main.locale.getString("quirks_not_found")));
         tableView.setEditable(true);
 
         nameText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -77,8 +78,8 @@ public class QuirksController extends AbstractController {
     }
 
     private class QuirksUserButtonCell extends TableCell<Quirk, Boolean> {
-        Button addButton = new Button("Добавить");
-        Button removeButton = new Button("Удалить");
+        Button addButton = new Button(Main.locale.getString("add"));
+        Button removeButton = new Button(Main.locale.getString("remove"));
 
         QuirksUserButtonCell() {
             addButton.setOnAction(t -> {
@@ -110,7 +111,7 @@ public class QuirksController extends AbstractController {
     }
 
     private class QuirksDbButtonCell extends TableCell<Quirk, Boolean> {
-        Button removeButton = new Button("Удалить");
+        Button removeButton = new Button(Main.locale.getString("remove"));
 
         QuirksDbButtonCell() {
             removeButton.setOnAction(t -> {
