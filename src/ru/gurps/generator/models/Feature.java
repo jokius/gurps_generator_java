@@ -16,6 +16,7 @@ public class Feature extends Model {
     public Boolean psi;
     public Boolean cybernetic;
     @Ignore public Boolean add  = false;
+    @Ignore public Boolean modifier  = false;
 
     public Feature() {
     }
@@ -75,5 +76,9 @@ public class Feature extends Model {
 
     public String getDescription() {
         return description;
+    }
+
+    public Boolean getModifier() {
+        return modifier;
     }
 }
