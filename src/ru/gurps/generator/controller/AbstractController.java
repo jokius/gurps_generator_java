@@ -57,4 +57,8 @@ public class AbstractController extends Main {
         if(Integer.parseInt(user.maxPoints) >= points) globalCost.setTextFill(Color.GREEN);
         else globalCost.setTextFill(Color.RED);
     }
+
+    public int globalCost(){
+        return Integer.parseInt(globalCost.getText());
+    }
 }
