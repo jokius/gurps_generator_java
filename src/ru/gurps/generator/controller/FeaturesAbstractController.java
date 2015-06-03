@@ -492,11 +492,11 @@ public class FeaturesAbstractController extends AbstractController {
             add.setOnAction(actionEvent -> createUserFeature());
 
             remove.setOnAction(actionEvent -> {
-                HashMap<String, Object> userFeatureParams = new HashMap<>();
-                userFeatureParams.put("userId", Integer.toString(user.id));
-                userFeatureParams.put("featureId", feature.id);
+                HashMap<String, Object> params = new HashMap<>();
+                params.put("userId", Integer.toString(user.id));
+                params.put("featureId", feature.id);
 
-                UserFeature userFeature = (UserFeature) new UserFeature().find_by(userFeatureParams);
+                UserFeature userFeature = (UserFeature) new UserFeature().find_by(params);
                 setCurrentPoints(Integer.parseInt(user.currentPoints) - userFeature.cost);
                 userFeature.delete();
 
@@ -508,11 +508,19 @@ public class FeaturesAbstractController extends AbstractController {
                 ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", userFeature.id);
 
                 featureAddons.forEach(FeatureAddon::delete);
+                for(Object object : new UserModifier().where(params)) {
+                    int cost = currentCost((UserModifier) object);
+                    setCurrentPoints(globalCost() - cost);
+                }
 
                 addonsTableView.setItems(new Addon().where("featureId", feature.id));
                 row.getStyleClass().remove("isAdd");
                 defaultFeature();
             });
+        }
+
+        int currentCost(UserModifier modifier) {
+            return (int) (feature.cost * (modifier.cost * modifier.level / 100.0));
         }
 
         UserFeature createUserFeature(){
