@@ -254,14 +254,14 @@ public class Model extends Db {
         return this;
     }
 
-    public ObservableList where(HashMap<String, String> paramsHash) {
+    public ObservableList where(HashMap<String, Object> paramsHash) {
         String params = "";
         String query;
         ObservableList list = FXCollections.observableArrayList();
         if (paramsHash.isEmpty()) {
             query = "SELECT * FROM " + table;
         } else {
-            for (Map.Entry<String, String> parametr : paramsHash.entrySet()) {
+            for (Map.Entry<String, Object> parametr : paramsHash.entrySet()) {
                 params += parametr.getKey() + "='" + parametr.getValue() + "' and ";
             }
             params = params.substring(0, params.length() - 5);
