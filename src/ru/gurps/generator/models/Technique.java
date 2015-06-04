@@ -111,8 +111,4 @@ public class Technique extends Model {
         if(demands == null) return Main.locale.getString("no");
         return demands;
     }
-
-    public ObservableList<SkillSpecialization> specializations(){
-        return this.hasMany(new SkillSpecialization());
-    }
 }
