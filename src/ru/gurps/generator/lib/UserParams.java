@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.models.Skill;
 import ru.gurps.generator.models.SkillSpecialization;
+import ru.gurps.generator.models.Technique;
 
 public class UserParams extends AbstractController {
     public static int stCost(){
@@ -160,6 +161,12 @@ public class UserParams extends AbstractController {
 
     public static int skillCost(Skill skill){
         return skillCostResult(skill.type, skill.complexity, skill.level);
+    }
+
+    public static int techniqueCost(Technique technique){
+        if(technique.level == 0) return 0;
+        if (technique.complexity == 1) return technique.level;
+        else return technique.level + 1;
     }
 
     public static int skillCostResult(int type, int complexity, int level){
