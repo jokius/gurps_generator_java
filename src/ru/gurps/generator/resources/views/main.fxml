@@ -77,11 +77,9 @@
                 </Tab>
                 <Tab fx:id="techniquesTab" text="%techniques">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <fx:include source="techniques.fxml" />
                     </content>
                 </Tab>
-
-
                 <Tab fx:id="spellTab" text="%spells">
                     <content>
                         <fx:include source="spells.fxml" />

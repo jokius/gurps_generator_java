@@ -16,11 +16,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="complexity" layoutX="14.0" layoutY="57.0" prefHeight="16.0" text="%complexity: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="57.0" />
+      <Label fx:id="complexity" layoutX="14.0" layoutY="57.0" prefHeight="16.0" text="%complexity_colon" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="57.0" />
       <Label fx:id="type" layoutX="14.0" layoutY="41.0" prefHeight="16.0" text="%based_on_parameter: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="37.0" />
-      <Label fx:id="twoHands" layoutX="24.0" layoutY="67.0" prefHeight="16.0" text="%two_hands: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="117.0" />
-      <Label fx:id="parry" layoutX="34.0" layoutY="77.0" prefHeight="16.0" text="%parry: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="137.0" />
-      <Label fx:id="parryBonus" layoutX="44.0" layoutY="87.0" prefHeight="16.0" text="%parry_bonus: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="157.0" />
+      <Label fx:id="twoHands" layoutX="24.0" layoutY="67.0" prefHeight="16.0" text="%two_hands_colon" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="117.0" />
+      <Label fx:id="parry" layoutX="34.0" layoutY="77.0" prefHeight="16.0" text="%parry_colon" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="137.0" />
+      <Label fx:id="parryBonus" layoutX="44.0" layoutY="87.0" prefHeight="16.0" text="%parry_bonus_colon" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="157.0" />
       <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="197.0" prefHeight="368.0" prefWidth="607.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="197.0">
          <content>
             <TextFlow prefHeight="368.0" prefWidth="601.0" stylesheets="@../css/main.css">
@@ -31,7 +31,7 @@
                   </TextFlow>
          </content>
       </ScrollPane>
-      <Label fx:id="defaultUse" layoutX="24.0" layoutY="67.0" prefHeight="16.0" text="%default: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="77.0" />
-      <Label fx:id="demands" layoutX="34.0" layoutY="77.0" prefHeight="16.0" text="%demands: " AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="97.0" />
+      <Label fx:id="defaultUse" layoutX="24.0" layoutY="67.0" prefHeight="16.0" text="%default_colon" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="77.0" />
+      <Label fx:id="demands" layoutX="34.0" layoutY="77.0" prefHeight="16.0" text="%demands_colon" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="97.0" />
    </children>
 </AnchorPane>
