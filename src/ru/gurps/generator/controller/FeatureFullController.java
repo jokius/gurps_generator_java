@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Feature;
 
-public class FeatureFullController {
+public class FeatureFullController extends AbstractController {
     private Feature feature;
     public Label name;
     public Label cost;

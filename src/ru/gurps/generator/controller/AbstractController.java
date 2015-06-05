@@ -15,36 +15,33 @@ import java.util.ResourceBundle;
 public class AbstractController extends Main {
     public static User user;
     public static Label globalCost;
+    public static Stage stage = new Stage();
 
     protected void createMainStage(){
-        Stage childrenStage = new Stage();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
         loader.setResources(Main.locale);
-        childrenStage.setMinWidth(670);
-        childrenStage.setMinHeight(560);
+        stage.setMinWidth(670);
+        stage.setMinHeight(560);
         try {
             Parent childrenRoot = loader.load();
-            childrenStage.setScene(new Scene(childrenRoot, 670, 540));
-            childrenStage.setTitle("GURPSGenerator");
-            childrenStage.show();
+            stage.setScene(new Scene(childrenRoot, 670, 540));
+            stage.setTitle("GURPSGenerator");
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     protected void createGenerateStage(){
-        Stage childrenStage = new Stage();
-        childrenStage.setResizable(false);
+        stage.setResizable(false);
 
         FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/generateUser.fxml"));
         view.setResources(Main.locale);
-        GenerateUserController controller = new GenerateUserController(childrenStage);
-        view.setController(controller);
         try {
             Parent childrenRoot = view.load();
-            childrenStage.setScene(new Scene(childrenRoot, 395, 260));
-            childrenStage.setTitle("GURPSGenerator");
-            childrenStage.show();
+            stage.setScene(new Scene(childrenRoot, 395, 260));
+            stage.setTitle("GURPSGenerator");
+            stage.show();
         } catch(IOException e) {
             e.printStackTrace();
         }

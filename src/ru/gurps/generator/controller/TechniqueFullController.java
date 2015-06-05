@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import ru.gurps.generator.models.Technique;
 
-public class TechniqueFullController {
+public class TechniqueFullController extends AbstractController {
     private Technique technique;
 
     public Label name;

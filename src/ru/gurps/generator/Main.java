@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.controller.UsersController;
 
 import java.io.*;
@@ -26,20 +27,23 @@ public class Main extends Application {
             ExportResource("/db/gurps.mv.db");
         }
 
-        usersStage(primaryStage);
+        AbstractController.stage = primaryStage;
+        usersStage();
     }
 
-    protected void usersStage(Stage stage){
-        stage.setResizable(false);
+    protected void usersStage(){
+        AbstractController.stage.setResizable(false);
+        AbstractController.stage.setMinWidth(397);
+        AbstractController.stage.setMinHeight(293);
+        AbstractController.stage.setWidth(397);
+        AbstractController.stage.setHeight(293);
         FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/selectUser.fxml"));
         view.setResources(locale);
-        UsersController controller = new UsersController(stage);
-        view.setController(controller);
         try {
             Parent root = view.load();
-            stage.setScene(new Scene(root, 397, 293));
-            stage.setTitle(locale.getString("app_name_user_select"));
-            stage.show();
+            AbstractController.stage.setScene(new Scene(root));
+            AbstractController.stage.setTitle(locale.getString("app_name_user_select"));
+            AbstractController.stage.show();
         } catch(IOException e) {
             e.printStackTrace();
         }

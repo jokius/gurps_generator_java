@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import ru.gurps.generator.models.Addon;
 import ru.gurps.generator.models.Feature;
 
-public class AdvantagesController {
+public class AdvantagesController extends AbstractController {
     public TableView<Feature> tableView;
     public TableView<Addon> addonsTableView;
     public TableColumn<Feature, String> title;

@@ -20,12 +20,7 @@ public class GenerateUserController extends AbstractController {
     public Button generate;
     public Button back;
 
-    private Stage stage;
     private Random random = new Random();
-
-    public GenerateUserController(Stage stage) {
-        this.stage = stage;
-    }
 
     @FXML
     private void initialize() {
@@ -51,7 +46,7 @@ public class GenerateUserController extends AbstractController {
 
         back.setOnAction(event -> {
             stage.close();
-            usersStage(new Stage());
+            usersStage();
         });
 
         generate.setOnAction(event -> {

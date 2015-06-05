@@ -7,7 +7,7 @@ import ru.gurps.generator.models.Spell;
 
 
 
-public class SpellFullController {
+public class SpellFullController extends AbstractController {
     private Spell spell;
 
     public Label name;

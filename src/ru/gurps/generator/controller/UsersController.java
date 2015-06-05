@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
 
@@ -22,13 +21,8 @@ public class UsersController extends AbstractController {
     public TableColumn<User, String> tableCurrentPoints;
     public TableColumn<User, String> tableMaxPoints;
 
-    private Stage stage;
     private ObservableList<User> usersData = FXCollections.observableArrayList();
     private int index = -1;
-
-    public UsersController(Stage stage) {
-        this.stage = stage;
-    }
 
     @FXML
     private void initialize() {

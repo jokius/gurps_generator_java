@@ -22,6 +22,7 @@ public class MainWindowController extends AbstractController {
 
     // menus
     public Menu viewMenu;
+    public MenuItem newMenuItem;
 
     // tabs
     public TabPane mainTabPanel;
@@ -41,6 +42,8 @@ public class MainWindowController extends AbstractController {
     @FXML
     public void initialize() {
         globalCost = currentPoints;
+
+        menus();
         tabsConfigure();
         maxPoints.setText(user.maxPoints);
         globalCost.setText(user.currentPoints);
@@ -109,5 +112,13 @@ public class MainWindowController extends AbstractController {
             }
         }
         viewMenu.getItems().addAll(checkMenuItems);
+    }
+
+    private void menus(){
+        newMenuItem.setOnAction(event -> {
+            user = null;
+            stage.close();
+            usersStage();
+        });
     }
 }

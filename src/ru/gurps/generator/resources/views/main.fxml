@@ -17,7 +17,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="%file">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="%new" />
+                        <MenuItem fx:id="newMenuItem" mnemonicParsing="false" text="%new" />
                         <MenuItem mnemonicParsing="false" text="%open" />
                         <MenuItem mnemonicParsing="false" text="%download" />
                         <MenuItem mnemonicParsing="false" text="%upload" />

@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Modifier;
 
-public class ModifierFullController {
+public class ModifierFullController extends AbstractController {
     private Modifier modifier;
     public Label name;
     public Label cost;

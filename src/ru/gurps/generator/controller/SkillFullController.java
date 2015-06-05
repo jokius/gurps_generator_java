@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 import ru.gurps.generator.models.Skill;
 
 
-public class SkillFullController {
+public class SkillFullController extends AbstractController {
     private Skill skill;
 
     public Label name;
