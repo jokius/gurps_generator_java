@@ -34,12 +34,13 @@ public class AbstractController extends Main {
 
     protected void createGenerateStage(){
         stage.setResizable(false);
-
+        stage.setMinWidth(516);
+        stage.setMinHeight(533);
         FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/generateUser.fxml"));
         view.setResources(Main.locale);
         try {
             Parent childrenRoot = view.load();
-            stage.setScene(new Scene(childrenRoot, 395, 260));
+            stage.setScene(new Scene(childrenRoot, 516, 533));
             stage.setTitle("GURPSGenerator");
             stage.show();
         } catch(IOException e) {
