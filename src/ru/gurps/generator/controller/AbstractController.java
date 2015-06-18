@@ -10,7 +10,6 @@ import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 public class AbstractController extends Main {
     public static User user;
@@ -35,12 +34,12 @@ public class AbstractController extends Main {
     protected void createGenerateStage(){
         stage.setResizable(false);
         stage.setMinWidth(516);
-        stage.setMinHeight(533);
+        stage.setMinHeight(466);
         FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/generateUser.fxml"));
         view.setResources(Main.locale);
         try {
             Parent childrenRoot = view.load();
-            stage.setScene(new Scene(childrenRoot, 516, 533));
+            stage.setScene(new Scene(childrenRoot, 516, 466));
             stage.setTitle("GURPSGenerator");
             stage.show();
         } catch(IOException e) {

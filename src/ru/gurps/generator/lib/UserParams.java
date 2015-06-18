@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.models.Skill;
 import ru.gurps.generator.models.SkillSpecialization;
+import ru.gurps.generator.models.Spell;
 import ru.gurps.generator.models.Technique;
 
 public class UserParams extends AbstractController {
@@ -255,5 +256,42 @@ public class UserParams extends AbstractController {
             i--;
         }
         return cost;
+    }
+
+    public static int spellCost(Spell spell){
+        if(spell.complexity == 2){
+            if(spell.level <= user.iq - 2) return 1;
+            else if(spell.level == user.iq - 1) return 2;
+            else if(spell.level == user.iq) return 4;
+            else if(spell.level == user.iq + 1) return 8;
+            else if(spell.level == user.iq + 2) return 12;
+            else if(spell.level == user.iq + 3) return 16;
+            else{
+                int i = spell.level;
+                int cost = 16;
+                while(i > user.iq + 3){
+                    cost += 4;
+                    i --;
+                }
+                return cost;
+            }
+        } else {
+            if(spell.level <= user.iq - 3) return 1;
+            else if(spell.level == user.iq - 2) return 2;
+            else if(spell.level == user.iq - 1) return 4;
+            else if(spell.level == user.iq) return 8;
+            else if(spell.level == user.iq + 1) return 12;
+            else if(spell.level == user.iq + 2) return 16;
+            else if(spell.level == user.iq + 3) return 20;
+            else {
+                int i = spell.level;
+                int cost = 20;
+                while(i == user.iq + 3) {
+                    cost += 4;
+                    i--;
+                }
+                return cost;
+            }
+        }
     }
 }
