@@ -139,4 +139,9 @@ public class User extends Model {
         }
         return quirks;
     }
+
+    public String getPlayer() {
+        if(player == null || player.equals("")) return "-";
+        else return player;
+    }
 }
