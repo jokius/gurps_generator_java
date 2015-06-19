@@ -12,6 +12,7 @@ public class Modifier extends Model {
     public Integer maxLevel;
     public Boolean combat;
     public Boolean improving;
+    @Ignore public Integer level;
 
     public Modifier() {
     }
