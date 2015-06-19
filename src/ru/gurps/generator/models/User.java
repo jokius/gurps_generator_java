@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.gurps.generator.config.Model;
 
-import java.util.stream.Collectors;
-
 public class User extends Model {
     public Integer id;
     public String player;
@@ -77,6 +75,18 @@ public class User extends Model {
             skill.add = true;
             skill.level = userSkill.level;
             skill.cost = userSkill.cost;
+            skills.add(skill);
+        }
+
+        ObservableList<UserSkillSpecialization> userSkillSpecializations = this.hasMany(new UserSkillSpecialization());
+        for(UserSkillSpecialization userSkillSpecialization : userSkillSpecializations){
+            SkillSpecialization specialization = (SkillSpecialization)
+                    new SkillSpecialization().find(userSkillSpecialization.skillSpecializationId);
+            Skill skill = (Skill) new Skill().find(specialization.skillId);
+            skill.name = skill.name + " (" + specialization.name + ")";
+            skill.name = skill.nameEn + " (" + specialization.nameEn + ")";
+            skill.level = userSkillSpecialization.level;
+            skill.cost = userSkillSpecialization.cost;
             skills.add(skill);
         }
         return skills;
