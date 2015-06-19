@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.CulturasController">
+    <children>
+        <TableView fx:id="tableView" prefHeight="415.0" prefWidth="657.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="392.0" text="%cultura" />
+                <TableColumn fx:id="costColumn" minWidth="0.0" prefWidth="89.0" text="%cost" />
+                <TableColumn fx:id="userColumn" prefWidth="81.0" text="%character" />
+                <TableColumn fx:id="dbColumn" prefWidth="84.0" text="%db" />
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" layoutX="229.0" layoutY="415.0" prefHeight="16.0" prefWidth="125.0" text="%cultura" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="229.0" />
+        <TextField fx:id="nameText" layoutX="230.0" layoutY="431.0" prefHeight="26.0" prefWidth="124.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="230.0" />
+        <Button fx:id="addButton" disable="true" layoutX="461.0" layoutY="431.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="%add" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="461.0" />
+        <TextField fx:id="costText" layoutX="366.0" layoutY="431.0" prefHeight="26.0" prefWidth="80.0" text="0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="366.0" />
+        <Label alignment="CENTER" layoutX="366.0" layoutY="415.0" prefHeight="16.0" prefWidth="80.0" text="%cost" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="366.0" />
+    </children>
+</AnchorPane>

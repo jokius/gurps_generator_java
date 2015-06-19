@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="14.0" layoutY="98.0" text="%description" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="107.0" />
+      <Label fx:id="name" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="574.0" text="%name" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="cost" layoutX="14.0" layoutY="57.0" prefHeight="16.0" prefWidth="144.0" text="%cost" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="47.0" />
+      <Label fx:id="combat" alignment="TOP_LEFT" layoutX="3.0" layoutY="82.0" prefHeight="16.0" prefWidth="144.0" text="%combat" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="67.0" />
+      <Label fx:id="improving" alignment="TOP_LEFT" layoutX="13.0" layoutY="92.0" prefHeight="16.0" prefWidth="144.0" text="%improving" AnchorPane.topAnchor="87.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="127.0" prefHeight="438.0" prefWidth="607.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="127.0">
+         <content>
+            <TextFlow prefHeight="436.0" prefWidth="601.0">
+               <children>
+                  <Text fx:id="fullDescription" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="489.6829261779785" />
+               </children>
+            </TextFlow>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

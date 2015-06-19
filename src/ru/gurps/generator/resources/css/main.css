@@ -1,0 +1,19 @@
+.isAdd {
+    -fx-background-color: #13863e;
+    -fx-border-color: #3ab260;
+}
+
+.redText {
+    -fx-font-size: 16px;
+    -fx-text-fill: red;
+}
+
+.modifiers {
+    -fx-font: bold italic 13px "Arial";
+    -fx-fill: #1f8587;
+}
+
+.addOne {
+    -fx-background-color: #aa14ab;
+    -fx-border-color: #cf1ed0;
+}
