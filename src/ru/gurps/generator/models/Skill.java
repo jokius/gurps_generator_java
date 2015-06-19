@@ -132,4 +132,8 @@ public class Skill extends Model {
     public ObservableList<SkillSpecialization> specializations(){
         return this.hasMany(new SkillSpecialization());
     }
+
+    public String getTypeAndComplexity(){
+        return getType() + "|" + getComplexity();
+    }
 }
