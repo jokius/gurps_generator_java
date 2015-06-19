@@ -38,12 +38,12 @@
             <TableColumn fx:id="parryBonusColumn" prefWidth="126.0" text="%parry_bonus" />
          </columns>
       </TableView>
-      <Label fx:id="defaultUse" layoutX="116.0" layoutY="37.0" prefHeight="16.0" prefWidth="510.0" text="%not" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="37.0" />
-      <Label fx:id="twoHands" layoutX="131.0" layoutY="77.0" prefHeight="16.0" prefWidth="510.0" text="%not" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="77.0" />
-      <Label fx:id="finalCost" layoutX="94.0" layoutY="97.0" prefHeight="16.0" prefWidth="510.0" text="%not" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="97.0" />
+      <Label fx:id="defaultUse" layoutX="116.0" layoutY="37.0" prefHeight="16.0" prefWidth="510.0" text="%no" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="37.0" />
+      <Label fx:id="twoHands" layoutX="131.0" layoutY="77.0" prefHeight="16.0" prefWidth="510.0" text="%no" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="77.0" />
+      <Label fx:id="finalCost" layoutX="94.0" layoutY="97.0" prefHeight="16.0" prefWidth="510.0" text="%no" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="97.0" />
       <TextField fx:id="level" layoutX="75.0" layoutY="113.0" prefHeight="27.0" prefWidth="61.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="113.0" />
       <Button fx:id="remove" layoutX="551.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%remove" visible="false" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="113.0" />
       <Button fx:id="add" disable="true" layoutX="529.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%add" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="113.0" />
-      <Label fx:id="demands" layoutX="94.0" layoutY="57.0" prefHeight="16.0" prefWidth="510.0" text="%not" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="57.0" />
+      <Label fx:id="demands" layoutX="94.0" layoutY="57.0" prefHeight="16.0" prefWidth="510.0" text="%no" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="57.0" />
    </children>
 </AnchorPane>

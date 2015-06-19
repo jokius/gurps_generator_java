@@ -24,10 +24,10 @@
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Label>
-                        <Label layoutX="232.0" layoutY="13.0" text="%nickname" />
-                        <Label fx:id="name" alignment="CENTER" layoutX="264.0" layoutY="13.0" prefHeight="16.0" prefWidth="98.0" text="%character" />
-                        <Label layoutX="373.0" layoutY="13.0" text="%player_name" />
-                        <TextField fx:id="player" layoutX="425.0" layoutY="8.0" prefHeight="26.0" prefWidth="98.0" />
+                        <Label layoutX="222.0" layoutY="13.0" prefHeight="16.0" prefWidth="38.0" text="%nickname" />
+                        <Label fx:id="name" alignment="CENTER" layoutX="268.0" layoutY="13.0" prefHeight="16.0" prefWidth="65.0" text="%character" />
+                        <Label layoutX="341.0" layoutY="13.0" prefHeight="16.0" prefWidth="80.0" text="%player_name" />
+                        <Label fx:id="player" layoutX="429.0" layoutY="8.0" prefHeight="26.0" prefWidth="99.0" />
                         <Label layoutX="535.0" layoutY="13.0" text="%max_points" />
                         <Label fx:id="maxPoints" layoutX="654.0" layoutY="13.0" text="9999" />
                         <GridPane layoutX="14.0" layoutY="98.0" prefHeight="120.0" prefWidth="200.0">
@@ -105,11 +105,11 @@
                             </children>
                         </GridPane>
                         <Label layoutX="232.0" layoutY="51.0" prefHeight="16.0" prefWidth="38.0" text="%growth" />
-                        <TextField fx:id="growth" layoutX="270.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
-                        <TextField fx:id="weight" layoutX="362.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
+                        <Label fx:id="growth" layoutX="270.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
+                        <Label fx:id="weight" layoutX="362.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
                         <Label layoutX="324.0" layoutY="51.0" prefHeight="16.0" prefWidth="38.0" text="%weight" />
                         <Label layoutX="411.0" layoutY="51.0" prefHeight="16.0" prefWidth="59.0" text="%age" />
-                        <TextField fx:id="age" layoutX="479.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
+                        <Label fx:id="age" layoutX="479.0" layoutY="46.0" prefHeight="26.0" prefWidth="38.0" />
                         <Label fx:id="remainingPoints" layoutX="654.0" layoutY="51.0" text="9999" />
                         <Label layoutX="535.0" layoutY="51.0" text="%left_points" />
                         <TableView fx:id="languagesTableView" layoutX="232.0" layoutY="85.0" prefHeight="126.0" prefWidth="462.0">
@@ -161,13 +161,13 @@
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="tl" layoutX="496.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Label fx:id="tl" layoutX="496.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
                         <Label layoutX="563.0" layoutY="217.0" text="%cost">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="tlCost" layoutX="640.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
+                        <Label fx:id="tlCost" layoutX="640.0" layoutY="212.0" prefHeight="26.0" prefWidth="54.0" />
                         <TableView fx:id="culturasTableView" layoutX="453.0" layoutY="238.0" prefHeight="84.0" prefWidth="243.0">
                             <columns>
                                 <TableColumn fx:id="culturaNameColumn" prefWidth="159.0" text="%cultura" />
@@ -256,8 +256,8 @@
                                     <columns>
                                         <TableColumn fx:id="skillsName" prefWidth="146.0" text="%name" />
                                         <TableColumn fx:id="skillsTypeColumn" prefWidth="69.0" text="%parameter" />
-                                        <TableColumn fx:id="skillsComplexityColumn" prefWidth="65.0" text="%complexity" />
-                                        <TableColumn fx:id="skillsLevelColumn" prefWidth="63.0" text="%cost" />
+                                        <TableColumn fx:id="skillsLevelColumn" prefWidth="63.0" text="%level" />
+                                        <TableColumn fx:id="skillsCostColumn" prefWidth="63.0" text="%cost" />
                                     </columns>
                                 </TableColumn>
                             </columns>

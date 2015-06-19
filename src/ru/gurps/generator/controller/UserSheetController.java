@@ -31,13 +31,13 @@ import java.lang.reflect.Field;
 public class UserSheetController extends AbstractController {
     private User user = AbstractController.user;
     public Label name;
-    public TextField player;
+    public Label player;
     public Label maxPoints;
     public Label remainingPoints;
 
-    public TextField growth;
-    public TextField weight;
-    public TextField age;
+    public Label growth;
+    public Label weight;
+    public Label age;
 
     public Label st;
     public Label stCost;
@@ -65,8 +65,8 @@ public class UserSheetController extends AbstractController {
     public Label thrust;
     public Label swing;
 
-    public TextField tl;
-    public TextField tlCost;
+    public Label tl;
+    public Label tlCost;
 
     public TextField head;
     public TextField torse;
@@ -91,8 +91,8 @@ public class UserSheetController extends AbstractController {
     public TableView<Skill> skillsTableView;
     public TableColumn<Skill, String> skillsName;
     public TableColumn<Skill, String> skillsTypeColumn;
-    public TableColumn<Skill, String> skillsComplexityColumn;
     public TableColumn<Skill, Integer> skillsLevelColumn;
+    public TableColumn<Skill, Integer> skillsCostColumn;
 
     public TableView<Spell> spellsTableView;
     public TableColumn<Spell, String> spellsNameColumn;
@@ -115,7 +115,7 @@ public class UserSheetController extends AbstractController {
     @FXML
     private void initialize() {
         name.setText(user.name);
-        player.setText(user.player);
+        player.setText(user.getPlayer());
         maxPoints.setText(user.maxPoints);
         setRemainingPoints();
 
@@ -187,6 +187,7 @@ public class UserSheetController extends AbstractController {
         advantagesTableView.setPlaceholder(new Label(Main.locale.getString("advantages_not_found")));
 
         disadvantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        advantagesNameColumn.setCellFactory(param -> new FeatureFullTitle());
         disadvantagesCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         disadvantagesTableView.setItems(disadvantagesData);
         disadvantagesTableView.setPlaceholder(new Label(Main.locale.getString("disadvantages_not_found")));
@@ -195,9 +196,9 @@ public class UserSheetController extends AbstractController {
     private void initSkills() {
         ObservableList<Skill> skills = user.skills();
         skillsName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        skillsTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        skillsComplexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
+        skillsTypeColumn.setCellValueFactory(new PropertyValueFactory<>("typeAndComplexity"));
         skillsLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
+        skillsCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         skillsTableView.setItems(skills);
         skillsTableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
         parry.setText(UserParams.getParry(skills));
@@ -207,7 +208,7 @@ public class UserSheetController extends AbstractController {
     private void intSpells() {
         spellsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         spellsComplexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
-        spellsCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        spellsCostColumn.setCellValueFactory(new PropertyValueFactory<>("finalCost"));
         spellsTableView.setItems(user.spells());
         spellsTableView.setPlaceholder(new Label(Main.locale.getString("spells_not_found")));
     }
@@ -305,7 +306,7 @@ public class UserSheetController extends AbstractController {
             super.updateItem(item, empty);
             if(empty) return;
             Feature feature = (Feature) getTableRow().getItem();
-            if(feature == null) return;
+            if (feature == null) return;
             setText(UserParams.featureFullTitleRu(feature));
         }
     }
