@@ -1,5 +1,8 @@
 package ru.gurps.generator.controller;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,15 +11,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.converter.DefaultStringConverter;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
 import ru.gurps.generator.lib.export.ExportToJson;
 import ru.gurps.generator.models.*;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -174,6 +181,7 @@ public class UserSheetController extends AbstractController {
         }
 
         advantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        advantagesNameColumn.setCellFactory(param -> new FeatureFullTitle());
         advantagesCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         advantagesTableView.setItems(advantagesData);
         advantagesTableView.setPlaceholder(new Label(Main.locale.getString("advantages_not_found")));
@@ -286,5 +294,19 @@ public class UserSheetController extends AbstractController {
             File file = fileChooser.showSaveDialog(new Stage());
             new ExportToJson(file);
         });
+    }
+
+    private class FeatureFullTitle extends TableCell<Feature, String> {
+        public FeatureFullTitle() {
+        }
+
+        @Override
+        protected void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if(empty) return;
+            Feature feature = (Feature) getTableRow().getItem();
+            if(feature == null) return;
+            setText(UserParams.featureFullTitleRu(feature));
+        }
     }
 }
