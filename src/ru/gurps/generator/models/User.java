@@ -99,7 +99,7 @@ public class User extends Model {
             Spell spell = (Spell) new Spell().find(userSpell.spellId);
             spell.add = true;
             spell.level = userSpell.level;
-            spell.cost = userSpell.cost;
+            spell.finalCost = userSpell.cost;
             spells.add(spell);
         }
         return spells;
