@@ -1,18 +1,23 @@
 package ru.gurps.generator;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.gurps.generator.controller.AbstractController;
-import ru.gurps.generator.controller.UsersController;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
+    public static final String VERSION = "v0.1.1";
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
 
     @Override
@@ -28,7 +33,31 @@ public class Main extends Application {
         }
 
         AbstractController.stage = primaryStage;
+        checkNewVersion();
         usersStage();
+    }
+
+    static public void checkNewVersion() throws IOException {
+        try {
+            URL url = new URL("https://api.github.com/repos/jokius/gurps_generator_java/tags");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if (conn.getResponseCode() != 200) return;
+
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            String response = br.readLine();
+            conn.disconnect();
+
+            JsonArray json = new JsonParser().parse(response).getAsJsonArray();
+            String last_version = json.get(0).getAsJsonObject().get("name").toString();
+
+            if (!VERSION.equals(last_version)) {
+                AbstractController.urlToLastVersion = "https://github.com/jokius/gurps_generator_java/releases/tag/" +
+                        last_version;
+            }
+        } catch (UnknownHostException ignored){
+        }
     }
 
     protected void usersStage(){
