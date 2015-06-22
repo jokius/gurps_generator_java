@@ -4,10 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
+
+import java.awt.*;
+import java.io.IOException;
 
 public class UsersController extends AbstractController {
     public Button newUser;
@@ -20,6 +27,7 @@ public class UsersController extends AbstractController {
     public TableColumn<User, String> name;
     public TableColumn<User, String> tableCurrentPoints;
     public TableColumn<User, String> tableMaxPoints;
+    public Hyperlink lastVersionLink;
 
     private ObservableList<User> usersData = FXCollections.observableArrayList();
     private int index = -1;
@@ -101,5 +109,17 @@ public class UsersController extends AbstractController {
             });
             return row;
         });
+
+        if(urlToLastVersion != null){
+            AnchorPane.setTopAnchor(userTable, 109.0);
+            lastVersionLink.setVisible(true);
+            lastVersionLink.setOnAction(event -> {
+                try {
+                    Desktop.getDesktop().browse(urlToLastVersion);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 }
