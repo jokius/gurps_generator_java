@@ -15,6 +15,7 @@ public class AbstractController extends Main {
     public static User user;
     public static Label globalCost;
     public static Stage stage = new Stage();
+    public static String urlToLastVersion;
 
     protected void createMainStage(){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
