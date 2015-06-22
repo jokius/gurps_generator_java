@@ -50,7 +50,6 @@ public class Main extends Application {
 
             JsonArray json = new JsonParser().parse(response).getAsJsonArray();
             String last_version = json.get(0).getAsJsonObject().get("name").getAsString();
-            System.out.println(last_version);
             if (!VERSION.equals(last_version)) {
                 AbstractController.urlToLastVersion = new URI("https://github.com/jokius/gurps_generator_java/releases/tag/" +
                         last_version);
