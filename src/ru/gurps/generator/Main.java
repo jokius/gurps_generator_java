@@ -9,10 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.gurps.generator.controller.AbstractController;
 
+import java.awt.*;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -37,7 +36,7 @@ public class Main extends Application {
         usersStage();
     }
 
-    static public void checkNewVersion() throws IOException {
+    static public void checkNewVersion() throws IOException, URISyntaxException {
         try {
             URL url = new URL("https://api.github.com/repos/jokius/gurps_generator_java/tags");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -50,11 +49,11 @@ public class Main extends Application {
             conn.disconnect();
 
             JsonArray json = new JsonParser().parse(response).getAsJsonArray();
-            String last_version = json.get(0).getAsJsonObject().get("name").toString();
-
+            String last_version = json.get(0).getAsJsonObject().get("name").getAsString();
+            System.out.println(last_version);
             if (!VERSION.equals(last_version)) {
-                AbstractController.urlToLastVersion = "https://github.com/jokius/gurps_generator_java/releases/tag/" +
-                        last_version;
+                AbstractController.urlToLastVersion = new URI("https://github.com/jokius/gurps_generator_java/releases/tag/" +
+                        last_version);
             }
         } catch (UnknownHostException ignored){
         }

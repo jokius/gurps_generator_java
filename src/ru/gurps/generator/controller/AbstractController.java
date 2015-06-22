@@ -10,12 +10,13 @@ import ru.gurps.generator.Main;
 import ru.gurps.generator.models.User;
 
 import java.io.IOException;
+import java.net.URI;
 
 public class AbstractController extends Main {
     public static User user;
     public static Label globalCost;
     public static Stage stage = new Stage();
-    public static String urlToLastVersion;
+    public static URI urlToLastVersion;
 
     protected void createMainStage(){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
