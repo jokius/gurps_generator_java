@@ -9,14 +9,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.gurps.generator.controller.AbstractController;
 
-import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
-    public static final String VERSION = "v0.1.1";
+    public static final String VERSION = "v0.0.2";
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
 
     @Override
