@@ -9,8 +9,8 @@ import ru.gurps.generator.models.Feature;
 public class AdvantagesController extends AbstractController {
     public TableView<Feature> tableView;
     public TableView<Addon> addonsTableView;
-    public TableColumn<Feature, String> title;
-    public TableColumn<Feature, String> titleEn;
+    public TableColumn<Feature, String> name;
+    public TableColumn<Feature, String> nameEn;
     public TableColumn<Feature, String> type;
     public TableColumn<Feature, String> cost;
     public TableColumn<Feature, String> description;
@@ -38,17 +38,17 @@ public class AdvantagesController extends AbstractController {
 
     public MenuButton searchButton;
     public MenuItem searchAll;
-    public MenuItem searchTitle;
-    public MenuItem searchTitleEn;
+    public MenuItem searchName;
+    public MenuItem searchNameEn;
     public MenuItem searchCost;
     public MenuItem searchDescription;
     public TextField searchText;
 
     @FXML
     private void initialize() {
-        new FeaturesAbstractController(tableView, addonsTableView, title, titleEn, type, cost, description, bottomMenu, lvlComboBox,
+        new FeaturesAbstractController(tableView, addonsTableView, name, nameEn, type, cost, description, bottomMenu, lvlComboBox,
                 lvlLabel, lvlText, add, remove, full, finalCost, finalCostText, activate, addonName, addonNameEn,
                 addonLevel, addonCost, checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, searchButton, searchAll,
-                searchTitle, searchTitleEn, searchCost, searchDescription, searchText, true);
+                searchName, searchNameEn, searchCost, searchDescription, searchText, true);
     }
 }

@@ -10,8 +10,8 @@ import java.util.HashMap;
 public class Feature extends Model {
     public Integer id;
     public Boolean advantage;
-    public String title;
-    public String titleEn;
+    public String name;
+    public String nameEn;
     public String type;
     public Integer cost;
     public String description;
@@ -21,16 +21,15 @@ public class Feature extends Model {
     public Boolean cybernetic;
     @Ignore public Boolean add  = false;
     @Ignore public Boolean modifier  = false;
-//    @Ignore public String fullTitle;
 
     public Feature() {
     }
 
-    public Feature(Integer id, Boolean advantage, String title, String titleEn, String type, Integer cost, String description, Integer oldLevel, Integer maxLevel, Boolean psi, Boolean cybernetic, Boolean add) {
+    public Feature(Integer id, Boolean advantage, String name, String nameEn, String type, Integer cost, String description, Integer oldLevel, Integer maxLevel, Boolean psi, Boolean cybernetic, Boolean add) {
         this.id = id;
         this.advantage = advantage;
-        this.title = title;
-        this.titleEn = titleEn;
+        this.name = name;
+        this.nameEn = nameEn;
         this.type = type;
         this.cost = cost;
         this.description = description;
@@ -67,12 +66,12 @@ public class Feature extends Model {
         return new_type;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public String getTitleEn() {
-        return titleEn;
+    public String getNameEn() {
+        return nameEn;
     }
 
     public Integer getCost() {

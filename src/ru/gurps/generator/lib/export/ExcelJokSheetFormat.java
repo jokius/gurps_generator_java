@@ -136,15 +136,15 @@ public class ExcelJokSheetFormat {
                 for(Object object : new FeatureAddon().where("userFeatureId", userFeature.id)){
                     FeatureAddon featureAddon = (FeatureAddon) object;
                     Addon addon = (Addon) new Addon().find(featureAddon.addonId);
-                    if(stringAddons.equals("")) stringAddons = " (" + addon.title + ", "+Main.locale.getString("level")+": " + featureAddon.level +
+                    if(stringAddons.equals("")) stringAddons = " (" + addon.name + ", "+Main.locale.getString("level")+": " + featureAddon.level +
                             ", "+Main.locale.getString("cost")+": " + featureAddon.cost + "%";
-                    else stringAddons += "; " + addon.title + ", "+Main.locale.getString("level")+": " + featureAddon.level +
+                    else stringAddons += "; " + addon.name + ", "+Main.locale.getString("level")+": " + featureAddon.level +
                             ", "+Main.locale.getString("cost")+": " + featureAddon.cost + "%";
                 }
                 if(!stringAddons.equals("")) stringAddons += ")";
 
                 sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
-                featureCell.setCellValue(feature.title + stringAddons);
+                featureCell.setCellValue(feature.name + stringAddons);
                 costCell.setCellValue(feature.cost);
                 XSSFCellStyle style = wb.createCellStyle();
                 if(feature.advantage) style.setFillForegroundColor(IndexedColors.GREEN.getIndex());

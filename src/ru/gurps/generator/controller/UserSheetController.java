@@ -1,8 +1,5 @@
 package ru.gurps.generator.controller;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,19 +8,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.converter.DefaultStringConverter;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
 import ru.gurps.generator.lib.export.ExportToJson;
 import ru.gurps.generator.models.*;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -180,14 +173,14 @@ public class UserSheetController extends AbstractController {
             else disadvantagesData.add(feature);
         }
 
-        advantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        advantagesNameColumn.setCellFactory(param -> new FeatureFullTitle());
+        advantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        advantagesNameColumn.setCellFactory(param -> new FeatureFullName());
         advantagesCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         advantagesTableView.setItems(advantagesData);
         advantagesTableView.setPlaceholder(new Label(Main.locale.getString("advantages_not_found")));
 
-        disadvantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        advantagesNameColumn.setCellFactory(param -> new FeatureFullTitle());
+        disadvantagesNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        advantagesNameColumn.setCellFactory(param -> new FeatureFullName());
         disadvantagesCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         disadvantagesTableView.setItems(disadvantagesData);
         disadvantagesTableView.setPlaceholder(new Label(Main.locale.getString("disadvantages_not_found")));
@@ -297,8 +290,8 @@ public class UserSheetController extends AbstractController {
         });
     }
 
-    private class FeatureFullTitle extends TableCell<Feature, String> {
-        public FeatureFullTitle() {
+    private class FeatureFullName extends TableCell<Feature, String> {
+        public FeatureFullName() {
         }
 
         @Override
@@ -307,7 +300,7 @@ public class UserSheetController extends AbstractController {
             if(empty) return;
             Feature feature = (Feature) getTableRow().getItem();
             if (feature == null) return;
-            setText(UserParams.featureFullTitleRu(feature));
+            setText(UserParams.featureFullNameRu(feature));
         }
     }
 }

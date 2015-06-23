@@ -4,9 +4,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.models.Feature;
 import ru.gurps.generator.models.User;
 
 import java.io.IOException;
