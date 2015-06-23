@@ -66,7 +66,7 @@ public class ModifiersController extends AbstractController {
         setCheckBox();
 
         modifiersNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        modifiersNameColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
+        modifiersNameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         maxLevelColumn.setCellValueFactory(new PropertyValueFactory<>("maxLevel"));
         combatColumn.setCellValueFactory(new PropertyValueFactory<>("combat"));
@@ -101,6 +101,9 @@ public class ModifiersController extends AbstractController {
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, new ModifierEventHandler());
             return row;
         });
+
+        localSearch(new Modifier(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn,
+                searchCost, searchDescription);
     }
 
     private void setCheckBox() {
