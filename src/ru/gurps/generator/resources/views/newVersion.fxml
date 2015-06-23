@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <AnchorPane fx:id="newVersionHas" layoutX="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="356.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <children>
+               <Label alignment="CENTER" prefHeight="46.0" prefWidth="399.0" text="%new_version_has" textAlignment="CENTER" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               <Button fx:id="no" layoutX="32.0" layoutY="58.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="%no" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="52.0" AnchorPane.topAnchor="58.0" />
+            <Button fx:id="yes" layoutX="221.0" layoutY="58.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="%yes" AnchorPane.rightAnchor="52.0" />
+           </children>
+       </AnchorPane>
+      <AnchorPane fx:id="noNewVersion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="98.0" prefWidth="356.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="399.0" text="%no_new_version" textAlignment="CENTER" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="ok" layoutX="73.0" layoutY="58.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0" text="%ok" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
