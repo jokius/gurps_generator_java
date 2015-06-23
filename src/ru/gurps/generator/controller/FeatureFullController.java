@@ -19,7 +19,7 @@ public class FeatureFullController extends AbstractController {
 
     @FXML
     private void initialize() {
-        name.setText(feature.title + " (" + feature.titleEn + ")");
+        name.setText(feature.name + " (" + feature.nameEn + ")");
         cost.setText(Main.locale.getString("cost") +": " + feature.cost);
         type.setText(feature.getTypeFull());
         fullDescription.setText(feature.description);

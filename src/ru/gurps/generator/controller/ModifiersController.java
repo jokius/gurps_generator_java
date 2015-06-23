@@ -22,16 +22,16 @@ public class ModifiersController extends AbstractController {
     User user = AbstractController.user;
 
     public TableView<Modifier> tableView;
-    public TableColumn<Modifier, String> nameColumn;
-    public TableColumn<Modifier, String> nameEnColumn;
+    public TableColumn<Modifier, String> modifiersNameColumn;
+    public TableColumn<Modifier, String> modifiersNameEnColumn;
     public TableColumn<Modifier, String> costColumn;
     public TableColumn<Modifier, String> maxLevelColumn;
     public TableColumn<Modifier, String> combatColumn;
     public TableColumn<Modifier, String> descriptionColumn;
 
     public TableView<Feature> featuresTableView;
-    public TableColumn<Feature, String> titleColumn;
-    public TableColumn<Feature, String> titleEnColumn;
+    public TableColumn<Feature, String> featuresNameColumn;
+    public TableColumn<Feature, String> featuresNameEnColumn;
 
     public MenuButton searchButton;
     public MenuItem searchAll;
@@ -65,14 +65,14 @@ public class ModifiersController extends AbstractController {
     private void initialize() {
         setCheckBox();
 
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        nameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
+        modifiersNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifiersNameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         maxLevelColumn.setCellValueFactory(new PropertyValueFactory<>("maxLevel"));
         combatColumn.setCellValueFactory(new PropertyValueFactory<>("combat"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        nameColumn.setCellFactory(column -> new TableCell<Modifier, String>() {
+        modifiersNameColumn.setCellFactory(column -> new TableCell<Modifier, String>() {
         @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -88,6 +88,11 @@ public class ModifiersController extends AbstractController {
                 if(userModifier.id == null) getTableRow().getStyleClass().remove("addOne");
                 else getTableRow().getStyleClass().add("addOne");
             }
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            }
         }
     });
 
@@ -95,12 +100,15 @@ public class ModifiersController extends AbstractController {
         ObservableList<Modifier> modifiers = new Modifier().all();
 
         tableView.setItems(modifiers);
-        tableView.getSortOrder().add(nameColumn);
+        tableView.getSortOrder().add(modifiersNameColumn);
         tableView.setRowFactory(tv -> {
             TableRow<Modifier> row = new TableRow<>();
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, new ModifierEventHandler());
             return row;
         });
+
+        localSearch(new Modifier(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn,
+                searchCost, searchDescription);
     }
 
     private void setCheckBox() {
@@ -187,10 +195,10 @@ public class ModifiersController extends AbstractController {
                 features.add(feature);
             }
 
-            titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-            titleEnColumn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
+            featuresNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            featuresNameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
 
-            titleEnColumn.setCellFactory(column -> new TableCell<Feature, String>() {
+            featuresNameColumn.setCellFactory(column -> new TableCell<Feature, String>() {
                         @Override
                         protected void updateItem(String item, boolean empty) {
                             super.updateItem(item, empty);
@@ -201,6 +209,11 @@ public class ModifiersController extends AbstractController {
                                 Feature feature = featuresTableView.getItems().get(getTableRow().getIndex());
                                 if(feature.modifier) getTableRow().getStyleClass().add("isAdd");
                                 else getTableRow().getStyleClass().remove("isAdd");
+                            }
+
+                            if (empty) {
+                                setText(null);
+                                setGraphic(null);
                             }
                         }
                     });

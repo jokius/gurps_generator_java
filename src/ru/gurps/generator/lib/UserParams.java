@@ -299,17 +299,17 @@ public class UserParams extends AbstractController {
         }
     }
 
-    public static String featureFullTitleRu(Feature feature) {
+    public static String featureFullNameRu(Feature feature) {
         ObservableList<Modifier> modifiers = feature.modifiers(user.id);
-        if (modifiers.size() == 0) return feature.title;
+        if (modifiers.size() == 0) return feature.name;
 
-        String fullTitle = feature.title + " (";
+        String fullName = feature.name + " (";
         for (Modifier modifier : modifiers) {
-            fullTitle += modifier.name + ", " + modifier.cost + "%, " + Main.locale.getString("level_colon") +
+            fullName += modifier.name + ", " + modifier.cost + "%, " + Main.locale.getString("level_colon") +
                     modifier.level + "; ";
         }
 
-        fullTitle = fullTitle.substring(0, fullTitle.length() - 2) + ")";
-        return fullTitle;
+        fullName = fullName.substring(0, fullName.length() - 2) + ")";
+        return fullName;
     }
 }

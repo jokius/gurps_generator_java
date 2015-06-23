@@ -18,8 +18,8 @@
         <MenuButton fx:id="searchButton" disable="true" layoutX="551.0" layoutY="14.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
             <items>
                 <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere" />
-                <MenuItem fx:id="searchTitle" mnemonicParsing="false" text="%name" />
-                <MenuItem fx:id="searchTitleEn" mnemonicParsing="false" text="%name_en" />
+                <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name" />
+                <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en" />
                 <MenuItem fx:id="searchCost" mnemonicParsing="false" text="%cost" />
                 <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description" />
             </items>
@@ -28,8 +28,8 @@
 
         <TableView fx:id="tableView" layoutY="39.0" prefHeight="360.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
             <columns>
-                <TableColumn fx:id="title" prefWidth="136.0" text="%name" />
-                <TableColumn fx:id="titleEn" prefWidth="125.0" text="%name_en" />
+                <TableColumn fx:id="name" prefWidth="136.0" text="%name" />
+                <TableColumn fx:id="nameEn" prefWidth="125.0" text="%name_en" />
                 <TableColumn fx:id="type" minWidth="0.0" prefWidth="45.0" text="%type" />
                 <TableColumn fx:id="cost" prefWidth="93.0" text="%cost" />
                 <TableColumn fx:id="description" prefWidth="240" text="%description" />

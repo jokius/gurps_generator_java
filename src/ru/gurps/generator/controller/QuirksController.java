@@ -103,7 +103,10 @@ public class QuirksController extends AbstractController {
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
             if(getGraphic() != null && t == null) setGraphic(null);
-            if(empty) return;
+            if(empty) {
+                setGraphic(null);
+                return;
+            }
             Quirk quirk = (Quirk) getTableRow().getItem();
             if(quirk == null) return;
             setGraphic(quirk.add ? removeButton : addButton);
@@ -127,7 +130,10 @@ public class QuirksController extends AbstractController {
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
             if(getGraphic() != null && t == null) setGraphic(null);
-            if(empty) return;
+            if(empty) {
+                setGraphic(null);
+                return;
+            }
             Quirk quirk = (Quirk) getTableRow().getItem();
             if(quirk == null) return;
             setGraphic(removeButton);

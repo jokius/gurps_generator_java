@@ -105,7 +105,10 @@ public class CulturasController extends AbstractController {
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
             if(getGraphic() != null && t == null) setGraphic(null);
-            if(empty) return;
+            if(empty){
+                setGraphic(null);
+                return;
+            }
             Cultura cultura = (Cultura) getTableRow().getItem();
             if(cultura == null) return;
             setGraphic(cultura.add ? removeButton : addButton);
@@ -129,7 +132,10 @@ public class CulturasController extends AbstractController {
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
             if(getGraphic() != null && t == null) setGraphic(null);
-            if(empty) return;
+            if(empty){
+                setGraphic(null);
+                return;
+            }
             Cultura cultura = (Cultura) getTableRow().getItem();
             if(cultura == null) return;
             setGraphic(removeButton);

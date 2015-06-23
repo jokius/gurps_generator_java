@@ -141,7 +141,10 @@ public class LanguagesController extends AbstractController {
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
             if(getGraphic() != null && t == null) setGraphic(null);
-            if(empty) return;
+            if(empty) {
+                setGraphic(null);
+                return;
+            }
             Language language = (Language) getTableRow().getItem();
             if(language == null) return;
             setGraphic(language.add ? removeButton : addButton);
@@ -165,7 +168,10 @@ public class LanguagesController extends AbstractController {
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
             if(getGraphic() != null && t == null) setGraphic(null);
-            if(empty) return;
+            if(empty) {
+                setGraphic(null);
+                return;
+            }
             Language language = (Language) getTableRow().getItem();
             if(language == null) return;
             setGraphic(removeButton);

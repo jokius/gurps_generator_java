@@ -5,8 +5,8 @@ import ru.gurps.generator.config.Model;
 public class Addon extends Model {
     public Integer id;
     public Integer featureId;
-    public String title;
-    public String titleEn;
+    public String name;
+    public String nameEn;
     public String cost;
     @Ignore public Integer resultCost = 0;
     public String description;
@@ -17,11 +17,11 @@ public class Addon extends Model {
     public Addon() {
     }
 
-    public Addon(Integer id, Integer featureId, String title, String titleEn, String cost, Integer resultCost, String description, Integer maxLevel, Boolean active, String level) {
+    public Addon(Integer id, Integer featureId, String name, String nameEn, String cost, Integer resultCost, String description, Integer maxLevel, Boolean active, String level) {
         this.id = id;
         this.featureId = featureId;
-        this.title = title;
-        this.titleEn = titleEn;
+        this.name = name;
+        this.nameEn = nameEn;
         this.cost = cost;
         this.resultCost = resultCost;
         this.description = description;
@@ -30,12 +30,12 @@ public class Addon extends Model {
         this.level = level;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public String getTitleEn() {
-        return titleEn;
+    public String getNameEn() {
+        return nameEn;
     }
 
     public String getCost() {

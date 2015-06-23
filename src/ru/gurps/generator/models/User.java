@@ -84,7 +84,7 @@ public class User extends Model {
                     new SkillSpecialization().find(userSkillSpecialization.skillSpecializationId);
             Skill skill = (Skill) new Skill().find(specialization.skillId);
             skill.name = skill.name + " (" + specialization.name + ")";
-            skill.name = skill.nameEn + " (" + specialization.nameEn + ")";
+            skill.nameEn = skill.nameEn + " (" + specialization.nameEn + ")";
             skill.level = userSkillSpecialization.level;
             skill.cost = userSkillSpecialization.cost;
             skills.add(skill);

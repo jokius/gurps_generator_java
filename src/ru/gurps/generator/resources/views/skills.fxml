@@ -22,7 +22,6 @@
                 <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere" />
                 <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name" />
                 <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en" />
-                <MenuItem fx:id="searchCost" mnemonicParsing="false" text="%cost" />
                 <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description" />
             </items>
         </MenuButton>

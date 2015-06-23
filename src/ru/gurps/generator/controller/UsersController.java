@@ -48,6 +48,11 @@ public class UsersController extends AbstractController {
                     if(Integer.parseInt(user.currentPoints) < Integer.parseInt(user.maxPoints)) setTextFill(Color.GREEN);
                     else setTextFill(Color.RED);
                 } else setText(null);
+
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                }
             }
         });
         tableMaxPoints.setCellValueFactory(new PropertyValueFactory<>("maxPoints"));

@@ -23,8 +23,8 @@ import java.util.HashMap;
 
 public class FeaturesAbstractController extends AbstractController {
     private TableView<Feature> tableView;
-    private TableColumn<Feature, String> title;
-    private TableColumn<Feature, String> titleEn;
+    private TableColumn<Feature, String> name;
+    private TableColumn<Feature, String> nameEn;
     private TableColumn<Feature, String> type;
     private TableColumn<Feature, String> cost;
     private TableColumn<Feature, String> description;
@@ -54,8 +54,8 @@ public class FeaturesAbstractController extends AbstractController {
 
     private MenuButton searchButton;
     private MenuItem searchAll;
-    private MenuItem searchTitle;
-    private MenuItem searchTitleEn;
+    private MenuItem searchName;
+    private MenuItem searchNameEn;
     private MenuItem searchCost;
     private MenuItem searchDescription;
     private TextField searchText;
@@ -65,11 +65,11 @@ public class FeaturesAbstractController extends AbstractController {
     protected ArrayList<Integer> featuresNumbers = new ArrayList<>();
     protected ObservableList<Feature> data = FXCollections.observableArrayList();
 
-    public FeaturesAbstractController(TableView<Feature> tableView, TableView<Addon> addonsTableView, TableColumn<Feature, String> title, TableColumn<Feature, String> titleEn, TableColumn<Feature, String> type, TableColumn<Feature, String> cost, TableColumn<Feature, String> description, AnchorPane bottomMenu, ComboBox<Integer> lvlComboBox, Label lvlLabel, TextField lvlText, Button add, Button remove, Button full, Label finalCost, TextField finalCostText, TableColumn<Addon, Boolean> activate, TableColumn<Addon, String> addonName, TableColumn<Addon, String> addonNameEn, TableColumn<Addon, String> addonLevel, TableColumn<Addon, String> addonCost, CheckMenuItem checkBox1, CheckMenuItem checkBox2, CheckMenuItem checkBox3, CheckMenuItem checkBox4, CheckMenuItem checkBox5, MenuButton searchButton, MenuItem searchAll, MenuItem searchTitle, MenuItem searchTitleEn, MenuItem searchCost, MenuItem searchDescription, TextField searchText, boolean isAdvantage) {
+    public FeaturesAbstractController(TableView<Feature> tableView, TableView<Addon> addonsTableView, TableColumn<Feature, String> name, TableColumn<Feature, String> nameEn, TableColumn<Feature, String> type, TableColumn<Feature, String> cost, TableColumn<Feature, String> description, AnchorPane bottomMenu, ComboBox<Integer> lvlComboBox, Label lvlLabel, TextField lvlText, Button add, Button remove, Button full, Label finalCost, TextField finalCostText, TableColumn<Addon, Boolean> activate, TableColumn<Addon, String> addonName, TableColumn<Addon, String> addonNameEn, TableColumn<Addon, String> addonLevel, TableColumn<Addon, String> addonCost, CheckMenuItem checkBox1, CheckMenuItem checkBox2, CheckMenuItem checkBox3, CheckMenuItem checkBox4, CheckMenuItem checkBox5, MenuButton searchButton, MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost, MenuItem searchDescription, TextField searchText, boolean isAdvantage) {
         this.tableView = tableView;
         this.addonsTableView = addonsTableView;
-        this.title = title;
-        this.titleEn = titleEn;
+        this.name = name;
+        this.nameEn = nameEn;
         this.type = type;
         this.cost = cost;
         this.description = description;
@@ -94,8 +94,8 @@ public class FeaturesAbstractController extends AbstractController {
         this.checkBox5 = checkBox5;
         this.searchButton = searchButton;
         this.searchAll = searchAll;
-        this.searchTitle = searchTitle;
-        this.searchTitleEn = searchTitleEn;
+        this.searchName = searchName;
+        this.searchNameEn = searchNameEn;
         this.searchCost = searchCost;
         this.searchDescription = searchDescription;
         this.searchText = searchText;
@@ -120,12 +120,12 @@ public class FeaturesAbstractController extends AbstractController {
     }
 
     private void setFeatures() {
-        title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        titleEn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameEn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        title.setCellFactory(column -> new TableCell<Feature, String>() {
+        name.setCellFactory(column -> new TableCell<Feature, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -139,6 +139,11 @@ public class FeaturesAbstractController extends AbstractController {
                     UserFeature userFeature = (UserFeature) new UserFeature().find_by(featureParams);
                     currentRow.getStyleClass().remove("isAdd");
                     if(userFeature.id != null) currentRow.getStyleClass().add("isAdd");
+                }
+
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
                 }
             }
         });
@@ -155,24 +160,32 @@ public class FeaturesAbstractController extends AbstractController {
         });
 
         searchAll.setOnAction(event -> {
-            String query = "advantage=" + isAdvantage + " and UPPER(title) like UPPER('%" + searchText.getText() + "%') or " +
-                    "advantage=" + isAdvantage + " and UPPER(titleEn) like UPPER('%" + searchText.getText() + "%') or " +
-                    "advantage=" + isAdvantage + " and UPPER(cost) like UPPER('%" + searchText.getText() + "%') or " +
-                    "advantage=" + isAdvantage + " and UPPER(description) like UPPER('%" + searchText.getText() + "%')";
+            String query = "advantage=" + isAdvantage + " and (UPPER(name) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(nameEn) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(cost) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(description) like UPPER('%" + searchText.getText() + "%'))";
             tableView.setItems(new Feature().where(query));
         });
 
-        for(String feature : new String[]{"Title", "TitleEn", "Cost", "Description"}) {
-            try {
-                MenuItem menuItem = (MenuItem) this.getClass().getDeclaredField("search" + feature).get(this);
-                menuItem.setOnAction(event -> {
-                    String query = "advantage=" + isAdvantage + " and UPPER(" + feature + ") like UPPER('%" + searchText.getText() + "%')";
-                    tableView.setItems(new Feature().where(query));
-                });
-            } catch(IllegalAccessException | NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-        }
+        searchName.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(name) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
+
+        searchNameEn.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(nameEn) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
+
+        searchCost.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(cost) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
+
+        searchDescription.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(description) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
     }
 
     protected void checkBoxEvents() {
@@ -294,8 +307,8 @@ public class FeaturesAbstractController extends AbstractController {
             activate.setCellValueFactory(p -> new SimpleBooleanProperty(p.getValue() != null));
             activate.setCellFactory(p -> new ButtonCell());
 
-            addonName.setCellValueFactory(new PropertyValueFactory<>("title"));
-            addonNameEn.setCellValueFactory(new PropertyValueFactory<>("titleEn"));
+            addonName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            addonNameEn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
             addonLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
             addonLevel.setEditable(true);
             addonCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
@@ -336,6 +349,11 @@ public class FeaturesAbstractController extends AbstractController {
                         FeatureAddon featureAddon = (FeatureAddon) new FeatureAddon().find_by(params);
                         if(featureAddon.id == null) currentRow.getStyleClass().remove("isAdd");
                         else currentRow.getStyleClass().add("isAdd");
+                    }
+
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
                     }
                 }
             });
@@ -378,7 +396,10 @@ public class FeaturesAbstractController extends AbstractController {
             @Override
             protected void updateItem(Boolean t, boolean empty) {
                 super.updateItem(t, empty);
-                if(empty) return;
+                if(empty) {
+                    setGraphic(null);
+                    return;
+                }
                 Addon addon = (Addon) getTableRow().getItem();
                 if(addon == null) return;
                 setGraphic(addon.active ? removeButton : addButton);
@@ -482,7 +503,7 @@ public class FeaturesAbstractController extends AbstractController {
                     childrenRoot = loader.load();
                     childrenStage.setResizable(false);
                     childrenStage.setScene(new Scene(childrenRoot, 635, 572));
-                    childrenStage.setTitle("GURPSGenerator - " + feature.getTitle() + " (" + feature.getTitleEn() + ")");
+                    childrenStage.setTitle("GURPSGenerator - " + feature.getName() + " (" + feature.getNameEn() + ")");
                     childrenStage.show();
                 } catch(IOException e) {
                     e.printStackTrace();
