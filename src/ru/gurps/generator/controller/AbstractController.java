@@ -1,5 +1,6 @@
 package ru.gurps.generator.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -96,6 +97,38 @@ public class AbstractController extends Main {
 
         searchCost.setOnAction(event -> {
             String query = "UPPER(cost) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(model.where(query));
+        });
+
+        searchDescription.setOnAction(event -> {
+            String query = "UPPER(description) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(model.where(query));
+        });
+    }
+
+    public void localSearch(Model model, TableView<?> tableView, TextField searchText, MenuButton searchButton,
+                            MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn,
+                            MenuItem searchDescription){
+
+        searchText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) searchButton.setDisable(true);
+            else searchButton.setDisable(false);
+        });
+
+        searchAll.setOnAction(event -> {
+            String query = "UPPER(name) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(nameEn) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(description) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(model.where(query));
+        });
+
+        searchName.setOnAction(event -> {
+            String query = "UPPER(name) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(model.where(query));
+        });
+
+        searchNameEn.setOnAction(event -> {
+            String query = "UPPER(nameEn) like UPPER('%" + searchText.getText() + "%')";
             tableView.setItems(model.where(query));
         });
 
