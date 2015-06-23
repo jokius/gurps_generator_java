@@ -88,6 +88,11 @@ public class ModifiersController extends AbstractController {
                 if(userModifier.id == null) getTableRow().getStyleClass().remove("addOne");
                 else getTableRow().getStyleClass().add("addOne");
             }
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            }
         }
     });
 
@@ -204,6 +209,11 @@ public class ModifiersController extends AbstractController {
                                 Feature feature = featuresTableView.getItems().get(getTableRow().getIndex());
                                 if(feature.modifier) getTableRow().getStyleClass().add("isAdd");
                                 else getTableRow().getStyleClass().remove("isAdd");
+                            }
+
+                            if (empty) {
+                                setText(null);
+                                setGraphic(null);
                             }
                         }
                     });

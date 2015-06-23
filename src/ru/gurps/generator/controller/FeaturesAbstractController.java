@@ -140,6 +140,11 @@ public class FeaturesAbstractController extends AbstractController {
                     currentRow.getStyleClass().remove("isAdd");
                     if(userFeature.id != null) currentRow.getStyleClass().add("isAdd");
                 }
+
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                }
             }
         });
 
@@ -345,6 +350,11 @@ public class FeaturesAbstractController extends AbstractController {
                         if(featureAddon.id == null) currentRow.getStyleClass().remove("isAdd");
                         else currentRow.getStyleClass().add("isAdd");
                     }
+
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    }
                 }
             });
         }
@@ -386,7 +396,10 @@ public class FeaturesAbstractController extends AbstractController {
             @Override
             protected void updateItem(Boolean t, boolean empty) {
                 super.updateItem(t, empty);
-                if(empty) return;
+                if(empty) {
+                    setGraphic(null);
+                    return;
+                }
                 Addon addon = (Addon) getTableRow().getItem();
                 if(addon == null) return;
                 setGraphic(addon.active ? removeButton : addButton);

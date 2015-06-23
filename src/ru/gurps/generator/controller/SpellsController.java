@@ -103,6 +103,11 @@ public class SpellsController extends AbstractController {
                 if(userSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
                 else getTableRow().getStyleClass().add("isAdd");
             }
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            }
         }
     });
 

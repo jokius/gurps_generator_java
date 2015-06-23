@@ -119,6 +119,11 @@ public class SkillsController extends AbstractController {
                 }
                 else getTableRow().getStyleClass().add("isAdd");
             }
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            }
         }
     });
 

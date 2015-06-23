@@ -92,6 +92,11 @@ public class TechniquesController extends AbstractController {
                 if(userTechnique.id == null) getTableRow().getStyleClass().remove("isAdd");
                 else getTableRow().getStyleClass().add("isAdd");
             }
+
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            }
         }
     });
 

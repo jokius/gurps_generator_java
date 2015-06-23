@@ -297,7 +297,11 @@ public class UserSheetController extends AbstractController {
         @Override
         protected void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
-            if(empty) return;
+            if(empty){
+                setText(null);
+                setGraphic(null);
+                return;
+            }
             Feature feature = (Feature) getTableRow().getItem();
             if (feature == null) return;
             setText(UserParams.featureFullNameRu(feature));
