@@ -155,24 +155,32 @@ public class FeaturesAbstractController extends AbstractController {
         });
 
         searchAll.setOnAction(event -> {
-            String query = "advantage=" + isAdvantage + " and UPPER(name) like UPPER('%" + searchText.getText() + "%') or " +
-                    "advantage=" + isAdvantage + " and UPPER(nameEn) like UPPER('%" + searchText.getText() + "%') or " +
-                    "advantage=" + isAdvantage + " and UPPER(cost) like UPPER('%" + searchText.getText() + "%') or " +
-                    "advantage=" + isAdvantage + " and UPPER(description) like UPPER('%" + searchText.getText() + "%')";
+            String query = "advantage=" + isAdvantage + " and (UPPER(name) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(nameEn) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(cost) like UPPER('%" + searchText.getText() + "%') or " +
+                    "UPPER(description) like UPPER('%" + searchText.getText() + "%'))";
             tableView.setItems(new Feature().where(query));
         });
 
-        for(String feature : new String[]{"Name", "NameEn", "Cost", "Description"}) {
-            try {
-                MenuItem menuItem = (MenuItem) this.getClass().getDeclaredField("search" + feature).get(this);
-                menuItem.setOnAction(event -> {
-                    String query = "advantage=" + isAdvantage + " and UPPER(" + feature + ") like UPPER('%" + searchText.getText() + "%')";
-                    tableView.setItems(new Feature().where(query));
-                });
-            } catch(IllegalAccessException | NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-        }
+        searchName.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(name) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
+
+        searchNameEn.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(nameEn) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
+
+        searchCost.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(cost) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
+
+        searchDescription.setOnAction(event -> {
+            String query = "advantage=" + isAdvantage + " and UPPER(description) like UPPER('%" + searchText.getText() + "%')";
+            tableView.setItems(new Feature().where(query));
+        });
     }
 
     protected void checkBoxEvents() {
