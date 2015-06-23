@@ -33,7 +33,6 @@ public class TechniquesController extends AbstractController {
     public MenuItem searchAll;
     public MenuItem searchName;
     public MenuItem searchNameEn;
-    public MenuItem searchCost;
     public MenuItem searchDescription;
     public TextField searchText;
 
@@ -118,6 +117,8 @@ public class TechniquesController extends AbstractController {
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, new TechniqueEventHandler());
             return row;
         });
+
+        localSearch(new Technique(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn, searchDescription);
     }
 
     private void setCheckBox(){
