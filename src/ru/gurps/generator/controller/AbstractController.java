@@ -1,6 +1,5 @@
 package ru.gurps.generator.controller;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
