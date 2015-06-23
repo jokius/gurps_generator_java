@@ -34,7 +34,6 @@ public class SkillsController extends AbstractController {
     public MenuItem searchAll;
     public MenuItem searchName;
     public MenuItem searchNameEn;
-    public MenuItem searchCost;
     public MenuItem searchDescription;
     public TextField searchText;
 
@@ -145,6 +144,8 @@ public class SkillsController extends AbstractController {
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, new SkillEventHandler());
             return row;
         });
+
+        localSearch(new Skill(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn, searchDescription);
     }
 
     private void setCheckBox(){
