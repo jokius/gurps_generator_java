@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 
@@ -23,6 +24,7 @@ public class MainWindowController extends AbstractController {
     // menus
     public Menu viewMenu;
     public MenuItem newMenuItem;
+    public MenuItem checkNewVersion;
 
     // tabs
     public TabPane mainTabPanel;
@@ -119,6 +121,24 @@ public class MainWindowController extends AbstractController {
             user = null;
             stage.close();
             usersStage();
+        });
+
+        checkNewVersion.setOnAction(event -> {
+            Stage childrenStage = new Stage();
+            userSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/newVersion.fxml"));
+            loader.setResources(Main.locale);
+            Parent childrenRoot;
+            try {
+                childrenRoot = loader.load();
+                childrenStage.setScene(new Scene(childrenRoot, 255, 98));
+                childrenStage.setResizable(false);
+                childrenStage.setTitle(Main.locale.getString("check_new_version"));
+                childrenStage.show();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 }

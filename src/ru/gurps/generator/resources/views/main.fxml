@@ -27,6 +27,7 @@
                 <Menu mnemonicParsing="false" text="%help">
                     <items>
                         <MenuItem mnemonicParsing="false" text="%reference_book" />
+                  <MenuItem fx:id="checkNewVersion" mnemonicParsing="false" text="%check_new_version" />
                     </items>
                 </Menu>
             </menus>
