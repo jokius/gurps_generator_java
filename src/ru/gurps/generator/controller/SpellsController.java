@@ -127,6 +127,9 @@ public class SpellsController extends AbstractController {
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, new SpellEventHandler());
             return row;
         });
+
+        localSearch(new Spell(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn,
+                searchCost, searchDescription);
     }
 
     private void setCheckBox(){
