@@ -311,11 +311,11 @@ public class UserParamsController extends AbstractController {
 
             int intValue = Integer.parseInt(newValue);
             if(user.fp == intValue) return;
-            user.per = intValue;
+            user.fp = intValue;
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
             fpCost.setText(Integer.toString(UserParams.fpCost()));
-            currentPoints(htCost, oldFpCost);
+            currentPoints(fpCost, oldFpCost);
             user.save();
         });
 
