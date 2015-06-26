@@ -223,6 +223,8 @@ public class SkillsController extends AbstractController {
             defaultParams();
 
             if(skill.specializations().isEmpty()) {
+                specialization.setVisible(false);
+
                 if(skill.add) {
                     add.setVisible(false);
                     remove.setVisible(true);
@@ -256,7 +258,6 @@ public class SkillsController extends AbstractController {
         }
 
         void defaultParams() {
-
             int defaultLevel = UserParams.skillLevel(skill);
             if(skill.level < defaultLevel) skill.level = defaultLevel;
 
