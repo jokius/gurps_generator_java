@@ -240,12 +240,15 @@ public class UserParamsController extends AbstractController {
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
             fpCost.setText(Integer.toString(UserParams.fpCost()));
-            currentPoints(htCost, oldFpCost);
+            currentPoints(fpCost, oldFpCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
             bsCost.setText(Integer.toString(UserParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
-            user.save();
+
+            int oldMoveCost = Integer.parseInt(moveCost.getText());
+            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            currentPoints(moveCost, oldMoveCost);
         });
 
         hp.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -308,11 +311,11 @@ public class UserParamsController extends AbstractController {
 
             int intValue = Integer.parseInt(newValue);
             if(user.fp == intValue) return;
-            user.per = intValue;
+            user.fp = intValue;
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
             fpCost.setText(Integer.toString(UserParams.fpCost()));
-            currentPoints(htCost, oldFpCost);
+            currentPoints(fpCost, oldFpCost);
             user.save();
         });
 

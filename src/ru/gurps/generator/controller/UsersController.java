@@ -85,7 +85,7 @@ public class UsersController extends AbstractController {
         
         remove.setOnAction(event ->{
             usersData.remove(index);
-            new User().delete(user.id);
+            user.delete();
             userTable.setItems(usersData);
             load.setDisable(true);
             remove.setDisable(true);
