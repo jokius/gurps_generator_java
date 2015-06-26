@@ -144,4 +144,17 @@ public class User extends Model {
         if(player == null || player.equals("")) return "-";
         else return player;
     }
+
+    public boolean delete(){
+        new UserFeature().delete_all(new UserFeature().where("userId", id));
+        new UserModifier().delete_all(new UserModifier().where("userId", id));
+        new UserLanguage().delete_all(new UserLanguage().where("userId", id));
+        new UserSkill().delete_all(new UserSkill().where("userId", id));
+        new UserSkillSpecialization().delete_all(new UserSkillSpecialization().where("userId", id));
+        new UserCultura().delete_all(new UserCultura().where("userId", id));
+        new UserQuirk().delete_all(new UserQuirk().where("userId", id));
+        new UserSpell().delete_all(new UserSpell().where("userId", id));
+        new UserTechnique().delete_all(new UserTechnique().where("userId", id));
+        return super.delete();
+    }
 }
