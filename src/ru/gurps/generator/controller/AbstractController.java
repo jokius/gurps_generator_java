@@ -1,5 +1,6 @@
 package ru.gurps.generator.controller;
 
+import com.google.gson.JsonObject;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,18 +11,25 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.apache.http.HttpHost;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 import ru.gurps.generator.models.User;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 
 public class AbstractController extends Main {
     public static User user;
     public static Label globalCost;
     public static Stage stage = new Stage();
     public static URI urlToLastVersion;
+    public static HttpClient httpClient = HttpClientBuilder.create().build();
+    HttpHost server = new HttpHost("generator-gurps.rhcloud.com", 80, "http");
+    //public static HttpHost server = new HttpHost("localhost", 3000, "http");
 
     protected void createMainStage(){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
@@ -110,7 +118,7 @@ public class AbstractController extends Main {
                             MenuItem searchDescription){
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("")) searchButton.setDisable(true);
+            if (newValue.equals("")) searchButton.setDisable(true);
             else searchButton.setDisable(false);
         });
 
@@ -135,5 +143,12 @@ public class AbstractController extends Main {
             String query = "UPPER(description) like UPPER('%" + searchText.getText() + "%')";
             tableView.setItems(model.where(query));
         });
+    }
+
+    public HashMap<String, Object> pages(JsonObject pagination){
+        HashMap<String, Object> pages = new HashMap<>();
+        pages.put("page", pagination.get("current_page").getAsInt());
+        pages.put("next", pagination.get("current_page").getAsInt() <= pagination.get("total_pages").getAsInt());
+        return pages;
     }
 }
