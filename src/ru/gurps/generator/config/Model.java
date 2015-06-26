@@ -220,7 +220,7 @@ public class Model extends Db {
     public Model find_by(String column, Object value) {
         try {
             createConnection();
-            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "='" + value + "'");
             result.next();
             return setModel(result);
         } catch (SQLException e) {
