@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         String parent = "\\w*.jar";
-        String jarFolder = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, "");
+        String jarFolder = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, ""), "UTF-8");
         File file = new File(jarFolder + "db/gurps.mv.db");
 
         if(!file.exists() || file.isDirectory()) {
