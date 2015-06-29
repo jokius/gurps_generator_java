@@ -1,5 +1,6 @@
 package ru.gurps.generator.controller;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -177,7 +178,7 @@ public class LanguagesController extends AbstractController {
             if (httpResponse.getStatusLine().getStatusCode() == 204) return;
             BufferedReader br = new BufferedReader(new InputStreamReader((entity.getContent())));
             String response = br.readLine();
-            String error = new JsonParser().parse(response).getAsJsonObject().get("error").getAsString();
+            JsonElement error = new JsonParser().parse(response).getAsJsonObject().get("error");
             System.out.println(error);
         } catch (HttpHostConnectException ignore) {
         } catch (IOException e) {
