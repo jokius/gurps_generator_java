@@ -372,7 +372,7 @@ public class UserParamsController extends AbstractController {
         });
 
         player.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(user.player.equals(newValue)) return;
+            if(user.player != null && user.player.equals(newValue)) return;
             user.update_single("player", newValue);
         });
 
@@ -399,6 +399,36 @@ public class UserParamsController extends AbstractController {
             } catch(NumberFormatException e){
                 tlCost.setText(Integer.toString(user.tlCost));
             }
+        });
+
+        growth.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) return;
+            if(!newValue.matches("\\d+")) {
+                growth.setText(Integer.toString(user.growth));
+                return;
+            }
+
+            user.update_single("growth", Integer.parseInt(newValue));
+        });
+
+        weight.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) return;
+            if(!newValue.matches("\\d+")) {
+                weight.setText(Integer.toString(user.weight));
+                return;
+            }
+
+            user.update_single("weight", Integer.parseInt(newValue));
+        });
+
+        age.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("")) return;
+            if(!newValue.matches("\\d+")) {
+                age.setText(Integer.toString(user.age));
+                return;
+            }
+
+            user.update_single("age", Integer.parseInt(newValue));
         });
     }
 
