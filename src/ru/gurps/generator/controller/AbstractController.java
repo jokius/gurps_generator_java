@@ -163,4 +163,11 @@ public class AbstractController extends Main {
         pages.put("next", pagination.get("current_page").getAsInt() <= pagination.get("total_pages").getAsInt());
         return pages;
     }
+
+    public HashMap<String, Object> pages(JsonObject pagination){
+        HashMap<String, Object> pages = new HashMap<>();
+        pages.put("page", pagination.get("current_page").getAsInt());
+        pages.put("next", pagination.get("current_page").getAsInt() <= pagination.get("total_pages").getAsInt());
+        return pages;
+    }
 }
