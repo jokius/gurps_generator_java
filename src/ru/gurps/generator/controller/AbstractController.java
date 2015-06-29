@@ -28,6 +28,7 @@ public class AbstractController extends Main {
         loader.setResources(Main.locale);
         stage.setMinWidth(670);
         stage.setMinHeight(560);
+        stage.setResizable(true);
         try {
             Parent childrenRoot = loader.load();
             stage.setScene(new Scene(childrenRoot, 670, 540));
