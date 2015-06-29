@@ -157,7 +157,10 @@ public class FeaturesAbstractController extends AbstractController {
 
     protected void setSearch() {
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("")) searchButton.setDisable(true);
+            if(newValue.equals("")) {
+                searchButton.setDisable(true);
+                tableView.setItems(new Feature().where("advantage", isAdvantage));
+            }
             else searchButton.setDisable(false);
         });
 
