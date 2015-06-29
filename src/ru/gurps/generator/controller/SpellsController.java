@@ -37,6 +37,7 @@ public class SpellsController extends AbstractController {
     public MenuItem searchNameEn;
     public MenuItem searchCost;
     public MenuItem searchDescription;
+    public MenuItem reset;
     public TextField searchText;
 
 
@@ -134,7 +135,7 @@ public class SpellsController extends AbstractController {
         });
 
         localSearch(new Spell(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn,
-                searchCost, searchDescription);
+                searchCost, searchDescription, reset);
     }
 
     private void setCheckBox(){

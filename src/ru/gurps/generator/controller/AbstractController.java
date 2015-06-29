@@ -3,11 +3,7 @@ package ru.gurps.generator.controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
@@ -70,10 +66,13 @@ public class AbstractController extends Main {
 
     public void localSearch(Model model, TableView<?> tableView, TextField searchText, MenuButton searchButton,
                             MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost,
-                            MenuItem searchDescription){
+                            MenuItem searchDescription, MenuItem reset){
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("")) searchButton.setDisable(true);
+            if(newValue.equals("")) {
+                searchButton.setDisable(true);
+                tableView.setItems(model.all());
+            }
             else searchButton.setDisable(false);
         });
 
@@ -104,11 +103,17 @@ public class AbstractController extends Main {
             String query = "UPPER(description) like UPPER('%" + searchText.getText() + "%')";
             tableView.setItems(model.where(query));
         });
+
+        reset.setOnAction(event -> {
+            searchText.setText("");
+            searchButton.setDisable(true);
+            tableView.setItems(model.all());
+        });
     }
 
-    public void localSearch(Model model, TableView<?> tableView, TextField searchText, MenuButton searchButton,
+    public void localSearch(Model model, TableView<?> tableView,  TextField searchText, MenuButton searchButton,
                             MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn,
-                            MenuItem searchDescription){
+                            MenuItem searchDescription, MenuItem reset){
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) searchButton.setDisable(true);
@@ -135,6 +140,12 @@ public class AbstractController extends Main {
         searchDescription.setOnAction(event -> {
             String query = "UPPER(description) like UPPER('%" + searchText.getText() + "%')";
             tableView.setItems(model.where(query));
+        });
+
+        reset.setOnAction(event -> {
+            searchText.setText("");
+            searchButton.setDisable(true);
+            tableView.setItems(model.all());
         });
     }
 }
