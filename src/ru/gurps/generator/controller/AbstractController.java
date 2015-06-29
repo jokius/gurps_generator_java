@@ -24,7 +24,7 @@ public class AbstractController extends Main {
     public static Stage stage = new Stage();
     public static URI urlToLastVersion;
     public static HttpClient httpClient = HttpClientBuilder.create().build();
-    HttpHost server = new HttpHost("generator-gurps.rhcloud.com", 80, "http");
+    public static HttpHost server = new HttpHost("generator-gurps.rhcloud.com", 80, "http");
     //public static HttpHost server = new HttpHost("localhost", 3000, "http");
 
     protected void createMainStage(){
@@ -155,13 +155,6 @@ public class AbstractController extends Main {
             searchButton.setDisable(true);
             tableView.setItems(model.all());
         });
-    }
-
-    public HashMap<String, Object> pages(JsonObject pagination){
-        HashMap<String, Object> pages = new HashMap<>();
-        pages.put("page", pagination.get("current_page").getAsInt());
-        pages.put("next", pagination.get("current_page").getAsInt() <= pagination.get("total_pages").getAsInt());
-        return pages;
     }
 
     public HashMap<String, Object> pages(JsonObject pagination){
