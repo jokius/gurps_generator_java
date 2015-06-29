@@ -42,6 +42,7 @@ public class DisadvantagesController extends AbstractController {
     public MenuItem searchNameEn;
     public MenuItem searchCost;
     public MenuItem searchDescription;
+    public MenuItem reset;
     public TextField searchText;
 
     @FXML
@@ -49,6 +50,6 @@ public class DisadvantagesController extends AbstractController {
         new FeaturesAbstractController(tableView, addonsTableView, name, nameEn, type, cost, description, bottomMenu, lvlComboBox,
                 lvlLabel, lvlText, add, remove, full, finalCost, finalCostText, activate, addonName, addonNameEn,
                 addonLevel, addonCost, checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, searchButton, searchAll,
-                searchName, searchNameEn, searchCost, searchDescription, searchText, false);
+                searchName, searchNameEn, searchCost, searchDescription, reset, searchText, false);
     }
 }
