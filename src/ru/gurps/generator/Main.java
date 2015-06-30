@@ -17,11 +17,12 @@ import java.util.ResourceBundle;
 public class Main extends Application {
     public static final String VERSION = "v0.1.1";
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
+    public static String jarFolder;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         String parent = "\\w*.jar";
-        String jarFolder = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, ""), "UTF-8");
+        jarFolder = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, ""), "UTF-8");
         File file = new File(jarFolder + "db/gurps.mv.db");
 
         if(!file.exists() || file.isDirectory()) {
