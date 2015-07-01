@@ -170,7 +170,6 @@ public class LanguagesController extends AbstractController {
             HttpPost httpPost = new HttpPost("/api/languages");
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("language", name));
-            params.add(new BasicNameValuePair("password", "secret"));
             httpPost.setEntity(new UrlEncodedFormEntity(params,"UTF-8"));
             HttpResponse httpResponse = httpClient.execute(server, httpPost);
             HttpEntity entity = httpResponse.getEntity();
