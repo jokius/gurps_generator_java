@@ -6,7 +6,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.CulturasController">
     <children>
-        <TableView fx:id="tableView" prefHeight="415.0" prefWidth="657.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="tableView" prefHeight="318.0" prefWidth="645.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="392.0" text="%cultura" />
                 <TableColumn fx:id="costColumn" minWidth="0.0" prefWidth="89.0" text="%cost" />
@@ -19,5 +19,7 @@
         <Button fx:id="addButton" disable="true" layoutX="461.0" layoutY="431.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="%add" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="461.0" />
         <TextField fx:id="costText" layoutX="366.0" layoutY="431.0" prefHeight="26.0" prefWidth="80.0" text="0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="366.0" />
         <Label alignment="CENTER" layoutX="366.0" layoutY="415.0" prefHeight="16.0" prefWidth="80.0" text="%cost" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="366.0" />
+        <Button fx:id="updateFromServer" layoutX="284.0" layoutY="321.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="Обновить с сервера" AnchorPane.bottomAnchor="52.0" AnchorPane.rightAnchor="196.0" />
+        <Button fx:id="sedToServer" disable="true" layoutX="471.0" layoutY="321.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="Зашрузить на сервер" AnchorPane.bottomAnchor="52.0" AnchorPane.rightAnchor="9.0" />
     </children>
 </AnchorPane>
