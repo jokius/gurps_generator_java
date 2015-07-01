@@ -3,31 +3,30 @@ package ru.gurps.generator.lib.export;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.models.*;
 
 import java.io.*;
-import java.util.HashMap;
 
 public class ExcelJokSheetFormat extends AbstractController {
     private Sheet sheet;
     XSSFWorkbook wb;
+    private final static XSSFColor ADVANTAGE = new XSSFColor(new java.awt.Color(41, 173, 63));
+    private final static XSSFColor DISADVANTAGE = new XSSFColor(new java.awt.Color(178, 71, 75));
+    private final static XSSFColor SKILLS = new XSSFColor(new java.awt.Color(159, 200, 105));
+    private final static XSSFColor SPILLS = new XSSFColor(new java.awt.Color(95, 188, 182));
 
     public ExcelJokSheetFormat(File newFile) {
-        String parent = "\\w*.jar";
-        String jarFolder = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().
-                replaceAll(parent, "");
         try {
             InputStream file = new FileInputStream(new File(jarFolder + "views" + File.separator +
-                    "xlsx" + File.separator + "forGenerator1.0.xlsx"));
+                    "xlsx" + File.separator + "vFromJok.xlsx"));
             wb = new XSSFWorkbook(file);
             sheet = wb.getSheetAt(0);
 
             Row featureRow = null;
-            Row skillRow = null;
 
             for(Row row : sheet) {
                 for(Cell cell : row) {
@@ -165,6 +164,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             style.setBorderTop(XSSFCellStyle.BORDER_THIN);
             style.setBorderRight(XSSFCellStyle.BORDER_THIN);
             style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
             row = sheet.createRow(rowNum);
             Cell featureCell = row.createCell(0);
@@ -174,8 +174,8 @@ public class ExcelJokSheetFormat extends AbstractController {
             featureCell.setCellValue(UserParams.featureFullNameRu(feature));
             costCell.setCellValue(feature.cost);
 
-            if(feature.advantage) style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
-            else style.setFillForegroundColor(IndexedColors.RED.getIndex());
+            if(feature.advantage) style.setFillForegroundColor(ADVANTAGE);
+            else style.setFillForegroundColor(DISADVANTAGE);
 
             featureCell.setCellStyle(style);
             costCell.setCellStyle(style);
@@ -193,6 +193,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             style.setBorderTop(XSSFCellStyle.BORDER_THIN);
             style.setBorderRight(XSSFCellStyle.BORDER_THIN);
             style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
             if(skillRowNum < rowNum) row = sheet.getRow(skillRowNum);
             else row = sheet.createRow(skillRowNum);
@@ -208,7 +209,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             levelCell.setCellValue(skill.level);
             levelCell.setCellStyle(style);
             costCell.setCellValue(skill.cost);
-            style.setFillForegroundColor(IndexedColors.OLIVE_GREEN.getIndex());
+            style.setFillForegroundColor(SKILLS);
 
             skillCell.setCellStyle(style);
             complexityCell.setCellStyle(style);
@@ -227,6 +228,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             style.setBorderTop(XSSFCellStyle.BORDER_THIN);
             style.setBorderRight(XSSFCellStyle.BORDER_THIN);
             style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
             if(skillRowNum < rowNum) row = sheet.getRow(skillRowNum);
             else row = sheet.createRow(skillRowNum);
@@ -241,7 +243,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             complexityCell.setCellValue(spell.getComplexity());
             levelCell.setCellValue(spell.level);
             costCell.setCellValue(spell.finalCost);
-            style.setFillForegroundColor(IndexedColors.CORNFLOWER_BLUE.getIndex());
+            style.setFillForegroundColor(SPILLS);
 
             spellCell.setCellStyle(style);
             complexityCell.setCellStyle(style);
