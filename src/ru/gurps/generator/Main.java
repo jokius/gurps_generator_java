@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
-    public static final String VERSION = "v0.1.1";
+    public static final String VERSION = "v0.1.2";
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
     public static String jarFolder;
 
