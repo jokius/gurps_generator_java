@@ -22,7 +22,7 @@ public class ExcelJokSheetFormat extends AbstractController {
     public ExcelJokSheetFormat(File newFile) {
         try {
             InputStream file = new FileInputStream(new File(jarFolder + "views" + File.separator +
-                    "xlsx" + File.separator + "forGenerator1.0.xlsx"));
+                    "xlsx" + File.separator + "vFromJok.xlsx"));
             wb = new XSSFWorkbook(file);
             sheet = wb.getSheetAt(0);
 
