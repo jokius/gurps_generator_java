@@ -7,16 +7,26 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.HttpClientBuilder;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 import ru.gurps.generator.models.User;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 
 public class AbstractController extends Main {
     public static User user;
@@ -27,7 +37,7 @@ public class AbstractController extends Main {
     public static HttpHost server = new HttpHost("generator-gurps.rhcloud.com", 80, "http");
     //public static HttpHost server = new HttpHost("localhost", 3000, "http");
 
-    protected void createMainStage(){
+    protected void createMainStage() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
         loader.setResources(Main.locale);
         stage.setMinWidth(670);
@@ -43,7 +53,7 @@ public class AbstractController extends Main {
         }
     }
 
-    protected void createGenerateStage(){
+    protected void createGenerateStage() {
         stage.setResizable(false);
         stage.setMinWidth(516);
         stage.setMinHeight(466);
@@ -54,34 +64,33 @@ public class AbstractController extends Main {
             stage.setScene(new Scene(childrenRoot, 516, 466));
             stage.setTitle("GURPSGenerator");
             stage.show();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void setCurrentPoints(int points){
+    public void setCurrentPoints(int points) {
         String sPoints = Integer.toString(points);
         globalCost.setText(sPoints);
         user.update_single("currentPoints", sPoints);
-        if(Integer.parseInt(user.maxPoints) >= points) globalCost.setTextFill(Color.GREEN);
+        if (Integer.parseInt(user.maxPoints) >= points) globalCost.setTextFill(Color.GREEN);
         else globalCost.setTextFill(Color.RED);
     }
 
-    public int globalCost(){
+    public int globalCost() {
         return Integer.parseInt(globalCost.getText());
     }
 
 
     public void localSearch(Model model, TableView<?> tableView, TextField searchText, MenuButton searchButton,
                             MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost,
-                            MenuItem searchDescription, MenuItem reset){
+                            MenuItem searchDescription, MenuItem reset) {
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("")) {
+            if (newValue.equals("")) {
                 searchButton.setDisable(true);
                 tableView.setItems(model.all());
-            }
-            else searchButton.setDisable(false);
+            } else searchButton.setDisable(false);
         });
 
         searchAll.setOnAction(event -> {
@@ -119,9 +128,9 @@ public class AbstractController extends Main {
         });
     }
 
-    public void localSearch(Model model, TableView<?> tableView,  TextField searchText, MenuButton searchButton,
+    public void localSearch(Model model, TableView<?> tableView, TextField searchText, MenuButton searchButton,
                             MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn,
-                            MenuItem searchDescription, MenuItem reset){
+                            MenuItem searchDescription, MenuItem reset) {
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.equals("")) searchButton.setDisable(true);
@@ -157,10 +166,43 @@ public class AbstractController extends Main {
         });
     }
 
-    public HashMap<String, Object> pages(JsonObject pagination){
+    public HashMap<String, Object> pages(JsonObject pagination) {
         HashMap<String, Object> pages = new HashMap<>();
         pages.put("page", pagination.get("current_page").getAsInt());
         pages.put("next", pagination.get("current_page").getAsInt() <= pagination.get("total_pages").getAsInt());
         return pages;
+    }
+
+
+    public String getPage(String what, int page) {
+        try {
+            HttpGet getRequest = new HttpGet("/api/" + what + "?page=" + page);
+            HttpResponse httpResponse = httpClient.execute(server, getRequest);
+            HttpEntity entity = httpResponse.getEntity();
+            if (entity == null) return "";
+
+            BufferedReader br = new BufferedReader(new InputStreamReader((entity.getContent())));
+            return br.readLine();
+
+        } catch (HttpHostConnectException e) {
+            return "";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public HttpResponse sendRequest(String what, List<NameValuePair> params) {
+        HttpPost httpPost = new HttpPost("/api/" + what);
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+            return httpClient.execute(server, httpPost);
+        } catch (HttpHostConnectException ignore) {
+            return null;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

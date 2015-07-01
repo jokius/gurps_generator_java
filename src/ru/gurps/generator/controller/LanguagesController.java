@@ -1,6 +1,5 @@
 package ru.gurps.generator.controller;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -15,10 +14,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.message.BasicNameValuePair;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.models.Language;
@@ -128,7 +123,7 @@ public class LanguagesController extends AbstractController {
     }
 
     private void updateFromServer() {
-        String repose = getLanguages(1);
+        String repose = getPage("languages", 1);
         if (repose.equals("")) return;
         JsonObject json = new JsonParser().parse(repose).getAsJsonObject();
         boolean next = newLanguages(json);
@@ -136,7 +131,7 @@ public class LanguagesController extends AbstractController {
 
         if (next) {
             while (next && (Boolean) pages.get("next")) {
-                json = new JsonParser().parse(getLanguages((int) pages.get("page") + 1)).getAsJsonObject();
+                json = new JsonParser().parse(getPage("languages", (int) pages.get("page") + 1)).getAsJsonObject();
                 pages = pages(json.getAsJsonObject("pagination"));
                 next = newLanguages(json);
             }
@@ -145,41 +140,21 @@ public class LanguagesController extends AbstractController {
         setLanguages();
     }
 
-    private String getLanguages(int page) {
-        try {
-            HttpGet getRequest = new HttpGet("/api/languages?page=" + page);
-            HttpResponse httpResponse = httpClient.execute(server, getRequest);
-            HttpEntity entity = httpResponse.getEntity();
-            if (entity == null) return "";
-
-            BufferedReader br = new BufferedReader(new InputStreamReader((entity.getContent())));
-            return br.readLine();
-
-        } catch (HttpHostConnectException e) {
-            return "";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
     private void sedToServer(String name) {
         sedToServer.setDisable(true);
 
-        try {
-            HttpPost httpPost = new HttpPost("/api/languages");
-            List<NameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("language", name));
-            httpPost.setEntity(new UrlEncodedFormEntity(params,"UTF-8"));
-            HttpResponse httpResponse = httpClient.execute(server, httpPost);
-            HttpEntity entity = httpResponse.getEntity();
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("language", name));
+        HttpResponse httpResponse = sendRequest("languages", params);
+        if(httpResponse == null) return;
+        if (httpResponse.getStatusLine().getStatusCode() == 204) return;
 
-            if (httpResponse.getStatusLine().getStatusCode() == 204) return;
+        try {
+            HttpEntity entity = httpResponse.getEntity();
             BufferedReader br = new BufferedReader(new InputStreamReader((entity.getContent())));
             String response = br.readLine();
             JsonElement error = new JsonParser().parse(response).getAsJsonObject().get("error");
             System.out.println(error);
-        } catch (HttpHostConnectException ignore) {
         } catch (IOException e) {
             e.printStackTrace();
         }
