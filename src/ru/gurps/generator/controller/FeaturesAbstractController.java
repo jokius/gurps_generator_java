@@ -58,6 +58,7 @@ public class FeaturesAbstractController extends AbstractController {
     private MenuItem searchNameEn;
     private MenuItem searchCost;
     private MenuItem searchDescription;
+    public MenuItem reset;
     private TextField searchText;
     private boolean isAdvantage;
     private int lastId;
@@ -65,7 +66,7 @@ public class FeaturesAbstractController extends AbstractController {
     protected ArrayList<Integer> featuresNumbers = new ArrayList<>();
     protected ObservableList<Feature> data = FXCollections.observableArrayList();
 
-    public FeaturesAbstractController(TableView<Feature> tableView, TableView<Addon> addonsTableView, TableColumn<Feature, String> name, TableColumn<Feature, String> nameEn, TableColumn<Feature, String> type, TableColumn<Feature, String> cost, TableColumn<Feature, String> description, AnchorPane bottomMenu, ComboBox<Integer> lvlComboBox, Label lvlLabel, TextField lvlText, Button add, Button remove, Button full, Label finalCost, TextField finalCostText, TableColumn<Addon, Boolean> activate, TableColumn<Addon, String> addonName, TableColumn<Addon, String> addonNameEn, TableColumn<Addon, String> addonLevel, TableColumn<Addon, String> addonCost, CheckMenuItem checkBox1, CheckMenuItem checkBox2, CheckMenuItem checkBox3, CheckMenuItem checkBox4, CheckMenuItem checkBox5, MenuButton searchButton, MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost, MenuItem searchDescription, TextField searchText, boolean isAdvantage) {
+    public FeaturesAbstractController(TableView<Feature> tableView, TableView<Addon> addonsTableView, TableColumn<Feature, String> name, TableColumn<Feature, String> nameEn, TableColumn<Feature, String> type, TableColumn<Feature, String> cost, TableColumn<Feature, String> description, AnchorPane bottomMenu, ComboBox<Integer> lvlComboBox, Label lvlLabel, TextField lvlText, Button add, Button remove, Button full, Label finalCost, TextField finalCostText, TableColumn<Addon, Boolean> activate, TableColumn<Addon, String> addonName, TableColumn<Addon, String> addonNameEn, TableColumn<Addon, String> addonLevel, TableColumn<Addon, String> addonCost, CheckMenuItem checkBox1, CheckMenuItem checkBox2, CheckMenuItem checkBox3, CheckMenuItem checkBox4, CheckMenuItem checkBox5, MenuButton searchButton, MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost, MenuItem searchDescription, MenuItem reset, TextField searchText, boolean isAdvantage) {
         this.tableView = tableView;
         this.addonsTableView = addonsTableView;
         this.name = name;
@@ -98,6 +99,7 @@ public class FeaturesAbstractController extends AbstractController {
         this.searchNameEn = searchNameEn;
         this.searchCost = searchCost;
         this.searchDescription = searchDescription;
+        this.reset = reset;
         this.searchText = searchText;
         this.isAdvantage = isAdvantage;
         for(int i = 1; 5 >= i; i++) featuresNumbers.add(i);
@@ -129,7 +131,7 @@ public class FeaturesAbstractController extends AbstractController {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                if(item != null || !empty) {
+                if (item != null || !empty) {
                     setText(item);
                     TableRow currentRow = getTableRow();
                     Feature feature = tableView.getItems().get(currentRow.getIndex());
@@ -138,7 +140,7 @@ public class FeaturesAbstractController extends AbstractController {
                     featureParams.put("featureId", feature.id);
                     UserFeature userFeature = (UserFeature) new UserFeature().find_by(featureParams);
                     currentRow.getStyleClass().remove("isAdd");
-                    if(userFeature.id != null) currentRow.getStyleClass().add("isAdd");
+                    if (userFeature.id != null) currentRow.getStyleClass().add("isAdd");
                 }
 
                 if (empty) {
@@ -155,7 +157,10 @@ public class FeaturesAbstractController extends AbstractController {
 
     protected void setSearch() {
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("")) searchButton.setDisable(true);
+            if(newValue.equals("")) {
+                searchButton.setDisable(true);
+                tableView.setItems(new Feature().where("advantage", isAdvantage));
+            }
             else searchButton.setDisable(false);
         });
 
@@ -185,6 +190,12 @@ public class FeaturesAbstractController extends AbstractController {
         searchDescription.setOnAction(event -> {
             String query = "advantage=" + isAdvantage + " and UPPER(description) like UPPER('%" + searchText.getText() + "%')";
             tableView.setItems(new Feature().where(query));
+        });
+
+        reset.setOnAction(event -> {
+            searchText.setText("");
+            searchButton.setDisable(true);
+            tableView.setItems(new Feature().where("advantage", isAdvantage));
         });
     }
 

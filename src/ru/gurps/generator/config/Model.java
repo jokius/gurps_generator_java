@@ -82,8 +82,7 @@ public class Model extends Db {
         try {
             this.getClass().getDeclaredField(key).set(this, value);
             createConnection();
-
-            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + key + "=" + value + " WHERE id=" + id());
+            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + key + "='" + value + "' WHERE id=" + id());
             return true;
         } catch (IllegalAccessException | NoSuchFieldException | SQLException e) {
             e.printStackTrace();
@@ -220,7 +219,7 @@ public class Model extends Db {
     public Model find_by(String column, Object value) {
         try {
             createConnection();
-            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "='" + value + "'");
             result.next();
             return setModel(result);
         } catch (SQLException e) {

@@ -35,6 +35,7 @@ public class SkillsController extends AbstractController {
     public MenuItem searchName;
     public MenuItem searchNameEn;
     public MenuItem searchDescription;
+    public MenuItem reset;
     public TextField searchText;
 
 
@@ -150,7 +151,8 @@ public class SkillsController extends AbstractController {
             return row;
         });
 
-        localSearch(new Skill(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn, searchDescription);
+        localSearch(new Skill(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn,
+                searchDescription, reset);
     }
 
     private void setCheckBox(){

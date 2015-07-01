@@ -1,30 +1,31 @@
 package ru.gurps.generator.lib.export;
 
-import javafx.collections.ObservableList;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ru.gurps.generator.Main;
-import ru.gurps.generator.controller.UsersController;
+import ru.gurps.generator.controller.AbstractController;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.models.*;
 
 import java.io.*;
-import java.util.HashMap;
 
-public class ExcelJokSheetFormat {
+public class ExcelJokSheetFormat extends AbstractController {
+    private Sheet sheet;
+    XSSFWorkbook wb;
+    private final static XSSFColor ADVANTAGE = new XSSFColor(new java.awt.Color(41, 173, 63));
+    private final static XSSFColor DISADVANTAGE = new XSSFColor(new java.awt.Color(178, 71, 75));
+    private final static XSSFColor SKILLS = new XSSFColor(new java.awt.Color(159, 200, 105));
+    private final static XSSFColor SPILLS = new XSSFColor(new java.awt.Color(95, 188, 182));
 
     public ExcelJokSheetFormat(File newFile) {
-        String parent = "\\w*.jar";
-        String jarFolder = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, "");
         try {
-            InputStream file = new FileInputStream(new File(jarFolder + "views"+File.separator+"xlsx"+File.separator+"forGenerator1.0.xlsx"));
-            XSSFWorkbook wb = new XSSFWorkbook(file);
-            Sheet sheet = wb.getSheetAt(0);
+            InputStream file = new FileInputStream(new File(jarFolder + "views" + File.separator +
+                    "xlsx" + File.separator + "vFromJok.xlsx"));
+            wb = new XSSFWorkbook(file);
+            sheet = wb.getSheetAt(0);
 
-            User user = UsersController.user;
-            ObservableList<Feature> features = user.features();
             Row featureRow = null;
 
             for(Row row : sheet) {
@@ -118,54 +119,20 @@ public class ExcelJokSheetFormat {
                 }
             }
 
-            if(featureRow == null) return;
-            int rowNum = featureRow.getRowNum();
-
-            sheet.removeRow(featureRow);
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("userId", user.id);
-
-            for(Feature feature : features){
-                featureRow = sheet.createRow(rowNum);
-                Cell featureCell = featureRow.createCell(0);
-                Cell costCell = featureRow.createCell(6);
-                String stringAddons = "";
-                params.put("featureId", feature.id);
-                UserFeature userFeature = (UserFeature) new UserFeature().find_by(params);
-
-                for(Object object : new FeatureAddon().where("userFeatureId", userFeature.id)){
-                    FeatureAddon featureAddon = (FeatureAddon) object;
-                    Addon addon = (Addon) new Addon().find(featureAddon.addonId);
-                    if(stringAddons.equals("")) stringAddons = " (" + addon.name + ", "+Main.locale.getString("level")+": " + featureAddon.level +
-                            ", "+Main.locale.getString("cost")+": " + featureAddon.cost + "%";
-                    else stringAddons += "; " + addon.name + ", "+Main.locale.getString("level")+": " + featureAddon.level +
-                            ", "+Main.locale.getString("cost")+": " + featureAddon.cost + "%";
-                }
-                if(!stringAddons.equals("")) stringAddons += ")";
-
-                sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
-                featureCell.setCellValue(feature.name + stringAddons);
-                costCell.setCellValue(feature.cost);
-                XSSFCellStyle style = wb.createCellStyle();
-                if(feature.advantage) style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
-                else style.setFillForegroundColor(IndexedColors.RED.getIndex());
-                style.setFillPattern(CellStyle.ALIGN_CENTER);
-                Font font = wb.createFont();
-                font.setFontHeightInPoints((short) 12);
-                font.setFontName("Times New Roman");
-                style.setFont(font);
-                costCell.setCellStyle(style);
-                featureCell.setCellStyle(style);
-                rowNum ++;
-            }
-
-            FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
-            for(Row r : sheet) {
-                for(Cell c : r) {
-                    if(c.getCellType() == Cell.CELL_TYPE_FORMULA) {
-                        if(c.getCellFormula().equals("SUM(C4:C7,F4:F7,G31:G31,E9,F1)"))
-                        c.setCellFormula("SUM(C4:C7,F4:F7,G31:G" + rowNum + ",E9,F1)");
-                        evaluator.evaluateFormulaCell(c);
+            if(featureRow != null){
+                int beginRowNum = featureRow.getRowNum();
+                int endRowNum = setFeatures(featureRow);
+                FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+                for(Row r : sheet) {
+                    for(Cell c : r) {
+                        if(c.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                            if(c.getCellFormula().equals("SUM(C4:C7,F4:F7,G31:G31,E9,F1)"))
+                                c.setCellFormula("SUM(C4:C7,F4:F7" +
+                                        ",G" + beginRowNum + ":G" + endRowNum +
+                                        ",L" + beginRowNum + ":L" + endRowNum +
+                                        ",E9,F1)");
+                            evaluator.evaluateFormulaCell(c);
+                        }
                     }
                 }
             }
@@ -178,5 +145,113 @@ public class ExcelJokSheetFormat {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private int setFeatures(Row featureRow) {
+        Row row;
+        int rowNum = featureRow.getRowNum();
+        int skillRowNum = featureRow.getRowNum();
+        sheet.removeRow(featureRow);
+
+        for(Feature feature : user.features()){
+            XSSFCellStyle style = wb.createCellStyle();
+            Font font = wb.createFont();
+            font.setFontHeightInPoints((short) 12);
+            font.setFontName("Times New Roman");
+            style.setFillPattern(CellStyle.ALIGN_CENTER);
+            style.setFont(font);
+            style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+            style.setBorderTop(XSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(XSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+            row = sheet.createRow(rowNum);
+            Cell featureCell = row.createCell(0);
+            Cell costCell = row.createCell(6);
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
+
+            featureCell.setCellValue(UserParams.featureFullNameRu(feature));
+            costCell.setCellValue(feature.cost);
+
+            if(feature.advantage) style.setFillForegroundColor(ADVANTAGE);
+            else style.setFillForegroundColor(DISADVANTAGE);
+
+            featureCell.setCellStyle(style);
+            costCell.setCellStyle(style);
+            rowNum ++;
+        }
+
+        for(Skill skill : user.skills()){
+            XSSFCellStyle style = wb.createCellStyle();
+            Font font = wb.createFont();
+            font.setFontHeightInPoints((short) 12);
+            font.setFontName("Times New Roman");
+            style.setFillPattern(CellStyle.ALIGN_CENTER);
+            style.setFont(font);
+            style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+            style.setBorderTop(XSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(XSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+            if(skillRowNum < rowNum) row = sheet.getRow(skillRowNum);
+            else row = sheet.createRow(skillRowNum);
+
+            Cell skillCell = row.createCell(7);
+            Cell complexityCell = row.createCell(9);
+            Cell levelCell = row.createCell(10);
+            Cell costCell = row.createCell(11);
+            sheet.addMergedRegion(new CellRangeAddress(skillRowNum, skillRowNum, 7, 8));
+
+            skillCell.setCellValue(skill.name);
+            complexityCell.setCellValue(skill.getTypeAndComplexity());
+            levelCell.setCellValue(skill.level);
+            levelCell.setCellStyle(style);
+            costCell.setCellValue(skill.cost);
+            style.setFillForegroundColor(SKILLS);
+
+            skillCell.setCellStyle(style);
+            complexityCell.setCellStyle(style);
+            costCell.setCellStyle(style);
+            skillRowNum++;
+        }
+
+        for(Spell spell : user.spells()){
+            XSSFCellStyle style = wb.createCellStyle();
+            Font font = wb.createFont();
+            font.setFontHeightInPoints((short) 12);
+            font.setFontName("Times New Roman");
+            style.setFillPattern(CellStyle.ALIGN_CENTER);
+            style.setFont(font);
+            style.setBorderBottom(XSSFCellStyle.BORDER_THIN);
+            style.setBorderTop(XSSFCellStyle.BORDER_THIN);
+            style.setBorderRight(XSSFCellStyle.BORDER_THIN);
+            style.setBorderLeft(XSSFCellStyle.BORDER_THIN);
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+            if(skillRowNum < rowNum) row = sheet.getRow(skillRowNum);
+            else row = sheet.createRow(skillRowNum);
+
+            Cell spellCell = row.createCell(7);
+            Cell complexityCell = row.createCell(9);
+            Cell levelCell = row.createCell(10);
+            Cell costCell = row.createCell(11);
+            sheet.addMergedRegion(new CellRangeAddress(skillRowNum, skillRowNum, 7, 8));
+
+            spellCell.setCellValue(spell.name);
+            complexityCell.setCellValue(spell.getComplexity());
+            levelCell.setCellValue(spell.level);
+            costCell.setCellValue(spell.finalCost);
+            style.setFillForegroundColor(SPILLS);
+
+            spellCell.setCellStyle(style);
+            complexityCell.setCellStyle(style);
+            levelCell.setCellStyle(style);
+            costCell.setCellStyle(style);
+            skillRowNum++;
+        }
+
+        return skillRowNum > rowNum ? skillRowNum : rowNum;
     }
 }

@@ -195,7 +195,7 @@ public class UserSheetController extends AbstractController {
         skillsTableView.setItems(skills);
         skillsTableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
         parry.setText(UserParams.getParry(skills));
-        parry.setText(UserParams.getBlock(skills));
+        block.setText(UserParams.getBlock(skills));
     }
 
     private void intSpells() {

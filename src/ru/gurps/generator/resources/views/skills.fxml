@@ -23,6 +23,7 @@
                 <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name" />
                 <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en" />
                 <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description" />
+                <MenuItem fx:id="reset" mnemonicParsing="false" text="%reset" />
             </items>
         </MenuButton>
         <TextField fx:id="searchText" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="14.0" />
