@@ -1,4 +1,4 @@
-package ru.gurps.generator.controller;
+package ru.gurps.generator.controller.characters;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +17,7 @@ import ru.gurps.generator.models.Character;
 import java.awt.*;
 import java.io.IOException;
 
-public class UsersController extends AbstractController {
+public class CharactersController extends AbstractController {
     public Button newUser;
     public Button load;
     public Button remove;
