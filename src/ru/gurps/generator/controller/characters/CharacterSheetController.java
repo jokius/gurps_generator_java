@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
 import ru.gurps.generator.lib.export.ExportToJson;
 import ru.gurps.generator.models.Character;
@@ -134,18 +134,18 @@ public class CharacterSheetController extends AbstractController {
         tl.setText(Integer.toString(character.tl));
         tlCost.setText(Integer.toString(character.tlCost));
 
-        stCost.setText(Integer.toString(UserParams.stCost()));
-        dxCost.setText(Integer.toString(UserParams.dxCost()));
-        iqCost.setText(Integer.toString(UserParams.iqCost()));
-        htCost.setText(Integer.toString(UserParams.htCost()));
+        stCost.setText(Integer.toString(CharacterParams.stCost()));
+        dxCost.setText(Integer.toString(CharacterParams.dxCost()));
+        iqCost.setText(Integer.toString(CharacterParams.iqCost()));
+        htCost.setText(Integer.toString(CharacterParams.htCost()));
 
-        hpCost.setText(Integer.toString(UserParams.hpCost()));
-        willCost.setText(Integer.toString(UserParams.willCost()));
-        perCost.setText(Integer.toString(UserParams.perCost()));
-        fpCost.setText(Integer.toString(UserParams.fpCost()));
+        hpCost.setText(Integer.toString(CharacterParams.hpCost()));
+        willCost.setText(Integer.toString(CharacterParams.willCost()));
+        perCost.setText(Integer.toString(CharacterParams.perCost()));
+        fpCost.setText(Integer.toString(CharacterParams.fpCost()));
 
-        bl.setText(Integer.toString(UserParams.bg()));
-        doge.setText(Integer.toString(UserParams.doge()));
+        bl.setText(Integer.toString(CharacterParams.bg()));
+        doge.setText(Integer.toString(CharacterParams.doge()));
 
         thrust.setText(Dmg.thrust(character.st));
         swing.setText(Dmg.swing(character.st));
@@ -196,8 +196,8 @@ public class CharacterSheetController extends AbstractController {
         skillsCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         skillsTableView.setItems(skills);
         skillsTableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
-        parry.setText(UserParams.getParry(skills));
-        block.setText(UserParams.getBlock(skills));
+        parry.setText(CharacterParams.getParry(skills));
+        block.setText(CharacterParams.getBlock(skills));
     }
 
     private void intSpells() {
@@ -306,7 +306,7 @@ public class CharacterSheetController extends AbstractController {
             }
             Feature feature = (Feature) getTableRow().getItem();
             if (feature == null) return;
-            setText(UserParams.featureFullNameRu(feature));
+            setText(CharacterParams.featureFullNameRu(feature));
         }
     }
 }

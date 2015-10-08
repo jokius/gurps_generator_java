@@ -3,8 +3,8 @@ package ru.gurps.generator.lib.export;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.gurps.generator.controller.characters.CharactersController;
-import ru.gurps.generator.lib.export.pojo.JsonUser;
-import ru.gurps.generator.lib.export.pojo.JsonUserFeature;
+import ru.gurps.generator.lib.export.pojo.JsonCharacter;
+import ru.gurps.generator.lib.export.pojo.JsonCharacterFeature;
 import ru.gurps.generator.models.characters.*;
 import ru.gurps.generator.models.rules.Feature;
 import ru.gurps.generator.models.characters.CharactersAddon;
@@ -15,29 +15,29 @@ import java.util.HashMap;
 public class ExportToJson {
     public ExportToJson(File file) {
         Integer id = CharactersController.character.id;
-        JsonUser jsonUser = new JsonUser();
-        jsonUser.character = CharactersController.character;
-        jsonUser.userCulturas = new CharactersCultura().where("characterId", id);
-        jsonUser.userLanguages = new CharactersLanguage().where("characterId", id);
-        jsonUser.userSkills = new CharactersSkill().where("characterId", id);
-        jsonUser.userSpells = new CharactersSpell().where("characterId", id);
+        JsonCharacter jsonCharacter = new JsonCharacter();
+        jsonCharacter.character = CharactersController.character;
+        jsonCharacter.characterCulturas = new CharactersCultura().where("characterId", id);
+        jsonCharacter.characterLanguages = new CharactersLanguage().where("characterId", id);
+        jsonCharacter.characterSkills = new CharactersSkill().where("characterId", id);
+        jsonCharacter.characterSpells = new CharactersSpell().where("characterId", id);
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("characterId", CharactersController.character.id);
 
         for(Feature feature : CharactersController.character.features()){
-            JsonUserFeature jsonUserFeature = new JsonUserFeature();
+            JsonCharacterFeature jsonCharacterFeature = new JsonCharacterFeature();
             params.put("featureId", feature.id);
-            jsonUserFeature.charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
-            jsonUserFeature.charactersAddons = new CharactersAddon().where("characterFeatureId", jsonUserFeature.charactersFeature.id);
-            jsonUser.JsonUserFeatures.add(jsonUserFeature);
+            jsonCharacterFeature.charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
+            jsonCharacterFeature.charactersAddons = new CharactersAddon().where("characterFeatureId", jsonCharacterFeature.charactersFeature.id);
+            jsonCharacter.jsonCharacterFeatures.add(jsonCharacterFeature);
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try {
             PrintWriter writer = new PrintWriter(file, "UTF-8");
-            writer.print(gson.toJson(jsonUser));
+            writer.print(gson.toJson(jsonCharacter));
             writer.close();
         } catch(FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();

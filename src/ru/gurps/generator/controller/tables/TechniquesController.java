@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.full.info.TechniqueFullController;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.models.Character;
 import ru.gurps.generator.models.characters.CharactersTechnique;
 import ru.gurps.generator.models.rules.Technique;
@@ -179,7 +179,7 @@ public class TechniquesController extends AbstractController {
             level.textProperty().addListener((observableValue, oldValue, newValue) -> {
                 if(oldValue.equals(newValue) || newValue.equals("")) return;
                 technique.level = Integer.parseInt(newValue);
-                int cost = UserParams.techniqueCost(technique);
+                int cost = CharacterParams.techniqueCost(technique);
                 finalCost.setText(Integer.toString(cost));
                 technique.cost = cost;
             });
@@ -189,7 +189,7 @@ public class TechniquesController extends AbstractController {
         void defaultParams() {
             level.setText(Integer.toString(technique.level));
             if(technique.cost > 0) finalCost.setText(Integer.toString(technique.cost));
-            else finalCost.setText(Integer.toString(UserParams.techniqueCost(technique)));
+            else finalCost.setText(Integer.toString(CharacterParams.techniqueCost(technique)));
         }
 
         void setButtons(){

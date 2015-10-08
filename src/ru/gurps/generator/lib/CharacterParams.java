@@ -5,7 +5,7 @@ import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.*;
 
-public class UserParams extends AbstractController {
+public class CharacterParams extends AbstractController {
     public static int stCost() {
         int cost = (character.st - 10) * 10;
         if (cost != 0) {

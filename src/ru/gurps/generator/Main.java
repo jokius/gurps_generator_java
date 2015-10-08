@@ -33,7 +33,7 @@ public class Main extends Application {
 
         AbstractController.stage = primaryStage;
         checkNewVersion();
-        usersStage();
+        charactersStage();
     }
 
     static public void checkNewVersion() throws IOException, URISyntaxException {
@@ -58,18 +58,18 @@ public class Main extends Application {
         }
     }
 
-    protected void usersStage(){
+    protected void charactersStage(){
         AbstractController.stage.setResizable(false);
         AbstractController.stage.setMinWidth(397);
         AbstractController.stage.setMinHeight(293);
         AbstractController.stage.setWidth(397);
         AbstractController.stage.setHeight(293);
-        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/selectUser.fxml"));
+        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/characters/select.fxml"));
         view.setResources(locale);
         try {
             Parent root = view.load();
             AbstractController.stage.setScene(new Scene(root));
-            AbstractController.stage.setTitle(locale.getString("app_name_user_select"));
+            AbstractController.stage.setTitle(locale.getString("app_name_character_select"));
             AbstractController.stage.show();
         } catch(IOException e) {
             e.printStackTrace();

@@ -9,8 +9,8 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="293.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.characters.CharactersController">
    <children>
-      <Button fx:id="newUser" disable="true" layoutX="88.0" layoutY="57.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="219.0" text="%character_new" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="60.0" />
-      <TableView fx:id="userTable" layoutY="89.0" prefHeight="135.0" prefWidth="395.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
+      <Button fx:id="newCharacter" disable="true" layoutX="88.0" layoutY="57.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="219.0" text="%character_new" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="60.0" />
+      <TableView fx:id="characterTable" layoutY="89.0" prefHeight="135.0" prefWidth="395.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="196.0" resizable="false" text="%nickname" />
             <TableColumn fx:id="tableCurrentPoints" prefWidth="100.0" resizable="false" text="%current_points" />

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 
 public class CharacterParamsController extends AbstractController {
     public TextField sm;
@@ -70,21 +70,21 @@ public class CharacterParamsController extends AbstractController {
         tl.setText(Integer.toString(character.tl));
         tlCost.setText(Integer.toString(character.tlCost));
 
-        stCost.setText(Integer.toString(UserParams.stCost()));
-        dxCost.setText(Integer.toString(UserParams.dxCost()));
-        iqCost.setText(Integer.toString(UserParams.iqCost()));
-        htCost.setText(Integer.toString(UserParams.htCost()));
+        stCost.setText(Integer.toString(CharacterParams.stCost()));
+        dxCost.setText(Integer.toString(CharacterParams.dxCost()));
+        iqCost.setText(Integer.toString(CharacterParams.iqCost()));
+        htCost.setText(Integer.toString(CharacterParams.htCost()));
 
-        hpCost.setText(Integer.toString(UserParams.hpCost()));
-        willCost.setText(Integer.toString(UserParams.willCost()));
-        perCost.setText(Integer.toString(UserParams.perCost()));
-        fpCost.setText(Integer.toString(UserParams.fpCost()));
+        hpCost.setText(Integer.toString(CharacterParams.hpCost()));
+        willCost.setText(Integer.toString(CharacterParams.willCost()));
+        perCost.setText(Integer.toString(CharacterParams.perCost()));
+        fpCost.setText(Integer.toString(CharacterParams.fpCost()));
 
-        bsCost.setText(Integer.toString(UserParams.bsCost()));
-        moveCost.setText(Integer.toString(UserParams.moveCost()));
+        bsCost.setText(Integer.toString(CharacterParams.bsCost()));
+        moveCost.setText(Integer.toString(CharacterParams.moveCost()));
 
-        bg.setText(Integer.toString(UserParams.bg()));
-        doge.setText(Integer.toString(UserParams.doge()));
+        bg.setText(Integer.toString(CharacterParams.bg()));
+        doge.setText(Integer.toString(CharacterParams.doge()));
 
         thrust.setText(Dmg.thrust(character.st));
         swing.setText(Dmg.swing(character.st));
@@ -105,11 +105,11 @@ public class CharacterParamsController extends AbstractController {
 
             character.sm = intValue;
             int oldStCost = Integer.parseInt(stCost.getText());
-            stCost.setText(Integer.toString(UserParams.stCost()));
+            stCost.setText(Integer.toString(CharacterParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            hpCost.setText(Integer.toString(UserParams.hpCost()));
+            hpCost.setText(Integer.toString(CharacterParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
             character.save();
         });
@@ -117,11 +117,11 @@ public class CharacterParamsController extends AbstractController {
         noFineManipulators.selectedProperty().addListener((observable, oldValue, newValue) -> {
             character.noFineManipulators = newValue;
             int oldStCost = Integer.parseInt(stCost.getText());
-            stCost.setText(Integer.toString(UserParams.stCost()));
+            stCost.setText(Integer.toString(CharacterParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldDxCost = Integer.parseInt(dxCost.getText());
-            dxCost.setText(Integer.toString(UserParams.dxCost()));
+            dxCost.setText(Integer.toString(CharacterParams.dxCost()));
             currentPoints(dxCost, oldDxCost);
             character.save();
         });
@@ -143,14 +143,14 @@ public class CharacterParamsController extends AbstractController {
             }
 
             int oldStCost = Integer.parseInt(stCost.getText());
-            stCost.setText(Integer.toString(UserParams.stCost()));
+            stCost.setText(Integer.toString(CharacterParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            hpCost.setText(Integer.toString(UserParams.hpCost()));
+            hpCost.setText(Integer.toString(CharacterParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
 
-            bg.setText(Integer.toString(UserParams.bg()));
+            bg.setText(Integer.toString(CharacterParams.bg()));
             thrust.setText(Dmg.thrust(character.st));
             swing.setText(Dmg.swing(character.st));
 
@@ -169,18 +169,18 @@ public class CharacterParamsController extends AbstractController {
             character.dx = intValue;
 
             int oldDxCost = Integer.parseInt(dxCost.getText());
-            dxCost.setText(Integer.toString(UserParams.dxCost()));
+            dxCost.setText(Integer.toString(CharacterParams.dxCost()));
             currentPoints(dxCost, oldDxCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            bsCost.setText(Integer.toString(UserParams.bsCost()));
+            bsCost.setText(Integer.toString(CharacterParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
 
-            doge.setText(Integer.toString(UserParams.doge()));
+            doge.setText(Integer.toString(CharacterParams.doge()));
             character.save();
         });
 
@@ -196,7 +196,7 @@ public class CharacterParamsController extends AbstractController {
             character.iq = intValue;
 
             int oldIqCost = Integer.parseInt(iqCost.getText());
-            iqCost.setText(Integer.toString(UserParams.iqCost()));
+            iqCost.setText(Integer.toString(CharacterParams.iqCost()));
             currentPoints(iqCost, oldIqCost);
 
             if(intValue > character.will) {
@@ -210,11 +210,11 @@ public class CharacterParamsController extends AbstractController {
             }
 
             int oldWillCost = Integer.parseInt(willCost.getText());
-            willCost.setText(Integer.toString(UserParams.willCost()));
+            willCost.setText(Integer.toString(CharacterParams.willCost()));
             currentPoints(willCost, oldWillCost);
 
             int oldPerCost = Integer.parseInt(perCost.getText());
-            perCost.setText(Integer.toString(UserParams.perCost()));
+            perCost.setText(Integer.toString(CharacterParams.perCost()));
             currentPoints(perCost, oldPerCost);
             character.save();
         });
@@ -231,7 +231,7 @@ public class CharacterParamsController extends AbstractController {
             character.ht = intValue;
 
             int oldHtCost = Integer.parseInt(htCost.getText());
-            htCost.setText(Integer.toString(UserParams.htCost()));
+            htCost.setText(Integer.toString(CharacterParams.htCost()));
             currentPoints(htCost, oldHtCost);
 
             if(intValue > character.fp) {
@@ -240,15 +240,15 @@ public class CharacterParamsController extends AbstractController {
             }
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
-            fpCost.setText(Integer.toString(UserParams.fpCost()));
+            fpCost.setText(Integer.toString(CharacterParams.fpCost()));
             currentPoints(fpCost, oldFpCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            bsCost.setText(Integer.toString(UserParams.bsCost()));
+            bsCost.setText(Integer.toString(CharacterParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
         });
 
@@ -264,7 +264,7 @@ public class CharacterParamsController extends AbstractController {
             character.hp = intValue;
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            hpCost.setText(Integer.toString(UserParams.hpCost()));
+            hpCost.setText(Integer.toString(CharacterParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
             character.save();
         });
@@ -281,7 +281,7 @@ public class CharacterParamsController extends AbstractController {
             character.will = intValue;
 
             int oldWillCost = Integer.parseInt(willCost.getText());
-            willCost.setText(Integer.toString(UserParams.willCost()));
+            willCost.setText(Integer.toString(CharacterParams.willCost()));
             currentPoints(willCost, oldWillCost);
             character.save();
         });
@@ -298,7 +298,7 @@ public class CharacterParamsController extends AbstractController {
             character.per = intValue;
 
             int oldPerCost = Integer.parseInt(perCost.getText());
-            perCost.setText(Integer.toString(UserParams.perCost()));
+            perCost.setText(Integer.toString(CharacterParams.perCost()));
             currentPoints(perCost, oldPerCost);
             character.save();
         });
@@ -315,7 +315,7 @@ public class CharacterParamsController extends AbstractController {
             character.fp = intValue;
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
-            fpCost.setText(Integer.toString(UserParams.fpCost()));
+            fpCost.setText(Integer.toString(CharacterParams.fpCost()));
             currentPoints(fpCost, oldFpCost);
             character.save();
         });
@@ -339,14 +339,14 @@ public class CharacterParamsController extends AbstractController {
             }
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            bsCost.setText(Integer.toString(UserParams.bsCost()));
+            bsCost.setText(Integer.toString(CharacterParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
 
-            doge.setText(Integer.toString(UserParams.doge()));
+            doge.setText(Integer.toString(CharacterParams.doge()));
             character.save();
         });
 
@@ -362,7 +362,7 @@ public class CharacterParamsController extends AbstractController {
 
             character.move = intNewValue;
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
             character.save();
         });

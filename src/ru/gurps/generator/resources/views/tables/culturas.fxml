@@ -10,7 +10,7 @@
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="392.0" text="%cultura" />
                 <TableColumn fx:id="costColumn" minWidth="0.0" prefWidth="89.0" text="%cost" />
-                <TableColumn fx:id="userColumn" prefWidth="81.0" text="%character" />
+                <TableColumn fx:id="characterColumn" prefWidth="81.0" text="%character" />
                 <TableColumn fx:id="dbColumn" prefWidth="84.0" text="%db" />
             </columns>
         </TableView>

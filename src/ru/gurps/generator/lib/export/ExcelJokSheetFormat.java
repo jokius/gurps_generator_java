@@ -6,7 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.models.rules.Feature;
 import ru.gurps.generator.models.rules.Skill;
 import ru.gurps.generator.models.rules.Spell;
@@ -106,11 +106,11 @@ public class ExcelJokSheetFormat extends AbstractController {
                                 cell.setCellValue(character.bs);
                                 break;
                             case "%parry%":
-                                cell.setCellValue(new UserParams().getParry(character.skills()));
+                                cell.setCellValue(new CharacterParams().getParry(character.skills()));
                                 cell.setCellType(0);
                                 break;
                             case "%block%":
-                                cell.setCellValue(new UserParams().getBlock(character.skills()));
+                                cell.setCellValue(new CharacterParams().getBlock(character.skills()));
                                 cell.setCellType(0);
                                 break;
                             case "%feature%":
@@ -173,7 +173,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             Cell costCell = row.createCell(6);
             sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
 
-            featureCell.setCellValue(UserParams.featureFullNameRu(feature));
+            featureCell.setCellValue(CharacterParams.featureFullNameRu(feature));
             costCell.setCellValue(feature.cost);
 
             if(feature.advantage) style.setFillForegroundColor(ADVANTAGE);

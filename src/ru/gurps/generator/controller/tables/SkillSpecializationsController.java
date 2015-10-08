@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.models.rules.Skill;
 import ru.gurps.generator.models.rules.Specialization;
 import ru.gurps.generator.models.characters.CharactersSpecialization;
@@ -136,7 +136,7 @@ public class SkillSpecializationsController extends AbstractController {
             level.textProperty().addListener((observableValue, oldValue, newValue) -> {
                 if(oldValue.equals(newValue) || newValue.equals("")) return;
                 specialization.level = Integer.parseInt(newValue);
-                int cost = UserParams.skillCost(specialization);
+                int cost = CharacterParams.skillCost(specialization);
                 finalCost.setText(Integer.toString(cost));
                 specialization.cost = cost;
             });
@@ -190,8 +190,8 @@ public class SkillSpecializationsController extends AbstractController {
             demands.setText(specialization.demands == null ? skill.getDemands() : specialization.demands);
             fullDescription.setText(specialization.description + "\n");
             modifiers.setText(specialization.getModifiers());
-            finalCost.setText(Integer.toString(UserParams.skillCost(specialization)));
-            level.setText(Integer.toString(UserParams.skillLevel(specialization)));
+            finalCost.setText(Integer.toString(CharacterParams.skillCost(specialization)));
+            level.setText(Integer.toString(CharacterParams.skillLevel(specialization)));
         }
     }
 
@@ -202,7 +202,7 @@ public class SkillSpecializationsController extends AbstractController {
         twoHands.setText(skill.getTwoHands());
         fullDescription.setText(skill.description + "\n");
         modifiers.setText(skill.getModifiers());
-        finalCost.setText(Integer.toString(UserParams.skillCost(skill)));
-        level.setText(Integer.toString(UserParams.skillLevel(skill)));
+        finalCost.setText(Integer.toString(CharacterParams.skillCost(skill)));
+        level.setText(Integer.toString(CharacterParams.skillLevel(skill)));
     }
 }

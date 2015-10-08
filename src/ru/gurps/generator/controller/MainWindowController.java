@@ -19,7 +19,7 @@ public class MainWindowController extends AbstractController {
     // global part
     public TextField maxPoints;
     public Label currentPoints;
-    public Button userSheet;
+    public Button characterSheet;
 
     // menus
     public Menu viewMenu;
@@ -68,17 +68,17 @@ public class MainWindowController extends AbstractController {
             else globalCost.setTextFill(Color.RED);
         });
 
-        userSheet.setOnAction(event -> {
+        characterSheet.setOnAction(event -> {
             Stage childrenStage = new Stage();
-            userSheet.setDisable(true);
-            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
+            characterSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> characterSheet.setDisable(false));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/characters/sheet.fxml"));
             loader.setResources(Main.locale);
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
                 childrenStage.setScene(new Scene(childrenRoot, 713, 740));
-                childrenStage.setTitle(Main.locale.getString("app_user_sheet"));
+                childrenStage.setTitle(Main.locale.getString("app_character_sheet"));
                 childrenStage.show();
             } catch(IOException e) {
                 e.printStackTrace();
@@ -120,13 +120,13 @@ public class MainWindowController extends AbstractController {
         newMenuItem.setOnAction(event -> {
             character = null;
             stage.close();
-            usersStage();
+            charactersStage();
         });
 
         checkNewVersion.setOnAction(event -> {
             Stage childrenStage = new Stage();
-            userSheet.setDisable(true);
-            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
+            characterSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> characterSheet.setDisable(false));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/newVersion.fxml"));
             loader.setResources(Main.locale);
             Parent childrenRoot;

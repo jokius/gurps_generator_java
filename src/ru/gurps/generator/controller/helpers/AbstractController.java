@@ -57,7 +57,7 @@ public class AbstractController extends Main {
         stage.setResizable(false);
         stage.setMinWidth(516);
         stage.setMinHeight(466);
-        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/generateUser.fxml"));
+        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/generate.fxml"));
         view.setResources(Main.locale);
         try {
             Parent childrenRoot = view.load();

@@ -30,7 +30,7 @@ public class CulturasController extends AbstractController {
     public TableView<Cultura> tableView;
     public TableColumn<Cultura, String> nameColumn;
     public TableColumn<Cultura, String> costColumn;
-    public TableColumn<Cultura, Boolean> userColumn;
+    public TableColumn<Cultura, Boolean> characterColumn;
     public TableColumn<Cultura, Boolean> dbColumn;
 
     public TextField nameText;
@@ -56,8 +56,8 @@ public class CulturasController extends AbstractController {
 
         costColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
-        userColumn.setCellFactory(p -> new CulturasUserButtonCell());
+        characterColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
+        characterColumn.setCellFactory(p -> new CulturasCharacterButtonCell());
 
         dbColumn.setCellValueFactory(p -> new SimpleBooleanProperty(true));
         dbColumn.setCellFactory(p -> new CulturasDbButtonCell());
@@ -143,10 +143,10 @@ public class CulturasController extends AbstractController {
         ObservableList<Cultura> culturas = FXCollections.observableArrayList();
         for (Object object : new Cultura().all()) {
             Cultura cultura = (Cultura) object;
-            for (Cultura userCultura : character.cultures()) {
-                if (cultura.id == userCultura.id) {
-                    cultura.cost = userCultura.cost;
-                    userCultura.add = true;
+            for (Cultura characterCultura : character.cultures()) {
+                if (cultura.id == characterCultura.id) {
+                    cultura.cost = characterCultura.cost;
+                    characterCultura.add = true;
                 }
             }
 
@@ -156,11 +156,11 @@ public class CulturasController extends AbstractController {
         tableView.setItems(culturas);
     }
 
-    private class CulturasUserButtonCell extends TableCell<Cultura, Boolean> {
+    private class CulturasCharacterButtonCell extends TableCell<Cultura, Boolean> {
         Button addButton = new Button(Main.locale.getString("add"));
         Button removeButton = new Button(Main.locale.getString("remove"));
 
-        CulturasUserButtonCell() {
+        CulturasCharacterButtonCell() {
             addButton.setOnAction(t -> {
                 Cultura cultura = (Cultura) getTableRow().getItem();
                 new CharactersCultura(character.id, cultura.id, cultura.cost).create();

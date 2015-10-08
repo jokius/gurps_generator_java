@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.models.Character;
 import ru.gurps.generator.models.characters.*;
 import ru.gurps.generator.models.rules.*;
@@ -91,7 +91,7 @@ public class GenerateCharacterController extends AbstractController {
 
         back.setOnAction(event -> {
             stage.close();
-            usersStage();
+            charactersStage();
         });
 
         generate.setOnAction(event -> {
@@ -200,7 +200,7 @@ public class GenerateCharacterController extends AbstractController {
             character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + cost);
         }
 
-        character.bs = UserParams.defaultBs();
+        character.bs = CharacterParams.defaultBs();
         character.move = character.bs.intValue();
     }
 
@@ -277,9 +277,9 @@ public class GenerateCharacterController extends AbstractController {
 
                 if (add) {
                     list.add(skill.id);
-                    specialization.level = UserParams.skillLevel(specialization);
+                    specialization.level = CharacterParams.skillLevel(specialization);
                     specialization.level += random.nextInt(maxLvl);
-                    specialization.cost = UserParams.skillCost(specialization);
+                    specialization.cost = CharacterParams.skillCost(specialization);
                     skillsInt -= specialization.cost;
                     if (skillsInt < 0) break;
                     character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + specialization.cost);
@@ -296,9 +296,9 @@ public class GenerateCharacterController extends AbstractController {
 
                 if (add) {
                     list.add(skill.id);
-                    skill.level = UserParams.skillLevel(skill);
+                    skill.level = CharacterParams.skillLevel(skill);
                     skill.level += random.nextInt(maxLvl);
-                    skill.cost = UserParams.skillCost(skill);
+                    skill.cost = CharacterParams.skillCost(skill);
                     skillsInt -= skill.cost;
                     if (skillsInt < 0) break;
                     character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + skill.cost);
@@ -328,7 +328,7 @@ public class GenerateCharacterController extends AbstractController {
             if (add) {
                 list.add(technique.id);
                 technique.level += random.nextInt(maxLvl);
-                technique.cost = UserParams.techniqueCost(technique);
+                technique.cost = CharacterParams.techniqueCost(technique);
                 techniquesInt -= technique.cost;
                 if (techniquesInt < 0) break;
                 character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + technique.cost);
@@ -361,7 +361,7 @@ public class GenerateCharacterController extends AbstractController {
                     spell.level = character.iq - 3;
                 }
                 spell.level += random.nextInt(maxLvl);
-                spell.cost = UserParams.spellCost(spell);
+                spell.cost = CharacterParams.spellCost(spell);
                 spellsInt -= spell.cost;
                 if (spellsInt < 0) break;
                 character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + spell.cost);

@@ -267,7 +267,7 @@ public class FeaturesAbstractController extends AbstractController {
             allAddons();
 
             if(!addonsArray.isEmpty()) {
-                userAddons(charactersFeature.id);
+                characterAddons(charactersFeature.id);
                 setCells();
 
                 addonsTableView.setItems(addonsArray);
@@ -305,7 +305,7 @@ public class FeaturesAbstractController extends AbstractController {
             newCost(lastCost);
         }
 
-        void userAddons(Integer id) {
+        void characterAddons(Integer id) {
             if(id == null) return;
             ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where("characterFeatureId", id);
             for(CharactersAddon charactersAddon : charactersAddons) {
@@ -386,7 +386,7 @@ public class FeaturesAbstractController extends AbstractController {
                     addon.active = true;
                     addonCost(addon);
 
-                    if(charactersFeature.id == null) charactersFeature = createUserFeature();
+                    if(charactersFeature.id == null) charactersFeature = createCharacterFeature();
                     new CharactersAddon(charactersFeature.id, addon.id, addon.cost, addon.level).create();
 
                     setGraphic(removeButton);
@@ -525,7 +525,7 @@ public class FeaturesAbstractController extends AbstractController {
                 }
             });
 
-            add.setOnAction(actionEvent -> createUserFeature());
+            add.setOnAction(actionEvent -> createCharacterFeature());
 
             remove.setOnAction(actionEvent -> {
                 HashMap<String, Object> params = new HashMap<>();
@@ -559,7 +559,7 @@ public class FeaturesAbstractController extends AbstractController {
             return (int) (feature.cost * (modifier.cost * modifier.level / 100.0));
         }
 
-        CharactersFeature createUserFeature(){
+        CharactersFeature createCharacterFeature(){
             setCurrentPoints(intCost() + Integer.parseInt(character.currentPoints));
             feature.add = true;
             add.setVisible(false);

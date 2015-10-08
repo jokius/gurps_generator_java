@@ -18,24 +18,24 @@ import java.awt.*;
 import java.io.IOException;
 
 public class CharactersController extends AbstractController {
-    public Button newUser;
+    public Button newCharacter;
     public Button load;
     public Button remove;
     public Button generate;
     public TextField newName;
     public TextField points;
-    public TableView<Character> userTable;
+    public TableView<Character> characterTable;
     public TableColumn<Character, String> name;
     public TableColumn<Character, String> tableCurrentPoints;
     public TableColumn<Character, String> tableMaxPoints;
     public Hyperlink lastVersionLink;
 
-    private ObservableList<Character> usersData = FXCollections.observableArrayList();
+    private ObservableList<Character> charactersData = FXCollections.observableArrayList();
     private int index = -1;
 
     @FXML
     private void initialize() {
-        usersData.addAll(new Character().all());
+        charactersData.addAll(new Character().all());
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableCurrentPoints.setCellValueFactory(new PropertyValueFactory<>("currentPoints"));
@@ -58,22 +58,22 @@ public class CharactersController extends AbstractController {
         });
         tableMaxPoints.setCellValueFactory(new PropertyValueFactory<>("maxPoints"));
 
-        userTable.setPlaceholder(new Label(Main.locale.getString("users_not_found")));
-        userTable.setItems(usersData);
+        characterTable.setPlaceholder(new Label(Main.locale.getString("characters_not_found")));
+        characterTable.setItems(charactersData);
 
         events();
     }
     
     private void events(){
         newName.textProperty().addListener((observable, oldValue, newValue) -> {
-            newUser.setDisable(newValue.equals("") || !newValue.matches("\\d+"));
+            newCharacter.setDisable(newValue.equals("") || !newValue.matches("\\d+"));
         });
 
         points.textProperty().addListener((observable, oldValue, newValue) -> {
-            newUser.setDisable(newValue.equals("") || !newValue.matches("\\d+"));
+            newCharacter.setDisable(newValue.equals("") || !newValue.matches("\\d+"));
         });
         
-        newUser.setOnAction(event -> {
+        newCharacter.setOnAction(event -> {
             character = (Character) new Character(newName.getText(), points.getText()).create();
             stage.close();
             createMainStage();
@@ -85,9 +85,9 @@ public class CharactersController extends AbstractController {
         });
         
         remove.setOnAction(event ->{
-            usersData.remove(index);
+            charactersData.remove(index);
             character.delete();
-            userTable.setItems(usersData);
+            characterTable.setItems(charactersData);
             load.setDisable(true);
             remove.setDisable(true);
         });
@@ -97,13 +97,13 @@ public class CharactersController extends AbstractController {
             createGenerateStage();
         });
 
-        userTable.setRowFactory(tv -> {
+        characterTable.setRowFactory(tv -> {
             TableRow<Character> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if(row.isEmpty()) return;
                 
                 index = row.getIndex();
-                character = usersData.get(index);
+                character = charactersData.get(index);
                 if (event.getClickCount() == 1) {
                     load.setDisable(false);
                     remove.setDisable(false);
@@ -117,7 +117,7 @@ public class CharactersController extends AbstractController {
         });
 
         if(urlToLastVersion != null){
-            AnchorPane.setTopAnchor(userTable, 109.0);
+            AnchorPane.setTopAnchor(characterTable, 109.0);
             lastVersionLink.setVisible(true);
             lastVersionLink.setOnAction(event -> {
                 try {

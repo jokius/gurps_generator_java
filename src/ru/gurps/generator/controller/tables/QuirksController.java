@@ -30,7 +30,7 @@ public class QuirksController extends AbstractController {
     public TableView<Quirk> tableView;
     public TableColumn<Quirk, String> nameColumn;
     public TableColumn<Quirk, String> costColumn;
-    public TableColumn<Quirk, Boolean> userColumn;
+    public TableColumn<Quirk, Boolean> characterColumn;
     public TableColumn<Quirk, Boolean> dbColumn;
 
     public TextField nameText;
@@ -54,8 +54,8 @@ public class QuirksController extends AbstractController {
         });
         costColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
-        userColumn.setCellFactory(p -> new QuirksUserButtonCell());
+        characterColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
+        characterColumn.setCellFactory(p -> new QuirksUserButtonCell());
 
         dbColumn.setCellValueFactory(p -> new SimpleBooleanProperty(true));
         dbColumn.setCellFactory(p -> new QuirksDbButtonCell());
@@ -141,10 +141,10 @@ public class QuirksController extends AbstractController {
         ObservableList<Quirk> quirks = FXCollections.observableArrayList();
         for (Object object : new Quirk().all()) {
             Quirk quirk = (Quirk) object;
-            for (Quirk userQuirk : character.quirks()) {
-                if (quirk.id == userQuirk.id) {
-                    quirk.cost = userQuirk.cost;
-                    userQuirk.add = true;
+            for (Quirk characterQuirk : character.quirks()) {
+                if (quirk.id == characterQuirk.id) {
+                    quirk.cost = characterQuirk.cost;
+                    characterQuirk.add = true;
                 }
             }
 
