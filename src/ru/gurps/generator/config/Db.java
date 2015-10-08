@@ -1,5 +1,7 @@
 package ru.gurps.generator.config;
 
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.FlywayException;
 import org.h2.jdbc.JdbcSQLException;
 import ru.gurps.generator.Main;
 
@@ -19,8 +21,12 @@ public class Db {
         try {
             Class.forName("org.h2.Driver").newInstance();
             String parent = "\\w*.jar";
-            String s = URLDecoder.decode(ru.gurps.generator.Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, ""), "UTF-8");
-            connect = DriverManager.getConnection("jdbc:h2:" + s + "db/gurps", "sa", "");
+            String s = URLDecoder.decode(ru.gurps.generator.Main.class.getProtectionDomain().getCodeSource()
+                    .getLocation().getPath().replaceAll(parent, ""), "UTF-8");
+            String db = "jdbc:h2:" + s + "db/gurps";
+            migrations(db);
+
+            connect = DriverManager.getConnection(db, "sa", "");
         } catch(JdbcSQLException e){
             if(e.getErrorCode() == 90020){
                 System.err.println(Main.locale.getString("app_is_running"));
@@ -28,6 +34,18 @@ public class Db {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void migrations(String db){
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(db, "sa", "");
+        try{
+            flyway.init();
+            flyway.migrate();
+        } catch (FlywayException e){
+            System.out.println(e);
+            flyway.migrate();
         }
     }
 }
