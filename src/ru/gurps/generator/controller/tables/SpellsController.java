@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.full.info.SpellFullController;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.models.*;
-import ru.gurps.generator.models.characters.UserSpell;
+import ru.gurps.generator.models.Character;
+import ru.gurps.generator.models.characters.CharactersSpell;
 import ru.gurps.generator.models.rules.Spell;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SpellsController extends AbstractController {
-    User user = AbstractController.user;
+    Character character = AbstractController.character;
 
     public TableView<Spell> tableView;
     public TableColumn<Spell, String> nameColumn;
@@ -101,10 +101,10 @@ public class SpellsController extends AbstractController {
                 setText(item);
                 Spell spell = tableView.getItems().get(getTableRow().getIndex());
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("userId", user.id);
+                params.put("characterId", character.id);
                 params.put("spellId", spell.id);
-                UserSpell userSpell = (UserSpell) new UserSpell().find_by(params);
-                if(userSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
+                CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
+                if(charactersSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
                 else getTableRow().getStyleClass().add("isAdd");
             }
 
@@ -118,14 +118,14 @@ public class SpellsController extends AbstractController {
         tableView.setPlaceholder(new Label(Main.locale.getString("spells_not_found")));
         ObservableList<Spell> spells = new Spell().all();
         HashMap<String, Object> params = new HashMap<>();
-        params.put("userId", user.id);
+        params.put("characterId", character.id);
 
         for(Spell spell : spells){
             params.put("spellId", spell.id);
-            UserSpell userSpell = (UserSpell) new UserSpell().find_by(params);
-            if(userSpell.level != null) {
-                spell.finalCost = userSpell.cost;
-                spell.level = userSpell.level;
+            CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
+            if(charactersSpell.level != null) {
+                spell.finalCost = charactersSpell.cost;
+                spell.level = charactersSpell.level;
                 spell.add = true;
             }
         }
@@ -232,9 +232,9 @@ public class SpellsController extends AbstractController {
         void defaultParams() {
             level.setText(Integer.toString(spell.level));
             if(spell.complexity == 2){
-                if(spell.level < user.iq - 2) level.setText(Integer.toString(user.iq - 2));
+                if(spell.level < character.iq - 2) level.setText(Integer.toString(character.iq - 2));
             } else{
-                if(spell.level < user.iq - 3) level.setText(Integer.toString(user.iq - 3));
+                if(spell.level < character.iq - 3) level.setText(Integer.toString(character.iq - 3));
             }
 
             if(spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
@@ -249,33 +249,33 @@ public class SpellsController extends AbstractController {
 
         String finalCost(){
             if(spell.complexity == 2){
-                if(spell.level <= user.iq - 2) return "1";
-                else if(spell.level == user.iq - 1) return "2";
-                else if(spell.level == user.iq) return "4";
-                else if(spell.level == user.iq + 1) return "8";
-                else if(spell.level == user.iq + 2) return "12";
-                else if(spell.level == user.iq + 3) return "16";
+                if(spell.level <= character.iq - 2) return "1";
+                else if(spell.level == character.iq - 1) return "2";
+                else if(spell.level == character.iq) return "4";
+                else if(spell.level == character.iq + 1) return "8";
+                else if(spell.level == character.iq + 2) return "12";
+                else if(spell.level == character.iq + 3) return "16";
                 else{
                     int i = spell.level;
                     int cost = 16;
-                    while(i > user.iq + 3){
+                    while(i > character.iq + 3){
                         cost += 4;
                         i --;
                     }
                     return Integer.toString(cost);
                 }
             } else {
-                if(spell.level <= user.iq - 3) return "1";
-                else if(spell.level == user.iq - 2) return "2";
-                else if(spell.level == user.iq - 1) return "4";
-                else if(spell.level == user.iq) return "8";
-                else if(spell.level == user.iq + 1) return "12";
-                else if(spell.level == user.iq + 2) return "16";
-                else if(spell.level == user.iq + 3) return "20";
+                if(spell.level <= character.iq - 3) return "1";
+                else if(spell.level == character.iq - 2) return "2";
+                else if(spell.level == character.iq - 1) return "4";
+                else if(spell.level == character.iq) return "8";
+                else if(spell.level == character.iq + 1) return "12";
+                else if(spell.level == character.iq + 2) return "16";
+                else if(spell.level == character.iq + 3) return "20";
                 else {
                     int i = spell.level;
                     int cost = 20;
-                    while(i == user.iq + 3) {
+                    while(i == character.iq + 3) {
                         cost += 4;
                         i--;
                     }
@@ -286,8 +286,8 @@ public class SpellsController extends AbstractController {
 
         void setButtons(){
             add.setOnAction(event -> {
-                new UserSpell(user.id, spell.id, spell.level, spell.finalCost).create();
-                setCurrentPoints(spell.finalCost + Integer.parseInt(user.currentPoints));
+                new CharactersSpell(character.id, spell.id, spell.level, spell.finalCost).create();
+                setCurrentPoints(spell.finalCost + Integer.parseInt(character.currentPoints));
                 spell.add = true;
                 add.setVisible(false);
                 remove.setVisible(true);
@@ -296,11 +296,11 @@ public class SpellsController extends AbstractController {
 
             remove.setOnAction(event -> {
                 HashMap<String, Object> params1 = new HashMap<>();
-                params1.put("userId", user.id);
+                params1.put("characterId", character.id);
                 params1.put("spellId", spell.id);
-                UserSpell userSpell = (UserSpell) new UserSpell().find_by(params1);
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - userSpell.cost);
-                userSpell.delete();
+                CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params1);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - charactersSpell.cost);
+                charactersSpell.delete();
                 spell.add = false;
                 add.setVisible(true);
                 remove.setVisible(false);

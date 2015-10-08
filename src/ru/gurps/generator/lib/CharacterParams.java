@@ -5,57 +5,57 @@ import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.*;
 
-public class UserParams extends AbstractController {
+public class CharacterParams extends AbstractController {
     public static int stCost() {
-        int cost = (user.st - 10) * 10;
+        int cost = (character.st - 10) * 10;
         if (cost != 0) {
-            if (user.noFineManipulators) cost = (int) (cost - (cost * 0.4));
-            if (user.sm > 0) cost = user.sm < 8 ? (int) (cost - (cost * (0.1 * user.sm))) : (int) (cost - (cost * 0.8));
+            if (character.noFineManipulators) cost = (int) (cost - (cost * 0.4));
+            if (character.sm > 0) cost = character.sm < 8 ? (int) (cost - (cost * (0.1 * character.sm))) : (int) (cost - (cost * 0.8));
         }
         return cost;
     }
 
     public static int dxCost() {
-        int cost = (user.dx - 10) * 20;
-        if (user.noFineManipulators && cost != 0) cost = (int) (cost - (cost * 0.4));
+        int cost = (character.dx - 10) * 20;
+        if (character.noFineManipulators && cost != 0) cost = (int) (cost - (cost * 0.4));
         return cost;
     }
 
     public static int iqCost() {
-        return (user.iq - 10) * 20;
+        return (character.iq - 10) * 20;
     }
 
     public static int htCost() {
-        return (user.ht - 10) * 10;
+        return (character.ht - 10) * 10;
     }
 
     public static int hpCost() {
-        int cost = (user.hp - user.st) * 2;
-        if (user.sm > 0 && cost != 0)
-            cost = user.sm < 8 ? (int) (cost - (cost * (0.1 * user.sm))) : (int) (cost - (cost * 0.8));
+        int cost = (character.hp - character.st) * 2;
+        if (character.sm > 0 && cost != 0)
+            cost = character.sm < 8 ? (int) (cost - (cost * (0.1 * character.sm))) : (int) (cost - (cost * 0.8));
         return cost;
     }
 
     public static int willCost() {
-        return (user.will - user.iq) * 5;
+        return (character.will - character.iq) * 5;
     }
 
     public static int perCost() {
-        return (user.per - user.iq) * 5;
+        return (character.per - character.iq) * 5;
     }
 
     public static int fpCost() {
-        return (user.fp - user.ht) * 3;
+        return (character.fp - character.ht) * 3;
     }
 
     public static double defaultBs() {
-        return (user.dx + user.ht) / 4;
+        return (character.dx + character.ht) / 4;
     }
 
     public static int bsCost() {
         int cost = 0;
         double periods;
-        periods = user.bs - defaultBs();
+        periods = character.bs - defaultBs();
 
         if (periods >= 0.25) {
             do {
@@ -72,26 +72,26 @@ public class UserParams extends AbstractController {
     }
 
     public static int moveCost() {
-        return (int) (user.move - user.bs);
+        return (int) (character.move - character.bs);
     }
 
     public static int bg() {
-        return (user.st * user.st) / 5;
+        return (character.st * character.st) / 5;
     }
 
     public static int doge() {
-        return (int) (user.bs + 3);
+        return (int) (character.bs + 3);
     }
 
     public static String getParry(ObservableList<Skill> skills) {
-        int resultSkill = user.dx - 4;
+        int resultSkill = character.dx - 4;
         for (Skill skill : skills)
             if (skill.parry && skill.level > resultSkill) resultSkill = skill.level + skill.parryBonus;
         return Integer.toString(3 + resultSkill / 2);
     }
 
     public static String getBlock(ObservableList<Skill> skills) {
-        int shield = user.dx - 4;
+        int shield = character.dx - 4;
         int cloak = 0;
         for (Skill skill : skills) {
             switch (skill.nameEn) {
@@ -104,12 +104,12 @@ public class UserParams extends AbstractController {
             }
         }
 
-        if (cloak == 0) cloak = user.dx - 5;
+        if (cloak == 0) cloak = character.dx - 5;
         if (shield >= cloak) return Integer.toString(3 + shield / 2);
         else return Integer.toString(3 + cloak / 2);
     }
 
-    public static int skillLevel(SkillSpecialization skill) {
+    public static int skillLevel(Specialization skill) {
         return skillLevelResult(skill.type, skill.complexity);
     }
 
@@ -121,28 +121,28 @@ public class UserParams extends AbstractController {
         int parameter = 0;
         switch (type) {
             case 0:
-                parameter = user.st;
+                parameter = character.st;
                 break;
             case 1:
-                parameter = user.dx;
+                parameter = character.dx;
                 break;
             case 2:
-                parameter = user.iq;
+                parameter = character.iq;
                 break;
             case 3:
-                parameter = user.ht;
+                parameter = character.ht;
                 break;
             case 4:
-                parameter = user.hp;
+                parameter = character.hp;
                 break;
             case 5:
-                parameter = user.will;
+                parameter = character.will;
                 break;
             case 6:
-                parameter = user.per;
+                parameter = character.per;
                 break;
             case 7:
-                parameter = user.fp;
+                parameter = character.fp;
                 break;
         }
         switch (complexity) {
@@ -160,7 +160,7 @@ public class UserParams extends AbstractController {
     }
 
 
-    public static int skillCost(SkillSpecialization skill) {
+    public static int skillCost(Specialization skill) {
         return skillCostResult(skill.type, skill.complexity, skill.level);
     }
 
@@ -178,28 +178,28 @@ public class UserParams extends AbstractController {
         int parameter = 0;
         switch (type) {
             case 0:
-                parameter = user.st;
+                parameter = character.st;
                 break;
             case 1:
-                parameter = user.dx;
+                parameter = character.dx;
                 break;
             case 2:
-                parameter = user.iq;
+                parameter = character.iq;
                 break;
             case 3:
-                parameter = user.ht;
+                parameter = character.ht;
                 break;
             case 4:
-                parameter = user.hp;
+                parameter = character.hp;
                 break;
             case 5:
-                parameter = user.will;
+                parameter = character.will;
                 break;
             case 6:
-                parameter = user.per;
+                parameter = character.per;
                 break;
             case 7:
-                parameter = user.fp;
+                parameter = character.fp;
                 break;
         }
 
@@ -264,33 +264,33 @@ public class UserParams extends AbstractController {
 
     public static int spellCost(Spell spell) {
         if (spell.complexity == 2) {
-            if (spell.level <= user.iq - 2) return 1;
-            else if (spell.level == user.iq - 1) return 2;
-            else if (spell.level == user.iq) return 4;
-            else if (spell.level == user.iq + 1) return 8;
-            else if (spell.level == user.iq + 2) return 12;
-            else if (spell.level == user.iq + 3) return 16;
+            if (spell.level <= character.iq - 2) return 1;
+            else if (spell.level == character.iq - 1) return 2;
+            else if (spell.level == character.iq) return 4;
+            else if (spell.level == character.iq + 1) return 8;
+            else if (spell.level == character.iq + 2) return 12;
+            else if (spell.level == character.iq + 3) return 16;
             else {
                 int i = spell.level;
                 int cost = 16;
-                while (i > user.iq + 3) {
+                while (i > character.iq + 3) {
                     cost += 4;
                     i--;
                 }
                 return cost;
             }
         } else {
-            if (spell.level <= user.iq - 3) return 1;
-            else if (spell.level == user.iq - 2) return 2;
-            else if (spell.level == user.iq - 1) return 4;
-            else if (spell.level == user.iq) return 8;
-            else if (spell.level == user.iq + 1) return 12;
-            else if (spell.level == user.iq + 2) return 16;
-            else if (spell.level == user.iq + 3) return 20;
+            if (spell.level <= character.iq - 3) return 1;
+            else if (spell.level == character.iq - 2) return 2;
+            else if (spell.level == character.iq - 1) return 4;
+            else if (spell.level == character.iq) return 8;
+            else if (spell.level == character.iq + 1) return 12;
+            else if (spell.level == character.iq + 2) return 16;
+            else if (spell.level == character.iq + 3) return 20;
             else {
                 int i = spell.level;
                 int cost = 20;
-                while (i == user.iq + 3) {
+                while (i == character.iq + 3) {
                     cost += 4;
                     i--;
                 }
@@ -300,7 +300,7 @@ public class UserParams extends AbstractController {
     }
 
     public static String featureFullNameRu(Feature feature) {
-        ObservableList<Modifier> modifiers = feature.modifiers(user.id);
+        ObservableList<Modifier> modifiers = feature.modifiers(character.id);
         if (modifiers.size() == 0) return feature.name;
 
         String fullName = feature.name + " (";

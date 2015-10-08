@@ -2,19 +2,19 @@ package ru.gurps.generator.models.characters;
 
 import ru.gurps.generator.config.Model;
 
-public class UserModifier extends Model {
+public class CharactersModifier extends Model {
     public Integer id;
-    public Integer userId;
+    public Integer characterId;
     public Integer modifierId;
     public Integer featureId;
     public Integer cost;
     public Integer level;
 
-    public UserModifier() {
+    public CharactersModifier() {
     }
 
-    public UserModifier(Integer userId, Integer modifierId, Integer featureId, Integer cost, Integer level) {
-        this.userId = userId;
+    public CharactersModifier(Integer characterId, Integer modifierId, Integer featureId, Integer cost, Integer level) {
+        this.characterId = characterId;
         this.modifierId = modifierId;
         this.featureId = featureId;
         this.cost = cost;

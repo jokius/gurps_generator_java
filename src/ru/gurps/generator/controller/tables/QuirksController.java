@@ -17,7 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.Quirk;
-import ru.gurps.generator.models.characters.UserQuirk;
+import ru.gurps.generator.models.characters.CharactersQuirk;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class QuirksController extends AbstractController {
     public TableView<Quirk> tableView;
     public TableColumn<Quirk, String> nameColumn;
     public TableColumn<Quirk, String> costColumn;
-    public TableColumn<Quirk, Boolean> userColumn;
+    public TableColumn<Quirk, Boolean> characterColumn;
     public TableColumn<Quirk, Boolean> dbColumn;
 
     public TextField nameText;
@@ -54,8 +54,8 @@ public class QuirksController extends AbstractController {
         });
         costColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
-        userColumn.setCellFactory(p -> new QuirksUserButtonCell());
+        characterColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
+        characterColumn.setCellFactory(p -> new QuirksUserButtonCell());
 
         dbColumn.setCellValueFactory(p -> new SimpleBooleanProperty(true));
         dbColumn.setCellFactory(p -> new QuirksDbButtonCell());
@@ -75,8 +75,8 @@ public class QuirksController extends AbstractController {
             quirk.cost = Integer.parseInt(costText.getText());
             quirk.add = true;
 
-            new UserQuirk(user.id, quirk.id, quirk.cost).create();
-            if (quirk.cost != 0) setCurrentPoints(Integer.parseInt(user.currentPoints) + quirk.cost);
+            new CharactersQuirk(character.id, quirk.id, quirk.cost).create();
+            if (quirk.cost != 0) setCurrentPoints(Integer.parseInt(character.currentPoints) + quirk.cost);
             setQuirks();
             nameText.setText("");
             addButton.setDisable(true);
@@ -141,10 +141,10 @@ public class QuirksController extends AbstractController {
         ObservableList<Quirk> quirks = FXCollections.observableArrayList();
         for (Object object : new Quirk().all()) {
             Quirk quirk = (Quirk) object;
-            for (Quirk userQuirk : user.quirks()) {
-                if (quirk.id == userQuirk.id) {
-                    quirk.cost = userQuirk.cost;
-                    userQuirk.add = true;
+            for (Quirk characterQuirk : character.quirks()) {
+                if (quirk.id == characterQuirk.id) {
+                    quirk.cost = characterQuirk.cost;
+                    characterQuirk.add = true;
                 }
             }
 
@@ -161,17 +161,17 @@ public class QuirksController extends AbstractController {
         QuirksUserButtonCell() {
             addButton.setOnAction(t -> {
                 Quirk quirk = (Quirk) getTableRow().getItem();
-                new UserQuirk(user.id, quirk.id, quirk.cost).create();
+                new CharactersQuirk(character.id, quirk.id, quirk.cost).create();
                 quirk.add = true;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) + quirk.cost);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) + quirk.cost);
                 setGraphic(removeButton);
             });
 
             removeButton.setOnAction(t -> {
                 Quirk quirk = (Quirk) getTableRow().getItem();
-                new UserQuirk().find_by("quirkId", quirk.id).delete();
+                new CharactersQuirk().find_by("quirkId", quirk.id).delete();
                 quirk.add = false;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - quirk.cost);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - quirk.cost);
                 setGraphic(addButton);
             });
         }
@@ -196,7 +196,7 @@ public class QuirksController extends AbstractController {
         QuirksDbButtonCell() {
             removeButton.setOnAction(t -> {
                 Quirk quirk = (Quirk) getTableRow().getItem();
-                new UserQuirk().delete_all(new UserQuirk().where("quirkId", quirk.id));
+                new CharactersQuirk().delete_all(new CharactersQuirk().where("quirkId", quirk.id));
                 quirk.delete();
                 setQuirks();
             });

@@ -12,7 +12,7 @@
                 <TableColumn fx:id="spokenColumn" minWidth="0.0" prefWidth="111.0" text="%talk" />
                 <TableColumn fx:id="writtenColumn" prefWidth="92.0" text="%writing" />
                 <TableColumn fx:id="costColumn" prefWidth="94.0" text="%cost" />
-                <TableColumn fx:id="userColumn" prefWidth="92.0" text="%character" />
+                <TableColumn fx:id="characterColumn" prefWidth="92.0" text="%character" />
                 <TableColumn fx:id="dbColumn" prefWidth="89.0" text="%db" />
             </columns>
         </TableView>

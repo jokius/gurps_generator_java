@@ -19,7 +19,7 @@ public class MainWindowController extends AbstractController {
     // global part
     public TextField maxPoints;
     public Label currentPoints;
-    public Button userSheet;
+    public Button characterSheet;
 
     // menus
     public Menu viewMenu;
@@ -47,38 +47,38 @@ public class MainWindowController extends AbstractController {
 
         menus();
         tabsConfigure();
-        maxPoints.setText(user.maxPoints);
-        globalCost.setText(user.currentPoints);
+        maxPoints.setText(character.maxPoints);
+        globalCost.setText(character.currentPoints);
 
-        if(Integer.parseInt(user.maxPoints) >= Integer.parseInt(user.currentPoints)) globalCost.setTextFill(Color.GREEN);
+        if(Integer.parseInt(character.maxPoints) >= Integer.parseInt(character.currentPoints)) globalCost.setTextFill(Color.GREEN);
         else globalCost.setTextFill(Color.RED);
 
         maxPoints.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                maxPoints.setText(user.maxPoints);
+                maxPoints.setText(character.maxPoints);
                 return;
             }
 
-            if(user.maxPoints.equals(newValue)) return;
-            user.update_single("maxPoints", newValue);
+            if(character.maxPoints.equals(newValue)) return;
+            character.update_single("maxPoints", newValue);
             maxPoints.setText(newValue);
 
-            if(Integer.parseInt(user.maxPoints) >= Integer.parseInt(user.currentPoints)) globalCost.setTextFill(Color.GREEN);
+            if(Integer.parseInt(character.maxPoints) >= Integer.parseInt(character.currentPoints)) globalCost.setTextFill(Color.GREEN);
             else globalCost.setTextFill(Color.RED);
         });
 
-        userSheet.setOnAction(event -> {
+        characterSheet.setOnAction(event -> {
             Stage childrenStage = new Stage();
-            userSheet.setDisable(true);
-            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/userSheet.fxml"));
+            characterSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> characterSheet.setDisable(false));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/characters/sheet.fxml"));
             loader.setResources(Main.locale);
             Parent childrenRoot;
             try {
                 childrenRoot = loader.load();
                 childrenStage.setScene(new Scene(childrenRoot, 713, 740));
-                childrenStage.setTitle(Main.locale.getString("app_user_sheet"));
+                childrenStage.setTitle(Main.locale.getString("app_character_sheet"));
                 childrenStage.show();
             } catch(IOException e) {
                 e.printStackTrace();
@@ -118,15 +118,15 @@ public class MainWindowController extends AbstractController {
 
     private void menus(){
         newMenuItem.setOnAction(event -> {
-            user = null;
+            character = null;
             stage.close();
-            usersStage();
+            charactersStage();
         });
 
         checkNewVersion.setOnAction(event -> {
             Stage childrenStage = new Stage();
-            userSheet.setDisable(true);
-            childrenStage.setOnCloseRequest(we -> userSheet.setDisable(false));
+            characterSheet.setDisable(true);
+            childrenStage.setOnCloseRequest(we -> characterSheet.setDisable(false));
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/newVersion.fxml"));
             loader.setResources(Main.locale);
             Parent childrenRoot;

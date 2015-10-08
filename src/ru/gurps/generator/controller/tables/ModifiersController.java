@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.full.info.ModifierFullController;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.models.*;
-import ru.gurps.generator.models.characters.UserModifier;
+import ru.gurps.generator.models.Character;
+import ru.gurps.generator.models.characters.CharactersModifier;
 import ru.gurps.generator.models.rules.Feature;
 import ru.gurps.generator.models.rules.Modifier;
 
@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class ModifiersController extends AbstractController {
-    User user = AbstractController.user;
+    Character character = AbstractController.character;
 
     public TableView<Modifier> tableView;
     public TableColumn<Modifier, String> modifiersNameColumn;
@@ -88,10 +88,10 @@ public class ModifiersController extends AbstractController {
                 setText(item);
                 Modifier modifier = tableView.getItems().get(getTableRow().getIndex());
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("userId", user.id);
+                params.put("characterId", character.id);
                 params.put("modifierId", modifier.id);
-                UserModifier userModifier = (UserModifier) new UserModifier().find_by(params);
-                if(userModifier.id == null) getTableRow().getStyleClass().remove("addOne");
+                CharactersModifier charactersModifier = (CharactersModifier) new CharactersModifier().find_by(params);
+                if(charactersModifier.id == null) getTableRow().getStyleClass().remove("addOne");
                 else getTableRow().getStyleClass().add("addOne");
             }
 
@@ -192,12 +192,12 @@ public class ModifiersController extends AbstractController {
         private void setFeatures() {
             ObservableList<Feature> features = FXCollections.observableArrayList();
             HashMap<String, Object> params = new HashMap<>();
-            params.put("userId", user.id);
-            for(Object object : user.features()){
+            params.put("characterId", character.id);
+            for(Object object : character.features()){
                 Feature feature = (Feature) object;
                 params.put("featureId", feature.id);
-                UserModifier userModifier = (UserModifier) new UserModifier().find_by(params);
-                feature.modifier = userModifier.id != null;
+                CharactersModifier charactersModifier = (CharactersModifier) new CharactersModifier().find_by(params);
+                feature.modifier = charactersModifier.id != null;
                 features.add(feature);
             }
 
@@ -298,7 +298,7 @@ public class ModifiersController extends AbstractController {
                 }
 
                 add.setOnAction(t -> {
-                    new UserModifier(user.id, modifier.id, feature.id, modifier.cost, currentLevel()).create();
+                    new CharactersModifier(character.id, modifier.id, feature.id, modifier.cost, currentLevel()).create();
                     feature.modifier = true;
                     featureCostUpdate();
                     setModifierCost();
@@ -314,10 +314,10 @@ public class ModifiersController extends AbstractController {
 
                 remove.setOnAction(t -> {
                     HashMap<String, Object> params = new HashMap<>();
-                    params.put("userId", user.id);
+                    params.put("characterId", character.id);
                     params.put("featureId", feature.id);
                     params.put("modifierId", modifier.id);
-                    new UserModifier().find_by(params).delete();
+                    new CharactersModifier().find_by(params).delete();
                     feature.modifier = false;
                     featureCostUpdate();
                     setModifierCost();
@@ -353,16 +353,16 @@ public class ModifiersController extends AbstractController {
             private void setModifierCost() {
                 if(modifier.cost == 0 && feature.modifier){
                     HashMap<String, Object> params = new HashMap<>();
-                    params.put("userId", user.id);
+                    params.put("characterId", character.id);
                     params.put("featureId", feature.id);
                     params.put("modifierId", modifier.id);
-                    UserModifier userModifier = (UserModifier) new UserModifier().find_by(params);
+                    CharactersModifier charactersModifier = (CharactersModifier) new CharactersModifier().find_by(params);
 
                     finalCostText.setVisible(false);
                     finalCost.setVisible(true);
-                    modifier.cost = userModifier.cost;
+                    modifier.cost = charactersModifier.cost;
 
-                    finalCost.setText(Integer.toString(userModifier.cost));
+                    finalCost.setText(Integer.toString(charactersModifier.cost));
                     return;
                 }
 
@@ -387,16 +387,16 @@ public class ModifiersController extends AbstractController {
             private void setModifierLevel() {
                 if(feature.modifier){
                     HashMap<String, Object> params = new HashMap<>();
-                    params.put("userId", user.id);
+                    params.put("characterId", character.id);
                     params.put("featureId", feature.id);
                     params.put("modifierId", modifier.id);
-                    UserModifier userModifier = (UserModifier) new UserModifier().find_by(params);
+                    CharactersModifier charactersModifier = (CharactersModifier) new CharactersModifier().find_by(params);
 
                     levelLabel.setVisible(true);
                     levelComboBox.setVisible(false);
                     levelText.setVisible(false);
 
-                    levelLabel.setText(Integer.toString(userModifier.level));
+                    levelLabel.setText(Integer.toString(charactersModifier.level));
                     return;
                 }
 

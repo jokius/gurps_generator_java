@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.full.info.TechniqueFullController;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.models.*;
-import ru.gurps.generator.models.characters.UserTechnique;
+import ru.gurps.generator.lib.CharacterParams;
+import ru.gurps.generator.models.Character;
+import ru.gurps.generator.models.characters.CharactersTechnique;
 import ru.gurps.generator.models.rules.Technique;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TechniquesController extends AbstractController {
-    User user = AbstractController.user;
+    Character character = AbstractController.character;
 
     public TableView<Technique> tableView;
     public TableColumn<Technique, String> nameColumn;
@@ -90,11 +90,11 @@ public class TechniquesController extends AbstractController {
                 setText(item);
                 Technique technique = tableView.getItems().get(getTableRow().getIndex());
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("userId", user.id);
+                params.put("characterId", character.id);
                 params.put("techniqueId", technique.id);
-                UserTechnique userTechnique = (UserTechnique) new UserTechnique().find_by(params);
+                CharactersTechnique charactersTechnique = (CharactersTechnique) new CharactersTechnique().find_by(params);
                 getTableRow().getStyleClass().remove("isAdd");
-                if(userTechnique.id == null) getTableRow().getStyleClass().remove("isAdd");
+                if(charactersTechnique.id == null) getTableRow().getStyleClass().remove("isAdd");
                 else getTableRow().getStyleClass().add("isAdd");
             }
 
@@ -108,14 +108,14 @@ public class TechniquesController extends AbstractController {
         tableView.setPlaceholder(new Label(Main.locale.getString("techniques_not_found")));
         ObservableList<Technique> techniques = new Technique().all();
         HashMap<String, Object> params = new HashMap<>();
-        params.put("userId", user.id);
+        params.put("characterId", character.id);
 
         for(Technique technique : techniques){
             params.put("techniqueId", technique.id);
-            UserTechnique userTechnique = (UserTechnique) new UserTechnique().find_by(params);
-            if(userTechnique.level != null) {
-                technique.cost = userTechnique.cost;
-                technique.level = userTechnique.level;
+            CharactersTechnique charactersTechnique = (CharactersTechnique) new CharactersTechnique().find_by(params);
+            if(charactersTechnique.level != null) {
+                technique.cost = charactersTechnique.cost;
+                technique.level = charactersTechnique.level;
                 technique.add = true;
             }
         }
@@ -179,7 +179,7 @@ public class TechniquesController extends AbstractController {
             level.textProperty().addListener((observableValue, oldValue, newValue) -> {
                 if(oldValue.equals(newValue) || newValue.equals("")) return;
                 technique.level = Integer.parseInt(newValue);
-                int cost = UserParams.techniqueCost(technique);
+                int cost = CharacterParams.techniqueCost(technique);
                 finalCost.setText(Integer.toString(cost));
                 technique.cost = cost;
             });
@@ -189,12 +189,12 @@ public class TechniquesController extends AbstractController {
         void defaultParams() {
             level.setText(Integer.toString(technique.level));
             if(technique.cost > 0) finalCost.setText(Integer.toString(technique.cost));
-            else finalCost.setText(Integer.toString(UserParams.techniqueCost(technique)));
+            else finalCost.setText(Integer.toString(CharacterParams.techniqueCost(technique)));
         }
 
         void setButtons(){
             add.setOnAction(event -> {
-                new UserTechnique(user.id, technique.id, technique.cost, technique.level).create();
+                new CharactersTechnique(character.id, technique.id, technique.cost, technique.level).create();
                 setCurrentPoints(technique.cost + globalCost());
                 technique.add = true;
                 add.setVisible(false);
@@ -204,11 +204,11 @@ public class TechniquesController extends AbstractController {
 
             remove.setOnAction(event -> {
                 HashMap<String, Object> params1 = new HashMap<>();
-                params1.put("userId", user.id);
+                params1.put("characterId", character.id);
                 params1.put("techniqueId", technique.id);
-                UserTechnique userTechnique = (UserTechnique) new UserTechnique().find_by(params1);
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - userTechnique.cost);
-                userTechnique.delete();
+                CharactersTechnique charactersTechnique = (CharactersTechnique) new CharactersTechnique().find_by(params1);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - charactersTechnique.cost);
+                charactersTechnique.delete();
                 technique.add = false;
                 add.setVisible(true);
                 remove.setVisible(false);

@@ -1,4 +1,4 @@
-package ru.gurps.generator.controller;
+package ru.gurps.generator.controller.characters;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,17 +14,17 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
 import ru.gurps.generator.lib.export.ExportToJson;
-import ru.gurps.generator.models.*;
+import ru.gurps.generator.models.Character;
 import ru.gurps.generator.models.rules.*;
 
 import java.io.File;
 import java.lang.reflect.Field;
 
-public class UserSheetController extends AbstractController {
-    private User user = AbstractController.user;
+public class CharacterSheetController extends AbstractController {
+    private Character character = AbstractController.character;
     public Label name;
     public Label player;
     public Label maxPoints;
@@ -109,53 +109,53 @@ public class UserSheetController extends AbstractController {
 
     @FXML
     private void initialize() {
-        name.setText(user.name);
-        player.setText(user.getPlayer());
-        maxPoints.setText(user.maxPoints);
+        name.setText(character.name);
+        player.setText(character.getPlayer());
+        maxPoints.setText(character.maxPoints);
         setRemainingPoints();
 
-        growth.setText(Integer.toString(user.growth));
-        weight.setText(Integer.toString(user.weight));
-        age.setText(Integer.toString(user.age));
+        growth.setText(Integer.toString(character.growth));
+        weight.setText(Integer.toString(character.weight));
+        age.setText(Integer.toString(character.age));
 
-        st.setText(Integer.toString(user.st));
-        dx.setText(Integer.toString(user.dx));
-        iq.setText(Integer.toString(user.iq));
-        ht.setText(Integer.toString(user.ht));
+        st.setText(Integer.toString(character.st));
+        dx.setText(Integer.toString(character.dx));
+        iq.setText(Integer.toString(character.iq));
+        ht.setText(Integer.toString(character.ht));
 
-        hp.setText(Integer.toString(user.hp));
-        will.setText(Integer.toString(user.will));
-        per.setText(Integer.toString(user.per));
-        fp.setText(Integer.toString(user.fp));
+        hp.setText(Integer.toString(character.hp));
+        will.setText(Integer.toString(character.will));
+        per.setText(Integer.toString(character.per));
+        fp.setText(Integer.toString(character.fp));
 
-        bs.setText(Double.toString(user.bs));
-        move.setText(Integer.toString(user.move));
+        bs.setText(Double.toString(character.bs));
+        move.setText(Integer.toString(character.move));
 
-        tl.setText(Integer.toString(user.tl));
-        tlCost.setText(Integer.toString(user.tlCost));
+        tl.setText(Integer.toString(character.tl));
+        tlCost.setText(Integer.toString(character.tlCost));
 
-        stCost.setText(Integer.toString(UserParams.stCost()));
-        dxCost.setText(Integer.toString(UserParams.dxCost()));
-        iqCost.setText(Integer.toString(UserParams.iqCost()));
-        htCost.setText(Integer.toString(UserParams.htCost()));
+        stCost.setText(Integer.toString(CharacterParams.stCost()));
+        dxCost.setText(Integer.toString(CharacterParams.dxCost()));
+        iqCost.setText(Integer.toString(CharacterParams.iqCost()));
+        htCost.setText(Integer.toString(CharacterParams.htCost()));
 
-        hpCost.setText(Integer.toString(UserParams.hpCost()));
-        willCost.setText(Integer.toString(UserParams.willCost()));
-        perCost.setText(Integer.toString(UserParams.perCost()));
-        fpCost.setText(Integer.toString(UserParams.fpCost()));
+        hpCost.setText(Integer.toString(CharacterParams.hpCost()));
+        willCost.setText(Integer.toString(CharacterParams.willCost()));
+        perCost.setText(Integer.toString(CharacterParams.perCost()));
+        fpCost.setText(Integer.toString(CharacterParams.fpCost()));
 
-        bl.setText(Integer.toString(UserParams.bg()));
-        doge.setText(Integer.toString(UserParams.doge()));
+        bl.setText(Integer.toString(CharacterParams.bg()));
+        doge.setText(Integer.toString(CharacterParams.doge()));
 
-        thrust.setText(Dmg.thrust(user.st));
-        swing.setText(Dmg.swing(user.st));
+        thrust.setText(Dmg.thrust(character.st));
+        swing.setText(Dmg.swing(character.st));
 
-        head.setText(Integer.toString(user.head));
-        torse.setText(Integer.toString(user.torse));
-        arm.setText(Integer.toString(user.arm));
-        leg.setText(Integer.toString(user.leg));
-        hand.setText(Integer.toString(user.hand));
-        foot.setText(Integer.toString(user.foot));
+        head.setText(Integer.toString(character.head));
+        torse.setText(Integer.toString(character.torse));
+        arm.setText(Integer.toString(character.arm));
+        leg.setText(Integer.toString(character.leg));
+        hand.setText(Integer.toString(character.hand));
+        foot.setText(Integer.toString(character.foot));
 
         initFeatures();
         initSkills();
@@ -169,7 +169,7 @@ public class UserSheetController extends AbstractController {
     }
 
     private void initFeatures() {
-        ObservableList<Feature> features = user.features();
+        ObservableList<Feature> features = character.features();
         for(Feature feature : features) {
             if(feature.advantage) advantagesData.add(feature);
             else disadvantagesData.add(feature);
@@ -189,22 +189,22 @@ public class UserSheetController extends AbstractController {
     }
 
     private void initSkills() {
-        ObservableList<Skill> skills = user.skills();
+        ObservableList<Skill> skills = character.skills();
         skillsName.setCellValueFactory(new PropertyValueFactory<>("name"));
         skillsTypeColumn.setCellValueFactory(new PropertyValueFactory<>("typeAndComplexity"));
         skillsLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
         skillsCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         skillsTableView.setItems(skills);
         skillsTableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
-        parry.setText(UserParams.getParry(skills));
-        block.setText(UserParams.getBlock(skills));
+        parry.setText(CharacterParams.getParry(skills));
+        block.setText(CharacterParams.getBlock(skills));
     }
 
     private void intSpells() {
         spellsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         spellsComplexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
         spellsCostColumn.setCellValueFactory(new PropertyValueFactory<>("finalCost"));
-        spellsTableView.setItems(user.spells());
+        spellsTableView.setItems(character.spells());
         spellsTableView.setPlaceholder(new Label(Main.locale.getString("spells_not_found")));
     }
 
@@ -213,14 +213,14 @@ public class UserSheetController extends AbstractController {
         spokenColumn.setCellValueFactory(new PropertyValueFactory<>("spoken"));
         writtenColumn.setCellValueFactory(new PropertyValueFactory<>("written"));
         languageCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        languagesTableView.setItems(user.languages());
+        languagesTableView.setItems(character.languages());
         languagesTableView.setPlaceholder(new Label(Main.locale.getString("languages_not_found")));
     }
 
     private void initCultures() {
         culturaNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         culturaCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        culturasTableView.setItems(user.cultures());
+        culturasTableView.setItems(character.cultures());
         culturasTableView.setPlaceholder(new Label(Main.locale.getString("cultures_not_found")));
     }
 
@@ -232,28 +232,28 @@ public class UserSheetController extends AbstractController {
                     textField.textProperty().addListener((observable, oldValue, newValue) -> {
                         if(newValue.equals("")) return;
                         try {
-                            Field setField = user.getClass().getDeclaredField(field.getName());
+                            Field setField = character.getClass().getDeclaredField(field.getName());
 
                             if(field.getName().equals("tlCost")) {
                                 if(newValue.equals("") || newValue.equals("-")) return;
                                 try {
                                     int intNewValue = Integer.parseInt(newValue);
-                                    if(user.tlCost == intNewValue) return;
-                                    setCurrentPoints(Integer.parseInt(user.currentPoints) + intNewValue - user.tlCost);
-                                    user.tlCost = intNewValue;
-                                    user.save();
+                                    if(character.tlCost == intNewValue) return;
+                                    setCurrentPoints(Integer.parseInt(character.currentPoints) + intNewValue - character.tlCost);
+                                    character.tlCost = intNewValue;
+                                    character.save();
                                     setRemainingPoints();
                                 } catch(NumberFormatException e) {
-                                    tlCost.setText(Integer.toString(user.tlCost));
+                                    tlCost.setText(Integer.toString(character.tlCost));
                                 }
                             }
                             if(Integer.class.isAssignableFrom(setField.getType()))
-                                setField.set(user, Integer.parseInt(newValue));
-                            else setField.set(user, newValue);
+                                setField.set(character, Integer.parseInt(newValue));
+                            else setField.set(character, newValue);
                         } catch(IllegalAccessException | NoSuchFieldException e) {
                             e.printStackTrace();
                         }
-                        user.save();
+                        character.save();
 
                     });
                 } catch(IllegalAccessException e) {
@@ -264,7 +264,7 @@ public class UserSheetController extends AbstractController {
     }
 
     private void setRemainingPoints() {
-        int remaining = Integer.parseInt(user.maxPoints) - Integer.parseInt(user.currentPoints);
+        int remaining = Integer.parseInt(character.maxPoints) - Integer.parseInt(character.currentPoints);
         remainingPoints.setText(Integer.toString(remaining));
         if(remaining > 0) remainingPoints.setTextFill(Color.GREEN);
         else remainingPoints.setTextFill(Color.RED);
@@ -276,7 +276,7 @@ public class UserSheetController extends AbstractController {
             fileChooser.setTitle(Main.locale.getString("save_sheet"));
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XLSX files (*.xlsx)", "*.xlsx");
             fileChooser.getExtensionFilters().add(extFilter);
-            fileChooser.setInitialFileName(user.name);
+            fileChooser.setInitialFileName(character.name);
             File file = fileChooser.showSaveDialog(new Stage());
             new ExcelJokSheetFormat(file);
         });
@@ -286,7 +286,7 @@ public class UserSheetController extends AbstractController {
             fileChooser.setTitle(Main.locale.getString("save_sheet"));
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("json files (*.json)", "*.json");
             fileChooser.getExtensionFilters().add(extFilter);
-            fileChooser.setInitialFileName(user.name);
+            fileChooser.setInitialFileName(character.name);
             File file = fileChooser.showSaveDialog(new Stage());
             new ExportToJson(file);
         });
@@ -306,7 +306,7 @@ public class UserSheetController extends AbstractController {
             }
             Feature feature = (Feature) getTableRow().getItem();
             if (feature == null) return;
-            setText(UserParams.featureFullNameRu(feature));
+            setText(CharacterParams.featureFullNameRu(feature));
         }
     }
 }

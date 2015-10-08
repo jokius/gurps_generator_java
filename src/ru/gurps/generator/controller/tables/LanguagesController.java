@@ -18,7 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.Language;
-import ru.gurps.generator.models.characters.UserLanguage;
+import ru.gurps.generator.models.characters.CharactersLanguage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class LanguagesController extends AbstractController {
     public TableColumn<Language, String> spokenColumn;
     public TableColumn<Language, String> writtenColumn;
     public TableColumn<Language, String> costColumn;
-    public TableColumn<Language, Boolean> userColumn;
+    public TableColumn<Language, Boolean> characterColumn;
     public TableColumn<Language, Boolean> dbColumn;
 
     public TextField nameText;
@@ -84,8 +84,8 @@ public class LanguagesController extends AbstractController {
         });
         costColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
-        userColumn.setCellFactory(p -> new LanguagesUserButtonCell());
+        characterColumn.setCellValueFactory(new PropertyValueFactory<>("add"));
+        characterColumn.setCellFactory(p -> new LanguagesCharacterButtonCell());
 
         dbColumn.setCellValueFactory(p -> new SimpleBooleanProperty(true));
         dbColumn.setCellFactory(p -> new LanguagesDbButtonCell());
@@ -111,8 +111,8 @@ public class LanguagesController extends AbstractController {
             language.cost = Integer.parseInt(costText.getText());
             language.add = true;
 
-            new UserLanguage(user.id, language.id, language.spoken, language.written, language.cost).create();
-            if (language.cost != 0) setCurrentPoints(Integer.parseInt(user.currentPoints) + language.cost);
+            new CharactersLanguage(character.id, language.id, language.spoken, language.written, language.cost).create();
+            if (language.cost != 0) setCurrentPoints(Integer.parseInt(character.currentPoints) + language.cost);
             setLanguages();
             nameText.setText("");
             addButton.setDisable(true);
@@ -165,11 +165,11 @@ public class LanguagesController extends AbstractController {
         ObservableList<Language> languages = FXCollections.observableArrayList();
         for (Object object : new Language().all()) {
             Language language = (Language) object;
-            for (Language userLanguage : user.languages()) {
-                if (language.id == userLanguage.id) {
-                    language.written = userLanguage.written;
-                    language.spoken = userLanguage.spoken;
-                    language.cost = userLanguage.cost;
+            for (Language characterLanguage : character.languages()) {
+                if (language.id == characterLanguage.id) {
+                    language.written = characterLanguage.written;
+                    language.spoken = characterLanguage.spoken;
+                    language.cost = characterLanguage.cost;
                     language.add = true;
                 }
             }
@@ -191,24 +191,24 @@ public class LanguagesController extends AbstractController {
         return true;
     }
 
-    private class LanguagesUserButtonCell extends TableCell<Language, Boolean> {
+    private class LanguagesCharacterButtonCell extends TableCell<Language, Boolean> {
         Button addButton = new Button(Main.locale.getString("add"));
         Button removeButton = new Button(Main.locale.getString("remove"));
 
-        LanguagesUserButtonCell() {
+        LanguagesCharacterButtonCell() {
             addButton.setOnAction(t -> {
                 Language language = (Language) getTableRow().getItem();
-                new UserLanguage(user.id, language.id, language.spoken, language.written, language.cost).create();
+                new CharactersLanguage(character.id, language.id, language.spoken, language.written, language.cost).create();
                 language.add = true;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) + language.cost);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) + language.cost);
                 setGraphic(removeButton);
             });
 
             removeButton.setOnAction(t -> {
                 Language language = (Language) getTableRow().getItem();
-                new UserLanguage().find_by("languageId", language.id).delete();
+                new CharactersLanguage().find_by("languageId", language.id).delete();
                 language.add = false;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - language.cost);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - language.cost);
                 setGraphic(addButton);
             });
         }
@@ -233,7 +233,7 @@ public class LanguagesController extends AbstractController {
         LanguagesDbButtonCell() {
             removeButton.setOnAction(t -> {
                 Language language = (Language) getTableRow().getItem();
-                new UserLanguage().delete_all(new UserLanguage().where("languageId", language.id));
+                new CharactersLanguage().delete_all(new CharactersLanguage().where("languageId", language.id));
                 language.delete();
                 setLanguages();
             });

@@ -2,18 +2,18 @@ package ru.gurps.generator.models.characters;
 
 import ru.gurps.generator.config.Model;
 
-public class UserSpell extends Model {
+public class CharactersSpell extends Model {
     public Integer id;
-    public Integer userId;
+    public Integer characterId;
     public Integer spellId;
     public Integer level;
     public Integer cost;
 
-    public UserSpell() {
+    public CharactersSpell() {
     }
 
-    public UserSpell(Integer userId, Integer spellId, Integer level, Integer cost) {
-        this.userId = userId;
+    public CharactersSpell(Integer characterId, Integer spellId, Integer level, Integer cost) {
+        this.characterId = characterId;
         this.spellId = spellId;
         this.level = level;
         this.cost = cost;

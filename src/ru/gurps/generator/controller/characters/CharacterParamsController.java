@@ -1,4 +1,4 @@
-package ru.gurps.generator.controller;
+package ru.gurps.generator.controller.characters;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
-import ru.gurps.generator.lib.UserParams;
+import ru.gurps.generator.lib.CharacterParams;
 
-public class UserParamsController extends AbstractController {
+public class CharacterParamsController extends AbstractController {
     public TextField sm;
     public CheckBox noFineManipulators;
     public TextField st;
@@ -45,49 +45,49 @@ public class UserParamsController extends AbstractController {
 
     @FXML
     public void initialize() {
-        sm.setText(Integer.toString(user.sm));
-        noFineManipulators.setSelected(user.noFineManipulators);
+        sm.setText(Integer.toString(character.sm));
+        noFineManipulators.setSelected(character.noFineManipulators);
 
-        st.setText(Integer.toString(user.st));
-        dx.setText(Integer.toString(user.dx));
-        iq.setText(Integer.toString(user.iq));
-        ht.setText(Integer.toString(user.ht));
+        st.setText(Integer.toString(character.st));
+        dx.setText(Integer.toString(character.dx));
+        iq.setText(Integer.toString(character.iq));
+        ht.setText(Integer.toString(character.ht));
 
-        hp.setText(Integer.toString(user.hp));
-        will.setText(Integer.toString(user.will));
-        per.setText(Integer.toString(user.per));
-        fp.setText(Integer.toString(user.fp));
+        hp.setText(Integer.toString(character.hp));
+        will.setText(Integer.toString(character.will));
+        per.setText(Integer.toString(character.per));
+        fp.setText(Integer.toString(character.fp));
 
-        bs.setText(Double.toString(user.bs));
-        move.setText(Integer.toString(user.move));
+        bs.setText(Double.toString(character.bs));
+        move.setText(Integer.toString(character.move));
 
-        name.setText(user.name);
-        player.setText(user.player);
-        growth.setText(Integer.toString(user.growth));
-        weight.setText(Integer.toString(user.weight));
-        age.setText(Integer.toString(user.age));
+        name.setText(character.name);
+        player.setText(character.player);
+        growth.setText(Integer.toString(character.growth));
+        weight.setText(Integer.toString(character.weight));
+        age.setText(Integer.toString(character.age));
 
-        tl.setText(Integer.toString(user.tl));
-        tlCost.setText(Integer.toString(user.tlCost));
+        tl.setText(Integer.toString(character.tl));
+        tlCost.setText(Integer.toString(character.tlCost));
 
-        stCost.setText(Integer.toString(UserParams.stCost()));
-        dxCost.setText(Integer.toString(UserParams.dxCost()));
-        iqCost.setText(Integer.toString(UserParams.iqCost()));
-        htCost.setText(Integer.toString(UserParams.htCost()));
+        stCost.setText(Integer.toString(CharacterParams.stCost()));
+        dxCost.setText(Integer.toString(CharacterParams.dxCost()));
+        iqCost.setText(Integer.toString(CharacterParams.iqCost()));
+        htCost.setText(Integer.toString(CharacterParams.htCost()));
 
-        hpCost.setText(Integer.toString(UserParams.hpCost()));
-        willCost.setText(Integer.toString(UserParams.willCost()));
-        perCost.setText(Integer.toString(UserParams.perCost()));
-        fpCost.setText(Integer.toString(UserParams.fpCost()));
+        hpCost.setText(Integer.toString(CharacterParams.hpCost()));
+        willCost.setText(Integer.toString(CharacterParams.willCost()));
+        perCost.setText(Integer.toString(CharacterParams.perCost()));
+        fpCost.setText(Integer.toString(CharacterParams.fpCost()));
 
-        bsCost.setText(Integer.toString(UserParams.bsCost()));
-        moveCost.setText(Integer.toString(UserParams.moveCost()));
+        bsCost.setText(Integer.toString(CharacterParams.bsCost()));
+        moveCost.setText(Integer.toString(CharacterParams.moveCost()));
 
-        bg.setText(Integer.toString(UserParams.bg()));
-        doge.setText(Integer.toString(UserParams.doge()));
+        bg.setText(Integer.toString(CharacterParams.bg()));
+        doge.setText(Integer.toString(CharacterParams.doge()));
 
-        thrust.setText(Dmg.thrust(user.st));
-        swing.setText(Dmg.swing(user.st));
+        thrust.setText(Dmg.thrust(character.st));
+        swing.setText(Dmg.swing(character.st));
 
         textEvents();
     }
@@ -96,344 +96,344 @@ public class UserParamsController extends AbstractController {
         sm.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                sm.setText(Integer.toString(user.sm));
+                sm.setText(Integer.toString(character.sm));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.sm == intValue) return;
+            if(character.sm == intValue) return;
 
-            user.sm = intValue;
+            character.sm = intValue;
             int oldStCost = Integer.parseInt(stCost.getText());
-            stCost.setText(Integer.toString(UserParams.stCost()));
+            stCost.setText(Integer.toString(CharacterParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            hpCost.setText(Integer.toString(UserParams.hpCost()));
+            hpCost.setText(Integer.toString(CharacterParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
-            user.save();
+            character.save();
         });
 
         noFineManipulators.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            user.noFineManipulators = newValue;
+            character.noFineManipulators = newValue;
             int oldStCost = Integer.parseInt(stCost.getText());
-            stCost.setText(Integer.toString(UserParams.stCost()));
+            stCost.setText(Integer.toString(CharacterParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldDxCost = Integer.parseInt(dxCost.getText());
-            dxCost.setText(Integer.toString(UserParams.dxCost()));
+            dxCost.setText(Integer.toString(CharacterParams.dxCost()));
             currentPoints(dxCost, oldDxCost);
-            user.save();
+            character.save();
         });
 
         st.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                st.setText(Integer.toString(user.st));
+                st.setText(Integer.toString(character.st));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.st == intValue) return;
+            if(character.st == intValue) return;
 
-            user.st = intValue;
-            if(intValue > user.hp) {
-                user.hp = intValue;
+            character.st = intValue;
+            if(intValue > character.hp) {
+                character.hp = intValue;
                 hp.setText(newValue);
             }
 
             int oldStCost = Integer.parseInt(stCost.getText());
-            stCost.setText(Integer.toString(UserParams.stCost()));
+            stCost.setText(Integer.toString(CharacterParams.stCost()));
             currentPoints(stCost, oldStCost);
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            hpCost.setText(Integer.toString(UserParams.hpCost()));
+            hpCost.setText(Integer.toString(CharacterParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
 
-            bg.setText(Integer.toString(UserParams.bg()));
-            thrust.setText(Dmg.thrust(user.st));
-            swing.setText(Dmg.swing(user.st));
+            bg.setText(Integer.toString(CharacterParams.bg()));
+            thrust.setText(Dmg.thrust(character.st));
+            swing.setText(Dmg.swing(character.st));
 
-            user.save();
+            character.save();
         });
 
         dx.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                dx.setText(Integer.toString(user.dx));
+                dx.setText(Integer.toString(character.dx));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.dx == intValue) return;
-            user.dx = intValue;
+            if(character.dx == intValue) return;
+            character.dx = intValue;
 
             int oldDxCost = Integer.parseInt(dxCost.getText());
-            dxCost.setText(Integer.toString(UserParams.dxCost()));
+            dxCost.setText(Integer.toString(CharacterParams.dxCost()));
             currentPoints(dxCost, oldDxCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            bsCost.setText(Integer.toString(UserParams.bsCost()));
+            bsCost.setText(Integer.toString(CharacterParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
 
-            doge.setText(Integer.toString(UserParams.doge()));
-            user.save();
+            doge.setText(Integer.toString(CharacterParams.doge()));
+            character.save();
         });
 
         iq.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                iq.setText(Integer.toString(user.iq));
+                iq.setText(Integer.toString(character.iq));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.iq == intValue) return;
-            user.iq = intValue;
+            if(character.iq == intValue) return;
+            character.iq = intValue;
 
             int oldIqCost = Integer.parseInt(iqCost.getText());
-            iqCost.setText(Integer.toString(UserParams.iqCost()));
+            iqCost.setText(Integer.toString(CharacterParams.iqCost()));
             currentPoints(iqCost, oldIqCost);
 
-            if(intValue > user.will) {
-                user.will = intValue;
-                will.setText(Integer.toString(user.will));
+            if(intValue > character.will) {
+                character.will = intValue;
+                will.setText(Integer.toString(character.will));
             }
 
-            if(intValue > user.per) {
-                user.per = intValue;
-                per.setText(Integer.toString(user.per));
+            if(intValue > character.per) {
+                character.per = intValue;
+                per.setText(Integer.toString(character.per));
             }
 
             int oldWillCost = Integer.parseInt(willCost.getText());
-            willCost.setText(Integer.toString(UserParams.willCost()));
+            willCost.setText(Integer.toString(CharacterParams.willCost()));
             currentPoints(willCost, oldWillCost);
 
             int oldPerCost = Integer.parseInt(perCost.getText());
-            perCost.setText(Integer.toString(UserParams.perCost()));
+            perCost.setText(Integer.toString(CharacterParams.perCost()));
             currentPoints(perCost, oldPerCost);
-            user.save();
+            character.save();
         });
 
         ht.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                ht.setText(Integer.toString(user.ht));
+                ht.setText(Integer.toString(character.ht));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.ht == intValue) return;
-            user.ht = intValue;
+            if(character.ht == intValue) return;
+            character.ht = intValue;
 
             int oldHtCost = Integer.parseInt(htCost.getText());
-            htCost.setText(Integer.toString(UserParams.htCost()));
+            htCost.setText(Integer.toString(CharacterParams.htCost()));
             currentPoints(htCost, oldHtCost);
 
-            if(intValue > user.fp) {
-                user.fp = intValue;
-                fp.setText(Integer.toString(user.fp));
+            if(intValue > character.fp) {
+                character.fp = intValue;
+                fp.setText(Integer.toString(character.fp));
             }
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
-            fpCost.setText(Integer.toString(UserParams.fpCost()));
+            fpCost.setText(Integer.toString(CharacterParams.fpCost()));
             currentPoints(fpCost, oldFpCost);
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            bsCost.setText(Integer.toString(UserParams.bsCost()));
+            bsCost.setText(Integer.toString(CharacterParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
         });
 
         hp.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                hp.setText(Integer.toString(user.hp));
+                hp.setText(Integer.toString(character.hp));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.hp == intValue) return;
-            user.hp = intValue;
+            if(character.hp == intValue) return;
+            character.hp = intValue;
 
             int oldHpCost = Integer.parseInt(hpCost.getText());
-            hpCost.setText(Integer.toString(UserParams.hpCost()));
+            hpCost.setText(Integer.toString(CharacterParams.hpCost()));
             currentPoints(hpCost, oldHpCost);
-            user.save();
+            character.save();
         });
 
         will.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                will.setText(Integer.toString(user.will));
+                will.setText(Integer.toString(character.will));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.will == intValue) return;
-            user.will = intValue;
+            if(character.will == intValue) return;
+            character.will = intValue;
 
             int oldWillCost = Integer.parseInt(willCost.getText());
-            willCost.setText(Integer.toString(UserParams.willCost()));
+            willCost.setText(Integer.toString(CharacterParams.willCost()));
             currentPoints(willCost, oldWillCost);
-            user.save();
+            character.save();
         });
 
         per.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                per.setText(Integer.toString(user.per));
+                per.setText(Integer.toString(character.per));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.per == intValue) return;
-            user.per = intValue;
+            if(character.per == intValue) return;
+            character.per = intValue;
 
             int oldPerCost = Integer.parseInt(perCost.getText());
-            perCost.setText(Integer.toString(UserParams.perCost()));
+            perCost.setText(Integer.toString(CharacterParams.perCost()));
             currentPoints(perCost, oldPerCost);
-            user.save();
+            character.save();
         });
 
         fp.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                fp.setText(Integer.toString(user.fp));
+                fp.setText(Integer.toString(character.fp));
                 return;
             }
 
             int intValue = Integer.parseInt(newValue);
-            if(user.fp == intValue) return;
-            user.fp = intValue;
+            if(character.fp == intValue) return;
+            character.fp = intValue;
 
             int oldFpCost = Integer.parseInt(fpCost.getText());
-            fpCost.setText(Integer.toString(UserParams.fpCost()));
+            fpCost.setText(Integer.toString(CharacterParams.fpCost()));
             currentPoints(fpCost, oldFpCost);
-            user.save();
+            character.save();
         });
 
         bs.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(newValue.matches(".\\d+") && !newValue.matches("\\d+.\\d+") || newValue.matches("\\d+.") && !newValue.matches("\\d+.\\d+")) return;
             if(!newValue.matches("\\d+.\\d+|\\d+")) {
-                bs.setText(Double.toString(user.bs));
+                bs.setText(Double.toString(character.bs));
                 return;
             }
 
             double dNewValue = Double.parseDouble(newValue);
-            if(user.bs == dNewValue) return;
+            if(character.bs == dNewValue) return;
 
-            user.bs = dNewValue;
+            character.bs = dNewValue;
             int intNewValue = (int) dNewValue;
-            if(intNewValue > user.move) {
-                user.move = intNewValue;
-                move.setText(Integer.toString(user.move));
+            if(intNewValue > character.move) {
+                character.move = intNewValue;
+                move.setText(Integer.toString(character.move));
             }
 
             int oldBsCost = Integer.parseInt(bsCost.getText());
-            bsCost.setText(Integer.toString(UserParams.bsCost()));
+            bsCost.setText(Integer.toString(CharacterParams.bsCost()));
             currentPoints(bsCost, oldBsCost);
 
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
 
-            doge.setText(Integer.toString(UserParams.doge()));
-            user.save();
+            doge.setText(Integer.toString(CharacterParams.doge()));
+            character.save();
         });
 
         move.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                move.setText(Integer.toString(user.move));
+                move.setText(Integer.toString(character.move));
                 return;
             }
 
             int intNewValue = Integer.parseInt(newValue);
-            if(user.move == intNewValue) return;
+            if(character.move == intNewValue) return;
 
-            user.move = intNewValue;
+            character.move = intNewValue;
             int oldMoveCost = Integer.parseInt(moveCost.getText());
-            moveCost.setText(Integer.toString(UserParams.moveCost()));
+            moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
-            user.save();
+            character.save();
         });
 
         name.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(user.name.equals(newValue)) return;
-            user.update_single("name", newValue);
+            if(character.name.equals(newValue)) return;
+            character.update_single("name", newValue);
         });
 
         player.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(user.player != null && user.player.equals(newValue)) return;
-            user.update_single("player", newValue);
+            if(character.player != null && character.player.equals(newValue)) return;
+            character.update_single("player", newValue);
         });
 
         tl.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                tl.setText(Integer.toString(user.tl));
+                tl.setText(Integer.toString(character.tl));
                 return;
             }
 
             int intNewValue = Integer.parseInt(newValue);
-            if(user.tl == intNewValue) return;
-            user.update_single("tl", intNewValue);
+            if(character.tl == intNewValue) return;
+            character.update_single("tl", intNewValue);
         });
 
         tlCost.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("") || newValue.equals("-")) return;
             try {
                 int intNewValue = Integer.parseInt(newValue);
-                if(user.tlCost == intNewValue) return;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) + intNewValue - user.tlCost);
-                user.tlCost = intNewValue;
-                user.save();
+                if(character.tlCost == intNewValue) return;
+                setCurrentPoints(Integer.parseInt(character.currentPoints) + intNewValue - character.tlCost);
+                character.tlCost = intNewValue;
+                character.save();
             } catch(NumberFormatException e){
-                tlCost.setText(Integer.toString(user.tlCost));
+                tlCost.setText(Integer.toString(character.tlCost));
             }
         });
 
         growth.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                growth.setText(Integer.toString(user.growth));
+                growth.setText(Integer.toString(character.growth));
                 return;
             }
 
-            user.update_single("growth", Integer.parseInt(newValue));
+            character.update_single("growth", Integer.parseInt(newValue));
         });
 
         weight.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                weight.setText(Integer.toString(user.weight));
+                weight.setText(Integer.toString(character.weight));
                 return;
             }
 
-            user.update_single("weight", Integer.parseInt(newValue));
+            character.update_single("weight", Integer.parseInt(newValue));
         });
 
         age.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                age.setText(Integer.toString(user.age));
+                age.setText(Integer.toString(character.age));
                 return;
             }
 
-            user.update_single("age", Integer.parseInt(newValue));
+            character.update_single("age", Integer.parseInt(newValue));
         });
     }
 
     private void currentPoints(Label cost, int oldStCost) {
-        setCurrentPoints(Integer.parseInt(user.currentPoints) + Integer.parseInt(cost.getText()) - oldStCost);
+        setCurrentPoints(Integer.parseInt(character.currentPoints) + Integer.parseInt(cost.getText()) - oldStCost);
     }
 }

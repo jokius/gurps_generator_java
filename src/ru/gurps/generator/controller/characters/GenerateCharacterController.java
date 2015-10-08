@@ -1,4 +1,4 @@
-package ru.gurps.generator.controller;
+package ru.gurps.generator.controller.characters;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.models.*;
+import ru.gurps.generator.lib.CharacterParams;
+import ru.gurps.generator.models.Character;
 import ru.gurps.generator.models.characters.*;
 import ru.gurps.generator.models.rules.*;
 
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GenerateUserController extends AbstractController {
+public class GenerateCharacterController extends AbstractController {
     public TextField name;
     public TextField params;
 
@@ -91,7 +91,7 @@ public class GenerateUserController extends AbstractController {
 
         back.setOnAction(event -> {
             stage.close();
-            usersStage();
+            charactersStage();
         });
 
         generate.setOnAction(event -> {
@@ -132,7 +132,7 @@ public class GenerateUserController extends AbstractController {
     }
 
     private void generate() {
-        user = (User) new User(name.getText(), "0").create();
+        character = (Character) new Character(name.getText(), "0").create();
         int cost = 0;
         for (TextField textField : textFields()) {
             if (textField.getId().equals("name") || textField.getText().equals("")) continue;
@@ -148,8 +148,8 @@ public class GenerateUserController extends AbstractController {
             cost += setPoints;
         }
 
-        user.maxPoints = Integer.toString(cost);
-        user.save();
+        character.maxPoints = Integer.toString(cost);
+        character.save();
     }
 
     public void paramsGenerate(int paramsInt) {
@@ -157,51 +157,51 @@ public class GenerateUserController extends AbstractController {
             int cost = 0;
             int r = random.nextInt(100);
             if (r == 0) {
-                user.st += 1;
+                character.st += 1;
                 cost = 10;
                 paramsInt -= cost;
                 if (paramsInt < 0) {
-                    user.st -= 1;
+                    character.st -= 1;
                     break;
                 }
-                user.hp += 1;
+                character.hp += 1;
 
             } else if (r == 1) {
-                user.dx += 1;
+                character.dx += 1;
                 cost = 20;
                 paramsInt -= cost;
                 if (paramsInt < 0) {
-                    user.dx -= 1;
+                    character.dx -= 1;
                     break;
                 }
 
             } else if (r == 2) {
-                user.iq += 1;
+                character.iq += 1;
                 cost = 20;
                 paramsInt -= cost;
                 if (paramsInt < 0) {
-                    user.iq -= 1;
+                    character.iq -= 1;
                     break;
                 }
-                user.will += 1;
-                user.per += 1;
+                character.will += 1;
+                character.per += 1;
 
             } else if (r == 3) {
-                user.ht += 1;
+                character.ht += 1;
                 cost = 10;
                 paramsInt -= cost;
                 if (paramsInt < 0) {
-                    user.ht -= 1;
+                    character.ht -= 1;
                     break;
                 }
-                user.fp += 1;
+                character.fp += 1;
             }
 
-            user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + cost);
+            character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + cost);
         }
 
-        user.bs = UserParams.defaultBs();
-        user.move = user.bs.intValue();
+        character.bs = CharacterParams.defaultBs();
+        character.move = character.bs.intValue();
     }
 
     public void advantagesGenerate(int advantagesInt) {
@@ -224,8 +224,8 @@ public class GenerateUserController extends AbstractController {
                 if (feature.maxLevel > 1) level = random.nextInt(feature.maxLevel) + 1;
                 advantagesInt -= feature.cost * level;
                 if (advantagesInt < 0) break;
-                user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + feature.cost);
-                new UserFeature(user.id, feature.id, feature.cost, level).create();
+                character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + feature.cost);
+                new CharactersFeature(character.id, feature.id, feature.cost, level).create();
             }
         }
     }
@@ -250,8 +250,8 @@ public class GenerateUserController extends AbstractController {
                 if (feature.maxLevel > 1) level = random.nextInt(feature.maxLevel) + 1;
                 advantagesInt += feature.cost * level;
                 if (advantagesInt < 0) break;
-                user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + feature.cost);
-                new UserFeature(user.id, feature.id, feature.cost, level).create();
+                character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + feature.cost);
+                new CharactersFeature(character.id, feature.id, feature.cost, level).create();
             }
 
         }
@@ -266,7 +266,7 @@ public class GenerateUserController extends AbstractController {
             if(skills.size() - list.size() == 1) break;
             Skill skill = skills.get(random.nextInt(skills.size() - 1));
             if (skill.specializations().size() > 0) {
-                SkillSpecialization specialization = skill.specializations().get(random.nextInt(skill.specializations().size() - 1));
+                Specialization specialization = skill.specializations().get(random.nextInt(skill.specializations().size() - 1));
                 boolean add = true;
                 for (Integer id : list) {
                     if (id == skill.id) {
@@ -277,13 +277,13 @@ public class GenerateUserController extends AbstractController {
 
                 if (add) {
                     list.add(skill.id);
-                    specialization.level = UserParams.skillLevel(specialization);
+                    specialization.level = CharacterParams.skillLevel(specialization);
                     specialization.level += random.nextInt(maxLvl);
-                    specialization.cost = UserParams.skillCost(specialization);
+                    specialization.cost = CharacterParams.skillCost(specialization);
                     skillsInt -= specialization.cost;
                     if (skillsInt < 0) break;
-                    user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + specialization.cost);
-                    new UserSkillSpecialization(user.id, specialization.id, specialization.level, specialization.cost).create();
+                    character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + specialization.cost);
+                    new CharactersSpecialization(character.id, specialization.id, specialization.level, specialization.cost).create();
                 }
             } else {
                 boolean add = true;
@@ -296,13 +296,13 @@ public class GenerateUserController extends AbstractController {
 
                 if (add) {
                     list.add(skill.id);
-                    skill.level = UserParams.skillLevel(skill);
+                    skill.level = CharacterParams.skillLevel(skill);
                     skill.level += random.nextInt(maxLvl);
-                    skill.cost = UserParams.skillCost(skill);
+                    skill.cost = CharacterParams.skillCost(skill);
                     skillsInt -= skill.cost;
                     if (skillsInt < 0) break;
-                    user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + skill.cost);
-                    new UserSkill(user.id, skill.id, skill.level, skill.cost).create();
+                    character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + skill.cost);
+                    new CharactersSkill(character.id, skill.id, skill.level, skill.cost).create();
                 }
             }
         }
@@ -328,11 +328,11 @@ public class GenerateUserController extends AbstractController {
             if (add) {
                 list.add(technique.id);
                 technique.level += random.nextInt(maxLvl);
-                technique.cost = UserParams.techniqueCost(technique);
+                technique.cost = CharacterParams.techniqueCost(technique);
                 techniquesInt -= technique.cost;
                 if (techniquesInt < 0) break;
-                user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + technique.cost);
-                new UserTechnique(user.id, technique.id, technique.level, technique.cost).create();
+                character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + technique.cost);
+                new CharactersTechnique(character.id, technique.id, technique.level, technique.cost).create();
             }
         }
     }
@@ -356,16 +356,16 @@ public class GenerateUserController extends AbstractController {
             if (add) {
                 list.add(spell.id);
                 if (spell.complexity == 2) {
-                    spell.level = user.iq - 2;
+                    spell.level = character.iq - 2;
                 } else {
-                    spell.level = user.iq - 3;
+                    spell.level = character.iq - 3;
                 }
                 spell.level += random.nextInt(maxLvl);
-                spell.cost = UserParams.spellCost(spell);
+                spell.cost = CharacterParams.spellCost(spell);
                 spellsInt -= spell.cost;
                 if (spellsInt < 0) break;
-                user.currentPoints = Integer.toString(Integer.parseInt(user.currentPoints) + spell.cost);
-                new UserSpell(user.id, spell.id, spell.level, spell.cost).create();
+                character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + spell.cost);
+                new CharactersSpell(character.id, spell.id, spell.level, spell.cost).create();
             }
         }
     }

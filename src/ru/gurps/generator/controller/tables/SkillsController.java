@@ -14,19 +14,19 @@ import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.full.info.SkillFullController;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.models.*;
-import ru.gurps.generator.models.characters.UserSkill;
-import ru.gurps.generator.models.characters.UserSkillSpecialization;
+import ru.gurps.generator.lib.CharacterParams;
+import ru.gurps.generator.models.Character;
+import ru.gurps.generator.models.characters.CharactersSkill;
+import ru.gurps.generator.models.characters.CharactersSpecialization;
 import ru.gurps.generator.models.rules.Skill;
-import ru.gurps.generator.models.rules.SkillSpecialization;
+import ru.gurps.generator.models.rules.Specialization;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SkillsController extends AbstractController {
-    User user = AbstractController.user;
+    Character character = AbstractController.character;
 
     public TableView<Skill> tableView;
     public TableColumn<Skill, String> nameColumn;
@@ -104,20 +104,20 @@ public class SkillsController extends AbstractController {
                 setText(item);
                 Skill skill = tableView.getItems().get(getTableRow().getIndex());
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("userId", user.id);
+                params.put("characterId", character.id);
                 params.put("skillId", skill.id);
-                UserSkill userSkill = (UserSkill) new UserSkill().find_by(params);
+                CharactersSkill charactersSkill = (CharactersSkill) new CharactersSkill().find_by(params);
                 getTableRow().getStyleClass().remove("addOne");
                 getTableRow().getStyleClass().remove("isAdd");
-                if(userSkill.id == null) {
+                if(charactersSkill.id == null) {
                     getTableRow().getStyleClass().remove("isAdd");
 
                     params.remove("skillId");
-                    UserSkillSpecialization userSkillSpecialization = new UserSkillSpecialization();
-                    for(SkillSpecialization specialization : skill.specializations()) {
-                        params.put("skillSpecializationId", specialization.id);
-                        userSkillSpecialization = (UserSkillSpecialization) userSkillSpecialization.find_by(params);
-                        if(userSkillSpecialization.id == null) getTableRow().getStyleClass().remove("addOne");
+                    CharactersSpecialization charactersSpecialization = new CharactersSpecialization();
+                    for(Specialization specialization : skill.specializations()) {
+                        params.put("specializationId", specialization.id);
+                        charactersSpecialization = (CharactersSpecialization) charactersSpecialization.find_by(params);
+                        if(charactersSpecialization.id == null) getTableRow().getStyleClass().remove("addOne");
                         else {
                             getTableRow().getStyleClass().add("addOne");
                             return;
@@ -137,14 +137,14 @@ public class SkillsController extends AbstractController {
         tableView.setPlaceholder(new Label(Main.locale.getString("skills_not_found")));
         ObservableList<Skill> skills = new Skill().all();
         HashMap<String, Object> params = new HashMap<>();
-        params.put("userId", user.id);
+        params.put("characterId", character.id);
 
         for(Skill skill : skills){
             params.put("skillId", skill.id);
-            UserSkill userSkill = (UserSkill) new UserSkill().find_by(params);
-            if(userSkill.level != null) {
-                skill.cost = userSkill.cost;
-                skill.level = userSkill.level;
+            CharactersSkill charactersSkill = (CharactersSkill) new CharactersSkill().find_by(params);
+            if(charactersSkill.level != null) {
+                skill.cost = charactersSkill.cost;
+                skill.level = charactersSkill.level;
                 skill.add = true;
             }
         }
@@ -243,7 +243,7 @@ public class SkillsController extends AbstractController {
                 level.textProperty().addListener((observableValue, oldValue, newValue) -> {
                     if(oldValue.equals(newValue) || newValue.equals("")) return;
                     skill.level = Integer.parseInt(newValue);
-                    int cost = UserParams.skillCost(skill);
+                    int cost = CharacterParams.skillCost(skill);
                     finalCost.setText(Integer.toString(cost));
                     skill.cost = cost;
                 });
@@ -258,7 +258,7 @@ public class SkillsController extends AbstractController {
             level.textProperty().addListener((observableValue, oldValue, newValue) -> {
                 if(oldValue.equals(newValue) || newValue.equals("")) return;
                 skill.level = Integer.parseInt(newValue);
-                int cost = UserParams.skillCost(skill);
+                int cost = CharacterParams.skillCost(skill);
                 finalCost.setText(Integer.toString(cost));
                 skill.cost = cost;
             });
@@ -266,12 +266,12 @@ public class SkillsController extends AbstractController {
         }
 
         void defaultParams() {
-            int defaultLevel = UserParams.skillLevel(skill);
+            int defaultLevel = CharacterParams.skillLevel(skill);
             if(skill.level < defaultLevel) skill.level = defaultLevel;
 
             level.setText(Integer.toString(skill.level));
             if(skill.cost > 0) finalCost.setText(Integer.toString(skill.cost));
-            else finalCost.setText(Integer.toString(UserParams.skillCost(skill)));
+            else finalCost.setText(Integer.toString(CharacterParams.skillCost(skill)));
 
             complexity.setText(skill.getComplexity());
             twoHands.setText(skill.getTwoHands());
@@ -281,8 +281,8 @@ public class SkillsController extends AbstractController {
 
         void setButtons(){
             add.setOnAction(event -> {
-                new UserSkill(user.id, skill.id, skill.cost, skill.level).create();
-                setCurrentPoints(skill.cost + Integer.parseInt(user.currentPoints));
+                new CharactersSkill(character.id, skill.id, skill.cost, skill.level).create();
+                setCurrentPoints(skill.cost + Integer.parseInt(character.currentPoints));
                 skill.add = true;
                 add.setVisible(false);
                 remove.setVisible(true);
@@ -291,11 +291,11 @@ public class SkillsController extends AbstractController {
 
             remove.setOnAction(event -> {
                 HashMap<String, Object> params1 = new HashMap<>();
-                params1.put("userId", user.id);
+                params1.put("characterId", character.id);
                 params1.put("skillId", skill.id);
-                UserSkill userSkill = (UserSkill) new UserSkill().find_by(params1);
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - userSkill.cost);
-                userSkill.delete();
+                CharactersSkill charactersSkill = (CharactersSkill) new CharactersSkill().find_by(params1);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - charactersSkill.cost);
+                charactersSkill.delete();
                 skill.add = false;
                 add.setVisible(true);
                 remove.setVisible(false);
