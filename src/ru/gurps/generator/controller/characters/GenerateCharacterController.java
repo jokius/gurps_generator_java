@@ -1,4 +1,4 @@
-package ru.gurps.generator.controller;
+package ru.gurps.generator.controller.characters;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GenerateUserController extends AbstractController {
+public class GenerateCharacterController extends AbstractController {
     public TextField name;
     public TextField params;
 

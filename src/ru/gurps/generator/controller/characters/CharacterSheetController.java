@@ -1,4 +1,4 @@
-package ru.gurps.generator.controller;
+package ru.gurps.generator.controller.characters;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +23,7 @@ import ru.gurps.generator.models.rules.*;
 import java.io.File;
 import java.lang.reflect.Field;
 
-public class UserSheetController extends AbstractController {
+public class CharacterSheetController extends AbstractController {
     private Character character = AbstractController.character;
     public Label name;
     public Label player;
