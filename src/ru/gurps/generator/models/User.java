@@ -3,6 +3,8 @@ package ru.gurps.generator.models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.gurps.generator.config.Model;
+import ru.gurps.generator.models.characters.*;
+import ru.gurps.generator.models.rules.*;
 
 public class User extends Model {
     public Integer id;

@@ -8,9 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.controller.helpers.AbstractController;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

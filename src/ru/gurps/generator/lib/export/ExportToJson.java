@@ -3,9 +3,11 @@ package ru.gurps.generator.lib.export;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.gurps.generator.controller.UsersController;
-import ru.gurps.generator.models.*;
 import ru.gurps.generator.lib.export.pojo.JsonUser;
 import ru.gurps.generator.lib.export.pojo.JsonUserFeature;
+import ru.gurps.generator.models.characters.*;
+import ru.gurps.generator.models.rules.Feature;
+import ru.gurps.generator.models.rules.FeatureAddon;
 
 import java.io.*;
 import java.util.HashMap;

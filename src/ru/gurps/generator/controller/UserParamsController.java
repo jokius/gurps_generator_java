@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 

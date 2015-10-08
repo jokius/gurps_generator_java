@@ -53,48 +53,48 @@
                 </Tab>
                 <Tab fx:id="advantagesTab" text="%advantages">
                     <content>
-                        <fx:include source="advantages.fxml" />
+                        <fx:include source="tables/advantages.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="disadvantagesTab" text="%disadvantages">
                     <content>
-                        <fx:include source="disadvantages.fxml" />
+                        <fx:include source="tables/disadvantages.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="quirksTab" text="%quirks">
                     <content>
-                        <fx:include source="quirks.fxml" />
+                        <fx:include source="tables/quirks.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="modesTab" text="%modifiers">
                     <content>
-                        <fx:include source="modifiers.fxml" />
+                        <fx:include source="full/info/modifiers.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="skillsTab" text="%skills">
                     <content>
-                        <fx:include source="skills.fxml" />
+                        <fx:include source="tables/skills.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="techniquesTab" text="%techniques">
                     <content>
-                        <fx:include source="techniques.fxml" />
+                        <fx:include source="tables/techniques.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="spellTab" text="%spells">
                     <content>
-                        <fx:include source="spells.fxml" />
+                        <fx:include source="tables/spells.fxml" />
                     </content>
                 </Tab>
 
                 <Tab fx:id="languagesTab" text="%languages">
                     <content>
-                        <fx:include source="languages.fxml" />
+                        <fx:include source="tables/languages.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="culturasTab" text="%cultures">
                     <content>
-                        <fx:include source="culturas.fxml" />
+                        <fx:include source="tables/culturas.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="equipmentTab" text="%equipment">

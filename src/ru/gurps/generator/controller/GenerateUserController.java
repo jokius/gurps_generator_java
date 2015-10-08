@@ -6,8 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
+import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.models.*;
+import ru.gurps.generator.models.characters.*;
+import ru.gurps.generator.models.rules.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

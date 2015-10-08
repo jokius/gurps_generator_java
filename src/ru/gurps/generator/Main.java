@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.gurps.generator.controller.AbstractController;
+import ru.gurps.generator.controller.helpers.AbstractController;
 
 import java.io.*;
 import java.net.*;

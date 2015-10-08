@@ -5,9 +5,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ru.gurps.generator.controller.AbstractController;
+import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.models.*;
+import ru.gurps.generator.models.rules.Feature;
+import ru.gurps.generator.models.rules.Skill;
+import ru.gurps.generator.models.rules.Spell;
 
 import java.io.*;
 

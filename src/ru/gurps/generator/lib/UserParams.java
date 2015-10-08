@@ -2,8 +2,8 @@ package ru.gurps.generator.lib;
 
 import javafx.collections.ObservableList;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.controller.AbstractController;
-import ru.gurps.generator.models.*;
+import ru.gurps.generator.controller.helpers.AbstractController;
+import ru.gurps.generator.models.rules.*;
 
 public class UserParams extends AbstractController {
     public static int stCost() {

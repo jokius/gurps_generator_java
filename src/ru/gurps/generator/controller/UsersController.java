@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.User;
 
 import java.awt.*;

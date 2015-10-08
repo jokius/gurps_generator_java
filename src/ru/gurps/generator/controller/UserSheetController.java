@@ -12,11 +12,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.lib.export.ExcelJokSheetFormat;
 import ru.gurps.generator.lib.export.ExportToJson;
 import ru.gurps.generator.models.*;
+import ru.gurps.generator.models.rules.*;
 
 import java.io.File;
 import java.lang.reflect.Field;
