@@ -3,7 +3,7 @@ package ru.gurps.generator.models.rules;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
 
-public class SkillSpecialization extends Model {
+public class Specialization extends Model {
     public Integer id;
     public Integer skillId;
     public String name;
@@ -20,7 +20,7 @@ public class SkillSpecialization extends Model {
     @Ignore public Integer level = 1;
     @Ignore public Boolean add = false;
 
-    public SkillSpecialization() {
+    public Specialization() {
     }
 
     public String getName() {

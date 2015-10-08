@@ -17,7 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.Cultura;
-import ru.gurps.generator.models.characters.UserCultura;
+import ru.gurps.generator.models.characters.CharactersCultura;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -77,8 +77,8 @@ public class CulturasController extends AbstractController {
             cultura.cost = Integer.parseInt(costText.getText());
             cultura.add = true;
 
-            new UserCultura(user.id, cultura.id, cultura.cost).create();
-            if(cultura.cost != 0) setCurrentPoints(Integer.parseInt(user.currentPoints) + cultura.cost);
+            new CharactersCultura(character.id, cultura.id, cultura.cost).create();
+            if(cultura.cost != 0) setCurrentPoints(Integer.parseInt(character.currentPoints) + cultura.cost);
             setCulturas();
             nameText.setText("");
             addButton.setDisable(true);
@@ -143,7 +143,7 @@ public class CulturasController extends AbstractController {
         ObservableList<Cultura> culturas = FXCollections.observableArrayList();
         for (Object object : new Cultura().all()) {
             Cultura cultura = (Cultura) object;
-            for (Cultura userCultura : user.cultures()) {
+            for (Cultura userCultura : character.cultures()) {
                 if (cultura.id == userCultura.id) {
                     cultura.cost = userCultura.cost;
                     userCultura.add = true;
@@ -163,18 +163,18 @@ public class CulturasController extends AbstractController {
         CulturasUserButtonCell() {
             addButton.setOnAction(t -> {
                 Cultura cultura = (Cultura) getTableRow().getItem();
-                new UserCultura(user.id, cultura.id, cultura.cost).create();
+                new CharactersCultura(character.id, cultura.id, cultura.cost).create();
                 cultura.add = true;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) + cultura.cost);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) + cultura.cost);
                 setGraphic(removeButton);
             });
 
             removeButton.setOnAction(t -> {
                 Cultura cultura = (Cultura) getTableRow().getItem();
-                new UserCultura().find_by("culturaId", cultura.id).delete();
+                new CharactersCultura().find_by("culturaId", cultura.id).delete();
 
                 cultura.add = false;
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - cultura.cost);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - cultura.cost);
                 setGraphic(addButton);
             });
         }
@@ -199,7 +199,7 @@ public class CulturasController extends AbstractController {
         CulturasDbButtonCell() {
             removeButton.setOnAction(t -> {
                 Cultura cultura = (Cultura) getTableRow().getItem();
-                new UserCultura().delete_all(new UserCultura().where("culturaId", cultura.id));
+                new CharactersCultura().delete_all(new CharactersCultura().where("culturaId", cultura.id));
                 cultura.delete();
                 setCulturas();
             });

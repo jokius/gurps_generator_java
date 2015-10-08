@@ -16,11 +16,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.full.info.FeatureFullController;
-import ru.gurps.generator.models.characters.UserFeature;
-import ru.gurps.generator.models.characters.UserModifier;
+import ru.gurps.generator.models.characters.CharactersFeature;
+import ru.gurps.generator.models.characters.CharactersModifier;
 import ru.gurps.generator.models.rules.Addon;
 import ru.gurps.generator.models.rules.Feature;
-import ru.gurps.generator.models.rules.FeatureAddon;
+import ru.gurps.generator.models.characters.CharactersAddon;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -141,11 +141,11 @@ public class FeaturesAbstractController extends AbstractController {
                     TableRow currentRow = getTableRow();
                     Feature feature = tableView.getItems().get(currentRow.getIndex());
                     HashMap<String, Object> featureParams = new HashMap<>();
-                    featureParams.put("userId", user.id);
+                    featureParams.put("characterId", character.id);
                     featureParams.put("featureId", feature.id);
-                    UserFeature userFeature = (UserFeature) new UserFeature().find_by(featureParams);
+                    CharactersFeature charactersFeature = (CharactersFeature) new CharactersFeature().find_by(featureParams);
                     currentRow.getStyleClass().remove("isAdd");
-                    if (userFeature.id != null) currentRow.getStyleClass().add("isAdd");
+                    if (charactersFeature.id != null) currentRow.getStyleClass().add("isAdd");
                 }
 
                 if (empty) {
@@ -233,7 +233,7 @@ public class FeaturesAbstractController extends AbstractController {
         private Feature feature;
         private String currentLvl;
         private TableRow row;
-        private UserFeature userFeature;
+        private CharactersFeature charactersFeature;
 
         public FeatureEventHandler() {
         }
@@ -249,11 +249,11 @@ public class FeaturesAbstractController extends AbstractController {
             if(feature.id.equals(lastId)) return;
 
             HashMap<String, Object> params = new HashMap<>();
-            params.put("userId", user.id);
+            params.put("characterId", character.id);
             params.put("featureId", feature.id);
-            userFeature = (UserFeature) new UserFeature().find_by(params);
+            charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
 
-            feature.add = userFeature.id != null;
+            feature.add = charactersFeature.id != null;
 
             if(feature.add) {
                 add.setVisible(false);
@@ -267,7 +267,7 @@ public class FeaturesAbstractController extends AbstractController {
             allAddons();
 
             if(!addonsArray.isEmpty()) {
-                userAddons(userFeature.id);
+                userAddons(charactersFeature.id);
                 setCells();
 
                 addonsTableView.setItems(addonsArray);
@@ -279,7 +279,7 @@ public class FeaturesAbstractController extends AbstractController {
 
             buttonsActions();
 
-            if(feature.add) finalCost.setText(Integer.toString(userFeature.cost));
+            if(feature.add) finalCost.setText(Integer.toString(charactersFeature.cost));
         }
 
         double currentAddonCost(Addon addon) {
@@ -307,13 +307,13 @@ public class FeaturesAbstractController extends AbstractController {
 
         void userAddons(Integer id) {
             if(id == null) return;
-            ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", id);
-            for(FeatureAddon featureAddon : featureAddons) {
+            ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where("characterFeatureId", id);
+            for(CharactersAddon charactersAddon : charactersAddons) {
                 for(Addon addon : addonsArray) {
-                    if(addon.id == featureAddon.addonId) {
+                    if(addon.id == charactersAddon.addonId) {
                         addon.active = true;
-                        addon.cost = featureAddon.cost;
-                        addon.level = featureAddon.level;
+                        addon.cost = charactersAddon.cost;
+                        addon.level = charactersAddon.level;
                     }
                 }
             }
@@ -358,12 +358,12 @@ public class FeaturesAbstractController extends AbstractController {
                         setText(item);
                         TableRow currentRow = getTableRow();
                         Addon addon = addonsTableView.getItems().get(currentRow.getIndex());
-                        if(userFeature.id == null) return;
+                        if(charactersFeature.id == null) return;
                         HashMap<String, Object> params = new HashMap<>();
-                        params.put("userFeatureId", userFeature.id);
+                        params.put("characterFeatureId", charactersFeature.id);
                         params.put("addonId", addon.id);
-                        FeatureAddon featureAddon = (FeatureAddon) new FeatureAddon().find_by(params);
-                        if(featureAddon.id == null) currentRow.getStyleClass().remove("isAdd");
+                        CharactersAddon charactersAddon = (CharactersAddon) new CharactersAddon().find_by(params);
+                        if(charactersAddon.id == null) currentRow.getStyleClass().remove("isAdd");
                         else currentRow.getStyleClass().add("isAdd");
                     }
 
@@ -386,8 +386,8 @@ public class FeaturesAbstractController extends AbstractController {
                     addon.active = true;
                     addonCost(addon);
 
-                    if(userFeature.id == null) userFeature = createUserFeature();
-                    new FeatureAddon(userFeature.id, addon.id, addon.cost, addon.level).create();
+                    if(charactersFeature.id == null) charactersFeature = createUserFeature();
+                    new CharactersAddon(charactersFeature.id, addon.id, addon.cost, addon.level).create();
 
                     setGraphic(removeButton);
                     getTableRow().getStyleClass().add("isAdd");
@@ -396,12 +396,11 @@ public class FeaturesAbstractController extends AbstractController {
                 removeButton.setOnAction(t -> {
                     Addon addon = (Addon) getTableRow().getItem();
                     HashMap<String, Object> params = new HashMap<>();
-                    params.put("userFeatureId", userFeature.id);
+                    params.put("characterFeatureId", charactersFeature.id);
                     params.put("addonId", addon.id);
-                    FeatureAddon featureAddon = (FeatureAddon) new FeatureAddon().find_by(params);
-                    System.out.println(pointsCostAddon(addon));
-                    userFeature.update_single("cost", userFeature.cost - pointsCostAddon(addon));
-                    featureAddon.delete();
+                    CharactersAddon charactersAddon = (CharactersAddon) new CharactersAddon().find_by(params);
+                    charactersFeature.update_single("cost", charactersFeature.cost - pointsCostAddon(addon));
+                    charactersAddon.delete();
                     addon.active = false;
                     addonCost(addon);
                     setGraphic(addButton);
@@ -530,23 +529,23 @@ public class FeaturesAbstractController extends AbstractController {
 
             remove.setOnAction(actionEvent -> {
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("userId", Integer.toString(user.id));
+                params.put("characterId", Integer.toString(character.id));
                 params.put("featureId", feature.id);
 
-                UserFeature userFeature = (UserFeature) new UserFeature().find_by(params);
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - userFeature.cost);
-                userFeature.delete();
+                CharactersFeature charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - charactersFeature.cost);
+                charactersFeature.delete();
 
                 add.setVisible(true);
                 remove.setVisible(false);
 
                 if(!addonsTableView.isVisible()) return;
 
-                ObservableList<FeatureAddon> featureAddons = new FeatureAddon().where("userFeatureId", userFeature.id);
+                ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where("characterFeatureId", charactersFeature.id);
 
-                featureAddons.forEach(FeatureAddon::delete);
-                for(Object object : new UserModifier().where(params)) {
-                    int cost = currentCost((UserModifier) object);
+                charactersAddons.forEach(CharactersAddon::delete);
+                for(Object object : new CharactersModifier().where(params)) {
+                    int cost = currentCost((CharactersModifier) object);
                     setCurrentPoints(globalCost() - cost);
                 }
 
@@ -556,17 +555,17 @@ public class FeaturesAbstractController extends AbstractController {
             });
         }
 
-        int currentCost(UserModifier modifier) {
+        int currentCost(CharactersModifier modifier) {
             return (int) (feature.cost * (modifier.cost * modifier.level / 100.0));
         }
 
-        UserFeature createUserFeature(){
-            setCurrentPoints(intCost() + Integer.parseInt(user.currentPoints));
+        CharactersFeature createUserFeature(){
+            setCurrentPoints(intCost() + Integer.parseInt(character.currentPoints));
             feature.add = true;
             add.setVisible(false);
             remove.setVisible(true);
             row.getStyleClass().add("isAdd");
-            return (UserFeature) new UserFeature(user.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
+            return (CharactersFeature) new CharactersFeature(character.id, feature.id, intCost(), Integer.parseInt(currentLvl)).create();
         }
 
         void defaultFeature(){

@@ -1,12 +1,12 @@
 package ru.gurps.generator.lib.export.pojo;
 
 import javafx.collections.ObservableList;
-import ru.gurps.generator.models.rules.FeatureAddon;
-import ru.gurps.generator.models.characters.UserFeature;
+import ru.gurps.generator.models.characters.CharactersAddon;
+import ru.gurps.generator.models.characters.CharactersFeature;
 
 public class JsonUserFeature {
-    public UserFeature userFeature;
-    public ObservableList<FeatureAddon> featureAddons;
+    public CharactersFeature charactersFeature;
+    public ObservableList<CharactersAddon> charactersAddons;
 
     public JsonUserFeature() {
     }

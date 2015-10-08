@@ -2,17 +2,17 @@ package ru.gurps.generator.models.characters;
 
 import ru.gurps.generator.config.Model;
 
-public class UserQuirk extends Model {
+public class CharactersQuirk extends Model {
     public Integer id;
-    public Integer userId;
+    public Integer characterId;
     public Integer quirkId;
     public Integer cost = 0;
 
-    public UserQuirk() {
+    public CharactersQuirk() {
     }
 
-    public UserQuirk(Integer userId, Integer quirkId, Integer cost) {
-        this.userId = userId;
+    public CharactersQuirk(Integer characterId, Integer quirkId, Integer cost) {
+        this.characterId = characterId;
         this.quirkId = quirkId;
         this.cost = cost;
     }

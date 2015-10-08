@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
-import ru.gurps.generator.models.characters.UserModifier;
+import ru.gurps.generator.models.characters.CharactersModifier;
 
 import java.util.HashMap;
 
@@ -87,16 +87,16 @@ public class Feature extends Model {
         return modifier;
     }
 
-    public ObservableList<Modifier> modifiers(int userId){
+    public ObservableList<Modifier> modifiers(int characterId){
         HashMap<String, Object> params = new HashMap<>();
-        params.put("userId", userId);
+        params.put("characterId", characterId);
         params.put("featureId", id);
-        ObservableList<UserModifier> userModifiers = new UserModifier().where(params);
+        ObservableList<CharactersModifier> charactersModifiers = new CharactersModifier().where(params);
         ObservableList<Modifier> modifiers = FXCollections.observableArrayList();
-        for(UserModifier userModifier : userModifiers){
-            Modifier modifier = (Modifier) new Modifier().find(userModifier.modifierId);
-            modifier.level = userModifier.level;
-            modifier.cost = userModifier.cost;
+        for(CharactersModifier charactersModifier : charactersModifiers){
+            Modifier modifier = (Modifier) new Modifier().find(charactersModifier.modifierId);
+            modifier.level = charactersModifier.level;
+            modifier.cost = charactersModifier.cost;
             modifiers.add(modifier);
         }
         return modifiers;

@@ -129,8 +129,8 @@ public class Skill extends Model {
         else return Main.locale.getString("modifiers")+": " + modifiers;
     }
 
-    public ObservableList<SkillSpecialization> specializations(){
-        return this.hasMany(new SkillSpecialization());
+    public ObservableList<Specialization> specializations(){
+        return this.hasMany(new Specialization());
     }
 
     public String getTypeAndComplexity(){

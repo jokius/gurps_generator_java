@@ -11,8 +11,8 @@ import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.UserParams;
 import ru.gurps.generator.models.rules.Skill;
-import ru.gurps.generator.models.rules.SkillSpecialization;
-import ru.gurps.generator.models.characters.UserSkillSpecialization;
+import ru.gurps.generator.models.rules.Specialization;
+import ru.gurps.generator.models.characters.CharactersSpecialization;
 
 import java.util.HashMap;
 
@@ -32,13 +32,13 @@ public class SkillSpecializationsController extends AbstractController {
     public Button add;
     public Button remove;
 
-    public TableView<SkillSpecialization> tableView;
-    public TableColumn<SkillSpecialization, String> nameColumn;
-    public TableColumn<SkillSpecialization, String> nameEnColumn;
-    public TableColumn<SkillSpecialization, String> typeColumn;
-    public TableColumn<SkillSpecialization, String> complexityColumn;
-    public TableColumn<SkillSpecialization, String> parryColumn;
-    public TableColumn<SkillSpecialization, String> parryBonusColumn;
+    public TableView<Specialization> tableView;
+    public TableColumn<Specialization, String> nameColumn;
+    public TableColumn<Specialization, String> nameEnColumn;
+    public TableColumn<Specialization, String> typeColumn;
+    public TableColumn<Specialization, String> complexityColumn;
+    public TableColumn<Specialization, String> parryColumn;
+    public TableColumn<Specialization, String> parryBonusColumn;
 
     public Text fullDescription;
     public Text modifiers;
@@ -60,7 +60,7 @@ public class SkillSpecializationsController extends AbstractController {
         parryColumn.setCellValueFactory(new PropertyValueFactory<>("parry"));
         parryBonusColumn.setCellValueFactory(new PropertyValueFactory<>("parryBonus"));
 
-        nameColumn.setCellFactory(column -> new TableCell<SkillSpecialization, String>() {
+        nameColumn.setCellFactory(column -> new TableCell<Specialization, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -68,12 +68,12 @@ public class SkillSpecializationsController extends AbstractController {
 
                 if(item != null || !empty) {
                     setText(item);
-                    SkillSpecialization specialization = tableView.getItems().get(getTableRow().getIndex());
+                    Specialization specialization = tableView.getItems().get(getTableRow().getIndex());
                     HashMap<String, Object> params = new HashMap<>();
-                    params.put("userId", user.id);
-                    params.put("skillSpecializationId", specialization.id);
-                    UserSkillSpecialization userSkillSpecialization = (UserSkillSpecialization) new UserSkillSpecialization().find_by(params);
-                    if(userSkillSpecialization.id == null) getTableRow().getStyleClass().remove("isAdd");
+                    params.put("characterId", character.id);
+                    params.put("specializationId", specialization.id);
+                    CharactersSpecialization charactersSpecialization = (CharactersSpecialization) new CharactersSpecialization().find_by(params);
+                    if(charactersSpecialization.id == null) getTableRow().getStyleClass().remove("isAdd");
                     else getTableRow().getStyleClass().add("isAdd");
                 }
 
@@ -85,16 +85,16 @@ public class SkillSpecializationsController extends AbstractController {
         });
 
         tableView.setPlaceholder(new Label(Main.locale.getString("skill_specializations_not_found")));
-        ObservableList<SkillSpecialization> specializations = skill.specializations();
+        ObservableList<Specialization> specializations = skill.specializations();
         HashMap<String, Object> params = new HashMap<>();
-        params.put("userId", user.id);
+        params.put("characterId", character.id);
 
-        for(SkillSpecialization specialization : specializations){
-            params.put("skillSpecializationId", specialization.id);
-            UserSkillSpecialization userSkillSpecialization = (UserSkillSpecialization) new UserSkillSpecialization().find_by(params);
-            if(userSkillSpecialization.level != null) {
-                specialization.cost = userSkillSpecialization.cost;
-                specialization.level = userSkillSpecialization.level;
+        for(Specialization specialization : specializations){
+            params.put("specializationId", specialization.id);
+            CharactersSpecialization charactersSpecialization = (CharactersSpecialization) new CharactersSpecialization().find_by(params);
+            if(charactersSpecialization.level != null) {
+                specialization.cost = charactersSpecialization.cost;
+                specialization.level = charactersSpecialization.level;
                 specialization.add = true;
             }
         }
@@ -102,14 +102,14 @@ public class SkillSpecializationsController extends AbstractController {
         tableView.setItems(specializations);
         tableView.getSortOrder().add(nameColumn);
         tableView.setRowFactory(tv -> {
-            TableRow<SkillSpecialization> row = new TableRow<>();
+            TableRow<Specialization> row = new TableRow<>();
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, new SpecializationEventHandler());
             return row;
         });
     }
 
     class SpecializationEventHandler implements EventHandler<MouseEvent> {
-        private SkillSpecialization specialization;
+        private Specialization specialization;
         private TableRow row;
 
         public SpecializationEventHandler() {
@@ -145,8 +145,8 @@ public class SkillSpecializationsController extends AbstractController {
 
         void setButtons(){
             add.setOnAction(event -> {
-                new UserSkillSpecialization(user.id, specialization.id, specialization.cost, specialization.level).create();
-                setCurrentPoints(skill.cost + Integer.parseInt(user.currentPoints));
+                new CharactersSpecialization(character.id, specialization.id, specialization.cost, specialization.level).create();
+                setCurrentPoints(skill.cost + Integer.parseInt(character.currentPoints));
                 specialization.add = true;
                 add.setVisible(false);
                 remove.setVisible(true);
@@ -156,11 +156,11 @@ public class SkillSpecializationsController extends AbstractController {
 
             remove.setOnAction(event -> {
                 HashMap<String, Object> params1 = new HashMap<>();
-                params1.put("userId", user.id);
-                params1.put("skillSpecializationId", specialization.id);
-                UserSkillSpecialization userSkillSpecialization = (UserSkillSpecialization) new UserSkillSpecialization().find_by(params1);
-                setCurrentPoints(Integer.parseInt(user.currentPoints) - userSkillSpecialization.cost);
-                userSkillSpecialization.delete();
+                params1.put("characterId", character.id);
+                params1.put("specializationId", specialization.id);
+                CharactersSpecialization charactersSpecialization = (CharactersSpecialization) new CharactersSpecialization().find_by(params1);
+                setCurrentPoints(Integer.parseInt(character.currentPoints) - charactersSpecialization.cost);
+                charactersSpecialization.delete();
                 specialization.add = false;
                 add.setVisible(true);
                 remove.setVisible(false);
@@ -171,12 +171,12 @@ public class SkillSpecializationsController extends AbstractController {
 
         private void setSkillRow(){
             HashMap<String, Object> params = new HashMap<>();
-            params.put("userId", user.id);
-            UserSkillSpecialization userSkillSpecialization = new UserSkillSpecialization();
-            for(SkillSpecialization specialization : skill.specializations()) {
-                params.put("skillSpecializationId", specialization.id);
-                userSkillSpecialization = (UserSkillSpecialization) userSkillSpecialization.find_by(params);
-                if(userSkillSpecialization.id == null) skillRow.getStyleClass().remove("addOne");
+            params.put("characterId", character.id);
+            CharactersSpecialization charactersSpecialization = new CharactersSpecialization();
+            for(Specialization specialization : skill.specializations()) {
+                params.put("specializationId", specialization.id);
+                charactersSpecialization = (CharactersSpecialization) charactersSpecialization.find_by(params);
+                if(charactersSpecialization.id == null) skillRow.getStyleClass().remove("addOne");
                 else {
                     skillRow.getStyleClass().add("addOne");
                     return;

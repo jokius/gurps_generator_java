@@ -7,29 +7,29 @@ import ru.gurps.generator.lib.export.pojo.JsonUser;
 import ru.gurps.generator.lib.export.pojo.JsonUserFeature;
 import ru.gurps.generator.models.characters.*;
 import ru.gurps.generator.models.rules.Feature;
-import ru.gurps.generator.models.rules.FeatureAddon;
+import ru.gurps.generator.models.characters.CharactersAddon;
 
 import java.io.*;
 import java.util.HashMap;
 
 public class ExportToJson {
     public ExportToJson(File file) {
-        Integer id = UsersController.user.id;
+        Integer id = UsersController.character.id;
         JsonUser jsonUser = new JsonUser();
-        jsonUser.user = UsersController.user;
-        jsonUser.userCulturas = new UserCultura().where("userId", id);
-        jsonUser.userLanguages = new UserLanguage().where("userId", id);
-        jsonUser.userSkills = new UserSkill().where("userId", id);
-        jsonUser.userSpells = new UserSpell().where("userId", id);
+        jsonUser.character = UsersController.character;
+        jsonUser.userCulturas = new CharactersCultura().where("characterId", id);
+        jsonUser.userLanguages = new CharactersLanguage().where("characterId", id);
+        jsonUser.userSkills = new CharactersSkill().where("characterId", id);
+        jsonUser.userSpells = new CharactersSpell().where("characterId", id);
 
         HashMap<String, Object> params = new HashMap<>();
-        params.put("userId", UsersController.user.id);
+        params.put("characterId", UsersController.character.id);
 
-        for(Feature feature : UsersController.user.features()){
+        for(Feature feature : UsersController.character.features()){
             JsonUserFeature jsonUserFeature = new JsonUserFeature();
             params.put("featureId", feature.id);
-            jsonUserFeature.userFeature = (UserFeature) new UserFeature().find_by(params);
-            jsonUserFeature.featureAddons = new FeatureAddon().where("userFeatureId", jsonUserFeature.userFeature.id);
+            jsonUserFeature.charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
+            jsonUserFeature.charactersAddons = new CharactersAddon().where("characterFeatureId", jsonUserFeature.charactersFeature.id);
             jsonUser.JsonUserFeatures.add(jsonUserFeature);
         }
 

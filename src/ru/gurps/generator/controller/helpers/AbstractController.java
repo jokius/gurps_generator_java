@@ -19,7 +19,7 @@ import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.HttpClientBuilder;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.config.Model;
-import ru.gurps.generator.models.User;
+import ru.gurps.generator.models.Character;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AbstractController extends Main {
-    public static User user;
+    public static Character character;
     public static Label globalCost;
     public static Stage stage = new Stage();
     public static URI urlToLastVersion;
@@ -72,8 +72,8 @@ public class AbstractController extends Main {
     public void setCurrentPoints(int points) {
         String sPoints = Integer.toString(points);
         globalCost.setText(sPoints);
-        user.update_single("currentPoints", sPoints);
-        if (Integer.parseInt(user.maxPoints) >= points) globalCost.setTextFill(Color.GREEN);
+        character.update_single("currentPoints", sPoints);
+        if (Integer.parseInt(character.maxPoints) >= points) globalCost.setTextFill(Color.GREEN);
         else globalCost.setTextFill(Color.RED);
     }
 

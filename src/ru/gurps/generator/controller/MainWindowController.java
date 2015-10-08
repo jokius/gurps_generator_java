@@ -47,24 +47,24 @@ public class MainWindowController extends AbstractController {
 
         menus();
         tabsConfigure();
-        maxPoints.setText(user.maxPoints);
-        globalCost.setText(user.currentPoints);
+        maxPoints.setText(character.maxPoints);
+        globalCost.setText(character.currentPoints);
 
-        if(Integer.parseInt(user.maxPoints) >= Integer.parseInt(user.currentPoints)) globalCost.setTextFill(Color.GREEN);
+        if(Integer.parseInt(character.maxPoints) >= Integer.parseInt(character.currentPoints)) globalCost.setTextFill(Color.GREEN);
         else globalCost.setTextFill(Color.RED);
 
         maxPoints.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) return;
             if(!newValue.matches("\\d+")) {
-                maxPoints.setText(user.maxPoints);
+                maxPoints.setText(character.maxPoints);
                 return;
             }
 
-            if(user.maxPoints.equals(newValue)) return;
-            user.update_single("maxPoints", newValue);
+            if(character.maxPoints.equals(newValue)) return;
+            character.update_single("maxPoints", newValue);
             maxPoints.setText(newValue);
 
-            if(Integer.parseInt(user.maxPoints) >= Integer.parseInt(user.currentPoints)) globalCost.setTextFill(Color.GREEN);
+            if(Integer.parseInt(character.maxPoints) >= Integer.parseInt(character.currentPoints)) globalCost.setTextFill(Color.GREEN);
             else globalCost.setTextFill(Color.RED);
         });
 
@@ -118,7 +118,7 @@ public class MainWindowController extends AbstractController {
 
     private void menus(){
         newMenuItem.setOnAction(event -> {
-            user = null;
+            character = null;
             stage.close();
             usersStage();
         });

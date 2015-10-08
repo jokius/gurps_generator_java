@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
-import ru.gurps.generator.models.User;
+import ru.gurps.generator.models.Character;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,29 +24,29 @@ public class UsersController extends AbstractController {
     public Button generate;
     public TextField newName;
     public TextField points;
-    public TableView<User> userTable;
-    public TableColumn<User, String> name;
-    public TableColumn<User, String> tableCurrentPoints;
-    public TableColumn<User, String> tableMaxPoints;
+    public TableView<Character> userTable;
+    public TableColumn<Character, String> name;
+    public TableColumn<Character, String> tableCurrentPoints;
+    public TableColumn<Character, String> tableMaxPoints;
     public Hyperlink lastVersionLink;
 
-    private ObservableList<User> usersData = FXCollections.observableArrayList();
+    private ObservableList<Character> usersData = FXCollections.observableArrayList();
     private int index = -1;
 
     @FXML
     private void initialize() {
-        usersData.addAll(new User().all());
+        usersData.addAll(new Character().all());
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableCurrentPoints.setCellValueFactory(new PropertyValueFactory<>("currentPoints"));
-        tableCurrentPoints.setCellFactory(column -> new TableCell<User, String>(){
+        tableCurrentPoints.setCellFactory(column -> new TableCell<Character, String>(){
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (getTableRow().getItem() != null) {
                     setText(item);
-                    User user = (User) getTableRow().getItem();
-                    if(Integer.parseInt(user.currentPoints) < Integer.parseInt(user.maxPoints)) setTextFill(Color.GREEN);
+                    Character character = (Character) getTableRow().getItem();
+                    if(Integer.parseInt(character.currentPoints) < Integer.parseInt(character.maxPoints)) setTextFill(Color.GREEN);
                     else setTextFill(Color.RED);
                 } else setText(null);
 
@@ -74,7 +74,7 @@ public class UsersController extends AbstractController {
         });
         
         newUser.setOnAction(event -> {
-            user = (User) new User(newName.getText(), points.getText()).create();
+            character = (Character) new Character(newName.getText(), points.getText()).create();
             stage.close();
             createMainStage();
         });
@@ -86,7 +86,7 @@ public class UsersController extends AbstractController {
         
         remove.setOnAction(event ->{
             usersData.remove(index);
-            user.delete();
+            character.delete();
             userTable.setItems(usersData);
             load.setDisable(true);
             remove.setDisable(true);
@@ -98,12 +98,12 @@ public class UsersController extends AbstractController {
         });
 
         userTable.setRowFactory(tv -> {
-            TableRow<User> row = new TableRow<>();
+            TableRow<Character> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if(row.isEmpty()) return;
                 
                 index = row.getIndex();
-                user = usersData.get(index);
+                character = usersData.get(index);
                 if (event.getClickCount() == 1) {
                     load.setDisable(false);
                     remove.setDisable(false);

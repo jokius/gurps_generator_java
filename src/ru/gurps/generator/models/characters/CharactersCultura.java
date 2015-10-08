@@ -2,17 +2,17 @@ package ru.gurps.generator.models.characters;
 
 import ru.gurps.generator.config.Model;
 
-public class UserCultura extends Model {
+public class CharactersCultura extends Model {
     public Integer id;
-    public Integer userId;
+    public Integer characterId;
     public Integer culturaId;
     public Integer cost = 0;
 
-    public UserCultura() {
+    public CharactersCultura() {
     }
 
-    public UserCultura(Integer userId, Integer culturaId, Integer cost) {
-        this.userId = userId;
+    public CharactersCultura(Integer characterId, Integer culturaId, Integer cost) {
+        this.characterId = characterId;
         this.culturaId = culturaId;
         this.cost = cost;
     }
