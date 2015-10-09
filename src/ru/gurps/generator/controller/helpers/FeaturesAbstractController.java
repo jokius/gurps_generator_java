@@ -307,15 +307,16 @@ public class FeaturesAbstractController extends AbstractController {
 
         void characterAddons(Integer id) {
             if(id == null) return;
-            ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where("characterFeatureId", id);
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("characterId", character.id);
+            params.put("featureId", feature.id);
+            ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where(params);
             for(CharactersAddon charactersAddon : charactersAddons) {
-                for(Addon addon : addonsArray) {
-                    if(addon.id == charactersAddon.addonId) {
-                        addon.active = true;
-                        addon.cost = charactersAddon.cost;
-                        addon.level = charactersAddon.level;
-                    }
-                }
+                addonsArray.stream().filter(addon -> addon.id.equals(charactersAddon.addonId)).forEach(addon -> {
+                    addon.active = true;
+                    addon.cost = charactersAddon.cost;
+                    addon.level = charactersAddon.level;
+                });
             }
         }
 
@@ -360,7 +361,7 @@ public class FeaturesAbstractController extends AbstractController {
                         Addon addon = addonsTableView.getItems().get(currentRow.getIndex());
                         if(charactersFeature.id == null) return;
                         HashMap<String, Object> params = new HashMap<>();
-                        params.put("characterFeatureId", charactersFeature.id);
+                        params.put("characterId", character.id);
                         params.put("addonId", addon.id);
                         CharactersAddon charactersAddon = (CharactersAddon) new CharactersAddon().find_by(params);
                         if(charactersAddon.id == null) currentRow.getStyleClass().remove("isAdd");
@@ -387,7 +388,7 @@ public class FeaturesAbstractController extends AbstractController {
                     addonCost(addon);
 
                     if(charactersFeature.id == null) charactersFeature = createCharacterFeature();
-                    new CharactersAddon(charactersFeature.id, addon.id, addon.cost, addon.level).create();
+                    new CharactersAddon(character.id, feature.id, addon.id, addon.cost, addon.level).create();
 
                     setGraphic(removeButton);
                     getTableRow().getStyleClass().add("isAdd");
@@ -396,7 +397,7 @@ public class FeaturesAbstractController extends AbstractController {
                 removeButton.setOnAction(t -> {
                     Addon addon = (Addon) getTableRow().getItem();
                     HashMap<String, Object> params = new HashMap<>();
-                    params.put("characterFeatureId", charactersFeature.id);
+                    params.put("characterId", character.id);
                     params.put("addonId", addon.id);
                     CharactersAddon charactersAddon = (CharactersAddon) new CharactersAddon().find_by(params);
                     charactersFeature.update_single("cost", charactersFeature.cost - pointsCostAddon(addon));
@@ -529,7 +530,7 @@ public class FeaturesAbstractController extends AbstractController {
 
             remove.setOnAction(actionEvent -> {
                 HashMap<String, Object> params = new HashMap<>();
-                params.put("characterId", Integer.toString(character.id));
+                params.put("characterId", character.id);
                 params.put("featureId", feature.id);
 
                 CharactersFeature charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
@@ -541,7 +542,7 @@ public class FeaturesAbstractController extends AbstractController {
 
                 if(!addonsTableView.isVisible()) return;
 
-                ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where("characterFeatureId", charactersFeature.id);
+                ObservableList<CharactersAddon> charactersAddons = new CharactersAddon().where(params);
 
                 charactersAddons.forEach(CharactersAddon::delete);
                 for(Object object : new CharactersModifier().where(params)) {

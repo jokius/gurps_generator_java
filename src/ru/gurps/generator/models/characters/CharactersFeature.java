@@ -28,7 +28,7 @@ public class CharactersFeature extends Model {
         for(Model model : models){
             HashMap<String, Object> params = new HashMap<>();
                 params.put("characterId", model.getClass().getDeclaredField("characterId").get(model));
-                params.put("characterFeatureId", model.getClass().getDeclaredField("id").get(model));
+                params.put("featureId", model.getClass().getDeclaredField("featureId").get(model));
 
             new CharactersAddon().delete_all(new CharactersAddon().where(params));
         }
