@@ -29,7 +29,7 @@ public class ExportToJson {
             JsonCharacterFeature jsonCharacterFeature = new JsonCharacterFeature();
             params.put("featureId", feature.id);
             jsonCharacterFeature.charactersFeature = (CharactersFeature) new CharactersFeature().find_by(params);
-            jsonCharacterFeature.charactersAddons = new CharactersAddon().where("characterFeatureId", jsonCharacterFeature.charactersFeature.id);
+            jsonCharacterFeature.charactersAddons = new CharactersAddon().where(params);
             jsonCharacter.jsonCharacterFeatures.add(jsonCharacterFeature);
         }
 
