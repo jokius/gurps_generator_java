@@ -8,7 +8,7 @@ import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.Dmg;
 import ru.gurps.generator.lib.CharacterParams;
 
-public class CharacterParamsController extends AbstractController {
+public class ParamsController extends AbstractController {
     public TextField sm;
     public CheckBox noFineManipulators;
     public TextField st;

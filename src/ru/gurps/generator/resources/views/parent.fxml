@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="621.0" prefWidth="650.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.MainWindowController">
+<AnchorPane prefHeight="621.0" prefWidth="650.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.ParentController">
     <children>
         <Label alignment="CENTER" layoutX="4.0" layoutY="97.0" prefHeight="25.0" prefWidth="192.0" text="%character_generator">
             <font>
@@ -48,7 +48,7 @@
             <tabs>
                 <Tab fx:id="paramsTab" text="%stats">
                     <content>
-                        <fx:include source="params.fxml" />
+                        <fx:include source="characters/params.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="advantagesTab" text="%advantages">

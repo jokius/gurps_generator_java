@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.controller.full.info.SkillFullController;
+import ru.gurps.generator.controller.full.info.SkillController;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.lib.CharacterParams;
 import ru.gurps.generator.models.Character;
@@ -307,7 +307,7 @@ public class SkillsController extends AbstractController {
                 FXMLLoader loader;
                 if(skill.specializations().isEmpty()) {
                     loader = new FXMLLoader(Main.class.getResource("resources/views/full/info/skillFull.fxml"));
-                    loader.setController(new SkillFullController(skill));
+                    loader.setController(new SkillController(skill));
                 }
                 else{
                     loader = new FXMLLoader(Main.class.getResource("resources/views/full/info/skillSpecialization.fxml"));

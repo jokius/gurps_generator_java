@@ -17,7 +17,7 @@ import ru.gurps.generator.models.Character;
 import java.awt.*;
 import java.io.IOException;
 
-public class CharactersController extends AbstractController {
+public class SelectController extends AbstractController {
     public Button newCharacter;
     public Button load;
     public Button remove;
@@ -76,12 +76,12 @@ public class CharactersController extends AbstractController {
         newCharacter.setOnAction(event -> {
             character = (Character) new Character(newName.getText(), points.getText()).create();
             stage.close();
-            createMainStage();
+            createParentStage();
         });
         
         load.setOnAction(event ->{
             stage.close();
-            createMainStage();
+            createParentStage();
         });
         
         remove.setOnAction(event ->{
@@ -110,7 +110,7 @@ public class CharactersController extends AbstractController {
                 }
                 else {
                     stage.close();
-                    createMainStage();
+                    createParentStage();
                 }
             });
             return row;

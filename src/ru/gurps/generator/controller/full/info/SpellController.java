@@ -8,7 +8,7 @@ import ru.gurps.generator.models.rules.Spell;
 
 
 
-public class SpellFullController extends AbstractController {
+public class SpellController extends AbstractController {
     private Spell spell;
 
     public Label name;
@@ -24,7 +24,7 @@ public class SpellFullController extends AbstractController {
     public Label createCost;
     public Text fullDescription;
 
-    public SpellFullController(Spell spell) {
+    public SpellController(Spell spell) {
         this.spell = spell;
     }
 

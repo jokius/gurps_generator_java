@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.controller.full.info.FeatureFullController;
+import ru.gurps.generator.controller.full.info.FeatureController;
 import ru.gurps.generator.models.characters.CharactersFeature;
 import ru.gurps.generator.models.characters.CharactersModifier;
 import ru.gurps.generator.models.rules.Addon;
@@ -511,7 +511,7 @@ public class FeaturesAbstractController extends AbstractController {
             full.setOnAction(actionEvent -> {
                 Stage childrenStage = new Stage();
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/full/info/featureFull.fxml"));
-                FeatureFullController controller = new FeatureFullController(feature);
+                FeatureController controller = new FeatureController(feature);
                 loader.setController(controller);
                 Parent childrenRoot;
                 loader.setResources(Main.locale);
