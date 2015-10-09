@@ -97,7 +97,7 @@ public class GenerateController extends AbstractController {
         generate.setOnAction(event -> {
             generate();
             stage.close();
-            createMainStage();
+            createParentStage();
         });
     }
 

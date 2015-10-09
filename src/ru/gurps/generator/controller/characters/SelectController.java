@@ -76,12 +76,12 @@ public class SelectController extends AbstractController {
         newCharacter.setOnAction(event -> {
             character = (Character) new Character(newName.getText(), points.getText()).create();
             stage.close();
-            createMainStage();
+            createParentStage();
         });
         
         load.setOnAction(event ->{
             stage.close();
-            createMainStage();
+            createParentStage();
         });
         
         remove.setOnAction(event ->{
@@ -110,7 +110,7 @@ public class SelectController extends AbstractController {
                 }
                 else {
                     stage.close();
-                    createMainStage();
+                    createParentStage();
                 }
             });
             return row;
