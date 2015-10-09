@@ -7,7 +7,7 @@ import ru.gurps.generator.Main;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.Modifier;
 
-public class ModifierFullController extends AbstractController {
+public class ModifierController extends AbstractController {
     private Modifier modifier;
     public Label name;
     public Label cost;
@@ -15,7 +15,7 @@ public class ModifierFullController extends AbstractController {
     public Label improving;
     public Text fullDescription;
 
-    public ModifierFullController(Modifier modifier) {
+    public ModifierController(Modifier modifier) {
         this.modifier = modifier;
     }
 

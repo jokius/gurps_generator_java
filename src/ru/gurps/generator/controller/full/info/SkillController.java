@@ -7,7 +7,7 @@ import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.rules.Skill;
 
 
-public class SkillFullController extends AbstractController {
+public class SkillController extends AbstractController {
     private Skill skill;
 
     public Label name;
@@ -21,7 +21,7 @@ public class SkillFullController extends AbstractController {
     public Text fullDescription;
     public Text modifiers;
 
-    public SkillFullController(Skill skill) {
+    public SkillController(Skill skill) {
         this.skill = skill;
     }
 

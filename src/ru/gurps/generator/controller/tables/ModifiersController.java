@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.controller.full.info.ModifierFullController;
+import ru.gurps.generator.controller.full.info.ModifierController;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.Character;
 import ru.gurps.generator.models.characters.CharactersModifier;
@@ -245,7 +245,7 @@ public class ModifiersController extends AbstractController {
                 Stage childrenStage = new Stage();
                 FXMLLoader loader;
                 loader = new FXMLLoader(Main.class.getResource("resources/views/full/info/modifierFull.fxml"));
-                loader.setController(new ModifierFullController(modifier));
+                loader.setController(new ModifierController(modifier));
 
                 loader.setResources(Main.locale);
                 Parent childrenRoot;
