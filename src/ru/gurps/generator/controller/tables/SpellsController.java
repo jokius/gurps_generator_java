@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ru.gurps.generator.Main;
-import ru.gurps.generator.controller.full.info.SpellFullController;
+import ru.gurps.generator.controller.full.info.SpellController;
 import ru.gurps.generator.controller.helpers.AbstractController;
 import ru.gurps.generator.models.Character;
 import ru.gurps.generator.models.characters.CharactersSpell;
@@ -310,7 +310,7 @@ public class SpellsController extends AbstractController {
             full.setOnAction(actionEvent -> {
                 Stage childrenStage = new Stage();
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/full/info/spellFull.fxml"));
-                SpellFullController controller = new SpellFullController(spell);
+                SpellController controller = new SpellController(spell);
                 loader.setController(controller);
                 loader.setResources(Main.locale);
                 Parent childrenRoot;

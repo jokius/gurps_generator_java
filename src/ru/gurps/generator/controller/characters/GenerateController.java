@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GenerateCharacterController extends AbstractController {
+public class GenerateController extends AbstractController {
     public TextField name;
     public TextField params;
 

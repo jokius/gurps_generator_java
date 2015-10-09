@@ -17,7 +17,7 @@ import ru.gurps.generator.models.Character;
 import java.awt.*;
 import java.io.IOException;
 
-public class CharactersController extends AbstractController {
+public class SelectController extends AbstractController {
     public Button newCharacter;
     public Button load;
     public Button remove;

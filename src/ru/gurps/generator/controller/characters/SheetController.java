@@ -23,7 +23,7 @@ import ru.gurps.generator.models.rules.*;
 import java.io.File;
 import java.lang.reflect.Field;
 
-public class CharacterSheetController extends AbstractController {
+public class SheetController extends AbstractController {
     private Character character = AbstractController.character;
     public Label name;
     public Label player;

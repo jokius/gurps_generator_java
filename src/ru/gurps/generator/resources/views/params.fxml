@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.characters.CharacterParamsController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.characters.ParamsController">
     <children>
         <Label layoutX="10.0" layoutY="68.0" prefHeight="26.0" prefWidth="158.0" text="%size_modifier" AnchorPane.leftAnchor="10.0" />
         <TextField fx:id="sm" alignment="CENTER" layoutX="172.0" layoutY="68.0" prefHeight="26.0" prefWidth="50.0" AnchorPane.leftAnchor="172.0" />

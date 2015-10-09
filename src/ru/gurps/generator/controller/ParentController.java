@@ -15,7 +15,7 @@ import ru.gurps.generator.controller.helpers.AbstractController;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
-public class MainWindowController extends AbstractController {
+public class ParentController extends AbstractController {
     // global part
     public TextField maxPoints;
     public Label currentPoints;
