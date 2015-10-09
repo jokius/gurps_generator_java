@@ -37,8 +37,8 @@ public class AbstractController extends Main {
     public static HttpHost server = new HttpHost("generator-gurps.rhcloud.com", 80, "http");
     //public static HttpHost server = new HttpHost("localhost", 3000, "http");
 
-    protected void createMainStage() {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/main.fxml"));
+    protected void createParentStage() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/parent.fxml"));
         loader.setResources(Main.locale);
         stage.setMinWidth(670);
         stage.setMinHeight(560);

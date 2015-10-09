@@ -48,7 +48,7 @@
             <tabs>
                 <Tab fx:id="paramsTab" text="%stats">
                     <content>
-                        <fx:include source="params.fxml" />
+                        <fx:include source="characters/params.fxml" />
                     </content>
                 </Tab>
                 <Tab fx:id="advantagesTab" text="%advantages">
