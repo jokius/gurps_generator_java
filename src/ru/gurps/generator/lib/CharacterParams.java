@@ -110,11 +110,11 @@ public class CharacterParams extends AbstractController {
     }
 
     public static int skillLevel(Specialization skill) {
-        return skillLevelResult(skill.type, skill.complexity);
+        return skillLevelResult(skill.skillType, skill.complexity);
     }
 
     public static int skillLevel(Skill skill) {
-        return skillLevelResult(skill.type, skill.complexity);
+        return skillLevelResult(skill.skillType, skill.complexity);
     }
 
     public static int skillLevelResult(int type, int complexity) {
@@ -161,11 +161,11 @@ public class CharacterParams extends AbstractController {
 
 
     public static int skillCost(Specialization skill) {
-        return skillCostResult(skill.type, skill.complexity, skill.level);
+        return skillCostResult(skill.skillType, skill.complexity, skill.level);
     }
 
     public static int skillCost(Skill skill) {
-        return skillCostResult(skill.type, skill.complexity, skill.level);
+        return skillCostResult(skill.skillType, skill.complexity, skill.level);
     }
 
     public static int techniqueCost(Technique technique) {

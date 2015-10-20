@@ -56,7 +56,7 @@ public class SkillSpecializationsController extends AbstractController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
         complexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("skillType"));
         parryColumn.setCellValueFactory(new PropertyValueFactory<>("parry"));
         parryBonusColumn.setCellValueFactory(new PropertyValueFactory<>("parryBonus"));
 

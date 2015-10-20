@@ -8,7 +8,7 @@ public class Specialization extends Model {
     public Integer skillId;
     public String name;
     public String nameEn;
-    public Integer type;
+    public Integer skillType;
     public Integer complexity;
     public String defaultUse;
     public String demands;
@@ -31,8 +31,8 @@ public class Specialization extends Model {
         return nameEn;
     }
 
-    public String getType() {
-        switch(type){
+    public String getSkillType() {
+        switch(skillType){
             case 0: return Main.locale.getString("strength_short");
             case 1: return Main.locale.getString("dexterity_short");
             case 2: return Main.locale.getString("intellect_short");
@@ -46,7 +46,7 @@ public class Specialization extends Model {
     }
 
     public String getTypeFull() {
-        switch(type){
+        switch(skillType){
             case 0: return Main.locale.getString("strength");
             case 1: return Main.locale.getString("dexterity");
             case 2: return Main.locale.getString("intellect");
@@ -59,15 +59,15 @@ public class Specialization extends Model {
         return null;
     }
 
-    public void setType(String type) {
-        if(type.equals(Main.locale.getString("strength_short"))) this.type = 0;
-        else if(type.equals(Main.locale.getString("dexterity_short"))) this.type = 1;
-        else if(type.equals(Main.locale.getString("intellect_short"))) this.type = 2;
-        else if(type.equals(Main.locale.getString("health_short"))) this.type = 3;
-        else if(type.equals(Main.locale.getString("health_points_short"))) this.type = 4;
-        else if(type.equals(Main.locale.getString("will_short"))) this.type = 5;
-        else if(type.equals(Main.locale.getString("perception_short"))) this.type = 6;
-        else if(type.equals(Main.locale.getString("fatigue_points_short"))) this.type = 7;
+    public void setSkillType(String skillType) {
+        if(skillType.equals(Main.locale.getString("strength_short"))) this.skillType = 0;
+        else if(skillType.equals(Main.locale.getString("dexterity_short"))) this.skillType = 1;
+        else if(skillType.equals(Main.locale.getString("intellect_short"))) this.skillType = 2;
+        else if(skillType.equals(Main.locale.getString("health_short"))) this.skillType = 3;
+        else if(skillType.equals(Main.locale.getString("health_points_short"))) this.skillType = 4;
+        else if(skillType.equals(Main.locale.getString("will_short"))) this.skillType = 5;
+        else if(skillType.equals(Main.locale.getString("perception_short"))) this.skillType = 6;
+        else if(skillType.equals(Main.locale.getString("fatigue_points_short"))) this.skillType = 7;
     }
 
     public String getComplexity() {

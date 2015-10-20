@@ -374,7 +374,7 @@ public class GenerateController extends AbstractController {
         Integer[] numbers = {1, 2, 3, 4, 5};
         featuresNumbers = new ArrayList<>();
         CheckMenuItem checkBox;
-        String query = "advantage=" + isAdvantage + " and cost != 0 and type like ";
+        String query = "advantage=" + isAdvantage + " and cost != 0 and featureType like ";
         for (Integer number : numbers) {
             try {
                 if (isAdvantage)
@@ -383,17 +383,17 @@ public class GenerateController extends AbstractController {
                     checkBox = (CheckMenuItem) this.getClass().getDeclaredField("disadvantageCheckBox" + number).get(this);
 
                 if (checkBox.isSelected()) {
-                    if (query.equals("advantage=" + isAdvantage + " and cost != 0 and type like "))
+                    if (query.equals("advantage=" + isAdvantage + " and cost != 0 and featureType like "))
                         query += "'%" + number + "%'";
-                    else query += " or advantage=" + isAdvantage + " and cost != 0 and type like '%" + number + "%'";
+                    else query += " or advantage=" + isAdvantage + " and cost != 0 and featureType like '%" + number + "%'";
                 }
             } catch (NoSuchFieldException | IllegalAccessException e) {
 
             }
         }
 
-        if (query.equals("advantage=" + isAdvantage + " and type like "))
-            query = "advantage=" + isAdvantage + " and type='6'";
+        if (query.equals("advantage=" + isAdvantage + " and featureType like "))
+            query = "advantage=" + isAdvantage + " and featureType='6'";
 
         return new Feature().where(query);
     }
@@ -402,15 +402,15 @@ public class GenerateController extends AbstractController {
         try {
             Integer[] tNumbers = {0, 1, 2, 3, 4, 5, 6, 7};
             Integer[] cNumbers = {0, 1, 2, 3};
-            String tQuery = "type like ";
+            String tQuery = "skillType like ";
             String cQuery = " and complexity like ";
             CheckMenuItem checkBox;
 
             for (Integer number : tNumbers) {
                 checkBox = (CheckMenuItem) this.getClass().getDeclaredField("t" + number + "CheckBox").get(this);
                 if (checkBox.isSelected()) {
-                    if (tQuery.equals("type like ")) tQuery += "'%" + number + "%'";
-                    else tQuery += " or type like '%" + number + "%'";
+                    if (tQuery.equals("skillType like ")) tQuery += "'%" + number + "%'";
+                    else tQuery += " or skillType like '%" + number + "%'";
                 }
             }
 
@@ -422,7 +422,7 @@ public class GenerateController extends AbstractController {
                 }
             }
 
-            if (tQuery.equals("type like ")) tQuery = "type='-1'";
+            if (tQuery.equals("skillType like ")) tQuery = "skillType='-1'";
             if (cQuery.equals(" and complexity like ")) cQuery = " and complexity='-1'";
             return new Skill().where(tQuery + cQuery);
         } catch (NoSuchFieldException | IllegalAccessException e) {

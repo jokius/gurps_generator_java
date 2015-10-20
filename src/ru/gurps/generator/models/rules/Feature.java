@@ -13,7 +13,7 @@ public class Feature extends Model {
     public Boolean advantage;
     public String name;
     public String nameEn;
-    public String type;
+    public String featureType;
     public Integer cost;
     public String description;
     @Ignore public Integer oldLevel;
@@ -26,12 +26,12 @@ public class Feature extends Model {
     public Feature() {
     }
 
-    public Feature(Integer id, Boolean advantage, String name, String nameEn, String type, Integer cost, String description, Integer oldLevel, Integer maxLevel, Boolean psi, Boolean cybernetic, Boolean add) {
+    public Feature(Integer id, Boolean advantage, String name, String nameEn, String featureType, Integer cost, String description, Integer oldLevel, Integer maxLevel, Boolean psi, Boolean cybernetic, Boolean add) {
         this.id = id;
         this.advantage = advantage;
         this.name = name;
         this.nameEn = nameEn;
-        this.type = type;
+        this.featureType = featureType;
         this.cost = cost;
         this.description = description;
         this.oldLevel = oldLevel;
@@ -41,8 +41,8 @@ public class Feature extends Model {
         this.add = add;
     }
 
-    public String getType() {
-        String new_type = type;
+    public String getFeatureType() {
+        String new_type = featureType;
         new_type = new_type.replace("[", "");
         new_type = new_type.replace("]", "");
         new_type = new_type.replace(",", "/ ");
@@ -55,7 +55,7 @@ public class Feature extends Model {
     }
 
     public String getTypeFull() {
-        String new_type = type;
+        String new_type = featureType;
         new_type = new_type.replace("[", "");
         new_type = new_type.replace("]", "");
         new_type = new_type.replace(",", "/ ");

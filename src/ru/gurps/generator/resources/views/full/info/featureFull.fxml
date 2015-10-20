@@ -14,7 +14,7 @@
          </font>
       </Label>
       <Label fx:id="cost" layoutX="14.0" layoutY="57.0" prefHeight="16.0" prefWidth="144.0" text="%cost" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="47.0" />
-      <Label fx:id="type" alignment="TOP_LEFT" layoutX="3.0" layoutY="82.0" prefHeight="16.0" prefWidth="144.0" text="%type" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="67.0" />
+      <Label fx:id="type" alignment="TOP_LEFT" layoutX="3.0" layoutY="82.0" prefHeight="16.0" prefWidth="144.0" text="%featureType" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="67.0" />
       <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="117.0" prefHeight="448.0" prefWidth="607.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="117.0">
          <content>
             <TextFlow prefHeight="446.0" prefWidth="601.0">
