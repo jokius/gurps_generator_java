@@ -140,7 +140,7 @@ public class Main extends Application {
             props.setProperty("Protocol", "http");
             props.setProperty("ServerAddress", "generator-gurps.rhcloud.com");
             props.setProperty("ServerPort", "80");
-            props.setProperty("UpdateStart", "1");
+            props.setProperty("UpdateStart", "0");
             File f = new File(jarFolder + "properties/all.properties");
             OutputStream out = new FileOutputStream(f);
             props.store(out, "This default properties");
