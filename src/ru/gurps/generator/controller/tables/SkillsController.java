@@ -90,7 +90,7 @@ public class SkillsController extends AbstractController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
         complexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("skillType"));
         demandsColumn.setCellValueFactory(new PropertyValueFactory<>("demands"));
         defaultUseColumn.setCellValueFactory(new PropertyValueFactory<>("defaultUse"));
 
@@ -168,17 +168,17 @@ public class SkillsController extends AbstractController {
                 CheckMenuItem checkBox = (CheckMenuItem) this.getClass().getDeclaredField("t" + number + "CheckBox").get(this);
                 checkBox.setSelected(true);
                 checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    String query = "type like ";
+                    String query = "skillType like ";
                     if(newValue) typeNumbers.add(number);
                     else typeNumbers.remove(number);
 
                     for(Integer tNumber : typeNumbers) {
-                        if(query.equals("type like ")) query += "'%" + tNumber + "%'";
-                        else query += " or type like '%" + tNumber + "%'";
+                        if(query.equals("skillType like ")) query += "'%" + tNumber + "%'";
+                        else query += " or skillType like '%" + tNumber + "%'";
 
                         for(Integer sNumber : complexityNumbers) query += " and complexity like '%" + sNumber + "%'";
                     }
-                    if(query.equals("type like ")) query = "type='-1'";
+                    if(query.equals("skillType like ")) query = "skillType='-1'";
                     tableView.setItems(new Skill().where(query));
                 });
             } catch(NoSuchFieldException | IllegalAccessException e) {
@@ -199,7 +199,7 @@ public class SkillsController extends AbstractController {
                         if(query.equals("complexity like ")) query += "'%" + sNumber + "%'";
                         else query += " or complexity like '%" + sNumber + "%'";
 
-                        for(Integer tNumber : typeNumbers) query += " and type like '%" + tNumber + "%'";
+                        for(Integer tNumber : typeNumbers) query += " and skillType like '%" + tNumber + "%'";
                     }
                     if(query.equals("complexity like ")) query = "complexity='-1'";
                     tableView.setItems(new Skill().where(query));

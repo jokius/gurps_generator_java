@@ -31,7 +31,7 @@
             <columns>
                 <TableColumn fx:id="name" prefWidth="136.0" text="%name" />
                 <TableColumn fx:id="nameEn" prefWidth="125.0" text="%name_en" />
-                <TableColumn fx:id="type" minWidth="0.0" prefWidth="45.0" text="%type" />
+                <TableColumn fx:id="featureType" minWidth="0.0" prefWidth="45.0" text="%type" />
                 <TableColumn fx:id="cost" prefWidth="93.0" text="%cost" />
                 <TableColumn fx:id="description" prefWidth="240" text="%description" />
             </columns>

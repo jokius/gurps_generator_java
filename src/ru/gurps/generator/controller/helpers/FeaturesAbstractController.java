@@ -30,7 +30,7 @@ public class FeaturesAbstractController extends AbstractController {
     private TableView<Feature> tableView;
     private TableColumn<Feature, String> name;
     private TableColumn<Feature, String> nameEn;
-    private TableColumn<Feature, String> type;
+    private TableColumn<Feature, String> featureType;
     private TableColumn<Feature, String> cost;
     private TableColumn<Feature, String> description;
 
@@ -71,12 +71,12 @@ public class FeaturesAbstractController extends AbstractController {
     protected ArrayList<Integer> featuresNumbers = new ArrayList<>();
     protected ObservableList<Feature> data = FXCollections.observableArrayList();
 
-    public FeaturesAbstractController(TableView<Feature> tableView, TableView<Addon> addonsTableView, TableColumn<Feature, String> name, TableColumn<Feature, String> nameEn, TableColumn<Feature, String> type, TableColumn<Feature, String> cost, TableColumn<Feature, String> description, AnchorPane bottomMenu, ComboBox<Integer> lvlComboBox, Label lvlLabel, TextField lvlText, Button add, Button remove, Button full, Label finalCost, TextField finalCostText, TableColumn<Addon, Boolean> activate, TableColumn<Addon, String> addonName, TableColumn<Addon, String> addonNameEn, TableColumn<Addon, String> addonLevel, TableColumn<Addon, String> addonCost, CheckMenuItem checkBox1, CheckMenuItem checkBox2, CheckMenuItem checkBox3, CheckMenuItem checkBox4, CheckMenuItem checkBox5, MenuButton searchButton, MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost, MenuItem searchDescription, MenuItem reset, TextField searchText, boolean isAdvantage) {
+    public FeaturesAbstractController(TableView<Feature> tableView, TableView<Addon> addonsTableView, TableColumn<Feature, String> name, TableColumn<Feature, String> nameEn, TableColumn<Feature, String> featureType, TableColumn<Feature, String> cost, TableColumn<Feature, String> description, AnchorPane bottomMenu, ComboBox<Integer> lvlComboBox, Label lvlLabel, TextField lvlText, Button add, Button remove, Button full, Label finalCost, TextField finalCostText, TableColumn<Addon, Boolean> activate, TableColumn<Addon, String> addonName, TableColumn<Addon, String> addonNameEn, TableColumn<Addon, String> addonLevel, TableColumn<Addon, String> addonCost, CheckMenuItem checkBox1, CheckMenuItem checkBox2, CheckMenuItem checkBox3, CheckMenuItem checkBox4, CheckMenuItem checkBox5, MenuButton searchButton, MenuItem searchAll, MenuItem searchName, MenuItem searchNameEn, MenuItem searchCost, MenuItem searchDescription, MenuItem reset, TextField searchText, boolean isAdvantage) {
         this.tableView = tableView;
         this.addonsTableView = addonsTableView;
         this.name = name;
         this.nameEn = nameEn;
-        this.type = type;
+        this.featureType = featureType;
         this.cost = cost;
         this.description = description;
         this.bottomMenu = bottomMenu;
@@ -129,7 +129,7 @@ public class FeaturesAbstractController extends AbstractController {
     private void setFeatures() {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameEn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
-        type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        featureType.setCellValueFactory(new PropertyValueFactory<>("featureType"));
         cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
         name.setCellFactory(column -> new TableCell<Feature, String>() {
@@ -211,15 +211,15 @@ public class FeaturesAbstractController extends AbstractController {
                 CheckMenuItem checkBox = (CheckMenuItem) this.getClass().getDeclaredField("checkBox" + number).get(this);
                 checkBox.setSelected(true);
                 checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    String query = "advantage=" + isAdvantage + " and type like ";
+                    String query = "advantage=" + isAdvantage + " and featureType like ";
                     if(newValue) featuresNumbers.add(number);
                     else featuresNumbers.remove(number);
                     for(Integer lNumber : featuresNumbers) {
-                        if(query.equals("advantage=" + isAdvantage + " and type like ")) query += "'%" + lNumber + "%'";
-                        else query += " or advantage=" + isAdvantage + " and type like '%" + lNumber + "%'";
+                        if(query.equals("advantage=" + isAdvantage + " and featureType like ")) query += "'%" + lNumber + "%'";
+                        else query += " or advantage=" + isAdvantage + " and featureType like '%" + lNumber + "%'";
                     }
-                    if(query.equals("advantage=" + isAdvantage + " and type like "))
-                        query = "advantage=" + isAdvantage + " and type='6'";
+                    if(query.equals("advantage=" + isAdvantage + " and featureType like "))
+                        query = "advantage=" + isAdvantage + " and featureType='6'";
                     tableView.setItems(new Feature().where(query));
                 });
             } catch(NoSuchFieldException | IllegalAccessException e) {

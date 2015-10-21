@@ -95,6 +95,7 @@ public class Model extends Db {
         String params = "";
         String id = "";
         for (Field field : this.getClass().getDeclaredFields()) {
+            if(field.isAnnotationPresent(Ignore.class)) continue;
             try {
                 if (field.getName().equals("id")) id = Integer.toString((Integer) field.get(this));
                 else if (field.get(this) != null) params += field.getName() + "='" + field.get(this) + "',";

@@ -12,12 +12,17 @@ import ru.gurps.generator.controller.helpers.AbstractController;
 import java.io.*;
 import java.net.*;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
     public static final String VERSION = "v0.1.2";
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
     public static String jarFolder;
+    public static String protocol;
+    public static String serverAddress;
+    public static int updateStart;
+    public static int serverPort;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,12 +30,13 @@ public class Main extends Application {
         jarFolder = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, ""), "UTF-8");
         File file = new File(jarFolder + "db/gurps.mv.db");
 
-        if(!file.exists() || file.isDirectory()) {
+        if (!file.exists() || file.isDirectory()) {
             File dir = new File(jarFolder + "db");
-            if(!dir.exists() || !dir.isDirectory()) dir.mkdir();
+            if (!dir.exists() || !dir.isDirectory()) dir.mkdir();
             ExportResource("/db/gurps.mv.db");
         }
 
+        loadProperties();
         AbstractController.stage = primaryStage;
         checkNewVersion();
         charactersStage();
@@ -54,11 +60,11 @@ public class Main extends Application {
                 AbstractController.urlToLastVersion = new URI("https://github.com/jokius/gurps_generator_java/releases/tag/" +
                         last_version);
             }
-        } catch (UnknownHostException ignored){
+        } catch (UnknownHostException ignored) {
         }
     }
 
-    protected void charactersStage(){
+    protected void charactersStage() {
         AbstractController.stage.setResizable(false);
         AbstractController.stage.setMinWidth(397);
         AbstractController.stage.setMinHeight(293);
@@ -71,7 +77,7 @@ public class Main extends Application {
             AbstractController.stage.setScene(new Scene(root));
             AbstractController.stage.setTitle(locale.getString("app_name_character_select"));
             AbstractController.stage.show();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -89,29 +95,72 @@ public class Main extends Application {
      * @throws Exception
      */
     static public String ExportResource(String resourceName) throws Exception {
-        InputStream stream = null;
-        OutputStream resStreamOut = null;
+        InputStream stream;
+        OutputStream resStreamOut;
         String jarFolder;
-        try {
-            stream = Main.class.getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
-            if(stream == null) {
-                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
-            }
-
-            int readBytes;
-            byte[] buffer = new byte[4096];
-            jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            resStreamOut = new FileOutputStream(jarFolder + resourceName);
-            while ((readBytes = stream.read(buffer)) > 0) {
-                resStreamOut.write(buffer, 0, readBytes);
-            }
-
-            stream.close();
-            resStreamOut.close();
-        } catch (Exception ex) {
-            throw ex;
+        stream = Main.class.getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
+        if (stream == null) {
+            throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
         }
+        int readBytes;
+        byte[] buffer = new byte[4096];
+        jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+        resStreamOut = new FileOutputStream(jarFolder + resourceName);
+        while ((readBytes = stream.read(buffer)) > 0) {
+            resStreamOut.write(buffer, 0, readBytes);
+        }
+        stream.close();
+        resStreamOut.close();
 
         return jarFolder + resourceName;
+    }
+
+
+    public void loadProperties() {
+        Properties props = new Properties();
+        File file = new File(jarFolder + "properties/all.properties");
+        if (!file.exists() || file.isDirectory()) saveDefaultProperties();
+
+        try {
+            props.load(new FileInputStream(file));
+            protocol = props.getProperty("Protocol");
+            serverAddress = props.getProperty("ServerAddress");
+            serverPort = new Integer(props.getProperty("ServerPort"));
+            updateStart = new Integer(props.getProperty("UpdateStart"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveDefaultProperties() {
+        try {
+            File dir = new File(jarFolder + "properties");
+            if (!dir.exists() || !dir.isDirectory()) dir.mkdir();
+            Properties props = new Properties();
+            props.setProperty("Protocol", "http");
+            props.setProperty("ServerAddress", "generator-gurps.rhcloud.com");
+            props.setProperty("ServerPort", "80");
+            props.setProperty("UpdateStart", "0");
+            File f = new File(jarFolder + "properties/all.properties");
+            OutputStream out = new FileOutputStream(f);
+            props.store(out, "This default properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveProperties() {
+        try {
+            Properties props = new Properties();
+            props.setProperty("Protocol", protocol);
+            props.setProperty("ServerAddress", serverAddress);
+            props.setProperty("ServerPort", "" + serverPort);
+            props.setProperty("UpdateStart", "" + updateStart);
+            File f = new File(jarFolder + "properties/all.properties");
+            OutputStream out = new FileOutputStream(f);
+            props.store(out, "This default properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

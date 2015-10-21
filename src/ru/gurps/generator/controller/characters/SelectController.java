@@ -29,6 +29,7 @@ public class SelectController extends AbstractController {
     public TableColumn<Character, String> tableCurrentPoints;
     public TableColumn<Character, String> tableMaxPoints;
     public Hyperlink lastVersionLink;
+    public Button buttonCheckUpdateParams;
 
     private ObservableList<Character> charactersData = FXCollections.observableArrayList();
     private int index = -1;
@@ -127,5 +128,10 @@ public class SelectController extends AbstractController {
                 }
             });
         }
+
+
+        buttonCheckUpdateParams.setOnAction(event -> {
+            createResourcesUpdateStage();
+        });
     }
 }
