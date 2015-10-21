@@ -1,6 +1,7 @@
 package ru.gurps.generator.controller.helpers;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,8 +35,7 @@ public class AbstractController extends Main {
     public static Stage stage = new Stage();
     public static URI urlToLastVersion;
     public static HttpClient httpClient = HttpClientBuilder.create().build();
-    public static HttpHost server = new HttpHost("generator-gurps.rhcloud.com", 80, "http");
-    //public static HttpHost server = new HttpHost("localhost", 3000, "http");
+    public static HttpHost server = new HttpHost(serverAddress, serverPort, protocol);
 
     protected void createParentStage() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/parent.fxml"));
@@ -57,7 +57,7 @@ public class AbstractController extends Main {
         stage.setResizable(false);
         stage.setMinWidth(516);
         stage.setMinHeight(466);
-        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/generate.fxml"));
+        FXMLLoader view = new FXMLLoader(Main.class.getResource("resources/views/characters/generate.fxml"));
         view.setResources(Main.locale);
         try {
             Parent childrenRoot = view.load();
@@ -67,6 +67,14 @@ public class AbstractController extends Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    protected void createResourcesUpdateStage() {
+        String repose = getRequest("change_log/status?start=" + updateStart);
+        if (repose.equals("")) return;
+        if(new JsonParser().parse(repose).getAsJsonObject().get("present").getAsBoolean()) updateHave();
+        else updateNotHave();
     }
 
     public void setCurrentPoints(int points) {
@@ -192,6 +200,24 @@ public class AbstractController extends Main {
         }
     }
 
+    public String getRequest(String what) {
+        try {
+            HttpGet getRequest = new HttpGet("/api/" + what);
+            HttpResponse httpResponse = httpClient.execute(server, getRequest);
+            HttpEntity entity = httpResponse.getEntity();
+            if (entity == null) return "";
+
+            BufferedReader br = new BufferedReader(new InputStreamReader((entity.getContent())));
+            return br.readLine();
+
+        } catch (HttpHostConnectException e) {
+            return "";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     public HttpResponse sendRequest(String what, List<NameValuePair> params) {
         HttpPost httpPost = new HttpPost("/api/" + what);
         try {
@@ -199,10 +225,41 @@ public class AbstractController extends Main {
             return httpClient.execute(server, httpPost);
         } catch (HttpHostConnectException ignore) {
             return null;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void updateHave(){
+        Stage childrenStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/update/have.fxml"));
+        loader.setResources(Main.locale);
+        Parent childrenRoot;
+        try {
+            childrenRoot = loader.load();
+            childrenStage.setResizable(false);
+            childrenStage.setScene(new Scene(childrenRoot, 600, 400));
+            childrenStage.setTitle(Main.locale.getString("check_updates"));
+            childrenStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateNotHave() {
+        Stage childrenStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("resources/views/update/notHave.fxml"));
+        loader.setResources(Main.locale);
+        Parent childrenRoot;
+        try {
+            childrenRoot = loader.load();
+            childrenStage.setScene(new Scene(childrenRoot, 255, 98));
+            childrenStage.setResizable(false);
+            childrenStage.setTitle(Main.locale.getString("check_updates"));
+            childrenStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
