@@ -44,8 +44,12 @@ public class Db {
             flyway.init();
             flyway.migrate();
         } catch (FlywayException e){
-            System.out.println(e);
-            flyway.migrate();
+            try {
+                flyway.migrate();
+            } catch (FlywayException ex){
+                System.err.println(Main.locale.getString("app_is_running"));
+                System.exit(0);
+            }
         }
     }
 }
