@@ -24,11 +24,14 @@ public class HaveController extends AbstractController {
     public Button cancel;
 
     private Set<Map.Entry<String, JsonElement>> entries;
-    private String log = "<html><body>";
+    private String log = "<html>";
 
     @FXML
     private void initialize() {
         updateFromServer();
+        log += "<head><link rel='stylesheet' href='"
+                + Main.class.getResource("resources/css/main.css") + "'> </head><body>";
+        System.out.println(log);
         webView.getEngine().loadContent(log);
         acceptSet();
         cancelSet();
