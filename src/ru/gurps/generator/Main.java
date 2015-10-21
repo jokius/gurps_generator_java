@@ -148,4 +148,19 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    public void saveProperties() {
+        try {
+            Properties props = new Properties();
+            props.setProperty("Protocol", protocol);
+            props.setProperty("ServerAddress", serverAddress);
+            props.setProperty("ServerPort", "" + serverPort);
+            props.setProperty("UpdateStart", "" + updateStart);
+            File f = new File(jarFolder + "properties/all.properties");
+            OutputStream out = new FileOutputStream(f);
+            props.store(out, "This default properties");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
