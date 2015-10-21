@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.update.HaveController">
+   <children>
+      <ScrollPane prefHeight="355.0" prefWidth="600.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <WebView fx:id="webView" maxWidth="598.0" minHeight="353.0" minWidth="598.0" prefHeight="353.0" prefWidth="598.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="cancel" layoutX="528.0" layoutY="355.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" text="%update.cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="493.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="364.0" />
+      <Button fx:id="accept" layoutX="305.0" layoutY="364.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="175.0" text="%update.accept" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="120.0" />
+   </children>
+</AnchorPane>
