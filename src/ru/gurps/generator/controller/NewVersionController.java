@@ -3,9 +3,8 @@ package ru.gurps.generator.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import ru.gurps.generator.Main;
+import ru.gurps.generator.controller.helpers.AbstractController;
 
 import java.awt.*;
 import java.io.IOException;

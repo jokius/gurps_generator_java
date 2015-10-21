@@ -5,9 +5,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ru.gurps.generator.controller.AbstractController;
-import ru.gurps.generator.lib.UserParams;
-import ru.gurps.generator.models.*;
+import ru.gurps.generator.controller.helpers.AbstractController;
+import ru.gurps.generator.lib.CharacterParams;
+import ru.gurps.generator.models.rules.Feature;
+import ru.gurps.generator.models.rules.Skill;
+import ru.gurps.generator.models.rules.Spell;
 
 import java.io.*;
 
@@ -33,82 +35,82 @@ public class ExcelJokSheetFormat extends AbstractController {
                     if(cell.getCellType() == Cell.CELL_TYPE_STRING){
                         switch(cell.getStringCellValue()){
                             case "%name%":
-                                cell.setCellValue(user.name);
+                                cell.setCellValue(character.name);
                                 break;
                             case "%tl%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.tl);
+                                cell.setCellValue(character.tl);
                                 break;
                             case "%tlCost%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.tlCost);
+                                cell.setCellValue(character.tlCost);
                                 break;
                             case "%growth%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.growth);
+                                cell.setCellValue(character.growth);
                                 break;
                             case "%weight%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.weight);
+                                cell.setCellValue(character.weight);
                                 break;
                             case "%age%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.age);
+                                cell.setCellValue(character.age);
                                 break;
                             case "%noFineManipulators%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.noFineManipulators ? 1 : 0);
+                                cell.setCellValue(character.noFineManipulators ? 1 : 0);
                                 break;
                             case "%current%":
-                                cell.setCellValue(user.currentPoints);
+                                cell.setCellValue(character.currentPoints);
                                 cell.setCellType(0);
                                 break;
                             case "%sm%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.sm);
+                                cell.setCellValue(character.sm);
                                 break;
                             case "%st%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.st);
+                                cell.setCellValue(character.st);
                                 break;
                             case "%dx%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.dx);
+                                cell.setCellValue(character.dx);
                                 break;
                             case "%iq%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.iq);
+                                cell.setCellValue(character.iq);
                                 break;
                             case "%ht%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.ht);
+                                cell.setCellValue(character.ht);
                                 break;
                             case "%hp%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.hp);
+                                cell.setCellValue(character.hp);
                                 break;
                             case "%will%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.will);
+                                cell.setCellValue(character.will);
                                 break;
                             case "%per%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.per);
+                                cell.setCellValue(character.per);
                                 break;
                             case "%fp%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.fp);
+                                cell.setCellValue(character.fp);
                                 break;
                             case "%bs%":
                                 cell.setCellType(0);
-                                cell.setCellValue(user.bs);
+                                cell.setCellValue(character.bs);
                                 break;
                             case "%parry%":
-                                cell.setCellValue(new UserParams().getParry(user.skills()));
+                                cell.setCellValue(new CharacterParams().getParry(character.skills()));
                                 cell.setCellType(0);
                                 break;
                             case "%block%":
-                                cell.setCellValue(new UserParams().getBlock(user.skills()));
+                                cell.setCellValue(new CharacterParams().getBlock(character.skills()));
                                 cell.setCellType(0);
                                 break;
                             case "%feature%":
@@ -153,7 +155,7 @@ public class ExcelJokSheetFormat extends AbstractController {
         int skillRowNum = featureRow.getRowNum();
         sheet.removeRow(featureRow);
 
-        for(Feature feature : user.features()){
+        for(Feature feature : character.features()){
             XSSFCellStyle style = wb.createCellStyle();
             Font font = wb.createFont();
             font.setFontHeightInPoints((short) 12);
@@ -171,7 +173,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             Cell costCell = row.createCell(6);
             sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
 
-            featureCell.setCellValue(UserParams.featureFullNameRu(feature));
+            featureCell.setCellValue(CharacterParams.featureFullNameRu(feature));
             costCell.setCellValue(feature.cost);
 
             if(feature.advantage) style.setFillForegroundColor(ADVANTAGE);
@@ -182,7 +184,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             rowNum ++;
         }
 
-        for(Skill skill : user.skills()){
+        for(Skill skill : character.skills()){
             XSSFCellStyle style = wb.createCellStyle();
             Font font = wb.createFont();
             font.setFontHeightInPoints((short) 12);
@@ -217,7 +219,7 @@ public class ExcelJokSheetFormat extends AbstractController {
             skillRowNum++;
         }
 
-        for(Spell spell : user.spells()){
+        for(Spell spell : character.spells()){
             XSSFCellStyle style = wb.createCellStyle();
             Font font = wb.createFont();
             font.setFontHeightInPoints((short) 12);

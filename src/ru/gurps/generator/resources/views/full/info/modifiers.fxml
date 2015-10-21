@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.tables.ModifiersController">
+    <children>
+      <MenuButton alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="105.0" text="%types" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0">
+         <items>
+            <CheckMenuItem fx:id="combatCheckBox" mnemonicParsing="false" text="%combats" />
+            <CheckMenuItem fx:id="improvingCheckBox" mnemonicParsing="false" text="%improvings" />
+            <CheckMenuItem fx:id="limitationCheckBox" mnemonicParsing="false" text="%limitations" />
+         </items>
+      </MenuButton>
+        <MenuButton fx:id="searchButton" disable="true" layoutX="551.0" layoutY="14.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
+            <items>
+                <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere" />
+                <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name" />
+                <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en" />
+                <MenuItem fx:id="searchCost" mnemonicParsing="false" text="%cost" />
+                <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description" />
+                <MenuItem fx:id="reset" mnemonicParsing="false" text="%reset" />
+            </items>
+        </MenuButton>
+        <TextField fx:id="searchText" layoutX="384.0" layoutY="14.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="7.0" />
+
+        <TableView fx:id="tableView" layoutY="39.0" prefHeight="360.0" prefWidth="645.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
+            <columns>
+                <TableColumn fx:id="modifiersNameColumn" prefWidth="136.0" text="%name" />
+                <TableColumn fx:id="modifiersNameEnColumn" prefWidth="125.0" text="%name_en" />
+                <TableColumn fx:id="maxLevelColumn" minWidth="0.0" prefWidth="84.0" text="%max_level" />
+                <TableColumn fx:id="costColumn" prefWidth="84.0" text="%cost" />
+                <TableColumn fx:id="combatColumn" prefWidth="65.0" text="%combat" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="175.0" text="%description" />
+            </columns>
+        </TableView>
+        <!-- bottomMenu -->
+        <AnchorPane fx:id="bottomMenu" layoutY="300.0" prefHeight="134.0" prefWidth="645.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <ComboBox fx:id="levelComboBox" layoutX="323.0" layoutY="27.0" prefHeight="26.0" prefWidth="62.0" value="1.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="224.0" />
+                <Label alignment="CENTER" layoutX="422.0" layoutY="29.0" prefHeight="16.0" prefWidth="62.0" text="%level" AnchorPane.bottomAnchor="89.0" AnchorPane.rightAnchor="224.0" />
+            <Label fx:id="levelLabel" alignment="CENTER" prefHeight="25.0" prefWidth="62.0" text="Label" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="224.0" />
+                <TextField fx:id="levelText" layoutX="424.0" layoutY="49.0" prefHeight="25.0" prefWidth="62.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="224.0" />
+                <Button fx:id="add" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%add" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                <Button fx:id="remove" layoutX="541.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%remove" visible="false" AnchorPane.bottomAnchor="69.0" AnchorPane.rightAnchor="10.0" />
+                <Button fx:id="full" layoutX="550.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="%full" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="10.0" />
+                <Label alignment="CENTER" layoutX="504.0" layoutY="29.0" prefHeight="16.0" prefWidth="72.0" text="%cost" AnchorPane.bottomAnchor="89.0" AnchorPane.rightAnchor="116.0" />
+                <Label fx:id="finalCost" alignment="CENTER" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="62.0" text="-" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
+                <TextField fx:id="finalCostText" layoutX="459.0" layoutY="27.0" prefHeight="25.0" prefWidth="72.0" AnchorPane.bottomAnchor="59.0" AnchorPane.rightAnchor="116.0" />
+
+                <TableView fx:id="featuresTableView" layoutX="-2.0" prefHeight="134.0" prefWidth="338.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="332.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                        <TableColumn fx:id="featuresNameColumn" prefWidth="176.0" text="%name" />
+                        <TableColumn fx:id="featuresNameEnColumn" prefWidth="161.0" text="%name_en" />
+                    </columns>
+                </TableView>
+            </children>
+        </AnchorPane>
+        <!-- bottomMenu End -->
+    </children>
+</AnchorPane>

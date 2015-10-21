@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="621.0" prefWidth="650.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.controller.ParentController">
+    <children>
+        <Label alignment="CENTER" layoutX="4.0" layoutY="97.0" prefHeight="25.0" prefWidth="192.0" text="%character_generator">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Label>
+        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="%file">
+                    <items>
+                        <MenuItem fx:id="newMenuItem" mnemonicParsing="false" text="%new" />
+                        <MenuItem mnemonicParsing="false" text="%open" />
+                        <MenuItem mnemonicParsing="false" text="%download" />
+                        <MenuItem mnemonicParsing="false" text="%upload" />
+                    </items>
+                </Menu>
+                <Menu fx:id="viewMenu" mnemonicParsing="false" text="%view" />
+                <Menu mnemonicParsing="false" text="%help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%reference_book" />
+                  <MenuItem fx:id="checkNewVersion" mnemonicParsing="false" text="%check_new_version" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+            <image>
+                <Image url="@../images/gurps.jpg" />
+            </image>
+        </ImageView>
+        <TextField layoutX="216.0" layoutY="36.0" AnchorPane.rightAnchor="100.0" />
+        <MenuButton layoutX="467.0" layoutY="36.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="16.0">
+            <items>
+                <MenuItem mnemonicParsing="false" text="%everywhere" />
+                <MenuItem mnemonicParsing="false" text="%advantages" />
+            </items>
+        </MenuButton>
+        <TabPane fx:id="mainTabPanel" layoutX="-3.0" layoutY="125.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+            <tabs>
+                <Tab fx:id="paramsTab" text="%stats">
+                    <content>
+                        <fx:include source="characters/params.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="advantagesTab" text="%advantages">
+                    <content>
+                        <fx:include source="tables/advantages.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="disadvantagesTab" text="%disadvantages">
+                    <content>
+                        <fx:include source="tables/disadvantages.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="quirksTab" text="%quirks">
+                    <content>
+                        <fx:include source="tables/quirks.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="modesTab" text="%modifiers">
+                    <content>
+                        <fx:include source="full/info/modifiers.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="skillsTab" text="%skills">
+                    <content>
+                        <fx:include source="tables/skills.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="techniquesTab" text="%techniques">
+                    <content>
+                        <fx:include source="tables/techniques.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="spellTab" text="%spells">
+                    <content>
+                        <fx:include source="tables/spells.fxml" />
+                    </content>
+                </Tab>
+
+                <Tab fx:id="languagesTab" text="%languages">
+                    <content>
+                        <fx:include source="tables/languages.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="culturasTab" text="%cultures">
+                    <content>
+                        <fx:include source="tables/culturas.fxml" />
+                    </content>
+                </Tab>
+                <Tab fx:id="equipmentTab" text="%equipment">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Label layoutX="471.0" layoutY="97.0" prefHeight="26.0" prefWidth="115.0" text="%spent_points" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="97.0" />
+        <Label fx:id="currentPoints" alignment="CENTER" contentDisplay="CENTER" layoutX="590.0" layoutY="97.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="49.0" text="9999" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="97.0" />
+        <Label layoutX="298.0" layoutY="97.0" prefHeight="26.0" text="%max_points" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="97.0" />
+        <TextField fx:id="maxPoints" alignment="CENTER" layoutX="414.0" layoutY="97.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="97.0" />
+        <Button fx:id="characterSheet" layoutX="210.0" layoutY="36.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="163.0" text="%goto_sheet" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="36.0" />
+    </children>
+</AnchorPane>
