@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="343.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gurps.generator.desktop.controller.characters.SelectController">
+   <children>
+      <Button fx:id="newCharacter" disable="true" layoutX="88.0" layoutY="57.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="219.0" text="%character_new" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="60.0" />
+      <TableView fx:id="characterTable" layoutY="89.0" prefHeight="189.0" prefWidth="395.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
+        <columns>
+          <TableColumn fx:id="name" prefWidth="196.0" resizable="false" text="%nickname" />
+            <TableColumn fx:id="tableCurrentPoints" prefWidth="100.0" resizable="false" text="%current_points" />
+            <TableColumn fx:id="tableMaxPoints" prefWidth="98.0" resizable="false" text="%max_points" />
+        </columns>
+      </TableView>
+      <TextField fx:id="newName" alignment="CENTER" layoutX="78.0" layoutY="1.0" prefHeight="26.0" prefWidth="219.0" promptText="%nickname" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="1.0" />
+      <TextField fx:id="points" alignment="CENTER" layoutY="27.0" prefHeight="26.0" prefWidth="219.0" promptText="%max_points" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="28.0" />
+      <Button fx:id="load" disable="true" layoutX="299.0" layoutY="227.0" mnemonicParsing="false" text="%download" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="remove" disable="true" layoutX="14.0" layoutY="227.0" mnemonicParsing="false" text="%remove" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="14.0" />
+      <Button fx:id="generate" layoutX="141.0" layoutY="250.0" mnemonicParsing="false" text="%generate" AnchorPane.bottomAnchor="37.0" />
+      <Hyperlink fx:id="lastVersionLink" alignment="CENTER" focusTraversable="false" layoutX="192.0" layoutY="85.0" text="%link_to_last_version" underline="true" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
+      <Button fx:id="buttonCheckUpdateParams" layoutX="10.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="368.0" text="%check_update_params" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" />
+   </children>
+</AnchorPane>
