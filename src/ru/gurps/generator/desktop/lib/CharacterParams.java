@@ -8,11 +8,9 @@ import ru.gurps.generator.desktop.models.rules.*;
 public class CharacterParams extends AbstractController {
     public static int stCost() {
         int cost = (character.st - 10) * 10;
-        if (cost != 0) {
-            if (character.noFineManipulators) cost = (int) (cost - (cost * 0.4));
-            if (character.sm > 0) cost = character.sm < 8 ? (int) (cost - (cost * (0.1 * character.sm))) : (int) (cost - (cost * 0.8));
-        }
-        return cost;
+        if (cost == 0) return cost;
+        if (character.noFineManipulators) cost = (int) (cost - (cost * 0.4));
+        return costThroughSm(cost);
     }
 
     public static int dxCost() {
@@ -31,9 +29,8 @@ public class CharacterParams extends AbstractController {
 
     public static int hpCost() {
         int cost = (character.hp - character.st) * 2;
-        if (character.sm > 0 && cost != 0)
-            cost = character.sm < 8 ? (int) (cost - (cost * (0.1 * character.sm))) : (int) (cost - (cost * 0.8));
-        return cost;
+        if (cost == 0) return cost;
+        return costThroughSm(cost);
     }
 
     public static int willCost() {
@@ -311,5 +308,15 @@ public class CharacterParams extends AbstractController {
 
         fullName = fullName.substring(0, fullName.length() - 2) + ")";
         return fullName;
+    }
+
+    private static int costThroughSm(int cost){
+        if (character.sm == 0) return cost;
+        if ((character.sm > 0 && character.sm < 8) || (character.sm < 0 && character.sm > -8))
+            cost = (int) (cost - (cost * (0.1 * character.sm)));
+        else if(character.sm < 0 && character.sm <= -8)
+            cost = (int) (cost - (cost * -0.8));
+        else cost = (int) (cost - (cost * 0.8));
+        return cost;
     }
 }
