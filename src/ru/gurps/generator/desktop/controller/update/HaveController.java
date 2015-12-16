@@ -31,7 +31,6 @@ public class HaveController extends AbstractController {
         updateFromServer();
         log += "<head><link rel='stylesheet' href='"
                 + Main.class.getResource("resources/css/main.css") + "'> </head><body>";
-        System.out.println(log);
         webView.getEngine().loadContent(log);
         acceptSet();
         cancelSet();
@@ -81,7 +80,8 @@ public class HaveController extends AbstractController {
         try {
             JsonObject object = element.getAsJsonObject();
             JsonObject rawInfo = object.get("raw_info").getAsJsonObject();
-            Class<?> clazz = Class.forName("ru.gurps.generator.models.rules." + object.get("model").getAsString());
+            Class<?> clazz = Class.forName("ru.gurps.generator.desktop.models.rules." +
+                    object.get("model").getAsString());
             Constructor<?> constructor = clazz.getConstructor();
             Object instance = constructor.newInstance();
             Object record = Model.class.getDeclaredMethod("find", int.class)
