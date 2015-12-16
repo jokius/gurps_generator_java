@@ -250,6 +250,7 @@ public class ParamsController extends AbstractController {
             int oldMoveCost = Integer.parseInt(moveCost.getText());
             moveCost.setText(Integer.toString(CharacterParams.moveCost()));
             currentPoints(moveCost, oldMoveCost);
+            character.save();
         });
 
         hp.textProperty().addListener((observable, oldValue, newValue) -> {
