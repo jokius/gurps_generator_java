@@ -27,13 +27,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         String parent = "\\w*.jar";
-        jarFolder = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll(parent, ""), "UTF-8");
-        File file = new File(jarFolder + "ru/gurps/generator/desktop/resources/db/gurps.mv.db");
+        jarFolder = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+                .replaceAll(parent, ""), "UTF-8");
+
+        File file = new File(jarFolder + "db/gurps.mv.db");
 
         if (!file.exists() || file.isDirectory()) {
             File dir = new File(jarFolder + "db");
             if (!dir.exists() || !dir.isDirectory()) dir.mkdir();
-            ExportResource("/ru/gurps/generator/desktop/resources/db/gurps.mv.db");
+            ExportResource("/db/gurps.mv.db");
         }
 
         loadProperties();
@@ -104,7 +106,8 @@ public class Main extends Application {
         }
         int readBytes;
         byte[] buffer = new byte[4096];
-        jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+        jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
+                .getParentFile().getPath().replace('\\', '/');
         resStreamOut = new FileOutputStream(jarFolder + resourceName);
         while ((readBytes = stream.read(buffer)) > 0) {
             resStreamOut.write(buffer, 0, readBytes);
