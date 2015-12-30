@@ -90,7 +90,7 @@ public class CulturasController extends AbstractController {
     }
 
     private void updateFromServer() {
-        String repose = getPage("culturas", 1);
+        String repose = getPage("data/culturas", 1);
         if (repose.equals("")) return;
         JsonObject json = new JsonParser().parse(repose).getAsJsonObject();
         boolean next = newCulturas(json);
@@ -124,7 +124,7 @@ public class CulturasController extends AbstractController {
 
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("cultura", name));
-        HttpResponse httpResponse = sendRequest("culturas", params);
+        HttpResponse httpResponse = sendRequest("data/culturas", params);
         if(httpResponse == null) return;
         if (httpResponse.getStatusLine().getStatusCode() == 204) return;
 

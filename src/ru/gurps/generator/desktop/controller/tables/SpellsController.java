@@ -200,8 +200,6 @@ public class SpellsController extends AbstractController {
         public void handle(MouseEvent t) {
             row = (TableRow) t.getSource();
             spell = tableView.getItems().get(row.getIndex());
-            System.out.println(spell.id);
-            System.out.println(lastId);
             if(spell.id == lastId) return;
             lastId = spell.id;
             bottomMenu();

@@ -124,7 +124,7 @@ public class LanguagesController extends AbstractController {
     }
 
     private void updateFromServer() {
-        String repose = getPage("languages", 1);
+        String repose = getPage("data/languages", 1);
         if (repose.equals("")) return;
         JsonObject json = new JsonParser().parse(repose).getAsJsonObject();
         boolean next = newLanguages(json);
@@ -146,7 +146,7 @@ public class LanguagesController extends AbstractController {
 
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("language", name));
-        HttpResponse httpResponse = sendRequest("languages", params);
+        HttpResponse httpResponse = sendRequest("data/languages", params);
         if(httpResponse == null) return;
         if (httpResponse.getStatusLine().getStatusCode() == 204) return;
 

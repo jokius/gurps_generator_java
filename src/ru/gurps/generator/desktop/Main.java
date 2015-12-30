@@ -16,7 +16,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
-    public static final String VERSION = "v0.2.1";
+    public static final String VERSION = "v0.2.2";
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
     public static String jarFolder;
     public static String protocol;
@@ -123,7 +123,6 @@ public class Main extends Application {
         Properties props = new Properties();
         File file = new File(jarFolder + "properties/all.properties");
         if (!file.exists() || file.isDirectory()) saveDefaultProperties();
-
         try {
             props.load(new FileInputStream(file));
             protocol = props.getProperty("Protocol");
@@ -141,9 +140,9 @@ public class Main extends Application {
             if (!dir.exists() || !dir.isDirectory()) dir.mkdir();
             Properties props = new Properties();
             props.setProperty("Protocol", "http");
-            props.setProperty("ServerAddress", "generator-gurps.rhcloud.com");
+            props.setProperty("ServerAddress", "gurps.cloudapp.net");
             props.setProperty("ServerPort", "80");
-            props.setProperty("UpdateStart", "0");
+            props.setProperty("UpdateStart", "16");
             File f = new File(jarFolder + "properties/all.properties");
             OutputStream out = new FileOutputStream(f);
             props.store(out, "This default properties");

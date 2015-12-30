@@ -88,7 +88,7 @@ public class QuirksController extends AbstractController {
     }
 
     private void updateFromServer() {
-        String repose = getPage("quirks", 1);
+        String repose = getPage("data/quirks", 1);
         if (repose.equals("")) return;
         JsonObject json = new JsonParser().parse(repose).getAsJsonObject();
         boolean next = newQuirks(json);
@@ -122,7 +122,7 @@ public class QuirksController extends AbstractController {
 
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("quirk", name));
-        HttpResponse httpResponse = sendRequest("quirks", params);
+        HttpResponse httpResponse = sendRequest("data/quirks", params);
         if(httpResponse == null) return;
         if (httpResponse.getStatusLine().getStatusCode() == 204) return;
 

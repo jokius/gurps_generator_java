@@ -37,7 +37,7 @@ public class HaveController extends AbstractController {
     }
 
     private void updateFromServer() {
-        String repose = getRequest("change_log?start=" + updateStart);
+        String repose = getRequest("data/change_log?start=" + updateStart);
         JsonObject json = new JsonParser().parse(repose).getAsJsonObject();
         entries = json.entrySet();
         entries.forEach(this::objectSet);
