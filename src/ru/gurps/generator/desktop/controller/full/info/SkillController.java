@@ -28,7 +28,7 @@ public class SkillController extends AbstractController {
     @FXML
     private void initialize() {
         name.setText(skill.name + " (" + skill.nameEn + " )");
-        type.setText(type.getText() + skill.getTypeFull());
+        type.setText(type.getText() + " " + skill.getTypeFull());
         complexity.setText(complexity.getText() + skill.getComplexityFull());
         defaultUse.setText(defaultUse.getText() + skill.getDefaultUse());
         demands.setText(demands.getText() + skill.getDemands());
