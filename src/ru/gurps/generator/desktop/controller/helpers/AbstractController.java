@@ -71,7 +71,7 @@ public class AbstractController extends Main {
 
 
     protected void createResourcesUpdateStage() {
-        String repose = getRequest("data/change_log/status?start=" + updateStart);
+        String repose = getRequest("data/change_log/status?start=" + updateStart + "&version=" + VERSION);
         if (repose.equals("")) return;
         if(new JsonParser().parse(repose).getAsJsonObject().get("present").getAsBoolean()) updateHave();
         else updateNotHave();
