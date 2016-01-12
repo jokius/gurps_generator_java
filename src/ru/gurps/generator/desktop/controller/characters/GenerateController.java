@@ -361,11 +361,11 @@ public class GenerateController extends AbstractController {
                     spell.level = character.iq - 3;
                 }
                 spell.level += random.nextInt(maxLvl);
-                spell.cost = CharacterParams.spellCost(spell);
-                spellsInt -= spell.cost;
+                spell.finalCost = CharacterParams.spellCost(spell);
+                spellsInt -= spell.finalCost;
                 if (spellsInt < 0) break;
-                character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + spell.cost);
-                new CharactersSpell(character.id, spell.id, spell.level, spell.cost).create();
+                character.currentPoints = Integer.toString(Integer.parseInt(character.currentPoints) + spell.finalCost);
+                new CharactersSpell(character.id, spell.id, spell.level, spell.finalCost).create();
             }
         }
     }
