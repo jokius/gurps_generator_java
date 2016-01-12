@@ -88,18 +88,19 @@ public class Spell extends Model {
     }
 
     public String getSpellType() {
-//        switch(spellType){
-//            case 0: return Main.locale.getString("usual");
-//            case 1: return Main.locale.getString("area");
-//            case 2: return Main.locale.getString("contact");
-//            case 3: return Main.locale.getString("throw");
-//            case 4: return Main.locale.getString("block_spell");
-//            case 5: return Main.locale.getString("resistance");
-//            case 6: return Main.locale.getString("information");
-//            case 7: return Main.locale.getString("charm");
-//            case 8: return Main.locale.getString("special");
-//        }
-        return null;
+        String new_type = spellType;
+        new_type = new_type.replace(",", "; ");
+        new_type = new_type.replace(":", Main.locale.getString("or")+ " ");
+        new_type = new_type.replace("0", Main.locale.getString("usual") + " ");
+        new_type = new_type.replace("1", Main.locale.getString("area") + " ");
+        new_type = new_type.replace("2", Main.locale.getString("contact") + " ");
+        new_type = new_type.replace("3", Main.locale.getString("throw") + " ");
+        new_type = new_type.replace("4", Main.locale.getString("block_spell") + " ");
+        new_type = new_type.replace("5", Main.locale.getString("resistance") + " ");
+        new_type = new_type.replace("6", Main.locale.getString("information") + " ");
+        new_type = new_type.replace("7", Main.locale.getString("charm") + " ");
+        new_type = new_type.replace("8", Main.locale.getString("special") + " ");
+        return new_type;
     }
 
     public String getComplexity() {
