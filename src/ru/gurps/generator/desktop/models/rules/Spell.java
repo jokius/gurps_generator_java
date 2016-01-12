@@ -5,20 +5,21 @@ import ru.gurps.generator.desktop.config.Model;
 
 public class Spell extends Model {
     public Integer id;
-    public Integer school;
+    public Integer schoolId;
     public String name;
     public String nameEn;
-    public Integer spellType;
+    public String spellType;
     public String description;
     public Integer complexity;
-    public Integer cost;
-    public Integer maxCost;
+    public String cost;
     public String needTime;
     public String duration;
     public String maintainingCost;
     public String thing;
     public String createCost;
     public String demands;
+    public String resistance;
+    public String modifiers;
     @Ignore public Integer level = 1;
     @Ignore public Integer finalCost = 0;
     @Ignore public Boolean add = false;
@@ -66,34 +67,38 @@ public class Spell extends Model {
         return finalCost;
     }
 
-    public String getCost() {
-        if(cost == maxCost) return Integer.toString(cost);
-        else return cost + " - " + maxCost;
-    }
-
     public Integer getLevel() {
         return level;
     }
 
     public String getSchool() {
-        switch(school){
-            case 0: return Main.locale.getString("air");
-        }
-        return null;
+        return ((School) new School().find(schoolId)).name;
+    }
+
+    public String getResistance() {
+        return resistance;
+    }
+
+    public String getModifiers() {
+        return modifiers;
+    }
+
+    public String getCost() {
+        return cost;
     }
 
     public String getSpellType() {
-        switch(spellType){
-            case 0: return Main.locale.getString("usual");
-            case 1: return Main.locale.getString("area");
-            case 2: return Main.locale.getString("contact");
-            case 3: return Main.locale.getString("throw");
-            case 4: return Main.locale.getString("block_spell");
-            case 5: return Main.locale.getString("resistance");
-            case 6: return Main.locale.getString("information");
-            case 7: return Main.locale.getString("charm");
-            case 8: return Main.locale.getString("special");
-        }
+//        switch(spellType){
+//            case 0: return Main.locale.getString("usual");
+//            case 1: return Main.locale.getString("area");
+//            case 2: return Main.locale.getString("contact");
+//            case 3: return Main.locale.getString("throw");
+//            case 4: return Main.locale.getString("block_spell");
+//            case 5: return Main.locale.getString("resistance");
+//            case 6: return Main.locale.getString("information");
+//            case 7: return Main.locale.getString("charm");
+//            case 8: return Main.locale.getString("special");
+//        }
         return null;
     }
 
