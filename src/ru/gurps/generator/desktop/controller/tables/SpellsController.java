@@ -14,12 +14,16 @@ import javafx.stage.Stage;
 import ru.gurps.generator.desktop.Main;
 import ru.gurps.generator.desktop.controller.full.info.SpellController;
 import ru.gurps.generator.desktop.controller.helpers.AbstractController;
-import ru.gurps.generator.desktop.models.rules.Spell;
 import ru.gurps.generator.desktop.models.characters.CharactersSpell;
+import ru.gurps.generator.desktop.models.rules.School;
+import ru.gurps.generator.desktop.models.rules.Spell;
+import ru.gurps.generator.desktop.singletons.SpellTypeSingleton;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SpellsController extends AbstractController {
     ru.gurps.generator.desktop.models.Character character = AbstractController.character;
@@ -29,32 +33,18 @@ public class SpellsController extends AbstractController {
     public TableColumn<Spell, String> nameEnColumn;
     public TableColumn<Spell, String> schoolColumn;
     public TableColumn<Spell, String> typeColumn;
-    public TableColumn<Spell, String> costColumn;
-    public TableColumn<Spell, String> demandsColumn;
-    public TableColumn<Spell, String> descriptionColumn;
+    public TableColumn<Spell, String> complexityColumn;
 
     public MenuButton searchButton;
     public MenuItem searchAll;
     public MenuItem searchName;
     public MenuItem searchNameEn;
-    public MenuItem searchCost;
     public MenuItem searchDescription;
     public MenuItem reset;
     public TextField searchText;
 
-
-    public CheckMenuItem t0CheckBox;
-    public CheckMenuItem t1CheckBox;
-    public CheckMenuItem t2CheckBox;
-    public CheckMenuItem t3CheckBox;
-    public CheckMenuItem t4CheckBox;
-    public CheckMenuItem t5CheckBox;
-    public CheckMenuItem t6CheckBox;
-    public CheckMenuItem t7CheckBox;
-    public CheckMenuItem t8CheckBox;
-
-    public CheckMenuItem s0CheckBox;
-
+    public MenuButton typeList;
+    public MenuButton schoolsList;
 
     public TextField level;
     public Label finalCost;
@@ -79,50 +69,47 @@ public class SpellsController extends AbstractController {
 
     @FXML
     private void initialize() {
-        for(int i = 0; 8 >= i; i++) typeNumbers.add(i);
-        schoolNumbers.add(0);
+        setDefaultSpells();
         setCheckBox();
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameEnColumn.setCellValueFactory(new PropertyValueFactory<>("nameEn"));
         schoolColumn.setCellValueFactory(new PropertyValueFactory<>("school"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("spellType"));
-        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        demandsColumn.setCellValueFactory(new PropertyValueFactory<>("demands"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        complexityColumn.setCellValueFactory(new PropertyValueFactory<>("complexity"));
         nameColumn.setCellFactory(column -> new TableCell<Spell, String>() {
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            getTableRow().getStyleClass().remove("isAdd");
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                getTableRow().getStyleClass().remove("isAdd");
 
-            if(item != null || !empty) {
-                setText(item);
-                Spell spell = tableView.getItems().get(getTableRow().getIndex());
-                HashMap<String, Object> params = new HashMap<>();
-                params.put("characterId", character.id);
-                params.put("spellId", spell.id);
-                CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
-                if(charactersSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
-                else getTableRow().getStyleClass().add("isAdd");
-            }
+                if (item != null || !empty) {
+                    setText(item);
+                    Spell spell = tableView.getItems().get(getTableRow().getIndex());
+                    HashMap<String, Object> params = new HashMap<>();
+                    params.put("characterId", character.id);
+                    params.put("spellId", spell.id);
+                    CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
+                    if (charactersSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
+                    else getTableRow().getStyleClass().add("isAdd");
+                }
 
-            if (empty) {
-                setText(null);
-                setGraphic(null);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                }
             }
-        }
-    });
+        });
 
         tableView.setPlaceholder(new Label(Main.locale.getString("spells_not_found")));
         ObservableList<Spell> spells = new Spell().all();
         HashMap<String, Object> params = new HashMap<>();
         params.put("characterId", character.id);
 
-        for(Spell spell : spells){
+        for (Spell spell : spells) {
             params.put("spellId", spell.id);
             CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
-            if(charactersSpell.level != null) {
+            if (charactersSpell.level != null) {
                 spell.finalCost = charactersSpell.cost;
                 spell.level = charactersSpell.level;
                 spell.add = true;
@@ -137,56 +124,69 @@ public class SpellsController extends AbstractController {
         });
 
         localSearch(new Spell(), tableView, searchText, searchButton, searchAll, searchName, searchNameEn,
-                searchCost, searchDescription, reset);
+                searchDescription, reset);
     }
 
-    private void setCheckBox(){
-        Integer[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-        for(Integer number : numbers) {
-            try {
-                CheckMenuItem checkBox = (CheckMenuItem) this.getClass().getDeclaredField("t" + number + "CheckBox").get(this);
-                checkBox.setSelected(true);
-                checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    String query = "spellType like ";
-                    if(newValue) typeNumbers.add(number);
-                    else typeNumbers.remove(number);
+    private void setCheckBox() {
+        for (Map.Entry<Integer, String> type : SpellTypeSingleton.getInstance().getList()) {
+            CheckMenuItem checkBox = new CheckMenuItem(type.getValue());
+            checkBox.setSelected(true);
+            checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue) typeNumbers.add(type.getKey());
+                else typeNumbers.remove(type.getKey());
+                setSpells();
+            });
 
-                    for(Integer tNumber : typeNumbers) {
-                        if(query.equals("spellType like ")) query += "'%" + tNumber + "%'";
-                        else query += " or spellType like '%" + tNumber + "%'";
-
-                        for(Integer sNumber : schoolNumbers) query += " and school like '%" + sNumber + "%'";
-                    }
-                    if(query.equals("spellType like ")) query = "spellType='-1'";
-                    tableView.setItems(new Spell().where(query));
-                });
-            } catch(NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            typeList.getItems().add(checkBox);
         }
 
-        for(Integer number : numbers) {
-            try {
-                CheckMenuItem checkBox = (CheckMenuItem) this.getClass().getDeclaredField("s" + number + "CheckBox").get(this);
-                checkBox.setSelected(true);
-                checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    String query = "school like ";
-                    if(newValue) schoolNumbers.add(number);
-                    else schoolNumbers.remove(number);
+        for (Object object : new School().all()) {
+            School school = (School) object;
+            CheckMenuItem checkBox = new CheckMenuItem(school.name);
+            checkBox.setSelected(true);
+            checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue) schoolNumbers.add(school.id);
+                else schoolNumbers.remove(school.id);
+                setSpells();
+            });
 
-                    for(Integer sNumber : schoolNumbers) {
-                        if(query.equals("school like ")) query += "'%" + sNumber + "%'";
-                        else query += " or school like '%" + sNumber + "%'";
-
-                        for(Integer tNumber : typeNumbers) query += " and spellType like '%" + tNumber + "%'";
-                    }
-                    if(query.equals("school like ")) query = "school='-1'";
-                    tableView.setItems(new Spell().where(query));
-                });
-            } catch(NoSuchFieldException | IllegalAccessException e) {
-                return;
-            }
+            schoolsList.getItems().add(checkBox);
         }
+    }
+
+    private void setDefaultSpells() {
+        typeNumbers.addAll(SpellTypeSingleton.getInstance().getList().stream().map(Map.Entry::getKey)
+                .collect(Collectors.toList()));
+        for (Object object : new School().all()) {
+            School school = (School) object;
+            schoolNumbers.add(school.id);
+        }
+
+        setSpells();
+    }
+
+    private void setSpells(){
+        String query = "spellType like ";
+
+        for (Integer tNumber : typeNumbers) {
+            if (query.equals("spellType like ")) query += "'%" + tNumber + "%'";
+            else query += " or spellType like '%" + tNumber + "%'";
+        }
+
+        if (query.equals("spellType like ")) query = "spellType='-1'";
+
+        if (schoolNumbers.size() > 0) {
+            query ="(" + query + ")" + " and (";
+            for (Integer sNumber : schoolNumbers) {
+                if (query.substring(query.length() - 1).equals("(")) query += "schoolId = '" + sNumber + "'";
+                else query += " or schoolId = '" + sNumber + "'";
+            }
+            query += ")";
+        } else {
+            query += "and schoolId= '-1'";
+        }
+
+        tableView.setItems(new Spell().where(query));
     }
 
     class SpellEventHandler implements EventHandler<MouseEvent> {
@@ -200,16 +200,16 @@ public class SpellsController extends AbstractController {
         public void handle(MouseEvent t) {
             row = (TableRow) t.getSource();
             spell = tableView.getItems().get(row.getIndex());
-            if(spell.id == lastId) return;
+            if (spell.id == lastId) return;
             lastId = spell.id;
             bottomMenu();
         }
 
-        void bottomMenu(){
+        void bottomMenu() {
             setupBottomMenu();
             defaultParams();
 
-            if(spell.add) {
+            if (spell.add) {
                 add.setVisible(false);
                 remove.setVisible(true);
             } else {
@@ -218,7 +218,7 @@ public class SpellsController extends AbstractController {
             }
 
             level.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                if(oldValue.equals(newValue) || newValue.equals("")) return;
+                if (oldValue.equals(newValue) || newValue.equals("")) return;
                 spell.level = Integer.parseInt(newValue);
                 finalCost.setText(finalCost());
                 spell.finalCost = Integer.parseInt(finalCost.getText());
@@ -228,13 +228,13 @@ public class SpellsController extends AbstractController {
 
         void defaultParams() {
             level.setText(Integer.toString(spell.level));
-            if(spell.complexity == 2){
-                if(spell.level < character.iq - 2) level.setText(Integer.toString(character.iq - 2));
-            } else{
-                if(spell.level < character.iq - 3) level.setText(Integer.toString(character.iq - 3));
+            if (spell.complexity == 2) {
+                if (spell.level < character.iq - 2) level.setText(Integer.toString(character.iq - 2));
+            } else {
+                if (spell.level < character.iq - 3) level.setText(Integer.toString(character.iq - 3));
             }
 
-            if(spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
+            if (spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
             else finalCost.setText(finalCost());
             complexity.setText(spell.getComplexity());
             needTime.setText(spell.needTime);
@@ -244,35 +244,35 @@ public class SpellsController extends AbstractController {
             thing.setText(spell.thing);
         }
 
-        String finalCost(){
-            if(spell.complexity == 2){
-                if(spell.level <= character.iq - 2) return "1";
-                else if(spell.level == character.iq - 1) return "2";
-                else if(spell.level == character.iq) return "4";
-                else if(spell.level == character.iq + 1) return "8";
-                else if(spell.level == character.iq + 2) return "12";
-                else if(spell.level == character.iq + 3) return "16";
-                else{
+        String finalCost() {
+            if (spell.complexity == 2) {
+                if (spell.level <= character.iq - 2) return "1";
+                else if (spell.level == character.iq - 1) return "2";
+                else if (spell.level == character.iq) return "4";
+                else if (spell.level == character.iq + 1) return "8";
+                else if (spell.level == character.iq + 2) return "12";
+                else if (spell.level == character.iq + 3) return "16";
+                else {
                     int i = spell.level;
                     int cost = 16;
-                    while(i > character.iq + 3){
+                    while (i > character.iq + 3) {
                         cost += 4;
-                        i --;
+                        i--;
                     }
                     return Integer.toString(cost);
                 }
             } else {
-                if(spell.level <= character.iq - 3) return "1";
-                else if(spell.level == character.iq - 2) return "2";
-                else if(spell.level == character.iq - 1) return "4";
-                else if(spell.level == character.iq) return "8";
-                else if(spell.level == character.iq + 1) return "12";
-                else if(spell.level == character.iq + 2) return "16";
-                else if(spell.level == character.iq + 3) return "20";
+                if (spell.level <= character.iq - 3) return "1";
+                else if (spell.level == character.iq - 2) return "2";
+                else if (spell.level == character.iq - 1) return "4";
+                else if (spell.level == character.iq) return "8";
+                else if (spell.level == character.iq + 1) return "12";
+                else if (spell.level == character.iq + 2) return "16";
+                else if (spell.level == character.iq + 3) return "20";
                 else {
                     int i = spell.level;
                     int cost = 20;
-                    while(i == character.iq + 3) {
+                    while (i == character.iq + 3) {
                         cost += 4;
                         i--;
                     }
@@ -281,7 +281,7 @@ public class SpellsController extends AbstractController {
             }
         }
 
-        void setButtons(){
+        void setButtons() {
             add.setOnAction(event -> {
                 new CharactersSpell(character.id, spell.id, spell.level, spell.finalCost).create();
                 setCurrentPoints(spell.finalCost + Integer.parseInt(character.currentPoints));
@@ -317,7 +317,7 @@ public class SpellsController extends AbstractController {
                     childrenStage.setScene(new Scene(childrenRoot, 635, 572));
                     childrenStage.setTitle("GURPSGenerator - " + spell.name + " (" + spell.nameEn + ")");
                     childrenStage.show();
-                } catch(IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             });

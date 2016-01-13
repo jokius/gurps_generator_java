@@ -12,9 +12,7 @@
                 <TableColumn fx:id="nameEnColumn" prefWidth="109.0" text="%name_en" />
                 <TableColumn fx:id="schoolColumn" minWidth="0.0" prefWidth="70.0" text="%school" />
                 <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="54.0" text="%types" />
-                <TableColumn fx:id="costColumn" prefWidth="87.0" text="%cost" />
-                <TableColumn fx:id="demandsColumn" prefWidth="88.0" text="%demands" />
-                <TableColumn fx:id="descriptionColumn" prefWidth="101.0" text="%description" />
+                <TableColumn fx:id="complexityColumn" prefWidth="87.0" text="%cost" />
             </columns>
         </TableView>
 
@@ -23,7 +21,6 @@
                 <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere" />
                 <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name" />
                 <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en" />
-                <MenuItem fx:id="searchCost" mnemonicParsing="false" text="%cost" />
                 <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description" />
                 <MenuItem fx:id="reset" mnemonicParsing="false" text="%reset" />
             </items>
@@ -52,23 +49,7 @@
                 <Label fx:id="thing" layoutX="51.0" layoutY="112.0" prefHeight="16.0" prefWidth="449.0" text="%thing" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="114.0" />
             </children>
         </AnchorPane>
-      <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="%spell_types" AnchorPane.leftAnchor="6.0">
-        <items>
-            <CheckMenuItem fx:id="t0CheckBox" mnemonicParsing="false" text="%usual_multi" />
-            <CheckMenuItem fx:id="t1CheckBox" mnemonicParsing="false" text="%area_multi" />
-            <CheckMenuItem fx:id="t2CheckBox" mnemonicParsing="false" text="%contact_multi" />
-            <CheckMenuItem fx:id="t3CheckBox" mnemonicParsing="false" text="%throw_multi" />
-            <CheckMenuItem fx:id="t4CheckBox" mnemonicParsing="false" text="%block_spell_multi" />
-            <CheckMenuItem fx:id="t5CheckBox" mnemonicParsing="false" text="%resistance_multi" />
-            <CheckMenuItem fx:id="t6CheckBox" mnemonicParsing="false" text="%information_multi" />
-            <CheckMenuItem fx:id="t7CheckBox" mnemonicParsing="false" text="%charm_multi" />
-            <CheckMenuItem fx:id="t8CheckBox" mnemonicParsing="false" text="%special_multi" />
-        </items>
-      </MenuButton>
-      <MenuButton layoutX="167.0" layoutY="14.0" mnemonicParsing="false" text="%schools" AnchorPane.leftAnchor="170.0">
-        <items>
-            <CheckMenuItem fx:id="s0CheckBox" mnemonicParsing="false" text="%air" />
-        </items>
-      </MenuButton>
+      <MenuButton fx:id="typeList" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="%spell_types" AnchorPane.leftAnchor="6.0" />
+      <MenuButton fx:id="schoolsList" layoutX="167.0" layoutY="14.0" mnemonicParsing="false" text="%schools" AnchorPane.leftAnchor="170.0" />
     </children>
 </AnchorPane>
