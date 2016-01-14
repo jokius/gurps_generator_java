@@ -217,7 +217,7 @@ public class SpellsController extends AbstractController {
 
 
         public ActionsCell() {
-            setVBox();
+            setHBox();
         }
 
         private void setLevel() {
@@ -278,7 +278,7 @@ public class SpellsController extends AbstractController {
             fullButton.setOnAction(actionEvent -> openFullInfo((Spell) getTableRow().getItem()));
         }
 
-        private void setVBox() {
+        private void setHBox() {
             hBox.setAlignment(Pos.CENTER);
             hBox.setSpacing(10);
             paddedButton.getChildren().addAll(addButton, removeButton);
