@@ -105,16 +105,6 @@ public class Spell extends Model {
 
     public String getComplexity() {
         switch(complexity){
-            case 0: return Main.locale.getString("easy_short");
-            case 1: return Main.locale.getString("medium_short");
-            case 2: return Main.locale.getString("hard_short");
-            case 3: return Main.locale.getString("very_hard_short");
-        }
-        return null;
-    }
-
-    public String getComplexityFull() {
-        switch(complexity){
             case 0: return Main.locale.getString("easy");
             case 1: return Main.locale.getString("medium");
             case 2: return Main.locale.getString("hard");
