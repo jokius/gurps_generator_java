@@ -70,21 +70,15 @@ public class SpellsController extends AbstractController {
 
                 if (item != null || !empty) {
                     setText(item);
-                    Spell spell = tableView.getItems().get(getTableRow().getIndex());
-                    HashMap<String, Object> params = new HashMap<>();
-                    params.put("characterId", character.id);
-                    params.put("spellId", spell.id);
-                    CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
-                    if (charactersSpell.id == null) getTableRow().getStyleClass().remove("isAdd");
-                    else getTableRow().getStyleClass().add("isAdd");
+                    if(tableView.getItems().get(getTableRow().getIndex()).add)
+                        getTableRow().getStyleClass().add("isAdd");
+                    else getTableRow().getStyleClass().remove("isAdd");
                 }
 
                 if (empty) {
                     setText(null);
                     setGraphic(null);
                 }
-
-                this.prefWidth(500);
             }
         });
 
@@ -103,13 +97,16 @@ public class SpellsController extends AbstractController {
                 spell.finalCost = charactersSpell.cost;
                 spell.level = charactersSpell.level;
                 spell.add = true;
+            } else {
+                spell.level = CharacterParams.spellLevelResult(spell.complexity);
+                spell.finalCost = CharacterParams.spellCost(spell);
             }
         }
 
         tableView.setRowFactory(tv -> {
             TableRow<Spell> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) openFullInfo(row.getItem());
+                if (event.getClickCount() == 2 && (!row.isEmpty()))openFullInfo(row.getItem());
             });
 
             return row ;
@@ -240,11 +237,17 @@ public class SpellsController extends AbstractController {
             finalCost.setPrefWidth(62);
             finalCost.setPrefHeight(27);
             finalCost.setAlignment(Pos.CENTER);
+            finalCost.setText(Integer.toString(CharacterParams.spellCost(spell)));
         }
 
         private void setButtons() {
             addButton.setMinWidth(84);
             removeButton.setMinWidth(84);
+
+            spell.addButton = addButton;
+            spell.removeButton = removeButton;
+            spell.row = getTableRow();
+
             if (spell.add) {
                 addButton.setVisible(false);
                 removeButton.setVisible(true);
@@ -256,10 +259,7 @@ public class SpellsController extends AbstractController {
             addButton.setOnAction(event -> {
                 new CharactersSpell(character.id, spell.id, spell.level, spell.finalCost).create();
                 setCurrentPoints(spell.finalCost + Integer.parseInt(character.currentPoints));
-                spell.add = true;
-                addButton.setVisible(false);
-                removeButton.setVisible(true);
-                getTableRow().getStyleClass().add("isAdd");
+                spell.setAddAndColorRow(true);
             });
 
             removeButton.setOnAction(event -> {
@@ -269,13 +269,10 @@ public class SpellsController extends AbstractController {
                 CharactersSpell charactersSpell = (CharactersSpell) new CharactersSpell().find_by(params);
                 setCurrentPoints(Integer.parseInt(character.currentPoints) - charactersSpell.cost);
                 charactersSpell.delete();
-                spell.add = false;
-                addButton.setVisible(true);
-                removeButton.setVisible(false);
-                getTableRow().getStyleClass().remove("isAdd");
+                spell.setAddAndColorRow(false);
             });
 
-            fullButton.setOnAction(actionEvent -> openFullInfo((Spell) getTableRow().getItem()));
+            fullButton.setOnAction(actionEvent -> openFullInfo(spell));
         }
 
         private void setHBox() {
@@ -299,8 +296,6 @@ public class SpellsController extends AbstractController {
 
                 setFinalCost();
                 setLevel();
-                if (spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
-                else finalCost.setText(Integer.toString(CharacterParams.spellCost(spell)));
                 setButtons();
                 setGraphic(hBox);
             }
