@@ -259,6 +259,22 @@ public class CharacterParams extends AbstractController {
         return cost;
     }
 
+    public static int spellLevelResult(int complexity) {
+        switch (complexity) {
+            case 0:
+                return character.iq;
+            case 1:
+                return character.iq - 1;
+            case 2:
+                return character.iq - 2;
+            case 3:
+                return character.iq - 3;
+        }
+
+        return 0;
+    }
+
+
     public static int spellCost(Spell spell) {
         if (spell.complexity == 2) {
             if (spell.level <= character.iq - 2) return 1;
