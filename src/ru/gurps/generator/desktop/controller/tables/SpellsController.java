@@ -292,6 +292,11 @@ public class SpellsController extends AbstractController {
             if (empty) setGraphic(null);
             else {
                 spell = (Spell) getTableRow().getItem();
+                if(spell == null) {
+                    setGraphic(null);
+                    return;
+                }
+
                 setFinalCost();
                 setLevel();
                 if (spell.finalCost > 0) finalCost.setText(Integer.toString(spell.finalCost));
