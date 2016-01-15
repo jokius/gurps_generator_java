@@ -1,5 +1,7 @@
 package ru.gurps.generator.desktop.models.rules;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.TableRow;
 import ru.gurps.generator.desktop.Main;
 import ru.gurps.generator.desktop.config.Model;
 
@@ -21,8 +23,11 @@ public class Spell extends Model {
     public String resistance;
     public String modifiers;
     @Ignore public Integer level = 1;
-    @Ignore public Integer finalCost = 0;
+    @Ignore public Integer finalCost;
     @Ignore public Boolean add = false;
+    @Ignore public Button addButton;
+    @Ignore public Button removeButton;
+    @Ignore public TableRow row;
 
     public Spell() {
     }
@@ -33,34 +38,6 @@ public class Spell extends Model {
 
     public String getNameEn() {
         return nameEn;
-    }
-
-    public String getNeedTime() {
-        return needTime;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public String getMaintainingCost() {
-        return maintainingCost;
-    }
-
-    public String getThing() {
-        return thing;
-    }
-
-    public String getCreateCost() {
-        return createCost;
-    }
-
-    public String getDemands() {
-        return demands;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public Integer getFinalCost() {
@@ -75,16 +52,57 @@ public class Spell extends Model {
         return ((School) new School().find(schoolId)).name;
     }
 
-    public String getResistance() {
-        return resistance;
+    public String getSchoolSingle() {
+        return Main.locale.getString("school") + ": " + getSchool();
     }
 
-    public String getModifiers() {
-        return modifiers;
+    public String getResistanceSingle() {
+        String res = resistance == null ? Main.locale.getString("no") : resistance;
+        return Main.locale.getString("resistance") + ": " + res;
     }
 
-    public String getCost() {
-        return cost;
+    public String getTypeSingle() {
+        return Main.locale.getString("type") + ": " + getSpellType();
+    }
+
+    public String getComplexitySingle() {
+        return Main.locale.getString("complexity") + ": " + getComplexity();
+    }
+
+    public String getDemandsSingle() {
+        String dem = demands == null ? Main.locale.getString("no") : demands;
+        return Main.locale.getString("demands")+": " + dem;
+    }
+
+    public String getModifiersSingle() {
+        if(modifiers == null) return "";
+        else return Main.locale.getString("modifiers")+": " + modifiers;
+    }
+
+    public String getNeedTimeSingle() {
+        return Main.locale.getString("need_time")+": " + needTime;
+    }
+
+    public String getCostSingle() {
+        return Main.locale.getString("cost")+": " + cost;
+    }
+
+    public String getMaintainingCostSingle() {
+        return Main.locale.getString("maintaining_cost")+": " + maintainingCost;
+    }
+
+    public String getDurationSingle() {
+        return Main.locale.getString("duration")+": " + duration;
+    }
+
+    public String getThingSingle() {
+        String thingS = thing == null ? Main.locale.getString("no") : thing;
+        return Main.locale.getString("duration")+": " + thingS;
+    }
+
+    public String getCreateCostSingle() {
+        String create = createCost == null ? Main.locale.getString("no") : createCost;
+        return Main.locale.getString("duration")+": " + create;
     }
 
     public String getSpellType() {
@@ -118,5 +136,19 @@ public class Spell extends Model {
         else if(complexity.equals(Main.locale.getString("medium_short"))) this.complexity = 1;
         else if(complexity.equals(Main.locale.getString("hard_short"))) this.complexity = 2;
         else if(complexity.equals(Main.locale.getString("very_hard_short"))) this.complexity = 3;
+    }
+
+    public void setAddAndColorRow(Boolean sAdd){
+        this.add = sAdd;
+
+        if (sAdd) {
+            addButton.setVisible(false);
+            removeButton.setVisible(true);
+            row.getStyleClass().add("isAdd");
+        } else {
+            addButton.setVisible(true);
+            removeButton.setVisible(false);
+            row.getStyleClass().remove("isAdd");
+        }
     }
 }
