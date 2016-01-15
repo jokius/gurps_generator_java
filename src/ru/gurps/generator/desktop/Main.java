@@ -16,7 +16,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
-    public static final String VERSION = "v0.2.2";
+    public static final double VERSION = 0.3;
     public static final ResourceBundle locale = ResourceBundle.getBundle("bundles.generator", new Locale("ru", "RU"));
     public static String jarFolder;
     public static String protocol;
@@ -58,7 +58,7 @@ public class Main extends Application {
 
             JsonArray json = new JsonParser().parse(response).getAsJsonArray();
             String last_version = json.get(0).getAsJsonObject().get("name").getAsString();
-            if (!VERSION.equals(last_version)) {
+            if (!("v" + VERSION).equals(last_version)) {
                 AbstractController.urlToLastVersion = new URI("https://github.com/jokius/gurps_generator_java/releases/tag/" +
                         last_version);
             }
