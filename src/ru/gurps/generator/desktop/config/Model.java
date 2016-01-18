@@ -17,7 +17,16 @@ public class Model extends Db {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Ignore {}
 
-    protected String table = this.getClass().getSimpleName() + "s";
+    protected String tableName(){
+        String className = this.getClass().getSimpleName();
+        String tableName;
+
+        if(className.substring(className.length() - 1).equals("y"))
+            tableName = className.substring(0, className.length() - 1) + "ies";
+        else tableName = className + "s";
+
+        return tableName;
+    }
 
     public Model create() {
         String names = "(id,";
@@ -36,10 +45,10 @@ public class Model extends Db {
         values = values.substring(0, values.length() - 1) + ")";
         try {
             createConnection();
-            connect.createStatement().executeUpdate("INSERT INTO " + table + names + " " + values);
-            ResultSet result = connect.createStatement().executeQuery("SELECT id FROM " + table + " ORDER BY id ASC");
+            connect.createStatement().executeUpdate("INSERT INTO " + tableName() + names + " " + values);
+            ResultSet result = connect.createStatement().executeQuery("SELECT id FROM " + tableName() + " ORDER BY id ASC");
             result.last();
-            result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + result.getInt("id"));
+            result = connect.createStatement().executeQuery("SELECT * FROM " + tableName() + " WHERE id=" + result.getInt("id"));
             result.next();
             return setModel(result);
         } catch (SQLException e) {
@@ -69,7 +78,7 @@ public class Model extends Db {
         }
         params = params.substring(0, params.length() - 1);
             createConnection();
-            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + params + " WHERE id=" + id());
+            connect.createStatement().executeUpdate("UPDATE " + tableName() + " SET " + params + " WHERE id=" + id());
             return true;
         } catch (IllegalAccessException | NoSuchFieldException | SQLException e) {
             e.printStackTrace();
@@ -82,7 +91,7 @@ public class Model extends Db {
         try {
             this.getClass().getDeclaredField(key).set(this, value);
             createConnection();
-            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + key + "='" + value + "' WHERE id=" + id());
+            connect.createStatement().executeUpdate("UPDATE " + tableName() + " SET " + key + "='" + value + "' WHERE id=" + id());
             return true;
         } catch (IllegalAccessException | NoSuchFieldException | SQLException e) {
             e.printStackTrace();
@@ -108,7 +117,7 @@ public class Model extends Db {
 
         try {
             createConnection();
-            connect.createStatement().executeUpdate("UPDATE " + table + " SET " + params + " WHERE id=" + id);
+            connect.createStatement().executeUpdate("UPDATE " + tableName() + " SET " + params + " WHERE id=" + id);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,7 +129,7 @@ public class Model extends Db {
     public boolean delete(int id) {
         try {
             createConnection();
-            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE id=" + id);
+            connect.createStatement().executeUpdate("DELETE FROM " + tableName() + " WHERE id=" + id);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,7 +141,7 @@ public class Model extends Db {
     public boolean delete() {
         try {
             createConnection();
-            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE id=" + id());
+            connect.createStatement().executeUpdate("DELETE FROM " + tableName() + " WHERE id=" + id());
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,7 +165,7 @@ public class Model extends Db {
 
         try {
             createConnection();
-            connect.createStatement().executeUpdate("DELETE FROM " + table + " WHERE " + params);
+            connect.createStatement().executeUpdate("DELETE FROM " + tableName() + " WHERE " + params);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,7 +178,7 @@ public class Model extends Db {
         ObservableList list = FXCollections.observableArrayList();
         try {
             createConnection();
-            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + table);
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + tableName());
 
             while (results.next()) {
                 list.add(setModel(results));
@@ -185,7 +194,7 @@ public class Model extends Db {
     public Model find(int id) {
         try {
             createConnection();
-            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE id=" + id);
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + tableName() + " WHERE id=" + id);
             result.next();
             return setModel(result);
         } catch (SQLException e) {
@@ -203,7 +212,7 @@ public class Model extends Db {
             String column = this.getClass().getSimpleName() + "id";
             Integer value = (Integer) this.getClass().getDeclaredField("id").get(this);
             createConnection();
-            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + model.table + " WHERE " + column + "=" + value);
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + model.tableName() + " WHERE " + column + "=" + value);
             while (results.next()) {
                 list.add(model.setModel(results));
             }
@@ -220,7 +229,7 @@ public class Model extends Db {
     public Model find_by(String column, Object value) {
         try {
             createConnection();
-            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "='" + value + "'");
+            ResultSet result = connect.createStatement().executeQuery("SELECT * FROM " + tableName() + " WHERE " + column + "='" + value + "'");
             result.next();
             return setModel(result);
         } catch (SQLException e) {
@@ -233,13 +242,13 @@ public class Model extends Db {
     public Model find_by(HashMap<String, Object> paramsHash) {
         String params = "";
         String query;
-        if (paramsHash.isEmpty()) query = "SELECT * FROM " + table;
+        if (paramsHash.isEmpty()) query = "SELECT * FROM " + tableName();
         else {
             for (Map.Entry<String, Object> parametr : paramsHash.entrySet())
                 params += parametr.getKey() + "='" + parametr.getValue() + "' and ";
 
             params = params.substring(0, params.length() - 5);
-            query = "SELECT * FROM " + table + " WHERE " + params;
+            query = "SELECT * FROM " + tableName() + " WHERE " + params;
         }
 
         try {
@@ -259,14 +268,14 @@ public class Model extends Db {
         String query;
         ObservableList list = FXCollections.observableArrayList();
         if (paramsHash.isEmpty()) {
-            query = "SELECT * FROM " + table;
+            query = "SELECT * FROM " + tableName();
         } else {
             for (Map.Entry<String, Object> parametr : paramsHash.entrySet()) {
                 params += parametr.getKey() + "='" + parametr.getValue() + "' and ";
             }
             params = params.substring(0, params.length() - 5);
 
-            query = "SELECT * FROM " + table + " WHERE " + params;
+            query = "SELECT * FROM " + tableName() + " WHERE " + params;
         }
         try {
             createConnection();
@@ -286,7 +295,7 @@ public class Model extends Db {
         ObservableList list = FXCollections.observableArrayList();
         try {
             createConnection();
-            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + column + "=" + value);
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + tableName() + " WHERE " + column + "=" + value);
             while (results.next()) {
                 list.add(setModel(results));
             }
@@ -302,7 +311,7 @@ public class Model extends Db {
         ObservableList list = FXCollections.observableArrayList();
         try {
             createConnection();
-            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + table + " WHERE " + query);
+            ResultSet results = connect.createStatement().executeQuery("SELECT * FROM " + tableName() + " WHERE " + query);
             while (results.next()) {
                 list.add(setModel(results));
             }

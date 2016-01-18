@@ -37,6 +37,7 @@ public class ParentController extends AbstractController {
     public Tab skillsTab;
     public Tab techniquesTab;
     public Tab spellTab;
+    public Tab alchemiesTab;
     public Tab languagesTab;
     public Tab culturasTab;
     public Tab equipmentTab;
