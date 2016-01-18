@@ -87,6 +87,12 @@
                     </content>
                 </Tab>
 
+                <Tab fx:id="alchemiesTab" text="%alchemies">
+                    <content>
+                        <fx:include source="tables/alchemies.fxml" />
+                    </content>
+                </Tab>
+
                 <Tab fx:id="languagesTab" text="%languages">
                     <content>
                         <fx:include source="tables/languages.fxml" />
