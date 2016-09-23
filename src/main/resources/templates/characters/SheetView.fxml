@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="818.0" stylesheets="@../../css/main.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab text="%stats">
+            <content>
+                <ScrollPane>
+                    <content>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="849.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                            <children>
+                                <VBox layoutY="7.0" prefHeight="92.0" prefWidth="202.0">
+                                    <children>
+                                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../images/gurps.jpg" />
+                                            </image>
+                                        </ImageView>
+                                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="198.0" text="%character_sheet">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="220.0" layoutY="8.0" prefHeight="90.0" prefWidth="100.0" spacing="2.0" AnchorPane.leftAnchor="232.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="560.0" spacing="10.0">
+                                            <children>
+                                                <Label prefHeight="16.0" text="%nickname" />
+                                                <TextField fx:id="nameTextField" alignment="CENTER" prefHeight="27.0" prefWidth="143.0" text="name" />
+                                                <Label prefHeight="16.0" text="%player_name" />
+                                                <TextField fx:id="playerTextField" alignment="CENTER" prefHeight="27.0" prefWidth="143.0" text="plaeyer" />
+                                                <Label text="%max_points" />
+                                                <TextField fx:id="maxPointsTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="347.0" spacing="10.0">
+                                            <children>
+                                                <Label prefHeight="16.0" text="%growth" />
+                                                <TextField fx:id="growthTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="0" />
+                                                <Label prefHeight="16.0" text="%weight" />
+                                                <TextField fx:id="weightTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="0" />
+                                                <Label prefHeight="16.0" text="%age" />
+                                                <TextField fx:id="ageTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="0" />
+                                                <Pane prefHeight="29.0" prefWidth="80.0" />
+                                                <Label text="%current_points" />
+                                                <Label fx:id="currentPointsLabel" alignment="CENTER" prefWidth="50.0" text="0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="561.0" spacing="10.0">
+                                            <children>
+                                                <Label text="%size_modifier" />
+                                                <TextField fx:id="smTextField" alignment="CENTER" prefHeight="27.0" prefWidth="34.0" text="1" />
+                                                <Pane prefHeight="30.0" prefWidth="129.0" />
+                                                <CheckBox fx:id="noFineManipulatorsCheckBox" mnemonicParsing="false" text="%no_fine_manipulators" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <HBox alignment="CENTER" layoutX="294.0" layoutY="98.0" prefHeight="30.0" prefWidth="496.0" spacing="10.0" AnchorPane.leftAnchor="294.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="98.0">
+                                    <children>
+                                        <Label text="%tl_short">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="tlTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                        <Label text="%cost">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="tlCostTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    </children>
+                                </HBox>
+                                <VBox layoutX="14.0" layoutY="98.0" prefHeight="230.0" prefWidth="272.0" spacing="1.0" AnchorPane.leftAnchor="7.0">
+                                    <children>
+                              <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                                <Label prefWidth="25.0" text="%strength_short">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                    <TextField fx:id="stTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                                <Label fx:id="stCostLabel" alignment="CENTER" prefWidth="40.0" text="0" />
+                                                <Label prefWidth="25.0" text="%health_points_short">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                    <TextField fx:id="hpTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                                <Label fx:id="hpCostLabel" prefWidth="40.0" text="0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label prefWidth="25.0" text="%dexterity_short">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="dxTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    <Label fx:id="dxCostLabel" alignment="CENTER" prefWidth="40.0" text="0" />
+                                    <Label prefWidth="25.0" text="%will_short">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="willTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    <Label fx:id="willCostLabel" prefWidth="40.0" text="0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label prefWidth="25.0" text="%intellect_short">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="iqTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    <Label fx:id="iqCostLabel" alignment="CENTER" prefWidth="40.0" text="0" />
+                                    <Label prefWidth="25.0" text="%perception_short">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="perTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    <Label fx:id="perCostLabel" prefWidth="40.0" text="0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label prefWidth="25.0" text="%health_short">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="htTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    <Label fx:id="htCostLabel" alignment="CENTER" prefWidth="40.0" text="0" />
+                                    <Label prefWidth="25.0" text="%fatigue_points_short">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="fpTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                    <Label fx:id="fpCostLabel" prefWidth="40.0" text="0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="10.0" prefWidth="200.0" />
+                                        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="267.0" spacing="10.0">
+                                            <children>
+                                                <Label text="%basic_lift_short">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="blLabel" contentDisplay="CENTER" prefHeight="16.0" text="0" />
+                                                <Label text="%doge_short">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="dogeLabel" contentDisplay="CENTER" prefHeight="17.0" text="0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="263.0" spacing="10.0">
+                                 <children>
+                                                <Label text="%basic_move_short">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                    <TextField fx:id="moveTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                                <Label fx:id="moveCostLabel" contentDisplay="CENTER" prefHeight="16.0" text="0" />
+                                                <Label text="%basic_speed_short">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                    <TextField fx:id="bsTextField" alignment="CENTER" prefHeight="27.0" prefWidth="50.0" text="100" />
+                                                <Label fx:id="bsCostLabel" contentDisplay="CENTER" prefHeight="17.0" text="0" />
+                                 </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="264.0" spacing="10.0">
+                                 <children>
+                                                <Label text="%damage">
+                                                    <font>
+                                                        <Font name="System Bold" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label text="%damage_swing_short">
+                                                    <font>
+                                                        <Font name="System Italic" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="swingLabel" contentDisplay="CENTER" prefHeight="16.0" text="0" />
+                                                <Label text="%damage_thrust_short">
+                                                    <font>
+                                                        <Font name="System Italic" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="thrustLabel" contentDisplay="CENTER" prefHeight="17.0" text="0" />
+                                 </children>
+                                        </HBox>
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="184.0" prefHeight="30.0" prefWidth="264.0" spacing="10.0">
+                                 <children>
+                                    <Label text="%block">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="blockLabel" contentDisplay="CENTER" prefHeight="16.0" text="0" />
+                                    <Label text="%parry">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="parryLabel" contentDisplay="CENTER" prefHeight="16.0" text="0" />
+                                 </children>
+                              </HBox>
+                                    </children>
+                                </VBox>
+                                <TableView fx:id="languagesTableView" layoutX="294.0" layoutY="122.0" prefHeight="160.0" prefWidth="496.0" AnchorPane.leftAnchor="294.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="129.0">
+                                    <columns>
+                                        <TableColumn fx:id="languagesHeadColumn" maxWidth="495.0" minWidth="-1.0" prefWidth="494.0" text="%languages">
+                                            <columns>
+                                                <TableColumn fx:id="languageNameColumn" prefWidth="288.0" text="%language" />
+                                                <TableColumn fx:id="spokenColumn" minWidth="0.0" prefWidth="87.0" text="%talk" />
+                                                <TableColumn fx:id="writtenColumn" minWidth="0.0" prefWidth="120.0" text="%writing" />
+                                            </columns>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                                <TableView fx:id="culturesTableView" layoutX="516.0" layoutY="299.0" prefHeight="111.0" prefWidth="274.0" AnchorPane.leftAnchor="516.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="299.0">
+                                    <columns>
+                                        <TableColumn fx:id="culturesNameColumn" prefWidth="273.0" text="%cultures" />
+                                    </columns>
+                                </TableView>
+                                <VBox layoutX="14.0" layoutY="328.0" prefHeight="82.0" prefWidth="252.0" spacing="1.0" AnchorPane.leftAnchor="7.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="200.0" spacing="10.0">
+                                            <children>
+                                                <Label prefWidth="180.0" text="%current_load" />
+                                                <Label fx:id="currentLoadLabel" alignment="CENTER" text="0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="200.0" spacing="10.0">
+                                            <children>
+                                                <Label fx:id="currentMove" prefWidth="180.0" text="%current_move" />
+                                                <Label fx:id="currentMoveLabel" alignment="CENTER" text="0" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="200.0" spacing="10.0">
+                                            <children>
+                                                <Label prefWidth="180.0" text="%current_doge" />
+                                                <Label fx:id="currentDogeLabel" alignment="CENTER" text="0" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <FlowPane layoutX="292.0" layoutY="289.0" prefHeight="121.0" prefWidth="193.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="217.0" spacing="10.0">
+                                            <children>
+                                                <Label alignment="CENTER" prefWidth="54.0" text="%damage_resistance_short">
+                                                    <font>
+                                                        <Font name="System Bold Italic" size="13.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="drLabel" text="0" />
+                                            </children>
+                                        </HBox>
+                                        <GridPane prefHeight="90.0" prefWidth="216.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="54.0" text="%body" GridPane.rowIndex="1" />
+                                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="54.0" text="%arms" GridPane.rowIndex="2" />
+                                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="54.0" text="%legs" GridPane.columnIndex="2" />
+                                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="54.0" text="%hands" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <Label alignment="CENTER" prefHeight="16.0" prefWidth="54.0" text="%foots" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                <Label alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="%head" />
+                                                <Label fx:id="headDrLabel" alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="0" GridPane.columnIndex="1" />
+                                                <Label fx:id="bodyDrLabel" alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label fx:id="armsDrLabel" alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label fx:id="legsDrLabel" alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="0" GridPane.columnIndex="3" />
+                                                <Label fx:id="handsDrLabel" alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <Label fx:id="footsDrLabel" alignment="CENTER" prefHeight="17.0" prefWidth="54.0" text="0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </FlowPane>
+                                <VBox layoutX="14.0" layoutY="418.0" prefHeight="428.0" prefWidth="783.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="10.0">
+                                    <children>
+                                        <HBox prefHeight="207.0" prefWidth="783.0" spacing="1.0">
+                                            <children>
+
+                                                <TableView fx:id="advantagesTableView" prefHeight="207.0" prefWidth="391.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="advantagesHeadColumn" prefWidth="75.0" text="%advantages_and_perks">
+                                                            <columns>
+                                                                <TableColumn fx:id="advantagesNameColumn" maxWidth="391.0" prefWidth="391.0" resizable="false" text="%name" />
+                                                            </columns>
+                                                        </TableColumn>
+                                                    </columns>
+                                                </TableView>
+
+                                                <TableView fx:id="disadvantagesTableView" prefHeight="207.0" prefWidth="391.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="disadvantagesHeadColumn" prefWidth="75.0" text="%disadvantages_and_quirk">
+                                                            <columns>
+                                                                <TableColumn fx:id="disadvantagesNameColumn" prefWidth="391.0" resizable="false" text="%name" />
+                                                            </columns>
+                                                        </TableColumn>
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="219.0" prefWidth="783.0" spacing="1.0">
+                                            <children>
+
+                                                <TableView fx:id="skillsTableView" prefHeight="207.0" prefWidth="391.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="skillsHeadColumn" prefWidth="363.0" text="%skills">
+                                                            <columns>
+                                                                <TableColumn fx:id="skillsNameColumn" prefWidth="247.0" text="%name" />
+                                                                <TableColumn fx:id="skillsTypeColumn" prefWidth="79.0" text="%parameter" />
+                                                                <TableColumn fx:id="skillsLevelColumn" prefWidth="64.0" text="%level" />
+                                                            </columns>
+                                                        </TableColumn>
+                                                    </columns>
+                                                </TableView>
+
+                                                <TableView fx:id="spellsTableView" prefHeight="207.0" prefWidth="391.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="spellsHeadColumn" prefWidth="335.0" text="%spells">
+                                                            <columns>
+                                                                <TableColumn fx:id="spellsNameColumn" prefWidth="247.0" text="%name" />
+                                                                <TableColumn fx:id="spellsComplexityColumn" prefWidth="79.0" text="%complexity" />
+                                                                <TableColumn fx:id="spellsLevelColumn" prefWidth="64.0" text="%level" />
+                                                            </columns>
+                                                        </TableColumn>
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                        <HBox prefHeight="219.0" prefWidth="783.0" spacing="1.0">
+                                            <children>
+                                                <TableView fx:id="techniquesTableView" prefHeight="207.0" prefWidth="391.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="techniquesHeadColumn" prefWidth="363.0" text="%techniques">
+                                                            <columns>
+                                                                <TableColumn fx:id="techniquesName" prefWidth="247.0" text="%name" />
+                                                                <TableColumn fx:id="techniquesTypeColumn" prefWidth="79.0" text="%parameter" />
+                                                                <TableColumn fx:id="techniquesLevelColumn" prefWidth="64.0" text="%level" />
+                                                            </columns>
+                                                        </TableColumn>
+                                                    </columns>
+                                                </TableView>
+                                                <TableView fx:id="alchemiesTableView" prefHeight="207.0" prefWidth="391.0">
+                                                    <columns>
+                                                        <TableColumn fx:id="alchemiesHeadColumn" prefWidth="335.0" text="%alchemies">
+                                                            <columns>
+                                                                <TableColumn fx:id="alchemiesNameColumn" prefWidth="391.0" text="%name" />
+                                                            </columns>
+                                                        </TableColumn>
+                                                    </columns>
+                                                </TableView>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+            </content>
+        </Tab>
+        <Tab text="%inventory">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+        </Tab>
+        <Tab text="%upload">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="jokXlsxButton" layoutX="141.0" layoutY="20.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="384.0" text="%upload_jok_sheet_xlsx" />
+                        <Button fx:id="jsonButton" layoutX="141.0" layoutY="65.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="384.0" text="%upload_sheet_json" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

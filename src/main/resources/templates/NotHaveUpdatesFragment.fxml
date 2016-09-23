@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8">
+   <Label alignment="CENTER" prefHeight="46.0" prefWidth="399.0" text="%no_new_updates" textAlignment="CENTER"
+          AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0"/>
+   <Button onAction="#ok" layoutX="73.0" layoutY="58.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0"
+           text="%ok"/>
+</AnchorPane>

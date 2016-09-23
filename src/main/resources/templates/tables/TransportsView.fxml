@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Accordion minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.111"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <panes>
+        <TitledPane animated="false" text="%transport_ground">
+            <AnchorPane minHeight="0.0" minWidth="0.0">
+                <MenuButton fx:id="tlMbG" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="%tl_plural"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                <Button fx:id="searchButtonG" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false"
+                        text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="0.0"/>
+                <TextField fx:id="searchTextG" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0"
+                           AnchorPane.topAnchor="0.0"/>
+                <AnchorPane layoutX="21.4" layoutY="68.4" prefHeight="278.0" prefWidth="622.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0"
+                            AnchorPane.topAnchor="58.0">
+                    <TableView fx:id="tableViewG" prefHeight="375.0" prefWidth="645.0" AnchorPane.bottomAnchor="-10.0"
+                               AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="-20.0"
+                               AnchorPane.topAnchor="-20.0">
+                        <columns>
+                            <TableColumn fx:id="skillsColumnG" prefWidth="52.99999809265137" text="%skills"/>
+                            <TableColumn fx:id="tlColumnG" minWidth="0.0" prefWidth="44.0" text="%tl_short"/>
+                            <TableColumn fx:id="nameColumnG" prefWidth="49.00000762939453" text="%name"/>
+                            <TableColumn fx:id="htColumnG" minWidth="0.0" prefWidth="67.00003051757812"
+                                         text="%health_short"/>
+                            <TableColumn fx:id="moveColumnG" prefWidth="57.0" text="%move_short"/>
+                            <TableColumn fx:id="occupantColumnG" prefWidth="90.0" text="%occupant"/>
+                            <TableColumn fx:id="rangeColumnG" prefWidth="66.0" text="%range"/>
+                            <TableColumn fx:id="costColumnG" prefWidth="66.0" text="%cost"/>
+                            <TableColumn fx:id="actionsColumnG" prefWidth="420.0"/>
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+            </AnchorPane>
+        </TitledPane>
+
+        <TitledPane animated="false" text="%transport_water">
+            <AnchorPane minHeight="0.0" minWidth="0.0">
+                <MenuButton fx:id="tlMbW" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="%tl_plural"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                <Button fx:id="searchButtonW" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false"
+                        text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="0.0"/>
+                <TextField fx:id="searchTextW" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0"
+                           AnchorPane.topAnchor="0.0"/>
+                <AnchorPane layoutX="21.4" layoutY="68.4" prefHeight="278.0" prefWidth="622.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0"
+                            AnchorPane.topAnchor="58.0">
+                    <TableView fx:id="tableViewW" prefHeight="375.0" prefWidth="645.0" AnchorPane.bottomAnchor="-10.0"
+                               AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="-20.0"
+                               AnchorPane.topAnchor="-20.0">
+                        <columns>
+                            <TableColumn fx:id="skillsColumnW" prefWidth="52.99999809265137" text="%skills"/>
+                            <TableColumn fx:id="tlColumnW" minWidth="0.0" prefWidth="44.0" text="%tl_short"/>
+                            <TableColumn fx:id="nameColumnW" prefWidth="49.00000762939453" text="%name"/>
+                            <TableColumn fx:id="htColumnW" minWidth="0.0" prefWidth="67.00003051757812"
+                                         text="%health_short"/>
+                            <TableColumn fx:id="moveColumnW" prefWidth="57.0" text="%move_short"/>
+                            <TableColumn fx:id="occupantColumnW" prefWidth="90.0" text="%occupant"/>
+                            <TableColumn fx:id="rangeColumnW" prefWidth="66.0" text="%range"/>
+                            <TableColumn fx:id="costColumnW" prefWidth="66.0" text="%cost"/>
+                            <TableColumn fx:id="actionsColumnW" prefWidth="420.0"/>
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+            </AnchorPane>
+        </TitledPane>
+
+        <TitledPane animated="false" text="%transport_air">
+            <AnchorPane minHeight="0.0" minWidth="0.0">
+                <MenuButton fx:id="tlMbA" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="%tl_plural"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                <Button fx:id="searchButtonA" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false"
+                        text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="0.0"/>
+                <TextField fx:id="searchTextA" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0"
+                           AnchorPane.topAnchor="0.0"/>
+                <AnchorPane layoutX="21.4" layoutY="68.4" prefHeight="278.0" prefWidth="622.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0"
+                            AnchorPane.topAnchor="58.0">
+                    <TableView fx:id="tableViewA" prefHeight="375.0" prefWidth="645.0" AnchorPane.bottomAnchor="-10.0"
+                               AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="-20.0"
+                               AnchorPane.topAnchor="-20.0">
+                        <columns>
+                            <TableColumn fx:id="skillsColumnA" prefWidth="52.99999809265137" text="%skills"/>
+                            <TableColumn fx:id="tlColumnA" minWidth="0.0" prefWidth="44.0" text="%tl_short"/>
+                            <TableColumn fx:id="nameColumnA" prefWidth="49.00000762939453" text="%name"/>
+                            <TableColumn fx:id="htColumnA" minWidth="0.0" prefWidth="67.00003051757812"
+                                         text="%health_short"/>
+                            <TableColumn fx:id="moveColumnA" prefWidth="57.0" text="%move_short"/>
+                            <TableColumn fx:id="occupantColumnA" prefWidth="90.0" text="%occupant"/>
+                            <TableColumn fx:id="rangeColumnA" prefWidth="66.0" text="%range"/>
+                            <TableColumn fx:id="costColumnA" prefWidth="66.0" text="%cost"/>
+                            <TableColumn fx:id="actionsColumnA" prefWidth="420.0"/>
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+            </AnchorPane>
+        </TitledPane>
+
+        <TitledPane animated="false" text="%transport_space">
+            <AnchorPane minHeight="0.0" minWidth="0.0">
+                <MenuButton fx:id="tlMbS" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="%tl_plural"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                <Button fx:id="searchButtonS" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false"
+                        text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="0.0"/>
+                <TextField fx:id="searchTextS" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0"
+                           AnchorPane.topAnchor="0.0"/>
+                <AnchorPane layoutX="21.4" layoutY="68.4" prefHeight="278.0" prefWidth="622.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0"
+                            AnchorPane.topAnchor="58.0">
+                    <TableView fx:id="tableViewS" prefHeight="375.0" prefWidth="645.0" AnchorPane.bottomAnchor="-10.0"
+                               AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="-20.0"
+                               AnchorPane.topAnchor="-20.0">
+                        <columns>
+                            <TableColumn fx:id="skillsColumnS" prefWidth="52.99999809265137" text="%skills"/>
+                            <TableColumn fx:id="tlColumnS" minWidth="0.0" prefWidth="44.0" text="%tl_short"/>
+                            <TableColumn fx:id="nameColumnS" prefWidth="49.00000762939453" text="%name"/>
+                            <TableColumn fx:id="htColumnS" minWidth="0.0" prefWidth="67.00003051757812"
+                                         text="%health_short"/>
+                            <TableColumn fx:id="moveColumnS" prefWidth="57.0" text="%move_short"/>
+                            <TableColumn fx:id="occupantColumnS" prefWidth="90.0" text="%occupant"/>
+                            <TableColumn fx:id="rangeColumnS" prefWidth="66.0" text="%range"/>
+                            <TableColumn fx:id="costColumnS" prefWidth="66.0" text="%cost"/>
+                            <TableColumn fx:id="actionsColumnS" prefWidth="420.0"/>
+                        </columns>
+                    </TableView>
+                </AnchorPane>
+            </AnchorPane>
+        </TitledPane>
+    </panes>
+</Accordion>

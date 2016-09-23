@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="621.0" prefWidth="650.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <Label alignment="CENTER" layoutX="4.0" layoutY="97.0" prefHeight="25.0" prefWidth="192.0" text="%character_generator">
+        <font>
+            <Font name="System Bold" size="15.0" />
+        </font>
+    </Label>
+    <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Menu mnemonicParsing="false" text="%file">
+            <MenuItem fx:id="newMenuItem" mnemonicParsing="false" text="%new" />
+            <MenuItem mnemonicParsing="false" text="%open" />
+            <MenuItem mnemonicParsing="false" text="%download" />
+            <MenuItem mnemonicParsing="false" text="%upload" />
+        </Menu>
+        <Menu fx:id="viewMenu" mnemonicParsing="false" text="%view" />
+        <Menu mnemonicParsing="false" text="%help">
+            <MenuItem mnemonicParsing="false" text="%reference_book" />
+        </Menu>
+    </MenuBar>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+        <Image url="@../images/gurps.jpg" />
+    </ImageView>
+    <TextField layoutX="216.0" layoutY="36.0" AnchorPane.rightAnchor="100.0" />
+    <MenuButton layoutX="467.0" layoutY="36.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="16.0">
+        <items>
+            <MenuItem mnemonicParsing="false" text="%everywhere" />
+            <MenuItem mnemonicParsing="false" text="%advantages" />
+        </items>
+    </MenuButton>
+    <TabPane fx:id="mainTabPanel" layoutX="-3.0" layoutY="125.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="99.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+        <Tab fx:id="paramsTab" text="%stats" />
+        <Tab fx:id="featuresTab" text="%features" />
+        <Tab fx:id="quirksTab" text="%quirks" />
+        <Tab fx:id="modifiersTab" text="%modifiers" />
+        <Tab fx:id="skillsTab" text="%skills" />
+        <Tab fx:id="techniquesTab" text="%techniques" />
+        <Tab fx:id="spellsTab" text="%spells" />
+        <Tab fx:id="alchemiesTab" text="%alchemies" />
+        <Tab fx:id="languagesTab" text="%languages" />
+        <Tab fx:id="culturesTab" text="%cultures" />
+        <Tab fx:id="equipmentsTab" text="%equipments" />
+        <Tab fx:id="meleeWeaponsTab" text="%melee_weapons" />
+        <Tab fx:id="grenadesTab" text="%grenades" />
+        <Tab fx:id="gunsTab" text="%guns" />
+        <Tab fx:id="armorsTab" text="%armors" />
+        <Tab fx:id="shieldsTab" text="%shields" />
+        <Tab fx:id="transporsTab" text="%transport" />
+    </TabPane>
+    <Label layoutX="471.0" layoutY="97.0" prefHeight="26.0" prefWidth="115.0" text="%spent_points" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="97.0" />
+    <Label fx:id="currentPoints" alignment="CENTER" contentDisplay="CENTER" layoutX="590.0" layoutY="97.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="49.0" text="9999" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="97.0" />
+    <Label layoutX="467.0" layoutY="73.0" prefHeight="26.0" text="%max_points" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="73.0" />
+    <TextField fx:id="maxPoints" alignment="CENTER" layoutX="595.0" layoutY="73.0" prefHeight="26.0" prefWidth="39.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="73.0" />
+    <Button fx:id="characterSheet" layoutX="228.0" layoutY="36.0" mnemonicParsing="false" prefHeight="25.0" text="%goto_sheet" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="36.0" />
+   <Label layoutX="210.0" layoutY="74.0" prefHeight="26.0" prefWidth="100.0" text="%money_total" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="73.0" />
+   <TextField fx:id="moneyTotalDollars" alignment="CENTER" layoutX="310.0" layoutY="73.0" prefHeight="27.0" prefWidth="115.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="73.0" />
+   <Label layoutX="366.0" layoutY="98.0" prefHeight="26.0" text="%money_left" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="97.0" />
+   <Label fx:id="moneyLeftDollars" alignment="CENTER" contentDisplay="CENTER" layoutX="310.0" layoutY="97.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="115.0" text="9999" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="97.0" />
+</AnchorPane>

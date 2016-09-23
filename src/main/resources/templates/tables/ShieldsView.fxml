@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuButton fx:id="tlMb" layoutY="14.0" mnemonicParsing="false" text="%tl_plural" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="14.0" />
+    <MenuButton fx:id="legalityClassMb" layoutX="200.0" layoutY="14.0" mnemonicParsing="false" text="%legality_class" />
+    <Button fx:id="searchButton" disable="true" layoutX="560.0" layoutY="14.0" mnemonicParsing="false" text="%search" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="14.0" />
+    <TextField fx:id="searchText" layoutX="378.0" layoutY="14.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="14.0" />
+    <TableView fx:id="tableView" layoutY="58.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+        <columns>
+            <TableColumn fx:id="legalityClassColumn" prefWidth="34.0" text="%legality_class_short" />
+            <TableColumn fx:id="skillsColumn" prefWidth="154.0" text="%skills" />
+            <TableColumn fx:id="nameColumn" prefWidth="91.0" text="%name" />
+            <TableColumn fx:id="tlColumn" minWidth="0.0" prefWidth="25.0" text="%tl_short" />
+            <TableColumn fx:id="defenseBonusColumn" minWidth="0.0" prefWidth="48.0" text="%defense_bonus_short" />
+            <TableColumn fx:id="costColumn" prefWidth="77.0" text="%cost" />
+            <TableColumn fx:id="actionsColumn" prefWidth="420.0" />
+        </columns>
+    </TableView>
+</AnchorPane>

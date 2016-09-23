@@ -1,0 +1,6 @@
+CREATE TABLE notes
+(
+  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  itemtype VARCHAR(255),
+  description CLOB
+)

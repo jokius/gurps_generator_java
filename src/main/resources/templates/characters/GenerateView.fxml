@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="516.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <ScrollPane prefHeight="609.0" prefWidth="517.0">
+        <VBox prefWidth="497.0">
+            <GridPane prefHeight="182.0" prefWidth="516.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="447.0" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.0" minWidth="10.0" prefWidth="34.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="30.0" prefWidth="449.0" text="%nickname" GridPane.columnIndex="1" />
+                <TextField fx:id="name" alignment="CENTER" prefHeight="54.0" prefWidth="430.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label alignment="CENTER" prefHeight="37.0" prefWidth="434.0" text="%count_points_on_parameters" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="characteristics" alignment="CENTER" prefHeight="56.0" prefWidth="430.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label alignment="CENTER" prefHeight="37.0" prefWidth="434.0" text="%tl_full" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="tl" alignment="CENTER" prefHeight="56.0" prefWidth="430.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </GridPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="60.0" prefWidth="428.0" text="%advantages" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="84.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="271.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" />
+                </VBox.margin>
+                <padding>
+                    <Insets bottom="10.0" />
+                </padding>
+                <Label prefHeight="30.0" prefWidth="239.0" text="%count_points" />
+                <TextField fx:id="advantages" alignment="CENTER" prefHeight="30.0" prefWidth="92.0" text="0" GridPane.columnIndex="1" />
+                <MenuButton fx:id="advantagesMb" prefHeight="30.0" prefWidth="271.0" text="%types" GridPane.columnIndex="2" />
+            </GridPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="26.0" prefWidth="616.0" text="%disadvantages" GridPane.columnIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="84.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="271.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                </VBox.margin>
+                <Label prefHeight="62.0" prefWidth="239.0" text="%count_points" />
+                <TextField fx:id="disadvantages" alignment="CENTER" prefHeight="27.0" prefWidth="136.0" text="0" GridPane.columnIndex="1" />
+                <MenuButton fx:id="disadvantagesMb" prefHeight="27.0" prefWidth="427.0" text="%types" GridPane.columnIndex="2" />
+            </GridPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="26.0" prefWidth="523.0" text="%skills" GridPane.columnIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="84.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="142.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="120.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                </VBox.margin>
+                <TextField fx:id="skills" alignment="CENTER" prefHeight="27.0" prefWidth="136.0" text="0" GridPane.columnIndex="1" />
+                <MenuButton fx:id="skillsCharacteristicsMb" prefHeight="27.0" prefWidth="142.0" text="%types" GridPane.columnIndex="2" />
+                <Label prefHeight="30.0" prefWidth="239.0" text="%count_points" />
+                <MenuButton fx:id="skillsComplexitiesMb" prefHeight="26.0" prefWidth="112.0" text="%complexity" GridPane.columnIndex="3" />
+            </GridPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="26.0" prefWidth="433.0" text="%techniques" GridPane.columnIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="84.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="271.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                </VBox.margin>
+                <MenuButton fx:id="techniquesMb" prefHeight="27.0" prefWidth="340.0" text="%complexity" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="techniques" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="135.0" text="%count_points" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="26.0" prefWidth="502.0" text="%spells" GridPane.columnIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="10.0" prefWidth="84.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="142.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="120.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                </VBox.margin>
+                <Label prefHeight="26.0" prefWidth="144.0" text="%count_points" />
+                <TextField fx:id="spells" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" />
+                <MenuButton fx:id="spellsTypesMb" prefHeight="26.0" prefWidth="156.0" text="%spell_types" GridPane.columnIndex="2" />
+                <MenuButton fx:id="spellsSchoolsMb" prefHeight="27.0" prefWidth="135.0" text="%school" GridPane.columnIndex="3" />
+            </GridPane>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="424.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                </rowConstraints>
+                <Label alignment="CENTER" prefHeight="26.0" prefWidth="433.0" text="%inventory" GridPane.columnIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" />
+                </VBox.margin>
+                <TextField fx:id="equipmentsCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="408.0" text="%money_to_equipments" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="manArmorCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_man_armor" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="notNamArmorCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_not_nam_armor" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="meleeWeaponCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_melee_weapon" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="meleeWeaponRangedCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_melee_weapon_ranged" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="shieldsCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_shields" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="gunsCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_guns" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="grenadesCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_grenades" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="transportAirCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_transport_air" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="transportGroundCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_transport_ground" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="transportWaterCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_transport_water" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="transportSpaceCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_transport_space" GridPane.rowIndex="1" />
+            </GridPane>
+            <GridPane hgap="5.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="387.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="0.0" prefWidth="0.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <opaqueInsets>
+                    <Insets />
+                </opaqueInsets>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0" top="10.0" />
+                </VBox.margin>
+                <TextField fx:id="alchemiesCost" alignment="CENTER" prefHeight="26.0" prefWidth="84.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label prefHeight="26.0" prefWidth="448.0" text="%money_to_alchemies" GridPane.rowIndex="1" />
+            </GridPane>
+        </VBox>
+    </ScrollPane>
+    <GridPane hgap="29.0" layoutY="618.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="279.0" minWidth="10.0" prefWidth="172.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="158.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <Button mnemonicParsing="false" onAction="#back" prefHeight="27.0" prefWidth="174.0" text="%back" GridPane.columnIndex="1" />
+        <Button fx:id="generateButton" disable="true" mnemonicParsing="false" onAction="#generate" prefHeight="26.0" prefWidth="191.0" text="%generate" GridPane.columnIndex="2" />
+    </GridPane>
+</AnchorPane>

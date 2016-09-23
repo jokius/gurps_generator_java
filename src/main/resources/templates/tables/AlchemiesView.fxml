@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <MenuButton fx:id="searchButton" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false"
+                text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0">
+        <items>
+            <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere"/>
+            <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name"/>
+            <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en"/>
+            <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description"/>
+            <MenuItem fx:id="reset" mnemonicParsing="false" text="%reset"/>
+        </items>
+    </MenuButton>
+    <TextField fx:id="searchText" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0"
+               AnchorPane.topAnchor="14.0"/>
+    <TableView fx:id="tableView" layoutY="47.0" prefHeight="352.0" prefWidth="645.0" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="167.0" text="%name"/>
+            <TableColumn fx:id="nameEnColumn" prefWidth="152.0" text="%name_en"/>
+            <TableColumn fx:id="alternativeNamesColumn" prefWidth="135.0" text="%alternative_names"/>
+            <TableColumn fx:id="costColumn" minWidth="3.0" prefWidth="107.0" text="%cost"/>
+            <TableColumn fx:id="recipeCostColumn" minWidth="3.0" prefWidth="107.0" text="%recipe_cost"/>
+            <TableColumn fx:id="actionsColumn" prefWidth="153.0"/>
+        </columns>
+    </TableView>
+</AnchorPane>

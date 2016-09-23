@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <MenuButton alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0"
+                prefWidth="105.0" text="%types" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0">
+        <items>
+            <CheckMenuItem fx:id="combatCheckBox" mnemonicParsing="false" text="%combats"/>
+            <CheckMenuItem fx:id="improvingCheckBox" mnemonicParsing="false" text="%improvings"/>
+            <CheckMenuItem fx:id="limitationCheckBox" mnemonicParsing="false" text="%limitations"/>
+        </items>
+    </MenuButton>
+    <MenuButton fx:id="searchButton" disable="true" layoutX="551.0" layoutY="14.0" mnemonicParsing="false"
+                text="%search" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
+        <items>
+            <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere"/>
+            <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name"/>
+            <MenuItem fx:id="searchNameEn" mnemonicParsing="false" text="%name_en"/>
+            <MenuItem fx:id="searchCost" mnemonicParsing="false" text="%cost"/>
+            <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description"/>
+            <MenuItem fx:id="reset" mnemonicParsing="false" text="%reset"/>
+        </items>
+    </MenuButton>
+    <TextField fx:id="searchText" layoutX="384.0" layoutY="14.0" AnchorPane.rightAnchor="98.0"
+               AnchorPane.topAnchor="7.0"/>
+
+    <TableView fx:id="tableView" layoutY="39.0" prefHeight="360.0" prefWidth="645.0" tableMenuButtonVisible="true"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="39.0">
+        <columns>
+            <TableColumn fx:id="modifiersNameColumn" prefWidth="136.0" text="%name"/>
+            <TableColumn fx:id="modifiersNameEnColumn" prefWidth="125.0" text="%name_en"/>
+            <TableColumn fx:id="levelColumn" minWidth="0.0" prefWidth="84.0" text="%level"/>
+            <TableColumn fx:id="costColumn" prefWidth="84.0" text="%cost"/>
+            <TableColumn fx:id="combatColumn" prefWidth="65.0" text="%combat"/>
+            <TableColumn fx:id="actionsColumn" prefWidth="500.0"/>
+        </columns>
+    </TableView>
+</AnchorPane>

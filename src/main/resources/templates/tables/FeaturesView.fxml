@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Accordion minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.111"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <panes>
+        <TitledPane animated="false" text="%advantages">
+            <AnchorPane minHeight="0.0" minWidth="0.0">
+                <MenuButton fx:id="featuresMbA" alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
+                            prefHeight="26.0"
+                            prefWidth="105.0" text="%types" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0"/>
+                <MenuButton fx:id="searchButtonA" disable="true" layoutX="551.0" layoutY="14.0" mnemonicParsing="false"
+                            text="%search" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
+                    <items>
+                        <MenuItem fx:id="searchAllA" mnemonicParsing="false" text="%everywhere"/>
+                        <MenuItem fx:id="searchNameA" mnemonicParsing="false" text="%name"/>
+                        <MenuItem fx:id="searchNameEnA" mnemonicParsing="false" text="%name_en"/>
+                        <MenuItem fx:id="searchCostA" mnemonicParsing="false" text="%cost"/>
+                        <MenuItem fx:id="searchDescriptionA" mnemonicParsing="false" text="%description"/>
+                        <MenuItem fx:id="resetA" mnemonicParsing="false" text="%reset"/>
+                    </items>
+                </MenuButton>
+                <TextField fx:id="searchTextA" layoutX="384.0" layoutY="14.0" AnchorPane.rightAnchor="98.0"
+                           AnchorPane.topAnchor="7.0"/>
+
+                <TableView fx:id="tableViewA" layoutY="39.0" prefHeight="360.0" prefWidth="645.0"
+                           tableMenuButtonVisible="true"
+                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                           AnchorPane.topAnchor="39.0">
+                    <columns>
+                        <TableColumn fx:id="nameColumnA" prefWidth="136.0" text="%name"/>
+                        <TableColumn fx:id="nameEnColumnA" prefWidth="125.0" text="%name_en"/>
+                        <TableColumn fx:id="featureTypeColumnA" minWidth="0.0" prefWidth="45.0" text="%type"/>
+                        <TableColumn fx:id="costColumnA" prefWidth="93.0" text="%cost"/>
+                        <TableColumn fx:id="actionsColumnA" prefWidth="240"/>
+                    </columns>
+                </TableView>
+            </AnchorPane>
+        </TitledPane>
+        <TitledPane animated="false" text="%disadvantages">
+            <AnchorPane minHeight="0.0" minWidth="0.0">
+                <MenuButton fx:id="featuresMbD" alignment="CENTER" layoutX="14.0" layoutY="14.0" mnemonicParsing="false"
+                            prefHeight="26.0"
+                            prefWidth="105.0" text="%types" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0"/>
+                <MenuButton fx:id="searchButtonD" disable="true" layoutX="551.0" layoutY="14.0" mnemonicParsing="false"
+                            text="%search" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0">
+                    <items>
+                        <MenuItem fx:id="searchAllD" mnemonicParsing="false" text="%everywhere"/>
+                        <MenuItem fx:id="searchNameD" mnemonicParsing="false" text="%name"/>
+                        <MenuItem fx:id="searchNameEnD" mnemonicParsing="false" text="%name_en"/>
+                        <MenuItem fx:id="searchCostD" mnemonicParsing="false" text="%cost"/>
+                        <MenuItem fx:id="searchDescriptionD" mnemonicParsing="false" text="%description"/>
+                        <MenuItem fx:id="resetD" mnemonicParsing="false" text="%reset"/>
+                    </items>
+                </MenuButton>
+                <TextField fx:id="searchTextD" layoutX="384.0" layoutY="14.0" AnchorPane.rightAnchor="98.0"
+                           AnchorPane.topAnchor="7.0"/>
+
+                <TableView fx:id="tableViewD" layoutY="39.0" prefHeight="360.0" prefWidth="645.0"
+                           tableMenuButtonVisible="true"
+                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                           AnchorPane.topAnchor="39.0">
+                    <columns>
+                        <TableColumn fx:id="nameColumnD" prefWidth="136.0" text="%name"/>
+                        <TableColumn fx:id="nameEnColumnD" prefWidth="125.0" text="%name_en"/>
+                        <TableColumn fx:id="featureTypeColumnD" minWidth="0.0" prefWidth="45.0" text="%type"/>
+                        <TableColumn fx:id="costColumnD" prefWidth="93.0" text="%cost"/>
+                        <TableColumn fx:id="actionsColumnD" prefWidth="240"/>
+                    </columns>
+                </TableView>
+            </AnchorPane>
+        </TitledPane>
+    </panes>
+</Accordion>
+

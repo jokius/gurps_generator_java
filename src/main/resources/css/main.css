@@ -1,0 +1,52 @@
+.isAdd {
+    -fx-control-inner-background: #13863e;
+    -fx-accent: #3ab260;
+    -fx-cell-hover-color: #3ab260;
+}
+
+.text-field {
+    -fx-background-color: #a9a9a9, white, white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+    -fx-text-fill: black;
+}
+
+.text-field:focused {
+    -fx-background-color: #0099cc, white, white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+    -fx-text-fill: black;
+}
+
+.scroll-pane {
+    -fx-background-insets: -1;
+}
+
+.redText {
+    -fx-font-size: 16px;
+    -fx-text-fill: red;
+}
+
+#modifiers {
+    -fx-font: bold italic 13px "Arial";
+    -fx-fill: #1f8587;
+}
+
+.addOne {
+    -fx-control-inner-background: #aa14ab;
+    -fx-accent: #cf1ed0;
+    -fx-cell-hover-color: #cf1ed0;
+}
+
+.notes {
+    -fx-font: bold italic 13px "Arial";
+    -fx-fill: #1f8587;
+}
+
+.addonsTitle {
+    -fx-font: bold italic 22px "Arial";
+    text-transform: capitalize;
+}
+
+.itemName {
+    -fx-font-size: 18px;
+}
+

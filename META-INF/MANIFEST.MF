@@ -1,7 +1,0 @@
-Manifest-Version: 0.0.1
-JavaFX-Version: 2.2
-JavaFX-Application-Class: Main
-JavaFX-Class-Path: lib/h2-1.4.182.jar ru/gurps/generator/resources/lib
- /h2-1.4.182.jar
-Created-By: JavaFX Packager
-Main-Class: com/javafx/main/Main

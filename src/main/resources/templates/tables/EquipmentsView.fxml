@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.111"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <MenuButton fx:id="tlMb" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="%tl_plural"
+                AnchorPane.leftAnchor="14.0"/>
+
+    <MenuButton fx:id="searchButton" disable="true" layoutX="557.0" layoutY="14.0" mnemonicParsing="false"
+                text="%search" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0">
+        <items>
+            <MenuItem fx:id="searchAll" mnemonicParsing="false" text="%everywhere"/>
+            <MenuItem fx:id="searchName" mnemonicParsing="false" text="%name"/>
+            <MenuItem fx:id="searchDescription" mnemonicParsing="false" text="%description"/>
+            <MenuItem fx:id="reset" mnemonicParsing="false" text="%reset"/>
+        </items>
+    </MenuButton>
+    <TextField fx:id="searchText" layoutX="381.0" layoutY="14.0" AnchorPane.rightAnchor="101.0"
+               AnchorPane.topAnchor="14.0"/>
+
+    <TableView fx:id="tableView" layoutY="58.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+        <columns>
+            <TableColumn fx:id="applicationAreaColumn" prefWidth="122.99999845027924" text="%application_area"/>
+            <TableColumn fx:id="nameColumn" prefWidth="106.00003814697266" text="%name"/>
+            <TableColumn fx:id="tlColumn" minWidth="0.0" prefWidth="75.0" text="%tl_short"/>
+            <TableColumn fx:id="weightColumn" minWidth="0.0" prefWidth="85.0" text="%weight"/>
+            <TableColumn fx:id="costColumn" prefWidth="180.99996948242188" text="%cost"/>
+            <TableColumn fx:id="actionsColumn" prefWidth="420.0"/>
+        </columns>
+    </TableView>
+
+    <MenuButton fx:id="applicationAreaMb" layoutX="200.0" layoutY="14.0" mnemonicParsing="false"
+                text="%application_area"/>
+</AnchorPane>
